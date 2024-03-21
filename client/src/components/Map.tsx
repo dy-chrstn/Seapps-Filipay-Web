@@ -46,9 +46,11 @@ const MapContainer: React.FC = () => {
       try {
         const response = await fetch('http://localhost:3050/getMarkers');
         const data = await response.json();
+        
+
         if (data.markers) {
           const formattedMarkers = data.markers.map((marker: MarkerData) => ({
-            id: marker._id,
+            id: marker.km,
             position: {
               lat: parseFloat(marker.lat),
               lng: parseFloat(marker.long)
@@ -66,14 +68,12 @@ const MapContainer: React.FC = () => {
   }, []);
 
   const handleMapClick = () => {
-
     const newMarkerId = markerId; // Store the current marker ID
-    const newMarker = { id: newMarkerId, position: clickedPosition, radius: null };
+    const newMarker = { id: newMarkerId, position: clickedPosition, radius: 10 };
     setMarkers([...markers, newMarker]);
     setMarkerId(prevId => prevId + 1);
     setModalOpen(false);
   };
-
 
   const openModal = (event: any) => {
     //event.preventDefault();
@@ -144,6 +144,7 @@ const MapContainer: React.FC = () => {
       return marker;
     });
     setMarkers(updatedMarkers); // Updates the circle's center as well
+    setMarkerDisplay(newPosition);
   };
 
   // useEffect(() => {
@@ -176,9 +177,6 @@ const MapContainer: React.FC = () => {
     setSideBarOpen(true); // Open the sidebar
   };
 
-
-
-
   const handleUpdateLabel = (newLabel: string) => {
     if (selectedMarkerId !== null) {
       setMarkers(prevMarkers =>
@@ -202,8 +200,6 @@ const MapContainer: React.FC = () => {
     }
   };
 
-
-
   const handleDeleteMarker = () => {
     if (selectedMarkerId !== null) {
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== selectedMarkerId));
@@ -212,17 +208,13 @@ const MapContainer: React.FC = () => {
     }
   };
 
-
-
-
-
   const handleInfoWindowClose = () => {
     setSelectedMarkerId(null);
   };
 
   return (
     <div className="relative">
-      <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+      <LoadScript googleMapsApiKey={import.meta.env.VITE_SOME_KEY}>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={13}
