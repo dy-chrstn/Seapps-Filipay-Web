@@ -175,8 +175,8 @@ const MapContainer: React.FC = () => {
     const radius = 5;
 
     const newPin = {
-      id: pin.length + 1,
-      label: "",
+      id: startingPin.length + 1,
+      label: "Starting Pin",
       position: clickPosition,
       radius: 5,
     };
