@@ -685,21 +685,6 @@ const [endingPin, setEndingPin] = useState<
     )}
   </React.Fragment>
 ))} */}
-
-
-          {selectedMarker && (
-            <InfoWindow
-              position={selectedMarker.position}
-              onCloseClick={() => setSelectedMarker(null)}
-            >
-              <div>
-                <h2>Marker ID: {selectedMarker.id}</h2>
-                <p>Latitude: {selectedMarker.position.lat}</p>
-                <p>Longitude: {selectedMarker.position.lng}</p>
-              </div>
-            </InfoWindow>
-          )}
-
           {/* {startingPin && (
             <>
               <Marker
