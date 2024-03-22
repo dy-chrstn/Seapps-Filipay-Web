@@ -1,5 +1,5 @@
-// MapContainer.tsx
 import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 import {
   GoogleMap,
   LoadScript,
@@ -23,93 +23,67 @@ interface MarkerData {
 }
 
 const MapContainer: React.FC = () => {
+  const [markers, setMarkers] = useState<MarkerData[]>([]);
+  const defaultCenter = useMemo(
+    () => ({
+      lat: 14.6091,
+      lng: 121.0223,
+    }),
+    []
+  );
+
   const mapStyles = {
-    height: '100vh',
-    width: '100%'
+    height: "100vh",
+    width: "100%",
   };
-
-  const defaultCenter = {
-    lat:  14.418331431423372, 
-    lng: 121.04331822703718,
-  };
-
-
-  const [pin, setPin] = useState<
-  {
-    id: number;
-    label: string;
-    position: { lat: number; lng: number };
-    radius: number;
-  }[]
->([]);
-const [startingPin, setStartingPin] = useState<
-  {
-    id: number;
-    label: string;
-    position: { lat: number; lng: number };
-    radius: number;
-  }[]
->([]);
-const [endingPin, setEndingPin] = useState<
-  {
-    id: number;
-    label: string;
-    position: { lat: number; lng: number };
-    radius: number;
-  }[]
->([]);
 
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [markers, setMarkers] = useState<{ id: number; position: { lat: number; lng: number }; radius: number | null }[]>([]);
-  const [mapCenter, setMapCenter] = useState(defaultCenter);
-  const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null); // State to store the ID of the selected marker
-  const [markerId, setMarkerId] = useState(0); // State to keep track of marker IDs
-  const [modalOpen, setModalOpen] = useState(false);
-  const [sideBarOpen, setSideBarOpen] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
-  const [markerDisplay, setMarkerDisplay] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 });
-  const [directions, setDirections] = useState<any>(null);
-  const [selectedMarker, setSelectedMarker] = useState<{ id: number; position: { lat: number; lng: number } } | null>(null);
-  const [chosenPin, setChosenPin] = useState<{ label: string }>({ label: "" });
-  const [infoWindowOpen, setInfoWindowOpen] = useState(false);
-  const [label, setLabel] = useState("");
+  const [mapCenter, setMapcenter] = useState(defaultCenter);
+
+  const [pin, setPin] = useState<
+    {
+      id: number;
+      label: string;
+      position: { lat: number; lng: number };
+      radius: number;
+    }[]
+  >([]);
+  // const [startingPin, setStartingPin] = useState<{ lat: number; lng: number } | null>(null);
+  // const [endingPin, setEndingPin] = useState<{lat: number, lng: number}| null>(null);
+
+  const [startingPin, setStartingPin] = useState<
+    {
+      id: number;
+      label: string;
+      position: { lat: number; lng: number };
+      radius: number;
+    }[]
+  >([]);
+  const [endingPin, setEndingPin] = useState<
+    {
+      id: number;
+      label: string;
+      position: { lat: number; lng: number };
+      radius: number;
+    }[]
+  >([]);
+
   const [clickPosition, setClickPosition] = useState({ lat: 0, lng: 0 });
   const [display, setDisplay] = useState({ lat: 0, lng: 0 });
-  
-  
-  useEffect(() => {
-    // Fetch markers from JSON response
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3050/getMarkers');
-        const data = await response.json();
-        if (data.markers) {
-          const formattedMarkers = data.markers.map((marker: MarkerData) => ({
-            id: marker._id,
-            position: {
-              lat: parseFloat(marker.lat),
-              lng: parseFloat(marker.long)
-            },
-            radius: marker.radius
-          }));
-          setMarkers(formattedMarkers);
-        }
-      } catch (error) {
-        console.error('Error fetching markers:', error);
-      }
-    };
 
-    fetchData();
-  }, []);
+  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+  const [modalOpen, setModalOpen] = useState(false);
 
-  // const handleMapClick = () => {
+  const [directions, setDirections] = useState<any>(null);
 
-  //   const newMarkerId = markerId; // Store the current marker ID
-  //   const newMarker = { id: newMarkerId, position: clickedPosition, radius: null };
-  //   setMarkers([...markers, newMarker]);
-  //   setMarkerId(prevId => prevId + 1);
-  //   setModalOpen(false);
-  // };
+  const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null); // State to store the ID of the selected marker
+  const [sideBarOpen, setSideBarOpen] = useState(false);
+
+  const [chosenPin, setChosenPin] = useState<{ label: string }>({ label: "" });
+
+  const [infoWindowOpen, setInfoWindowOpen] = useState(false);
+
+  const [label, setLabel] = useState("");
 
   const handleinfoWindow = (id: number, label: string) => {
     if (label === "Starting Pin") {
@@ -157,54 +131,93 @@ const [endingPin, setEndingPin] = useState<
   };
 
   const openModal = (event: any) => {
-    //event.preventDefault();
+    // if(modalOpen !== true){
+    //   return null
+    // }
 
     let { x, y } = event.domEvent;
 
-    const modalWidth = 100
-    const modalHeight = 300
-    x = x + modalWidth
-    //console.log("x: " + x)
-    //console.log("window.innerWidth: " + window.innerWidth)
-    if (x + modalWidth > window.innerWidth) {
-      x = window.innerWidth - modalWidth - 50;
-      //console.log("x: " + x)
-    }
+    // const modalWidth = 100
+    // const modalHeight = 300
+    // x = x + modalWidth
+    // //console.log("x: " + x)
+    // //console.log("window.innerWidth: " + window.innerWidth)
+    // if (x + modalWidth > window.innerWidth) {
+    //   x = window.innerWidth - modalWidth;
+    //   //console.log("x: " + x)
+    //  }
 
-    if (x > 0) {
-      x = x + modalWidth
-    }
+    // if (x > 0) {
+    //   x = x + modalWidth
+    // }
 
-    // Check if the modal would exceed the bottom boundary of the screen
-    if (y + modalHeight > window.innerHeight) {
-      y = window.innerHeight - modalHeight;
-      //console.log("y: " + y)
-    }
+    // // Check if the modal would exceed the bottom boundary of the screen
+    // if (y + modalHeight > window.innerHeight) {
+    //   y = window.innerHeight - modalHeight;
+    //   //console.log("y: " + y)
+    // }
     setModalPosition({ x, y });
     setModalOpen(true);
-
-
     const { latLng } = event;
     if (latLng) {
+      // console.log("click")
       setClickPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
     }
   };
-  
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
 
-  const AddNewPin = () => {
+  const AddNewPin = async () => {
     // console.log("AddNewPin")
+    const coopId = "";
+    const stationName = "";
+    const km = pin.length + 1;
+    const lat = clickPosition.lat.toString();
+    const lng = clickPosition.lng.toString();
+    const radius = 5;
+
     const newPin = {
       id: pin.length + 1,
       label: "",
       position: clickPosition,
       radius: 5,
     };
+
     setPin([...pin, newPin]);
     setModalOpen(false);
+
+    try {
+      const res = await axios.post("http://localhost:3050/registerMarker", {
+        coopId: coopId,
+        stationName: stationName,
+        km: km,
+        lat: lat,
+        long: lng,
+        radius: radius,
+      });
+
+      console.log("Marker added successfully: ", res.data);
+    } catch (err) {
+      console.log("Error adding marker: ", err);
+    }
   };
+
+  useEffect(() => {
+    // Fetch markers from the server when the component mounts
+    axios
+      .get<{ code: number; message: string; markers: MarkerData[] }>(
+        "http://localhost:3050/getMarkers"
+      )
+      .then((response) => {
+        if (response.data.code === 0) {
+          // Check if the response is successful
+          setMarkers(response.data.markers); // Set the fetched markers into the state
+        } else {
+          console.error("Error fetching markers:", response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching markers:", error);
+      });
+  }, []);
 
   const addStartPin = () => {
     // console.log("addStartPin")
@@ -236,43 +249,77 @@ const [endingPin, setEndingPin] = useState<
     // setModalOpen(false);
   };
 
-  const pinClick = (markerId: number, lat: number, lng: number) => {
-    setDisplay({ lat: lat, lng: lng });
+  const closeModal = () => {
+    // console.log("closeModal")
+    setModalOpen(false);
   };
 
+  const dragMarker = (
+    markerId: number,
+    label: string,
+    newPosition: { lat: number; lng: number }
+  ) => {
+    if (label !== "Starting Pin" && label !== "Ending Pin") {
+      const updatedMarkers = pin.map((marker) => {
+        if (marker.id === markerId) {
+          return { ...marker, position: newPosition };
+        }
+        return marker;
+      });
 
-  const onMarkerDragEnd = (markerId: number, newPosition: { lat: number; lng: number }) => {
-    const updatedMarkers = markers.map(marker => {
-      if (marker.id === markerId) {
-        return { ...marker, position: newPosition };
-      }
-      return marker;
-    });
-    setMarkers(updatedMarkers); // Updates the circle's center as well
+      setPin(updatedMarkers);
+    }
+
+    if (label === "Starting Pin") {
+      const updatedMarkers = startingPin.map((marker) => {
+        if (marker.id === markerId) {
+          return { ...marker, position: newPosition };
+        }
+        return marker;
+      });
+
+      setStartingPin(updatedMarkers);
+    }
+
+    if (label === "Ending Pin") {
+      const updatedMarkers = endingPin.map((marker) => {
+        if (marker.id === markerId) {
+          return { ...marker, position: newPosition };
+        }
+        return marker;
+      });
+
+      setEndingPin(updatedMarkers);
+    }
+    setDisplay({ lat: newPosition.lat, lng: newPosition.lng });
   };
 
+  //enable routes from starting pin to ending pin
   // useEffect(() => {
-  //   if (endingPin && startingPin) { // Check if both endingPin and startingPin are not null
-  //     const directionsService = new window.google.maps.DirectionsService();
-  //     const origin = new window.google.maps.LatLng(startingPin.lat, startingPin.lng);
-  //     const destination = new window.google.maps.LatLng(endingPin.lat, endingPin.lng);
-  //     directionsService.route(
-  //       {
-  //         origin: origin,
-  //         destination: destination,
-  //         travelMode: window.google.maps.TravelMode.DRIVING,
-  //         optimizeWaypoints: true
-  //       },
-  //       (result, status) => {
-  //         if (status === window.google.maps.DirectionsStatus.OK) {
-  //           setDirections(result);
-  //         } else {
-  //           console.error('Directions request failed due to ' + status);
+  //   if (startingPin && endingPin) {
+  //     if (window.google && window.google.maps) { // Check if google.maps is available
+  //       const directionsService = new window.google.maps.DirectionsService();
+  //       directionsService.route(
+  //         {
+  //           origin: startingPin,
+  //           destination: endingPin,
+  //           travelMode: window.google.maps.TravelMode.DRIVING,
+  //           optimizeWaypoints: true
+  //         },
+  //         (result, status) => {
+  //           if (status === window.google.maps.DirectionsStatus.OK) {
+  //             setDirections(result);
+  //           } else {
+  //             console.error('Error fetching directions:', status);
+  //           }
   //         }
-  //       }
-  //     );
+  //       );
+  //     } else {
+  //       console.warn('Google Maps API is not fully loaded yet.');
+  //     }
   //     setStartingPin(null);
   //     setEndingPin(null);
+
   //   }
   // }, [startingPin, endingPin]);
 
@@ -329,7 +376,6 @@ const [endingPin, setEndingPin] = useState<
     }
   };
 
-
   const handleUpdateLabel = (newLabel: string) => {
     if (selectedMarkerId !== null) {
       if (newLabel === "Starting Pin") {
@@ -363,7 +409,6 @@ const [endingPin, setEndingPin] = useState<
     }
   };
 
-
   const handleDeleteMarker = () => {
     if (selectedMarkerId !== null) {
       setPin((prevMarkers) =>
@@ -374,45 +419,14 @@ const [endingPin, setEndingPin] = useState<
     }
   };
 
-  const dragMarker = (
-    markerId: number,
-    label: string,
-    newPosition: { lat: number; lng: number }
-  ) => {
-    if (label !== "Starting Pin" && label !== "Ending Pin") {
-      const updatedMarkers = pin.map((marker) => {
-        if (marker.id === markerId) {
-          return { ...marker, position: newPosition };
-        }
-        return marker;
-      });
+  const pinClick = (markerId: number, lat: number, lng: number) => {
+    // console.log("markerId: " + markerId)
+    // console.log("lat: " + lat)
+    // console.log("lng: " + lng)
 
-      setPin(updatedMarkers);
-    }
-
-    if (label === "Starting Pin") {
-      const updatedMarkers = startingPin.map((marker) => {
-        if (marker.id === markerId) {
-          return { ...marker, position: newPosition };
-        }
-        return marker;
-      });
-
-      setStartingPin(updatedMarkers);
-    }
-
-    if (label === "Ending Pin") {
-      const updatedMarkers = endingPin.map((marker) => {
-        if (marker.id === markerId) {
-          return { ...marker, position: newPosition };
-        }
-        return marker;
-      });
-
-      setEndingPin(updatedMarkers);
-    }
-    setDisplay({ lat: newPosition.lat, lng: newPosition.lng });
+    setDisplay({ lat: lat, lng: lng });
   };
+
   const onLoadMap = () => {
     setMapLoaded(true);
   };
@@ -422,7 +436,12 @@ const [endingPin, setEndingPin] = useState<
     if (mapLoaded) {
       // Fetch pin data here, and setPin with fetched data
       const mockPinData = [
-        { id: 1, label: "", position: { lat: 14.418331431423372, lng: 121.04331822703718 }, radius: 5 },
+        {
+          id: 1,
+          label: "",
+          position: { lat: 14.418331431423372, lng: 121.04331822703718 },
+          radius: 5,
+        },
         // Add more pin data as needed
       ];
       setPin(mockPinData);
@@ -430,32 +449,37 @@ const [endingPin, setEndingPin] = useState<
   }, [mapLoaded]);
 
   return (
-    <div>
-      <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY} onLoad={onLoadMap}>
+    <>
+      <LoadScript
+        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+        onLoad={onLoadMap}
+      >
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={17}
           center={mapCenter}
           onClick={openModal}
-          options={
-            {
-              streetViewControl: false,
-              mapTypeControl: false,
-            }
-          }
         >
-          {mapLoaded && pin.map((pinItem, index) => (
-          <React.Fragment key={index}>
-            <Marker
-              position={{ lat: pinItem.position.lat, lng: pinItem.position.lng }}
-              animation={window.google.maps.Animation.DROP}
-            />
-            <Circle 
-              center={{ lat: pinItem.position.lat, lng: pinItem.position.lng }} 
-              radius={pinItem.radius} 
-            />
-          </React.Fragment>
-        ))}
+          {mapLoaded &&
+            pin.map((pinItem, index) => (
+              <React.Fragment key={index}>
+                <Marker
+                  position={{
+                    lat: pinItem.position.lat,
+                    lng: pinItem.position.lng,
+                  }}
+                  animation={window.google.maps.Animation.DROP}
+                />
+                <Circle
+                  center={{
+                    lat: pinItem.position.lat,
+                    lng: pinItem.position.lng,
+                  }}
+                  radius={pinItem.radius}
+                />
+              </React.Fragment>
+            ))}
+
           <SideBar
             isOpen={sideBarOpen}
             onClose={() => setSideBarOpen(false)}
@@ -467,11 +491,76 @@ const [endingPin, setEndingPin] = useState<
             selectedMarkerId={selectedMarkerId}
             display={display}
             chosenPin={chosenPin}
-            startingPin={startingPin} // Pass starting pins
+            startingPin={startingPin}
             endingPin={endingPin}
             pin={pin}
           />
-          {pin.map((pinItem, index) => (
+
+          {markers.map((marker, index) => (
+            <React.Fragment key={index}>
+              <Marker
+                position={{
+                  lat: parseFloat(marker.lat),
+                  lng: parseFloat(marker.long),
+                }} // Ensure lat and lng are parsed as numbers
+                draggable={true}
+                animation={google.maps.Animation.DROP}
+                onRightClick={() => {
+                  pinClick(
+                    marker.km,
+                    parseFloat(marker.lat),
+                    parseFloat(marker.long)
+                  );
+                  handleMarkerRightClick(
+                    marker.km,
+                    marker.stationName,
+                    marker.radius
+                  );
+                  setDisplay({
+                    lat: parseFloat(marker.lat),
+                    lng: parseFloat(marker.long),
+                  });
+                }}
+                // Add other properties as needed
+              />
+
+              {infoWindowOpen &&
+                marker.km === marker.km + 1 &&
+                label !== "Starting Pin" &&
+                label !== "Ending Pin" && (
+                  <InfoWindow
+                    position={{
+                      lat: parseFloat(marker.lat),
+                      lng: parseFloat(marker.long),
+                    }}
+                    onCloseClick={handleInfoWindowClose}
+                    options={{
+                      maxWidth: 200,
+                      //  pixelOffset: new window.google.maps.Size(0, -30)
+                    }}
+                  >
+                    <div>
+                      <p>
+                        {marker.stationName === ""
+                          ? "KM: " + (marker.km + 1)
+                          : marker.stationName}
+                      </p>
+                    </div>
+                  </InfoWindow>
+                )}
+
+              <Circle
+                center={{
+                  lat: parseFloat(marker.lat),
+                  lng: parseFloat(marker.long),
+                }} // Ensure lat and lng are parsed as numbers
+                radius={marker.radius}
+                // Add other properties as needed
+              />
+            </React.Fragment>
+          ))}
+
+          {/* {pin.map((pinItem, index) => (
             <>
               <Marker
                 key={index}
@@ -541,9 +630,9 @@ const [endingPin, setEndingPin] = useState<
                 radius={pinItem.radius}
               />
             </>
-          ))}
+          ))} */}
 
-            {startingPin.map((startingPinItem, index) => (
+          {startingPin.map((startingPinItem, index) => (
             <>
               <Marker
                 key={index}
@@ -659,63 +748,45 @@ const [endingPin, setEndingPin] = useState<
             </>
           ))}
 
-
-
-          {/* {markers.map((marker) => (
-  <React.Fragment key={marker.id}>
-    {marker.radius === null ? (
-      <Marker
-        position={marker.position}
-        animation={google.maps.Animation.DROP}
-        onRightClick={() => handleMarkerRightClick(marker.id)}
-        onClick={() => handleMarkerClick(marker.id, marker.position)}
-        draggable={true}
-        onDrag={(e) => {
-          if (e.latLng) {
-            onMarkerDragEnd(marker.id, { lat: e.latLng.lat(), lng: e.latLng.lng() });
-          }
-        }}
-      />
-    ) : (
-      <Circle
-        key={marker.id + "circle"}
-        center={marker.position}
-        radius={marker.radius}
-      />
-    )}
-  </React.Fragment>
-))} */}
-          {/* {startingPin && (
+          {/* {startingPin && 
             <>
-              <Marker
-                position={startingPin}
+             <Marker 
+                position={startingPin} 
                 animation={google.maps.Animation.DROP}
-              // onClick={() => deletePin(startingPin.id, startingPin.position.lat, startingPin.position.lng )}
               />
-            </>
-          )}
-          {endingPin && (
-            <Marker
-              position={endingPin}
-              animation={google.maps.Animation.DROP}
-            // onClick={() => deletePin(endingPin.id, endingPin.position.lat, endingPin.position.lng )}
-            />
-          )} */}
+              <Circle 
+              center={startingPin} 
+              radius = {5} 
+              />
+            </> */}
 
-          {/* {directions && <DirectionsRenderer directions={directions} />} */}
+          {/* {endingPin && 
+            <>
+              <Marker 
+                position={endingPin} 
+                animation={google.maps.Animation.DROP}
+                />
+                <Circle 
+                center={endingPin} 
+                radius = {5} 
+                />
+            </>
+             
+            } */}
+
+          {directions && <DirectionsRenderer directions={directions} />}
         </GoogleMap>
       </LoadScript>
-       <Modal
+      {/* <Display lat={display.lat} lng = {display.lng}></Display> */}
+      <Modal
         isOpen={modalOpen}
-        onClose={handleCloseModal}
+        onClose={closeModal}
         position={modalPosition}
         addNewPin={AddNewPin}
         addStartingPin={addStartPin}
         addEndingPin={addEndPin}
       />
-      {/* addStartingPin={handleMapClick} addEndingPin={handleMapClick} */}
-      {/* <Display lat={markerDisplay.lat} lng={markerDisplay.lng} /> */}
-    </div>
+    </>
   );
 };
 
