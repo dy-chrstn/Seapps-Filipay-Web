@@ -50,6 +50,34 @@ export const getMarkers = async (req: express.Request, res: express.Response) =>
     }
 }
 
+export const updateMarkerById = async (req: express.Request, res: express.Response) => {
+    const { id } = req.params;
+    const { coopId, stationName, km, radius, lat, long } = req.body;
+
+    const newMarker = {
+        coopId,
+        stationName,
+        km,
+        radius,
+        lat,
+        long
+    }
+
+    try {
+        const updatedMarker = await updateMarker(id, newMarker);
+        res.status(200).json({
+            code: 0,
+            message: "Marker updated successfully",
+            updatedMarker
+        });
+    } catch (error) {
+        res.status(500).json({
+            code: 1,
+            message: error
+        });
+    }
+}
+
 export const deleteMarker = async (req: express.Request, res: express.Response) => {
     const { id } = req.params;
     try {
