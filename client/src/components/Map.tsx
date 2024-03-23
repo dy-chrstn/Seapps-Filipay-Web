@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import axios from "axios";
+import io from 'socket.io-client';
 import {
   GoogleMap,
   LoadScript,
@@ -257,20 +258,20 @@ const MapContainer: React.FC = () => {
   useEffect(() => {
 
     if(markerLoaded){
-      const mockPinData = [
-        {
-          id: 1,
-          label: "",
-          position: { lat: 14.418331431423372, lng: 121.04331822703718 },
-          radius: 5,
-        },
-        // Add more pin data as needed
-      ];
+      // const mockPinData = [
+      //   {
+      //     id: 1,
+      //     label: "",
+      //     position: { lat: 14.418331431423372, lng: 121.04331822703718 },
+      //     radius: 5,
+      //   },
+      //   // Add more pin data as needed
+      // ];
 
-      // console.log("Maploaded: ", mapLoaded)
-      // console.log("mockPinData: ", mockPinData)
+      // // console.log("Maploaded: ", mapLoaded)
+      // // console.log("mockPinData: ", mockPinData)
       
-      setPin(mockPinData);
+      // setPin(mockPinData);
 
 
       axios
@@ -290,26 +291,29 @@ const MapContainer: React.FC = () => {
           // console.log("fetchPins:", fetchedPins)
           if (fetchedPins.some(pin => pin.label === "Starting Pin")) {
             setStartingPin([...startingPin, ...fetchedPins]);
+            
           }
 
-          // if (fetchedPins.some(pin => pin.label === "Ending Pin")) {
-          //   setEndingPin([...endingPin, ...fetchedPins]);
-          // }
-          // if (fetchedPins.some(pin => pin.label !== "Starting Pin") && fetchedPins.some(pin => pin.label !== "Ending Pin")) {
-          //   const modifiedPins = fetchedPins.map(pin => {
-          //     if (pin.label !== "Starting Pin" && pin.label !== "Ending Pin") {
-               
-          //       pin.label = "KM: " + pin.id;
-          //       console.log("Label:", pin.label)
-          //       return pin;
-          //     } else {
-          //       return pin;
-          //     }
-          //   });
-          //   setPin([...mockPinData, ...modifiedPins]);
-          // }
+          if (fetchedPins.some(pin => pin.label === "Ending Pin")) {
+            setEndingPin([...endingPin, ...fetchedPins]);
            
-          // 
+          }
+          if (fetchedPins.some(pin => pin.label !== "Starting Pin") && fetchedPins.some(pin => pin.label !== "Ending Pin")) {
+            const modifiedPins = fetchedPins.map(pin => {
+              if (pin.label !== "Starting Pin" && pin.label !== "Ending Pin") {
+               
+                pin.label = "KM: " + pin.id;
+                console.log("Label:", pin.label)
+                return pin;
+              } else {
+                return pin;
+              } 
+            });
+            // setPin([...mockPinData, ...modifiedPins]);
+            setPin(modifiedPins);
+          }
+           
+          
 
         } else {
           console.error("Error fetching markers:", response.data.message);
@@ -347,8 +351,6 @@ const MapContainer: React.FC = () => {
       const res = await axios.post("http://localhost:3050/registerMarker", newMarker);
   
       console.log("Marker added successfully: ", res.data);
-      
-      // Update state after successful insertion
     
     } catch (err) {
       console.log("Error adding marker: ", err);
@@ -379,14 +381,32 @@ const MapContainer: React.FC = () => {
     setModalOpen(false);
   };
 
+    useEffect(() => {
+      // Connect to the WebSocket server
+      // console.log('tes:');
+      const socket = io('http://localhost:3050');
+
+      // Handle marker position updates received from the server
+      socket.on('markerPositionUpdated', (data) => {
+        // console.log('Received marker position update:', data);
+      });
+
+      return () => {
+        // Clean up: disconnect from the WebSocket server when the component unmounts
+        socket.disconnect();
+      };
+    }, []);
+
   const dragMarker = (
     markerId: number,
     label: string,
     newPosition: { lat: number; lng: number }
   ) => {
+    
     if (label !== "Starting Pin" && label !== "Ending Pin") {
       const updatedMarkers = pin.map((marker) => {
         if (marker.id === markerId) {
+          // console.log("Normal Pin FE")
           return { ...marker, position: newPosition };
         }
         return marker;
@@ -397,7 +417,11 @@ const MapContainer: React.FC = () => {
 
     if (label === "Starting Pin") {
       const updatedMarkers = startingPin.map((marker) => {
+        // console.log("markerid: ",  markerId)
         if (marker.id === markerId) {
+          // const socket = io('http://localhost:3050');
+          // console.log("Starting Pin FE")
+          // console.log("markerid: ",  markerId)
           return { ...marker, position: newPosition };
         }
         return marker;
@@ -409,6 +433,8 @@ const MapContainer: React.FC = () => {
     if (label === "Ending Pin") {
       const updatedMarkers = endingPin.map((marker) => {
         if (marker.id === markerId) {
+          // const socket = io('http://localhost:3050');
+          // console.log("Ending Pin FE")
           return { ...marker, position: newPosition };
         }
         return marker;
@@ -416,7 +442,69 @@ const MapContainer: React.FC = () => {
 
       setEndingPin(updatedMarkers);
     }
+
+   
     setDisplay({ lat: newPosition.lat, lng: newPosition.lng });
+
+  };
+
+  const endDrag = (
+    markerId: number,
+    label: string,
+    newPosition: { lat: number; lng: number }
+  ) => {
+    
+    console.log("Normal Pin FE")
+    const socket = io('http://localhost:3050');
+    if (label !== "Starting Pin" && label !== "Ending Pin") {
+      const updatedMarkers = pin.map((marker) => {
+        if (marker.id === markerId) {
+          console.log("Normal Pin FE")
+          const updatedPostion= {markerId, label, newPosition};
+          socket.emit('updateMarkerPosition', updatedPostion);
+          return { ...marker, position: newPosition };
+        }
+        return marker;
+      });
+
+      setPin(updatedMarkers);
+    }
+
+    if (label === "Starting Pin") {
+      const updatedMarkers = startingPin.map((marker) => {
+        // console.log("markerid: ",  markerId)
+        if (marker.id === markerId) {
+          // const socket = io('http://localhost:3050');
+          // console.log("Starting Pin FE")
+          // console.log("markerid: ",  markerId)
+          const updatedPostion= {markerId, label, newPosition};
+          socket.emit('updateMarkerPosition', updatedPostion);
+          return { ...marker, position: newPosition };
+        }
+        return marker;
+      });
+
+      setStartingPin(updatedMarkers);
+    }
+
+    if (label === "Ending Pin") {
+      const updatedMarkers = endingPin.map((marker) => {
+        if (marker.id === markerId) {
+          // const socket = io('http://localhost:3050');
+          // console.log("Ending Pin FE")
+          const updatedPostion= {markerId, label, newPosition};
+          socket.emit('updateMarkerPosition', updatedPostion);
+          return { ...marker, position: newPosition };
+        }
+        return marker;
+      });
+
+      setEndingPin(updatedMarkers);
+    }
+
+   
+    setDisplay({ lat: newPosition.lat, lng: newPosition.lng });
+
   };
 
   //enable routes from starting pin to ending pin
@@ -630,8 +718,17 @@ const MapContainer: React.FC = () => {
 
                 onDrag={(e) => {
                   if (e.latLng) {
-                    dragMarker(index + 1, marker.label, { lat: e.latLng.lat(), lng: e.latLng.lng() });
+                    dragMarker(marker.id, marker.label, { lat: e.latLng.lat(), lng: e.latLng.lng() });
                   }
+                }}
+                onDragEnd={() => {
+                  // This event fires when the drag action has been released
+                    endDrag(marker.id, marker.label, {
+                      lat:marker.position.lat,
+                      lng:marker.position.lng,
+                    });
+                    console.log("Release")
+                  
                 }}
 
                 onClick={() => {
@@ -774,7 +871,7 @@ const MapContainer: React.FC = () => {
                 }}
                 onDrag={(e) => {
                   if (e.latLng) {
-                    dragMarker(index + 1, startingPinItem.label, {
+                    dragMarker(startingPinItem.id, startingPinItem.label, {
                       lat: e.latLng.lat(),
                       lng: e.latLng.lng(),
                     });
@@ -833,7 +930,7 @@ const MapContainer: React.FC = () => {
                 }}
                 onDrag={(e) => {
                   if (e.latLng) {
-                    dragMarker(index + 1, pinItem.label, {
+                    dragMarker(pinItem.id, pinItem.label, {
                       lat: e.latLng.lat(),
                       lng: e.latLng.lng(),
                     });
