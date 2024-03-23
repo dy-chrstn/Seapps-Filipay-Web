@@ -23,7 +23,6 @@ interface MarkerData {
 }
 
 const MapContainer: React.FC = () => {
-  const [markers, setMarkers] = useState<MarkerData[]>([]);
   const defaultCenter = useMemo(
     () => ({
       lat: 14.6091,
@@ -48,8 +47,6 @@ const MapContainer: React.FC = () => {
       radius: number;
     }[]
   >([]);
-  // const [startingPin, setStartingPin] = useState<{ lat: number; lng: number } | null>(null);
-  // const [endingPin, setEndingPin] = useState<{lat: number, lng: number}| null>(null);
 
   const [startingPin, setStartingPin] = useState<
     {
@@ -67,6 +64,9 @@ const MapContainer: React.FC = () => {
       radius: number;
     }[]
   >([]);
+
+  const [markers, setMarkers] = useState<MarkerData[]>([]);
+  const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
 
   const [clickPosition, setClickPosition] = useState({ lat: 0, lng: 0 });
   const [display, setDisplay] = useState({ lat: 0, lng: 0 });
@@ -165,8 +165,8 @@ const MapContainer: React.FC = () => {
     }
   };
 
+  //adding pin and storing it to db
   const AddNewPin = async () => {
-    // console.log("AddNewPin")
     const coopId = "";
     const stationName = "";
     const km = pin.length + 1;
@@ -181,8 +181,6 @@ const MapContainer: React.FC = () => {
       radius: 5,
     };
 
-    setPin([...pin, newPin]);
-    setModalOpen(false);
 
     try {
       const res = await axios.post("http://localhost:3050/registerMarker", {
@@ -194,12 +192,18 @@ const MapContainer: React.FC = () => {
         radius: radius,
       });
 
-      console.log("Marker added successfully: ", res.data);
+      console.log("Marker added successfully: ", res.data.marker);
+
+      // Update markers state synchronously after successful addition
+      // setPin([...pin, newPin]);
+      setMarkers([...markers, res.data.marker]);
+      setModalOpen(false);
     } catch (err) {
       console.log("Error adding marker: ", err);
     }
   };
 
+  //reading markers from db
   useEffect(() => {
     // Fetch markers from the server when the component mounts
     axios
@@ -218,6 +222,34 @@ const MapContainer: React.FC = () => {
         console.error("Error fetching markers:", error);
       });
   }, []);
+
+  //deleting marker from db
+  const handleDeleteMarker = async () => {
+    if (selectedMarker !== null) {
+      try {
+        const res = await axios.delete(
+          `http://localhost:3050/deleteMarker/${selectedMarker._id}`
+        );
+        setSelectedMarker(null); // Clear selected marker after deletion
+        // Close the sidebar after deletion
+        if (res.status === 200) {
+          setMarkers(
+            markers.filter((marker) => marker._id !== selectedMarker._id)
+          );
+          console.log("Marker deleted successfully: ", res.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+      setSideBarOpen(false);
+    }
+  };
+
+  const handleMarkerRightClick = (marker: MarkerData) => {
+    setSelectedMarker(marker);
+    setSideBarOpen(true);
+  };
 
   const addStartPin = () => {
     // console.log("addStartPin")
@@ -294,49 +326,8 @@ const MapContainer: React.FC = () => {
     setDisplay({ lat: newPosition.lat, lng: newPosition.lng });
   };
 
-  //enable routes from starting pin to ending pin
-  // useEffect(() => {
-  //   if (startingPin && endingPin) {
-  //     if (window.google && window.google.maps) { // Check if google.maps is available
-  //       const directionsService = new window.google.maps.DirectionsService();
-  //       directionsService.route(
-  //         {
-  //           origin: startingPin,
-  //           destination: endingPin,
-  //           travelMode: window.google.maps.TravelMode.DRIVING,
-  //           optimizeWaypoints: true
-  //         },
-  //         (result, status) => {
-  //           if (status === window.google.maps.DirectionsStatus.OK) {
-  //             setDirections(result);
-  //           } else {
-  //             console.error('Error fetching directions:', status);
-  //           }
-  //         }
-  //       );
-  //     } else {
-  //       console.warn('Google Maps API is not fully loaded yet.');
-  //     }
-  //     setStartingPin(null);
-  //     setEndingPin(null);
-
-  //   }
-  // }, [startingPin, endingPin]);
-
-  const handleMarkerRightClick = (
-    markerId: number,
-    label: string,
-    radius: number
-  ) => {
-    setSideBarOpen(true);
-    setSelectedMarkerId(markerId); // Set the selected marker ID
-    // console.log("HMRCLabel:", label)
-    handleUpdateRadius(markerId, label, radius);
-    setChosenPin({ label: label });
-    // Open the sidebar
-  };
-
   const handleUpdateRadius = (id: number, label: string, newRadius: number) => {
+    setMarkers(markers.filter((marker) => marker._id !== selectedMarker?._id));
     // console.log("HURLabel:", label)
     // console.log("Radius:", newRadius)
     if (id !== null) {
@@ -376,6 +367,70 @@ const MapContainer: React.FC = () => {
     }
   };
 
+  const handleUpdateInfo = (
+    newStation: string | undefined,
+    newKm: number | undefined,
+    newRadius: number | undefined
+  ) => {
+    setMarkers((prevMarkers) => {
+      return prevMarkers.map((marker) => {
+        if (marker._id === selectedMarker?._id) {
+          return {
+            ...marker,
+            stationName: newStation || marker.stationName,
+            km: newKm || marker.km,
+            radius: newRadius !== undefined ? newRadius : marker.radius,
+          };
+        } else {
+          return marker;
+        }
+      });
+    });
+
+    setPin((prevPin) => {
+      return prevPin.map((pinItem) => {
+        if (pinItem.id === selectedMarkerId) {
+          return {
+            ...pinItem,
+            radius: newRadius !== undefined ? newRadius : pinItem.radius,
+          };
+        } else {
+          return pinItem;
+        }
+      });
+    });
+  };
+
+  const handleMarkerDrag = (e: any, index: number) => {
+    const newMarkers = [...markers]; // Create a copy of the markers array
+    newMarkers[index].lat = e.latLng.lat(); // Update marker's latitude
+    newMarkers[index].long = e.latLng.lng(); // Update marker's longitude
+    // Calculate new radius if needed
+    // For example, you might want to set a new radius based on the distance from a fixed point or another marker
+    // Update the state with the new markers array
+    setMarkers(newMarkers);
+  };
+
+  const handleMarkerDragEnd = async (e: any, markerId: string) => {
+    try {
+      const res = await axios.patch(
+        `http://localhost:3050/updateMarkerById/${markerId}`,
+        {
+          lat: e.latLng.lat().toString(),
+          long: e.latLng.lng().toString(),
+        }
+      );
+
+      if (res.status === 200) {
+        console.log("Update marker successfully: ", res.data);
+      } else {
+        console.log("Update marker failed: ", res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleUpdateLabel = (newLabel: string) => {
     if (selectedMarkerId !== null) {
       if (newLabel === "Starting Pin") {
@@ -409,16 +464,6 @@ const MapContainer: React.FC = () => {
     }
   };
 
-  const handleDeleteMarker = () => {
-    if (selectedMarkerId !== null) {
-      setPin((prevMarkers) =>
-        prevMarkers.filter((marker) => marker.id !== selectedMarkerId)
-      );
-      setSelectedMarkerId(null); // Reset the selected marker ID after deletion
-      setSideBarOpen(false); // Close the sidebar after deletion
-    }
-  };
-
   const pinClick = (markerId: number, lat: number, lng: number) => {
     // console.log("markerId: " + markerId)
     // console.log("lat: " + lat)
@@ -430,23 +475,6 @@ const MapContainer: React.FC = () => {
   const onLoadMap = () => {
     setMapLoaded(true);
   };
-
-  useEffect(() => {
-    // Simulating fetching pin data after map load
-    if (mapLoaded) {
-      // Fetch pin data here, and setPin with fetched data
-      const mockPinData = [
-        {
-          id: 1,
-          label: "",
-          position: { lat: 14.418331431423372, lng: 121.04331822703718 },
-          radius: 5,
-        },
-        // Add more pin data as needed
-      ];
-      setPin(mockPinData);
-    }
-  }, [mapLoaded]);
 
   return (
     <>
@@ -460,7 +488,7 @@ const MapContainer: React.FC = () => {
           center={mapCenter}
           onClick={openModal}
         >
-          {mapLoaded &&
+          {/* {mapLoaded &&
             pin.map((pinItem, index) => (
               <React.Fragment key={index}>
                 <Marker
@@ -478,32 +506,26 @@ const MapContainer: React.FC = () => {
                   radius={pinItem.radius}
                 />
               </React.Fragment>
-            ))}
-
+            ))} */}
           <SideBar
             isOpen={sideBarOpen}
             onClose={() => setSideBarOpen(false)}
-            onUpdateRadius={(id, label, newRadius) =>
-              handleUpdateRadius(id, label, newRadius)
-            }
-            onUpdateLabel={handleUpdateLabel}
             onDeleteMarker={handleDeleteMarker}
-            selectedMarkerId={selectedMarkerId}
             display={display}
-            chosenPin={chosenPin}
-            startingPin={startingPin}
-            endingPin={endingPin}
-            pin={pin}
+            marker={selectedMarker}
+            handleUpdateInfo={handleUpdateInfo}
           />
-
-          {markers.map((marker, index) => (
+          {mapLoaded && markers.map((marker, index) => (
             <React.Fragment key={index}>
               <Marker
+                key={marker._id}
                 position={{
                   lat: parseFloat(marker.lat),
                   lng: parseFloat(marker.long),
                 }} // Ensure lat and lng are parsed as numbers
                 draggable={true}
+                onDrag={(e) => handleMarkerDrag(e, index)}
+                onDragEnd={(e) => handleMarkerDragEnd(e, marker._id)}
                 animation={google.maps.Animation.DROP}
                 onRightClick={() => {
                   pinClick(
@@ -511,11 +533,7 @@ const MapContainer: React.FC = () => {
                     parseFloat(marker.lat),
                     parseFloat(marker.long)
                   );
-                  handleMarkerRightClick(
-                    marker.km,
-                    marker.stationName,
-                    marker.radius
-                  );
+                  handleMarkerRightClick(marker);
                   setDisplay({
                     lat: parseFloat(marker.lat),
                     lng: parseFloat(marker.long),
@@ -523,7 +541,6 @@ const MapContainer: React.FC = () => {
                 }}
                 // Add other properties as needed
               />
-
               {infoWindowOpen &&
                 marker.km === marker.km + 1 &&
                 label !== "Starting Pin" &&
@@ -548,7 +565,6 @@ const MapContainer: React.FC = () => {
                     </div>
                   </InfoWindow>
                 )}
-
               <Circle
                 center={{
                   lat: parseFloat(marker.lat),
@@ -559,80 +575,8 @@ const MapContainer: React.FC = () => {
               />
             </React.Fragment>
           ))}
-
-          {/* {pin.map((pinItem, index) => (
-            <>
-              <Marker
-                key={index}
-                position={{
-                  lat: pinItem.position.lat,
-                  lng: pinItem.position.lng,
-                }}
-                draggable={true}
-                animation={google.maps.Animation.DROP}
-                onRightClick={() => {
-                  // console.log('rightClickMarker')
-                  // console.log('pinId: ', pinItem.id)
-                  pinClick(
-                    index + 1,
-                    pinItem.position.lat,
-                    pinItem.position.lng
-                  );
-                  handleMarkerRightClick(
-                    index + 1,
-                    pinItem.label,
-                    pinItem.radius
-                  );
-                  setDisplay(pinItem.position);
-                }}
-                onClick={() => {
-                  setInfoWindowOpen(true);
-                  handleMarkerClick(index + 1, pinItem.label);
-                  handleinfoWindow(index + 1, pinItem.label);
-                }}
-                onDrag={(e) => {
-                  if (e.latLng) {
-                    dragMarker(index + 1, pinItem.label, {
-                      lat: e.latLng.lat(),
-                      lng: e.latLng.lng(),
-                    });
-                  }
-                }}
-              >
-                {infoWindowOpen &&
-                  selectedMarkerId === index + 1 &&
-                  label !== "Starting Pin" &&
-                  label !== "Ending Pin" && (
-                    <InfoWindow
-                      position={pinItem.position}
-                      onCloseClick={handleInfoWindowClose}
-                      options={{
-                        maxWidth: 200,
-                        //  pixelOffset: new window.google.maps.Size(0, -30)
-                      }}
-                    >
-                      <div>
-                        <p>
-                          {pinItem.label === ""
-                            ? "KM: " + (index + 1)
-                            : pinItem.label}
-                        </p>
-                      </div>
-                    </InfoWindow>
-                  )}
-              </Marker>
-
-              <Circle
-                center={{
-                  lat: pinItem.position.lat,
-                  lng: pinItem.position.lng,
-                }}
-                radius={pinItem.radius}
-              />
-            </>
-          ))} */}
-
-          {startingPin.map((startingPinItem, index) => (
+          ;
+          {/* {startingPin.map((startingPinItem, index) => (
             <>
               <Marker
                 key={index}
@@ -746,8 +690,7 @@ const MapContainer: React.FC = () => {
               </Marker>
               <Circle center={pinItem.position} radius={pinItem.radius} />
             </>
-          ))}
-
+          ))} */}
           {/* {startingPin && 
             <>
              <Marker 
@@ -759,7 +702,6 @@ const MapContainer: React.FC = () => {
               radius = {5} 
               />
             </> */}
-
           {/* {endingPin && 
             <>
               <Marker 
@@ -773,11 +715,9 @@ const MapContainer: React.FC = () => {
             </>
              
             } */}
-
           {directions && <DirectionsRenderer directions={directions} />}
         </GoogleMap>
       </LoadScript>
-      {/* <Display lat={display.lat} lng = {display.lng}></Display> */}
       <Modal
         isOpen={modalOpen}
         onClose={closeModal}
