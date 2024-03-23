@@ -28,15 +28,18 @@ const SideBar: React.FC<SideBarProps> = ({
   marker,
   handleUpdateInfo
 }) => {
-  const [markerValue, setMarkerValue] = useState<MarkerData[]>([]);
-  const [newRadius, setNewRadius] = useState("5");
+  const [newRadius, setNewRadius] = useState(marker?.radius);
   const [newStation, setNewStation] = useState(marker?.stationName);
   const [newKm, setNewKm] = useState(marker?.km);
-  const [newLabel, setNewLabel] = useState<{ label: string }>({ label: "" });
-  const [pinId, setPinId] = useState("");
 
   const lat = display.lat.toString();
   const lng = display.lng.toString();
+
+  useEffect(() => {
+    setNewRadius(marker?.radius);
+    setNewStation(marker?.stationName);
+    setNewKm(marker?.km);
+  }, [marker]);
 
   const handleUpdate = async () => {
     try{
@@ -45,11 +48,12 @@ const SideBar: React.FC<SideBarProps> = ({
         km: newKm,
         lat: lat,
         long: lng,
-        radius: parseFloat(newRadius),
+        radius: newRadius,
       })
+      
       if(res.status === 200){
         console.log("Update marker successfully: ", res.data)
-        handleUpdateInfo(newStation, newKm, parseFloat(newRadius));
+        handleUpdateInfo(newStation, newKm, newRadius);
         onClose();
       }
       
@@ -64,10 +68,11 @@ const SideBar: React.FC<SideBarProps> = ({
     onDeleteMarker();
   };
 
-  const handleRadiusChange = (event: any) => {
+  const handleRadiusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (!isNaN(value) || value !== "") {
-      setNewRadius(value);
+    const val = parseFloat(value);
+    if (!isNaN(val) || value === "") {
+      setNewRadius(val);
     }
   };
 
@@ -99,10 +104,9 @@ const SideBar: React.FC<SideBarProps> = ({
         placeholder="Station name: "
         pattern="\d*"
         className="w-full"
-        onChange={
-          handleStationNameChange
-        }
+        onChange={handleStationNameChange}
         value={newStation}
+        readOnly={newStation === "Starting Pin" || newStation === "Ending Pin"}
       />
       <h1>Kilometer:</h1>
       <input

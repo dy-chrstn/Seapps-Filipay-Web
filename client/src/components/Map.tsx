@@ -5,7 +5,6 @@ import {
   LoadScript,
   Marker,
   Circle,
-  DirectionsRenderer,
   InfoWindow,
 } from "@react-google-maps/api";
 // import Display from './display'
@@ -36,95 +35,19 @@ const MapContainer: React.FC = () => {
     width: "100%",
   };
 
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [mapCenter, setMapcenter] = useState(defaultCenter);
-
-  const [pin, setPin] = useState<
-    {
-      id: number;
-      label: string;
-      position: { lat: number; lng: number };
-      radius: number;
-    }[]
-  >([]);
-
-  const [startingPin, setStartingPin] = useState<
-    {
-      id: number;
-      label: string;
-      position: { lat: number; lng: number };
-      radius: number;
-    }[]
-  >([]);
-  const [endingPin, setEndingPin] = useState<
-    {
-      id: number;
-      label: string;
-      position: { lat: number; lng: number };
-      radius: number;
-    }[]
-  >([]);
-
   const [markers, setMarkers] = useState<MarkerData[]>([]);
   const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
 
+  const [modalOpen, setModalOpen] = useState(false);
   const [clickPosition, setClickPosition] = useState({ lat: 0, lng: 0 });
+  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+
+  const [sideBarOpen, setSideBarOpen] = useState(false);
   const [display, setDisplay] = useState({ lat: 0, lng: 0 });
 
-  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const [directions, setDirections] = useState<any>(null);
-
-  const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null); // State to store the ID of the selected marker
-  const [sideBarOpen, setSideBarOpen] = useState(false);
-
-  const [chosenPin, setChosenPin] = useState<{ label: string }>({ label: "" });
 
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
 
-  const [label, setLabel] = useState("");
-
-  const handleinfoWindow = (id: number, label: string) => {
-    if (label === "Starting Pin") {
-      setLabel(label);
-      setSelectedMarkerId(id);
-      setInfoWindowOpen(true);
-    }
-
-    if (label === "Ending Pin") {
-      setLabel(label);
-      setSelectedMarkerId(id);
-      setInfoWindowOpen(true);
-    }
-
-    if (label !== "Starting Pin" && label !== "Ending Pin") {
-      setLabel(label);
-      setSelectedMarkerId(id);
-    }
-  };
-  const handleMarkerClick = (id: number, label: string) => {
-    if (label !== "Starting Pin" && label !== "Ending Pin") {
-      if (label === "") {
-        // console.log("print label: ", label)
-        const idString = id.toString();
-        setChosenPin({ label: "KM: " + idString });
-      } else {
-        setChosenPin({ label });
-      }
-    }
-
-    if (label === "Starting Pin") {
-      // setInfoWindowOpen(true)
-      // console.log("print label: ", label)
-      setChosenPin({ label });
-    }
-
-    if (label === "Ending Pin") {
-      // console.log("print label: ", label)
-      setChosenPin({ label });
-    }
-  };
 
   const handleInfoWindowClose = () => {
     setInfoWindowOpen(false);
@@ -166,21 +89,13 @@ const MapContainer: React.FC = () => {
   };
 
   //adding pin and storing it to db
-  const AddNewPin = async () => {
+  const AddNewPin = async (pinType: string) => {
     const coopId = "";
-    const stationName = "";
-    const km = pin.length + 1;
+    const stationName = pinType;
+    const km = markers.length + 1;
     const lat = clickPosition.lat.toString();
     const lng = clickPosition.lng.toString();
     const radius = 5;
-
-    const newPin = {
-      id: startingPin.length + 1,
-      label: "Starting Pin",
-      position: clickPosition,
-      radius: 5,
-    };
-
 
     try {
       const res = await axios.post("http://localhost:3050/registerMarker", {
@@ -192,10 +107,8 @@ const MapContainer: React.FC = () => {
         radius: radius,
       });
 
-      console.log("Marker added successfully: ", res.data.marker);
+      console.log("Marker added successfully: ", res.data);
 
-      // Update markers state synchronously after successful addition
-      // setPin([...pin, newPin]);
       setMarkers([...markers, res.data.marker]);
       setModalOpen(false);
     } catch (err) {
@@ -251,120 +164,9 @@ const MapContainer: React.FC = () => {
     setSideBarOpen(true);
   };
 
-  const addStartPin = () => {
-    // console.log("addStartPin")
-
-    const newPin = {
-      id: startingPin.length + 1,
-      label: "Starting Pin",
-      position: clickPosition,
-      radius: 5,
-    };
-    setStartingPin([...startingPin, newPin]);
-    setModalOpen(false);
-    // setStartingPin(clickPosition);
-    // setModalOpen(false);
-  };
-
-  const addEndPin = () => {
-    // console.log("addEndPin")
-    const newPin = {
-      id: endingPin.length + 1,
-      label: "Ending Pin",
-      position: clickPosition,
-      radius: 5,
-    };
-    setEndingPin([...endingPin, newPin]);
-    setModalOpen(false);
-
-    // setEndingPin(clickPosition);
-    // setModalOpen(false);
-  };
-
   const closeModal = () => {
     // console.log("closeModal")
     setModalOpen(false);
-  };
-
-  const dragMarker = (
-    markerId: number,
-    label: string,
-    newPosition: { lat: number; lng: number }
-  ) => {
-    if (label !== "Starting Pin" && label !== "Ending Pin") {
-      const updatedMarkers = pin.map((marker) => {
-        if (marker.id === markerId) {
-          return { ...marker, position: newPosition };
-        }
-        return marker;
-      });
-
-      setPin(updatedMarkers);
-    }
-
-    if (label === "Starting Pin") {
-      const updatedMarkers = startingPin.map((marker) => {
-        if (marker.id === markerId) {
-          return { ...marker, position: newPosition };
-        }
-        return marker;
-      });
-
-      setStartingPin(updatedMarkers);
-    }
-
-    if (label === "Ending Pin") {
-      const updatedMarkers = endingPin.map((marker) => {
-        if (marker.id === markerId) {
-          return { ...marker, position: newPosition };
-        }
-        return marker;
-      });
-
-      setEndingPin(updatedMarkers);
-    }
-    setDisplay({ lat: newPosition.lat, lng: newPosition.lng });
-  };
-
-  const handleUpdateRadius = (id: number, label: string, newRadius: number) => {
-    setMarkers(markers.filter((marker) => marker._id !== selectedMarker?._id));
-    // console.log("HURLabel:", label)
-    // console.log("Radius:", newRadius)
-    if (id !== null) {
-      if (label === "Starting Pin") {
-        // console.log("SNewradius: ", newRadius)
-        // console.log("LabelHUR: ", label)
-        setStartingPin((prevMarkers) =>
-          prevMarkers.map((marker) =>
-            marker.id === id
-              ? { ...marker, label: label, radius: newRadius }
-              : marker
-          )
-        );
-      }
-      if (label === "Ending Pin") {
-        // console.log("ENewradius: ", newRadius)
-        // console.log("LabelHUR: ", label)
-        setEndingPin((prevMarkers) =>
-          prevMarkers.map((marker) =>
-            marker.id === id
-              ? { ...marker, label: label, radius: newRadius }
-              : marker
-          )
-        );
-      }
-      if (label !== "Starting Pin" && label !== "Ending Pin") {
-        // console.log("PNewradius: ", newRadius)
-        // console.log("LabelHUR: ", label)
-        setPin((prevMarkers) =>
-          prevMarkers.map((marker) =>
-            marker.id === id
-              ? { ...marker, label: label, radius: newRadius }
-              : marker
-          )
-        );
-      }
-    }
   };
 
   const handleUpdateInfo = (
@@ -387,28 +189,16 @@ const MapContainer: React.FC = () => {
       });
     });
 
-    setPin((prevPin) => {
-      return prevPin.map((pinItem) => {
-        if (pinItem.id === selectedMarkerId) {
-          return {
-            ...pinItem,
-            radius: newRadius !== undefined ? newRadius : pinItem.radius,
-          };
-        } else {
-          return pinItem;
-        }
-      });
-    });
+    
   };
 
   const handleMarkerDrag = (e: any, index: number) => {
-    const newMarkers = [...markers]; // Create a copy of the markers array
-    newMarkers[index].lat = e.latLng.lat(); // Update marker's latitude
-    newMarkers[index].long = e.latLng.lng(); // Update marker's longitude
-    // Calculate new radius if needed
-    // For example, you might want to set a new radius based on the distance from a fixed point or another marker
-    // Update the state with the new markers array
+    const newMarkers = [...markers];
+    newMarkers[index].lat = e.latLng.lat();
+    newMarkers[index].long = e.latLng.lng();
+
     setMarkers(newMarkers);
+    setDisplay({ lat: e.latLng.lat(), lng: e.latLng.lng() });
   };
 
   const handleMarkerDragEnd = async (e: any, markerId: string) => {
@@ -431,37 +221,10 @@ const MapContainer: React.FC = () => {
     }
   };
 
-  const handleUpdateLabel = (newLabel: string) => {
-    if (selectedMarkerId !== null) {
-      if (newLabel === "Starting Pin") {
-        setStartingPin((prevMarkers) =>
-          prevMarkers.map((marker) =>
-            marker.id === selectedMarkerId
-              ? { ...marker, label: newLabel }
-              : marker
-          )
-        );
-      }
-      if (newLabel === "Ending Pin") {
-        setEndingPin((prevMarkers) =>
-          prevMarkers.map((marker) =>
-            marker.id === selectedMarkerId
-              ? { ...marker, label: newLabel }
-              : marker
-          )
-        );
-      }
-      if (newLabel !== "Starting Pin" && newLabel !== "Ending Pin") {
-        // console.log("newLabel sa MAp: ", newLabel)
-        setPin((prevMarkers) =>
-          prevMarkers.map((marker) =>
-            marker.id === selectedMarkerId
-              ? { ...marker, label: newLabel }
-              : marker
-          )
-        );
-      }
-    }
+  const handleMarkerClick = (marker: MarkerData) => {
+    setSelectedMarker(marker);
+
+    setInfoWindowOpen(true);
   };
 
   const pinClick = (markerId: number, lat: number, lng: number) => {
@@ -472,41 +235,15 @@ const MapContainer: React.FC = () => {
     setDisplay({ lat: lat, lng: lng });
   };
 
-  const onLoadMap = () => {
-    setMapLoaded(true);
-  };
-
   return (
     <>
-      <LoadScript
-        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-        onLoad={onLoadMap}
-      >
+      <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         <GoogleMap
           mapContainerStyle={mapStyles}
-          zoom={17}
-          center={mapCenter}
+          zoom={12}
+          center={defaultCenter}
           onClick={openModal}
         >
-          {/* {mapLoaded &&
-            pin.map((pinItem, index) => (
-              <React.Fragment key={index}>
-                <Marker
-                  position={{
-                    lat: pinItem.position.lat,
-                    lng: pinItem.position.lng,
-                  }}
-                  animation={window.google.maps.Animation.DROP}
-                />
-                <Circle
-                  center={{
-                    lat: pinItem.position.lat,
-                    lng: pinItem.position.lng,
-                  }}
-                  radius={pinItem.radius}
-                />
-              </React.Fragment>
-            ))} */}
           <SideBar
             isOpen={sideBarOpen}
             onClose={() => setSideBarOpen(false)}
@@ -515,7 +252,7 @@ const MapContainer: React.FC = () => {
             marker={selectedMarker}
             handleUpdateInfo={handleUpdateInfo}
           />
-          {mapLoaded && markers.map((marker, index) => (
+          {markers.map((marker, index) => (
             <React.Fragment key={index}>
               <Marker
                 key={marker._id}
@@ -526,6 +263,7 @@ const MapContainer: React.FC = () => {
                 draggable={true}
                 onDrag={(e) => handleMarkerDrag(e, index)}
                 onDragEnd={(e) => handleMarkerDragEnd(e, marker._id)}
+                onClick={() => handleMarkerClick(marker)}
                 animation={google.maps.Animation.DROP}
                 onRightClick={() => {
                   pinClick(
@@ -541,30 +279,27 @@ const MapContainer: React.FC = () => {
                 }}
                 // Add other properties as needed
               />
-              {infoWindowOpen &&
-                marker.km === marker.km + 1 &&
-                label !== "Starting Pin" &&
-                label !== "Ending Pin" && (
-                  <InfoWindow
-                    position={{
-                      lat: parseFloat(marker.lat),
-                      lng: parseFloat(marker.long),
-                    }}
-                    onCloseClick={handleInfoWindowClose}
-                    options={{
-                      maxWidth: 200,
-                      //  pixelOffset: new window.google.maps.Size(0, -30)
-                    }}
-                  >
-                    <div>
-                      <p>
-                        {marker.stationName === ""
-                          ? "KM: " + (marker.km + 1)
-                          : marker.stationName}
-                      </p>
-                    </div>
-                  </InfoWindow>
-                )}
+              {selectedMarker && selectedMarker._id === marker._id && (
+                <InfoWindow
+                  position={{
+                    lat: parseFloat(marker.lat),
+                    lng: parseFloat(marker.long),
+                  }}
+                  onCloseClick={handleInfoWindowClose}
+                  options={{
+                    maxWidth: 200,
+                    pixelOffset: new window.google.maps.Size(0, -30),
+                  }}
+                >
+                  <div>
+                    <p>
+                      {marker.stationName === ""
+                        ? "KM: " + marker.km
+                        : marker.stationName}
+                    </p>
+                  </div>
+                </InfoWindow>
+              )}
               <Circle
                 center={{
                   lat: parseFloat(marker.lat),
@@ -576,146 +311,6 @@ const MapContainer: React.FC = () => {
             </React.Fragment>
           ))}
           ;
-          {/* {startingPin.map((startingPinItem, index) => (
-            <>
-              <Marker
-                key={index}
-                position={startingPinItem.position}
-                draggable={true}
-                animation={google.maps.Animation.DROP}
-                onRightClick={() => {
-                  // console.log('rightClickMarker')
-                  pinClick(
-                    index + 1,
-                    startingPinItem.position.lat,
-                    startingPinItem.position.lng
-                  );
-                  handleMarkerRightClick(
-                    startingPinItem.id,
-                    "Starting Pin",
-                    startingPinItem.radius
-                  );
-                  setDisplay(startingPinItem.position);
-                }}
-                onClick={() => {
-                  setInfoWindowOpen(true);
-                  setSelectedMarkerId(index + 1);
-                  handleMarkerClick(index + 1, "Starting Pin");
-                  handleinfoWindow(index + 1, "Starting Pin");
-                }}
-                onDrag={(e) => {
-                  if (e.latLng) {
-                    dragMarker(index + 1, startingPinItem.label, {
-                      lat: e.latLng.lat(),
-                      lng: e.latLng.lng(),
-                    });
-                  }
-                }}
-              >
-                {infoWindowOpen &&
-                  selectedMarkerId === index + 1 &&
-                  label === "Starting Pin" && (
-                    <InfoWindow
-                      position={startingPinItem.position}
-                      onCloseClick={handleInfoWindowClose}
-                      options={{
-                        maxWidth: 200,
-                        //  pixelOffset: new window.google.maps.Size(0, -30)
-                      }}
-                    >
-                      <div>
-                        <p>{startingPinItem.label}</p>
-                      </div>
-                    </InfoWindow>
-                  )}
-              </Marker>
-              <Circle
-                center={startingPinItem.position}
-                radius={startingPinItem.radius}
-              />
-            </>
-          ))}
-
-          {endingPin.map((pinItem, index) => (
-            <>
-              <Marker
-                key={index}
-                position={pinItem.position}
-                draggable={true}
-                animation={google.maps.Animation.DROP}
-                onRightClick={() => {
-                  // console.log('rightClickMarker')
-                  pinClick(
-                    index + 1,
-                    pinItem.position.lat,
-                    pinItem.position.lng
-                  );
-                  handleMarkerRightClick(
-                    pinItem.id,
-                    "Ending Pin",
-                    pinItem.radius
-                  );
-                  setDisplay(pinItem.position);
-                }}
-                onClick={() => {
-                  setInfoWindowOpen(true);
-                  handleMarkerClick(index + 1, "Ending Pin");
-                  handleinfoWindow(index + 1, "Ending Pin");
-                }}
-                onDrag={(e) => {
-                  if (e.latLng) {
-                    dragMarker(index + 1, pinItem.label, {
-                      lat: e.latLng.lat(),
-                      lng: e.latLng.lng(),
-                    });
-                  }
-                }}
-              >
-                {infoWindowOpen &&
-                  selectedMarkerId === index + 1 &&
-                  label === "Ending Pin" && (
-                    <InfoWindow
-                      position={pinItem.position}
-                      onCloseClick={handleInfoWindowClose}
-                      options={{
-                        maxWidth: 200,
-                        //  pixelOffset: new window.google.maps.Size(0, -30)
-                      }}
-                    >
-                      <div>
-                        <p>{pinItem.label}</p>
-                      </div>
-                    </InfoWindow>
-                  )}
-              </Marker>
-              <Circle center={pinItem.position} radius={pinItem.radius} />
-            </>
-          ))} */}
-          {/* {startingPin && 
-            <>
-             <Marker 
-                position={startingPin} 
-                animation={google.maps.Animation.DROP}
-              />
-              <Circle 
-              center={startingPin} 
-              radius = {5} 
-              />
-            </> */}
-          {/* {endingPin && 
-            <>
-              <Marker 
-                position={endingPin} 
-                animation={google.maps.Animation.DROP}
-                />
-                <Circle 
-                center={endingPin} 
-                radius = {5} 
-                />
-            </>
-             
-            } */}
-          {directions && <DirectionsRenderer directions={directions} />}
         </GoogleMap>
       </LoadScript>
       <Modal
@@ -723,8 +318,6 @@ const MapContainer: React.FC = () => {
         onClose={closeModal}
         position={modalPosition}
         addNewPin={AddNewPin}
-        addStartingPin={addStartPin}
-        addEndingPin={addEndPin}
       />
     </>
   );
