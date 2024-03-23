@@ -29,6 +29,11 @@ const MarkerSchema = new mongoose.Schema({
     },
 });
 
+MarkerSchema.pre('save', function (next) {
+    const generatedId = new mongoose.Types.ObjectId();
+    this.coopId = generatedId.toString();
+    next();
+});
 
 export const MarkerModel = mongoose.model('Marker', MarkerSchema)
 
