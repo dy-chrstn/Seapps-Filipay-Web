@@ -31,3 +31,8 @@ const MarkerSchema = new mongoose.Schema({
 
 
 export const MarkerModel = mongoose.model('Marker', MarkerSchema)
+
+export const getMarkerByCoopId = (coopId: string) => MarkerModel.findOne({ coopId: coopId });
+export const getMarkerByCoopIdSN = (coopId: string, stationName: string) => MarkerModel.findOne({ coopId: coopId, stationName: stationName });
+export const updateMarkerPosition = (lat: number, lng: number) => MarkerModel.findOneAndUpdate({lat: lat, lng: lng})
+
