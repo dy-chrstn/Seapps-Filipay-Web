@@ -17,7 +17,11 @@ interface SideBarProps {
   onDeleteMarker: () => void;
   display: { lat: number; lng: number };
   marker: MarkerData | null;
-  handleUpdateInfo: (newStation: string | undefined, newKm: number | undefined, newRadius: number | undefined) => void
+  handleUpdateInfo: (
+    newStation: string | undefined,
+    newKm: number | undefined,
+    newRadius: number | undefined
+  ) => void;
 }
 
 const SideBar: React.FC<SideBarProps> = ({
@@ -26,7 +30,7 @@ const SideBar: React.FC<SideBarProps> = ({
   onDeleteMarker,
   display,
   marker,
-  handleUpdateInfo
+  handleUpdateInfo,
 }) => {
   const [newRadius, setNewRadius] = useState(marker?.radius);
   const [newStation, setNewStation] = useState(marker?.stationName);
@@ -42,25 +46,27 @@ const SideBar: React.FC<SideBarProps> = ({
   }, [marker]);
 
   const handleUpdate = async () => {
-    try{
-      const res = await axios.patch(`http://localhost:3050/updateMarkerById/${marker?._id}`, {
-        stationName: newStation,
-        km: newKm,
-        lat: lat,
-        long: lng,
-        radius: newRadius,
-      })
-      
-      if(res.status === 200){
-        console.log("Update marker successfully: ", res.data)
+    try {
+      const res = await axios.patch(
+        `http://localhost:3050/updateMarkerById/${marker?._id}`,
+        {
+          stationName: newStation,
+          km: newKm,
+          lat: lat,
+          long: lng,
+          radius: newRadius,
+        }
+      );
+
+      if (res.status === 200) {
+        console.log("Update marker successfully: ", res.data);
         handleUpdateInfo(newStation, newKm, newRadius);
         onClose();
       }
-      
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
+
     onClose();
   };
 
