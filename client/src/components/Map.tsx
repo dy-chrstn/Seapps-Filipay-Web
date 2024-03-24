@@ -7,7 +7,7 @@ import {
   Circle,
   InfoWindow,
 } from "@react-google-maps/api";
-// import Display from './display'
+
 import Modal from "./Modal";
 import SideBar from "./SideBar";
 
@@ -37,58 +37,32 @@ const MapContainer: React.FC = () => {
 
   const [markers, setMarkers] = useState<MarkerData[]>([]);
   const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
-
   const [modalOpen, setModalOpen] = useState(false);
   const [clickPosition, setClickPosition] = useState({ lat: 0, lng: 0 });
   const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
-
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [display, setDisplay] = useState({ lat: 0, lng: 0 });
-
-
   const [infoWindowOpen, setInfoWindowOpen] = useState(false);
-
 
   const handleInfoWindowClose = () => {
     setInfoWindowOpen(false);
   };
 
   const openModal = (event: any) => {
-    // if(modalOpen !== true){
-    //   return null
-    // }
-
     let { x, y } = event.domEvent;
 
-    // const modalWidth = 100
-    // const modalHeight = 300
-    // x = x + modalWidth
-    // //console.log("x: " + x)
-    // //console.log("window.innerWidth: " + window.innerWidth)
-    // if (x + modalWidth > window.innerWidth) {
-    //   x = window.innerWidth - modalWidth;
-    //   //console.log("x: " + x)
-    //  }
-
-    // if (x > 0) {
-    //   x = x + modalWidth
-    // }
-
-    // // Check if the modal would exceed the bottom boundary of the screen
-    // if (y + modalHeight > window.innerHeight) {
-    //   y = window.innerHeight - modalHeight;
-    //   //console.log("y: " + y)
-    // }
     setModalPosition({ x, y });
     setModalOpen(true);
     const { latLng } = event;
     if (latLng) {
-      // console.log("click")
       setClickPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
     }
   };
 
-  //adding pin and storing it to db
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   const AddNewPin = async (pinType: string) => {
     const coopId = "";
     const stationName = pinType;
@@ -164,11 +138,6 @@ const MapContainer: React.FC = () => {
     setSideBarOpen(true);
   };
 
-  const closeModal = () => {
-    // console.log("closeModal")
-    setModalOpen(false);
-  };
-
   const handleUpdateInfo = (
     newStation: string | undefined,
     newKm: number | undefined,
@@ -188,8 +157,6 @@ const MapContainer: React.FC = () => {
         }
       });
     });
-
-    
   };
 
   const handleMarkerDrag = (e: any, index: number) => {
@@ -228,10 +195,6 @@ const MapContainer: React.FC = () => {
   };
 
   const pinClick = (markerId: number, lat: number, lng: number) => {
-    // console.log("markerId: " + markerId)
-    // console.log("lat: " + lat)
-    // console.log("lng: " + lng)
-
     setDisplay({ lat: lat, lng: lng });
   };
 
@@ -259,7 +222,7 @@ const MapContainer: React.FC = () => {
                 position={{
                   lat: parseFloat(marker.lat),
                   lng: parseFloat(marker.long),
-                }} // Ensure lat and lng are parsed as numbers
+                }}
                 draggable={true}
                 onDrag={(e) => handleMarkerDrag(e, index)}
                 onDragEnd={(e) => handleMarkerDragEnd(e, marker._id)}
@@ -277,7 +240,6 @@ const MapContainer: React.FC = () => {
                     lng: parseFloat(marker.long),
                   });
                 }}
-                // Add other properties as needed
               />
               {selectedMarker && selectedMarker._id === marker._id && (
                 <InfoWindow
@@ -304,9 +266,8 @@ const MapContainer: React.FC = () => {
                 center={{
                   lat: parseFloat(marker.lat),
                   lng: parseFloat(marker.long),
-                }} // Ensure lat and lng are parsed as numbers
+                }} 
                 radius={marker.radius}
-                // Add other properties as needed
               />
             </React.Fragment>
           ))}
