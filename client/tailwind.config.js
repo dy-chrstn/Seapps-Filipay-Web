@@ -45,10 +45,6 @@ export default {
       textColor: "#EEEEEE",//#EEEEEE
       button: "#76ABAE"
     },
-    fontSize: {
-      fontTitle: "30px",
-    }
-  
   },
   plugins: [],
 }
