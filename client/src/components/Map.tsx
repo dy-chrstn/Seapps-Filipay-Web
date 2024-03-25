@@ -492,6 +492,7 @@ const MapContainer: React.FC = () => {
     // For example, you might want to set a new radius based on the distance from a fixed point or another marker
     // Update the state with the new markers array
     setMarkers(newMarkers);
+    setDisplay({lat: e.latLng.lat(), lng: e.latLng.lng()})
   };
 
   const handleMarkerDragEnd = async (e: any, markerId: string) => {
@@ -571,25 +572,25 @@ const MapContainer: React.FC = () => {
           center={mapCenter}
           onClick={openModal}
         >
-          {/* {mapLoaded &&
+          {mapLoaded &&
             pin.map((pinItem, index) => (
               <React.Fragment key={index}>
                 <Marker
                   position={{
-                    lat: pinItem.position.lat,
-                    lng: pinItem.position.lng,
+                    lat: 14.418331431423372,
+                    lng: 121.04331822703718,
                   }}
                   animation={window.google.maps.Animation.DROP}
                 />
                 <Circle
                   center={{
-                    lat: pinItem.position.lat,
-                    lng: pinItem.position.lng,
+                    lat: 14.418331431423372,
+                    lng: 121.04331822703718,
                   }}
-                  radius={pinItem.radius}
+                  radius={5}
                 />
               </React.Fragment>
-            ))} */}
+            ))}
           <SideBar
             isOpen={sideBarOpen}
             onClose={() => setSideBarOpen(false)}
@@ -638,9 +639,7 @@ const MapContainer: React.FC = () => {
                 // Add other properties as needed
               />
               {infoWindowOpen &&
-                selectedMarkerId === index + 1 &&
-                label !== "Starting Pin" &&
-                label !== "Ending Pin" && (
+                selectedMarkerId === index + 1 &&(
                   <InfoWindow
                   position={{lat: parseFloat(marker.lat), lng: parseFloat(marker.long)}}
                     onCloseClick={handleInfoWindowClose}
@@ -664,123 +663,7 @@ const MapContainer: React.FC = () => {
                 // Add other properties as needed
               />
             </React.Fragment>
-          ))}
-          ;
-          {/* {startingPin.map((startingPinItem, index) => (
-            <>
-              <Marker
-                key={index}
-                position={startingPinItem.position}
-                draggable={true}
-                animation={google.maps.Animation.DROP}
-                onRightClick={() => {
-                  // console.log('rightClickMarker')
-                  pinClick(
-                    index + 1,
-                    startingPinItem.position.lat,
-                    startingPinItem.position.lng
-                  );
-                  handleMarkerRightClick(
-                    startingPinItem.id,
-                    "Starting Pin",
-                    startingPinItem.radius
-                  );
-                  setDisplay(startingPinItem.position);
-                }}
-                onClick={() => {
-                  setInfoWindowOpen(true);
-                  setSelectedMarkerId(index + 1);
-                  handleMarkerClick(index + 1, "Starting Pin");
-                  handleinfoWindow(index + 1, "Starting Pin");
-                }}
-                onDrag={(e) => {
-                  if (e.latLng) {
-                    dragMarker(startingPinItem.id, startingPinItem.label, {
-                      lat: e.latLng.lat(),
-                      lng: e.latLng.lng(),
-                    });
-                  }
-                }}
-              >
-                {infoWindowOpen &&
-                  selectedMarkerId === index + 1 &&
-                  label === "Starting Pin" && (
-                    <InfoWindow
-                      position={startingPinItem.position}
-                      onCloseClick={handleInfoWindowClose}
-                      options={{
-                        maxWidth: 200,
-                        //  pixelOffset: new window.google.maps.Size(0, -30)
-                      }}
-                    >
-                      <div>
-                        <p>{startingPinItem.label}</p>
-                      </div>
-                    </InfoWindow>
-                  )}
-              </Marker>
-              <Circle
-                center={startingPinItem.position}
-                radius={startingPinItem.radius}
-              />
-            </>
-          ))}
-
-          {endingPin.map((pinItem, index) => (
-            <>
-              <Marker
-                key={index}
-                position={pinItem.position}
-                draggable={true}
-                animation={google.maps.Animation.DROP}
-                onRightClick={() => {
-                  // console.log('rightClickMarker')
-                  pinClick(
-                    index + 1,
-                    pinItem.position.lat,
-                    pinItem.position.lng
-                  );
-                  handleMarkerRightClick(
-                    pinItem.id,
-                    "Ending Pin",
-                    pinItem.radius
-                  );
-                  setDisplay(pinItem.position);
-                }}
-                onClick={() => {
-                  setInfoWindowOpen(true);
-                  handleMarkerClick(index + 1, "Ending Pin");
-                  handleinfoWindow(index + 1, "Ending Pin");
-                }}
-                onDrag={(e) => {
-                  if (e.latLng) {
-                    dragMarker(pinItem.id, pinItem.label, {
-                      lat: e.latLng.lat(),
-                      lng: e.latLng.lng(),
-                    });
-                  }
-                }}
-              >
-                {infoWindowOpen &&
-                  selectedMarkerId === index + 1 &&
-                  label === "Ending Pin" && (
-                    <InfoWindow
-                      position={pinItem.position}
-                      onCloseClick={handleInfoWindowClose}
-                      options={{
-                        maxWidth: 200,
-                        //  pixelOffset: new window.google.maps.Size(0, -30)
-                      }}
-                    >
-                      <div>
-                        <p>{pinItem.label}</p>
-                      </div>
-                    </InfoWindow>
-                  )}
-              </Marker>
-              <Circle center={pinItem.position} radius={pinItem.radius} />
-            </>
-          ))} */}
+          ))};
           {/* {startingPin && 
             <>
              <Marker 
