@@ -266,7 +266,7 @@ const MapContainer: React.FC = () => {
                 center={{
                   lat: parseFloat(marker.lat),
                   lng: parseFloat(marker.long),
-                }} 
+                }}
                 radius={marker.radius}
               />
             </React.Fragment>

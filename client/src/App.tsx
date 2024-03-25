@@ -1,14 +1,14 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import MapContainer from './components/Map';
 import Stations from './pages/administrator/stations';
-import NavBar from './components/NavBar';
+import Login from './pages/login';
 
 
 function App() {
   return (
     <Routes>
+      <Route path='/' element={<Login />} />
       <Route path='/stations' element={<Stations />} />
+
     </Routes>
   );
 }
