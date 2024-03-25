@@ -17,7 +17,11 @@ interface SideBarProps {
   onDeleteMarker: () => void;
   display: { lat: number; lng: number };
   marker: MarkerData | null;
-  handleUpdateInfo: (newStation: string | undefined, newKm: number | undefined, newRadius: number | undefined) => void
+  handleUpdateInfo: (
+    newStation: string | undefined,
+    newKm: number | undefined,
+    newRadius: number | undefined
+  ) => void;
 }
 
 const SideBar: React.FC<SideBarProps> = ({
@@ -26,37 +30,43 @@ const SideBar: React.FC<SideBarProps> = ({
   onDeleteMarker,
   display,
   marker,
-  handleUpdateInfo
+  handleUpdateInfo,
 }) => {
-  const [markerValue, setMarkerValue] = useState<MarkerData[]>([]);
-  const [newRadius, setNewRadius] = useState("5");
+  const [newRadius, setNewRadius] = useState(marker?.radius);
   const [newStation, setNewStation] = useState(marker?.stationName);
   const [newKm, setNewKm] = useState(marker?.km);
-  const [newLabel, setNewLabel] = useState<{ label: string }>({ label: "" });
-  const [pinId, setPinId] = useState("");
 
   const lat = display.lat.toString();
   const lng = display.lng.toString();
 
+  useEffect(() => {
+    setNewRadius(marker?.radius);
+    setNewStation(marker?.stationName);
+    setNewKm(marker?.km);
+  }, [marker]);
+
   const handleUpdate = async () => {
-    try{
-      const res = await axios.patch(`http://localhost:3050/updateMarkerById/${marker?._id}`, {
-        stationName: newStation,
-        km: newKm,
-        lat: lat,
-        long: lng,
-        radius: parseFloat(newRadius),
-      })
-      if(res.status === 200){
-        console.log("Update marker successfully: ", res.data)
-        handleUpdateInfo(newStation, newKm, parseFloat(newRadius));
+    try {
+      const res = await axios.patch(
+        `http://localhost:3050/updateMarkerById/${marker?._id}`,
+        {
+          stationName: newStation,
+          km: newKm,
+          lat: lat,
+          long: lng,
+          radius: newRadius,
+        }
+      );
+
+      if (res.status === 200) {
+        console.log("Update marker successfully: ", res.data);
+        handleUpdateInfo(newStation, newKm, newRadius);
         onClose();
       }
-      
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
+
     onClose();
   };
 
@@ -64,10 +74,11 @@ const SideBar: React.FC<SideBarProps> = ({
     onDeleteMarker();
   };
 
-  const handleRadiusChange = (event: any) => {
+  const handleRadiusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (!isNaN(value) || value !== "") {
-      setNewRadius(value);
+    const val = parseFloat(value);
+    if (!isNaN(val) || value === "") {
+      setNewRadius(val);
     }
   };
 
@@ -99,10 +110,9 @@ const SideBar: React.FC<SideBarProps> = ({
         placeholder="Station name: "
         pattern="\d*"
         className="w-full"
-        onChange={
-          handleStationNameChange
-        }
+        onChange={handleStationNameChange}
         value={newStation}
+        readOnly={newStation === "Starting Pin" || newStation === "Ending Pin"}
       />
       <h1>Kilometer:</h1>
       <input

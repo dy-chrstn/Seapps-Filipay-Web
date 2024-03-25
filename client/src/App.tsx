@@ -9,7 +9,6 @@ function App() {
     <div>
       <NavBar/>
       <MapContainer />
-
     </div>
   );
 }

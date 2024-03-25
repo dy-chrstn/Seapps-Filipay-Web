@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   position: { x: number; y: number };
   addNewPin: (event: any) => void;
-  addStartingPin: (event: any) => void;
-  addEndingPin: (event: any) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -14,8 +12,6 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   position,
   addNewPin,
-  addStartingPin,
-  addEndingPin,
 }) => {
   if (!isOpen) return null;
 
@@ -31,20 +27,20 @@ const Modal: React.FC<ModalProps> = ({
       <div className="flex flex-col justify-center items-center">
         <button
           className=" w-150px p-2 mb-2 bg-button rounded-md duration-100 hover:py-3"
-          onClick={addNewPin}
+          onClick={() => addNewPin("")}
         >
           {" "}
           Add Pin
         </button>
         <button
           className=" w-150px p-2 mb-2 bg-button rounded-md duration-100 hover:py-3 hover:w-boxHoverW"
-          onClick={addStartingPin}
+          onClick={() => addNewPin("Starting Pin")}
         >
           Add Staring Pin
         </button>
         <button
           className=" w-150px p-2 mb-2 bg-button rounded-md duration-100 hover:py-3 hover:w-boxHoverW "
-          onClick={addEndingPin}
+          onClick={() => addNewPin("Ending Pin")}
         >
           Add Ending Pin
         </button>
