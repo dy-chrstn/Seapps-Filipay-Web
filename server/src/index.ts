@@ -19,7 +19,7 @@ server.listen(port, () => {
 });
 
 const MONGO_URL = process.env.MONGO_URL;
-// const MONGO_URL = 'mongodb://localhost:27017/filipay';
+// const MONGO_URL = 'mongodb://localhost:27017/googleMap';
 
 mongoose.set("strictQuery", false);
 mongoose.Promise = Promise;
