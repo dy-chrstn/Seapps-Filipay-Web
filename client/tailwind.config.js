@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+import colors from 'tailwindcss/colors'
 export default {
   content: ["./index.html",
   "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+
       height: {
         "boxHeight": "200px",
         "boxHoverH": "160px"
@@ -14,7 +16,10 @@ export default {
         "boxHoverW": "155px",
         "150px": "150px",
         "100px": "100px",
-        "300": "300px"
+        "300": "300px",
+        "80%": "80%",
+        "70%": "70%",
+        "10%": "10%",
       },
       inset: {
         'custom-top': '300px', // Define custom top direction
@@ -30,24 +35,37 @@ export default {
       transitionDuration: {
         '5s': '5s', 
         // Add more custom transition durations as needed
-      }
+      },
+      colors: {
+        // Tailwind's default color palette
+        transparent: 'transparent',
+        current: 'currentColor',
+        // Additional common colors
+        primary: '#007bff', // Primary color
+        secondary: '#6c757d', // Secondary color
+        success: '#28a745', // Success color
+        info: '#17a2b8', // Info color
+        warning: '#ffc107', // Warning color
+        danger: '#dc3545', // Danger color
+        light: '#f8f9fa', // Light color
+        dark: '#343a40', // Dark color
+      },
+
+      fontFamily: {
+        'sans': ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+        'serif': ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+        'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+      },
 
 
 
     },
-    colors: {
-      bgColor: "#222831",//#222831
-      white: "#EEEEEE",
-      pink: "pink",
-      bghover: "#31363F",
-      //#31363F
-      //#76ABAE
-      textColor: "#EEEEEE",//#EEEEEE
-      button: "#76ABAE"
+
+    variants: {
+      extend: {
+        borderColor: ['focus'], // Enable focus variants for border color
+      },
     },
-    fontSize: {
-      fontTitle: "30px",
-    }
   
   },
   plugins: [],
