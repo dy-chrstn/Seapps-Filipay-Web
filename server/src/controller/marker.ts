@@ -50,6 +50,24 @@ export const getMarkers = async (req: express.Request, res: express.Response) =>
     }
 }
 
+export const deleteMarker = async (req: express.Request, res: express.Response) => {
+    const { id } = req.params;
+    try {
+        const deletedMarker = await deleteOneMarker(id);
+        res.status(200).json({
+            code: 0,
+            message: "Marker deleted successfully",
+            deletedMarker
+        });
+    } catch (error) {
+        res.status(500).json({
+            code: 1,
+            message: error
+        });
+    }
+}
+
+
 export const updateMarkerById = async (req: express.Request, res: express.Response) => {
     const { id } = req.params;
     const { coopId, stationName, km, radius, lat, long } = req.body;
@@ -69,23 +87,6 @@ export const updateMarkerById = async (req: express.Request, res: express.Respon
             code: 0,
             message: "Marker updated successfully",
             updatedMarker
-        });
-    } catch (error) {
-        res.status(500).json({
-            code: 1,
-            message: error
-        });
-    }
-}
-
-export const deleteMarker = async (req: express.Request, res: express.Response) => {
-    const { id } = req.params;
-    try {
-        const deletedMarker = await deleteOneMarker(id);
-        res.status(200).json({
-            code: 0,
-            message: "Marker deleted successfully",
-            deletedMarker
         });
     } catch (error) {
         res.status(500).json({
