@@ -16,11 +16,14 @@ const handleInputChange = (event: any) => {
 return (
     <div className='w-screen h-screen'>
         <Header/> 
-        <div className=''>
-        <Menu/>
-        <div className='w-full '>
-            {/* body */}
-        </div>
+      
+        <div className=' flex flex-row w-screen '>
+            <div className=' w-[23%]'>
+                 <Menu/>
+            </div>
+            <div className=' w-full h-full'>
+                {/* body */}
+            </div>
 
         </div>
         
