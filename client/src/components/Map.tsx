@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
+// import io from 'socket.io-client';
 import {
   GoogleMap,
   LoadScript,
@@ -22,13 +23,11 @@ interface MarkerData {
 }
 
 const MapContainer: React.FC = () => {
-  const defaultCenter = useMemo(
-    () => ({
-      lat: 14.6091,
-      lng: 121.0223,
-    }),
-    []
-  );
+  const defaultCenter = {
+    lat:  14.418331431423372, 
+    lng: 121.04331822703718,
+  };
+
 
   const mapStyles = {
     height: "100vh",
@@ -84,6 +83,7 @@ const MapContainer: React.FC = () => {
       console.log("Marker added successfully: ", res.data);
 
       setMarkers([...markers, res.data.marker]);
+      // setPin([...pin, newPin]);
       setModalOpen(false);
     } catch (err) {
       console.log("Error adding marker: ", err);
@@ -232,14 +232,14 @@ const MapContainer: React.FC = () => {
                   pinClick(
                     marker.km,
                     parseFloat(marker.lat),
-                    parseFloat(marker.long)
+                    parseFloat(marker.long),
                   );
-                  handleMarkerRightClick(marker);
-                  setDisplay({
-                    lat: parseFloat(marker.lat),
-                    lng: parseFloat(marker.long),
-                  });
+                  handleMarkerRightClick(
+                    marker,
+                  );
+                  setDisplay({lat: parseFloat(marker.lat), lng: parseFloat(marker.long)});
                 }}
+
               />
               {selectedMarker && selectedMarker._id === marker._id && (
                 <InfoWindow
@@ -266,7 +266,7 @@ const MapContainer: React.FC = () => {
                 center={{
                   lat: parseFloat(marker.lat),
                   lng: parseFloat(marker.long),
-                }}
+                }} 
                 radius={marker.radius}
               />
             </React.Fragment>
