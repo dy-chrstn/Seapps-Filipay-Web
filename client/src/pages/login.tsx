@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi'; 
 import SlideShow from '../components/LogIn/slideshow';
 import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
     const [inputValue, setInputValue] = useState<string>('');
     const [passValue, setPassValue] = useState<string>('');
-    const [isValid, setIsValid] = useState(true)
+    const [isValid, setIsValid] = useState(true);
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const navigate = useNavigate();
 
-    const admin = "admin"
-    const pass = "1234"
-const handleInputChange = (event: any) => {
-    setInputValue(event.target.value);
-  };
+    const admin = "admin";
+    const pass = "1234";
 
-  const handlePassChange = (event: any) => {
-      setPassValue(event.target.value);
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPassValue(event.target.value);
     };
 
     const isValidInput = (value: string) => {
@@ -23,102 +27,83 @@ const handleInputChange = (event: any) => {
         return !regex.test(value);
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // Prevent default form submission
         if (isValidInput(inputValue) && isValidInput(passValue)) {
             navigatePage(); // Navigate only if input fields are valid
         } else {
             setIsValid(false);
-            setInputValue("")
-            setPassValue("") // Show error message if input fields are invalid
+            setInputValue("");
+            setPassValue(""); // Show error message if input fields are invalid
         }
     };
 
-    const navigate = useNavigate();
-    
     const navigatePage = () => {
-
-
-        if(inputValue === admin && passValue === pass){
-            navigate('/dashboard')
+        if (inputValue === admin && passValue === pass) {
+            navigate('/dashboard');
+        } else {
+            setIsValid(false);
+            setInputValue("");
+            setPassValue("");
         }
+    };
 
-        else{
-            setIsValid(false); 
-            setInputValue("")
-            setPassValue("")
-            
-        }
-    }  
-
-    
-return (
-    <div className='w-screen h-screen flex flex-row items-center'>
-        <div className='  w-1/2 h-screen flex '>
-            <div className = " w-full flex flex-col my-7">
-                <div className=' flex justify-center items-center'>
-                    <img className=" w-40 h-40" src="/Img/Filipay-logo-893d1a80.png" alt="FiliPay Logo" />
-                </div>
-            
-                <form className = " px-9 mx-1" onSubmit={handleSubmit}>
-                    <p className = "text-4xl font-bold font-sans">Sign In</p>
-                  
-                    <p className = "text-lg font-medium font-sans mb-3" >Email</p>
-                    <input className='border border-gray focus:outline-none p-2 w-full rounded-lg' 
-                        type="text"
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        placeholder="name@company.com"
-                        required={true}
-                    />
-                    
-
-                    <p className = "text-lg font-medium font-sans mb-3 mt-5" >Password</p>
-                    <input className='border border-gray focus:outline-none p-2 w-full rounded-lg' 
-                        type="password"
-                        value={passValue}
-                        onChange={handlePassChange}
-                        placeholder="Enter your Password"
-                        required={true}
-                    />
-
-                    <div className ="flex flex-row items-center mt-4">
-                        <input className='border border-gray rounded-lg mr-1' 
-                            type="checkbox"
-                            value={passValue}
-                            onChange={handlePassChange}
-                            placeholder="Enter your Password"
+    return (
+        <div className="flex h-screen pl-16">
+            <div className="w-full bg-white p-6 flex justify-center items-center">
+                <div className="max-w-md w-full">
+                    <div className=' flex justify-center'>
+                        <img className="-mt-1 w-32 h-32" src="/Img/Filipay-logo-893d1a80.png" alt="FiliPay Logo" />
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <p className="text-4xl font-bold font-sans text-left">Sign In</p>
+                        <p className="py-4 mb-0 text-lg font-medium font-sans">Email Address</p>
+                        <input className='border border-gray focus:outline-none p-2 w-full rounded-lg mb-4'
+                            type="text"
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            placeholder="name@company.com"
                             required={true}
                         />
-                        <p className = "text-sm font-sans">Keep me logged in</p>
-                    </div>
-
-                    <div className='flex w-full justify-center'>
-                    {!isValid ? <p className = "text-xs font-medium font-sans mt-5 text-red-500" >Invalid Username or Password</p>
-                    : <p className = "mt-9" ></p>}
-            
-                    </div>
-                   
-                  <button type = "submit" className='text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-xl text-lg px-5 py-2.5  mb-2 mt-2 w-full'>SIGN IN</button>
-
-                    
-                
-                </form>
-            </div>  
-        
+                        <p className="text-lg font-medium font-sans mb-3">Password</p>
+                        <div className="relative">
+                            <input className='border border-gray focus:outline-none p-2 w-full rounded-lg mb-6'
+                                type={showPassword ? 'text' : 'password'} // Toggle password visibility
+                                value={passValue}
+                                onChange={handlePassChange}
+                                placeholder="Enter your Password"
+                                required={true}
+                            />
+                            <span
+                                className="absolute top-3 right-4 cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                            >
+                                {showPassword ? <FiEyeOff /> : <FiEye />}
+                            </span>
+                        </div>
+                        <p className="text-sm font-sans text-right text-blue-500 cursor-pointer mb-4">Forgot Password?</p>
+                        <div className="flex items-center mb-6">
+                            <input className='border border-gray rounded-lg mr-2'
+                                type="checkbox"
+                                value={passValue}
+                                onChange={handlePassChange}
+                                required={true}
+                            />
+                            <p className="text-sm font-sans">Keep me logged in</p>
+                        </div>
+                        <div className='flex justify-center'>
+                            {!isValid ? <p className="text-xs font-medium font-sans mt-5 text-red-500">Invalid Username or Password</p> : null}
+                        </div>
+                        <button type="submit" className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-xl text-lg px-5 py-2.5 w-full'>SIGN IN</button>
+                    </form>
+                </div>
+            </div>
+            {/* Right side with slideshow */}
+            <div className="w-2/3 m-10 hidden md:block">
+                <SlideShow />
+            </div>
         </div>
-
-
-
-        <div className=' flex w-full h-screen py-7 px-3'>
-            {/* <img className = "w-full flex rounded-2xl" src = "/public/Img/login/background-image-b201e33a.jpg"/>
-            <img className = "absolute my-32 mx-16" src = "/public/Img/login/first-slide-text-4b72792a.png"/> */}
-            <SlideShow/>
-        </div>
-    </div>
-  );
-
-}
-
+    );
+};
 
 export default LogIn;
