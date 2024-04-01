@@ -29,7 +29,7 @@ const Header = () => {
         {menuVisible ?
         <div className=" w-[47%] py-3">
             <div className=" bg-blue-900  flex items-center flex-row  h-[10&] ">
-              <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/download.png" alt="FiliPay Logo" />
+              <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
               <div className="text-center">
                   <p className="text-sky-300 font-bold">Management</p>
                   <p className="text-sky-300 font-bold">Dashboard</p>
@@ -39,7 +39,7 @@ const Header = () => {
         
         :     <div className="bg-blue-900 w-[48%] py-3">
                   <div className=" flex items-center flex-row w-full h-[10&]">
-                    <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/download.png" alt="FiliPay Logo" />
+                    <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
                     <div className="text-center">
                         <p className="text-sky-300 font-bold">Management</p>
                         <p className="text-sky-300 font-bold">Dashboard</p>

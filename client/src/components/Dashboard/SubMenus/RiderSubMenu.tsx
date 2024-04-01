@@ -2,12 +2,11 @@
 
 // import React, { useState, useEffect } from 'react'
 
-import { MdEmojiTransportation } from "react-icons/md";
-import { RiCustomerService2Fill } from "react-icons/ri";
-import { FaCar } from "react-icons/fa";
+import { FaWallet } from "react-icons/fa";
+import { FaBus } from "react-icons/fa";
+import { LuMessagesSquare } from "react-icons/lu";
 import { TbDeviceMobileCog } from "react-icons/tb";
-import { TbTruckDelivery } from "react-icons/tb";
-import { IoBusiness } from "react-icons/io5";
+import { FaClipboardList } from "react-icons/fa";
 
 const RiderSubMenu = () => {
 
@@ -17,8 +16,8 @@ const RiderSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <MdEmojiTransportation className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Transport Cooperative</p>
+                    <FaClipboardList className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Rider List</p>
                     </div>
                 </div>
             </div>
@@ -27,8 +26,8 @@ const RiderSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <RiCustomerService2Fill className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle Service</p>
+                    <FaWallet className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Wallet</p>
                     </div>
                 </div>
             </div>
@@ -37,8 +36,8 @@ const RiderSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <FaCar className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle</p>
+                    <FaBus className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Ride History</p>
                     </div>
                 </div>
             </div>
@@ -47,8 +46,8 @@ const RiderSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <TbDeviceMobileCog className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Device</p>
+                    <LuMessagesSquare className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Messages</p>
                     </div>
                 </div>
             </div>
