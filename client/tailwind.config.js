@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import colors from 'tailwindcss/colors'
+import colors, { teal } from 'tailwindcss/colors'
 export default {
   content: ["./index.html",
   "./src/**/*.{js,ts,jsx,tsx}"],
@@ -49,6 +49,9 @@ export default {
         danger: '#dc3545', // Danger color
         light: '#f8f9fa', // Light color
         dark: '#343a40', // Dark color
+        buttonTeal: '#0db3f0', //for Swiper Button
+        buttonDarkTeal: '#4096f6',//for Swiper Button
+        buttonNeonPurple: '#9a63ff'//for Swiper Button
       },
 
       fontFamily: {
