@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/components/display.tsx", "addons/mapcgh.tsx", "addons/sample.tsx", "addons/NewMap.tsx"],
+  "include": ["src", "src/components/Stations/display.tsx", "addons/mapcgh.tsx", "addons/sample.tsx", "addons/NewMap.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

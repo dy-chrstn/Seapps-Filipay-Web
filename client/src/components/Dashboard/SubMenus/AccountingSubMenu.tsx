@@ -2,13 +2,13 @@
 
 // import React, { useState, useEffect } from 'react'
 
-import { MdEmojiTransportation } from "react-icons/md";
-import { RiCustomerService2Fill } from "react-icons/ri";
-import { FaCar } from "react-icons/fa";
-import { TbDeviceMobileCog } from "react-icons/tb";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
+import { FaPesoSign } from "react-icons/fa6";
+import { MdOutlineAddCard } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { IoBusiness } from "react-icons/io5";
-
+import { MdAccountBox } from "react-icons/md";
+import { BsGraphUpArrow } from "react-icons/bs";
 const AccountingSubMenu = () => {
 
     return (
@@ -17,8 +17,8 @@ const AccountingSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <MdEmojiTransportation className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Transport Cooperative</p>
+                    <MdAccountBox className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Account Management</p>
                     </div>
                 </div>
             </div>
@@ -27,8 +27,8 @@ const AccountingSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <RiCustomerService2Fill className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle Service</p>
+                    <FaMoneyBill1Wave className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Fare Income</p>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,8 @@ const AccountingSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <FaCar className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle</p>
+                    <FaPesoSign className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Cash Income</p>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@ const AccountingSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <TbDeviceMobileCog className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Device</p>
+                    <BsGraphUpArrow className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Load Sales</p>
                     </div>
                 </div>
             </div>
@@ -57,21 +57,13 @@ const AccountingSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <TbTruckDelivery className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Distributor</p>
+                    <MdOutlineAddCard className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Card Sales</p>
                     </div>
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 ml-10 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
-                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
-                    <div className='flex flex-row gap-4 items-center'>
-                    <IoBusiness className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Retailer</p>
-                    </div>
-                </div>
-            </div>
+         
         </div>
   
 
