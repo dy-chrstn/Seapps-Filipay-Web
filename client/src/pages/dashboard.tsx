@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import SlideShow from '../components/LogIn/slideshow';
+
 import Header from '../components/Dashboard/header';
-import Menu from '../components/Dashboard/Menu/menu';
+
 
 const Dashboard = () => {
     const [inputValue, setInputValue] = useState<string>('');
@@ -16,16 +16,7 @@ const handleInputChange = (event: any) => {
 return (
     <div className='w-screen h-screen'>
         <Header/> 
-      
-        <div className=' flex flex-row w-screen '>
-            <div className=' w-[23%]'>
-                 {/* <Menu/> */}
-            </div>
-            <div className=' w-full h-full'>
-                {/* body */}
-            </div>
-
-        </div>
+    
         
 
     </div>

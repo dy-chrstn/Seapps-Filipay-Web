@@ -40,19 +40,20 @@ const Header = () => {
   const [menuVisible, setMenuVisible] = useState(true)
 
     return (
-      <div className=' flex flex-row items-start w-screen '>
+      <div className='flex flex-row items-start w-screen mb-[-3px]'>
 
-        <div onClick = {menuOpen} className=" w-[23%] ">
-            <div className=" bg-blue-900  flex items-center flex-row  h-[10&]  py-3 ">
+        <div onClick = {menuOpen} className=" bg-blue-900 w-[25%]">
+            <div className="   flex items-center flex-row py-3 ">
               <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
               <div className="text-center">
                   <p className="text-sky-300 font-bold">Management</p>
                   <p className="text-sky-300 font-bold">Dashboard</p>
               </div>
-          </div>
+            </div>
+            {/* {menuVisible ? <Menu/> : <MiniMenu/>} */}
         </div>
         
-        {menuVisible ? <Menu/> : <MiniMenu/>}
+     
 
 
    

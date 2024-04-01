@@ -74,7 +74,7 @@ const Menu = () => {
     }
 
     return (
-      <div className='flex flex-col bg-blue-900 w-[18.9%] absolute top-16 pb-10 pt-10'>
+      <div className='flex flex-col bg-blue-900 w-[20%] pb-10 pt-10 mb-[-3px] '>
 {/* 
             <div className=" w-[48%] py-3">
                     <div className="   flex items-center flex-row w-full h-[10&] ">
@@ -91,7 +91,7 @@ const Menu = () => {
                 <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white ">
                     <div className="w-full flex flex-row items-center py-1 bg-blue-800 ">
                         <MdDashboard className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                        <p className="font-bold text-xs font-sans text-white">Dashboard</p>
+                        <p className="font-bold text-xs font-sans text-white">DashBoard</p>
                     </div>
                 </div> 
             </div>

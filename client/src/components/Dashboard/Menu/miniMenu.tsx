@@ -22,11 +22,12 @@ const Menu = () => {
     const [isHover, setIsHover] = useState(false);
     const [isMenuHover, setIsMenuHover] = useState(false);
 
-
-    const hoverIn = () => {
+    const hoverInClient = () => {
         setTimeout(() => {
             setIsMenuHover(true)
-          }, 300);
+        }, 300);
+    }
+    const hoverIn = () => {
           setIsHover(true)
     }
 
@@ -43,6 +44,7 @@ const Menu = () => {
             setRiderSubMenu(false)
             setDistributionSubMenu(false)
             setAccountingSubMenu(false)
+            
         }
 
         else
@@ -132,7 +134,7 @@ const Menu = () => {
             <div  className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                 <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                     <div className='w-full flex flex-row items-center'>
-                        <FaUser className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
+                        <FaUser onMouseEnter={hoverInClient} className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
                     </div>
                     <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${clientSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                 </div>
@@ -180,7 +182,7 @@ const Menu = () => {
                 <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
-                        <GiFullMotorcycleHelmet className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                        <GiFullMotorcycleHelmet onMouseEnter={hoverIn} className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${riderSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                     </div>
