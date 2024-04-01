@@ -11,7 +11,7 @@ const SlideShow = () => {
       slidesPerView: 1,
       loop: true,
       autoplay: {
-        delay: 10000,
+        delay: 5000,
       },
       pagination: {
         el: ".swiper-pagination",
