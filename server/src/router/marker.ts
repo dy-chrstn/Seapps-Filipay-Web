@@ -6,5 +6,7 @@ export default (router: express.Router) => {
     router.post('/registerMarker', registerMarker);
     router.delete('/deleteMarker/:id', deleteMarker);
     router.patch('/updateMarkerById/:id', updateMarkerById);
+
+
     return router;
 }
