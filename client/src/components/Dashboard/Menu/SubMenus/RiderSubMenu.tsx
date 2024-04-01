@@ -5,14 +5,17 @@
 import { FaWallet } from "react-icons/fa";
 import { FaBus } from "react-icons/fa";
 import { LuMessagesSquare } from "react-icons/lu";
-import { TbDeviceMobileCog } from "react-icons/tb";
 import { FaClipboardList } from "react-icons/fa";
 
-const RiderSubMenu = () => {
+type RiderSubMenuProps = {
+    isMenuFull: boolean;
+  };
+
+const RiderSubMenu: React.FC<RiderSubMenuProps> = ({ isMenuFull }) => {
 
     return (
-        <div className=''>
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 ml-10 py-1 '>
+        <div className={`bg-blue-900 w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-44 '} p-2 pl-1 rounded-lg`}> 
+            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -22,7 +25,7 @@ const RiderSubMenu = () => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 ml-10 py-1 '>
+            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -32,7 +35,7 @@ const RiderSubMenu = () => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 ml-10 py-1 '>
+            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -42,7 +45,7 @@ const RiderSubMenu = () => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 ml-10 py-1 '>
+            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>

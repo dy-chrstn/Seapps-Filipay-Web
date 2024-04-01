@@ -1,5 +1,5 @@
 //import React from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { MdDashboard } from "react-icons/md";
 import { FaGreaterThan } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
@@ -20,18 +20,31 @@ import AccountingSubMenu from './SubMenus/AccountingSubMenu';
 const Menu = () => {
 
     const [isHover, setIsHover] = useState(false);
+    const [isMenuHover, setIsMenuHover] = useState(false);
+
 
     const hoverIn = () => {
-        setIsHover(true)
+        setTimeout(() => {
+            setIsMenuHover(true)
+          }, 300);
+          setIsHover(true)
     }
+
     const hoverOut = () => {
         setIsHover(false)
+        setIsMenuHover(false)
     }
 
     const [clientSubMenu, setClientSubMenu] = useState(false)
     const openClientSubMenu = () => {
-        if(!clientSubMenu)
-        setClientSubMenu(true)
+        if(!clientSubMenu){
+            setClientSubMenu(true)
+            setDriverSubMenu(false)
+            setRiderSubMenu(false)
+            setDistributionSubMenu(false)
+            setAccountingSubMenu(false)
+        }
+
         else
         setClientSubMenu(false)
 
@@ -39,26 +52,28 @@ const Menu = () => {
 
     const [driverSubMenu, setDriverSubMenu] = useState(false)
     const openDriverSubMenu = () => {
-        if(!driverSubMenu)
-        setDriverSubMenu(true)
+        if(!driverSubMenu){
+            setClientSubMenu(false)
+            setDriverSubMenu(true)
+            setRiderSubMenu(false)
+            setDistributionSubMenu(false)
+            setAccountingSubMenu(false)
+        }
+        
         else
         setDriverSubMenu(false)
 
     }
 
-    const [accountingSubMenu, setAccountingSubMenu] = useState(false)
-    const openAccountingSubMenu = () => {
-        if(!accountingSubMenu)
-        setAccountingSubMenu(true)
-        else
-        setAccountingSubMenu(false)
-
-    }
-
     const [riderSubMenu, setRiderSubMenu] = useState(false)
     const openRiderSubMenu = () => {
-        if(!riderSubMenu)
-        setRiderSubMenu(true)
+        if(!riderSubMenu){
+            setClientSubMenu(false)
+            setDriverSubMenu(false)
+            setRiderSubMenu(true)
+            setDistributionSubMenu(false)
+            setAccountingSubMenu(false)
+        }
         else
         setRiderSubMenu(false)
 
@@ -66,32 +81,39 @@ const Menu = () => {
 
     const [distributionSubMenu, setDistributionSubMenu] = useState(false)
     const openDistributionSubMenu = () => {
-        if(!distributionSubMenu)
-        setDistributionSubMenu(true)
+        if(!distributionSubMenu){
+            setClientSubMenu(false)
+            setDriverSubMenu(false)
+            setRiderSubMenu(false)
+            setDistributionSubMenu(true)
+            setAccountingSubMenu(false)
+        }
         else
         setDistributionSubMenu(false)
 
     }
 
+    const [accountingSubMenu, setAccountingSubMenu] = useState(false)
+    const openAccountingSubMenu = () => {
+        if(!accountingSubMenu){
+            setClientSubMenu(false)
+            setDriverSubMenu(false)
+            setRiderSubMenu(false)
+            setDistributionSubMenu(false)
+            setAccountingSubMenu(true)
+        }
+        else
+        setAccountingSubMenu(false)
+
+    }
+
     return (
-      <div className='flex flex-col bg-blue-900 w-[18.9%] absolute top-0 pb-10'>
-
-            <div className=" w-[48%] py-3">
-                    <div className="   flex items-center flex-row w-full h-[10&] ">
-                        <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
-                        <div className="text-center">
-                            <p className="text-sky-300 font-bold">Management</p>
-                            <p className="text-sky-300 font-bold">Dashboard</p>
-                        </div>
-                    </div>
-            </div>
-
+      <div className='flex flex-col bg-blue-900 w-[4%] absolute top-16 pb-10 pt-10'>
             {!isHover ? 
             <div className='group py-1'>
                 <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white ">
                     <div className="w-full flex flex-row items-center py-1 bg-blue-800 ">
-                        <MdDashboard className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                        <p className="font-bold text-xs font-sans text-white">Dashboard</p>
+                        <MdDashboard className= "mx-1  flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                     </div>
                 </div> 
             </div>
@@ -100,8 +122,7 @@ const Menu = () => {
             <div className='group py-1'>
                 <div className="border-l-4 border-blue-900 py-1 group-border-l-4 hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300">
-                        <MdDashboard className= "mx-2 flex-shrink-0 gap-2 " size ={20} color={"#7dd3fc"}/>
-                        <p className="font-bold text-xs font-sans text-white">Dashboard</p>
+                        <MdDashboard className= "mx-1  flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                     </div>
                 </div>
             </div>
@@ -111,18 +132,23 @@ const Menu = () => {
             <div  className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                 <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                     <div className='w-full flex flex-row items-center'>
-                        <FaUser className= "mx-2 flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
-                     
-                        <p className="font-bold text-xs font-sans text-white">Client</p>
+                        <FaUser className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
                     </div>
-
                     <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${clientSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                 </div>
             </div>
             </div>
-           
+
+            {isMenuHover && (
+                <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
+                    <p className='font-semibold text-white'>Client</p>
+                </div>
+            )}
+                
+
+
                 {clientSubMenu && (
-                    <ClientSubMenu/>
+                    <ClientSubMenu isMenuFull = {false}/>
                 )}
                 
 
@@ -130,17 +156,22 @@ const Menu = () => {
                 <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
-                         
-                            <TbSteeringWheel className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Driver</p>
+                            
+                            <TbSteeringWheel className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${driverSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                     </div>
                  </div>
               </div>
-
+                
+                {/* {isMenuHover && (
+                    <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
+                        <p className='font-semibold text-white'>Driver</p>
+                    </div>
+                )} */}
               {driverSubMenu && (
-                    <DriverSubMenu/>
+                    <DriverSubMenu isMenuFull = {false}/>
                 )}
 
                
@@ -149,17 +180,21 @@ const Menu = () => {
                 <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
-                        <GiFullMotorcycleHelmet className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                        
-                            <p className="font-bold text-xs font-sans text-white">Rider</p>
+                        <GiFullMotorcycleHelmet className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${riderSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                     </div>
                  </div>
               </div>
 
+              {/* {isMenuHover && (
+                <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
+                    <p className='font-semibold text-white'>Rider</p>
+                </div>
+              )} */}
+
               {riderSubMenu && (
-                    <RiderSubMenu/>
+                    <RiderSubMenu isMenuFull = {false}/>
                 )}
 
               <div className='group py-1' onClick={openDistributionSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -167,17 +202,22 @@ const Menu = () => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                            
-                            <FaHandshake className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <FaHandshake className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         
-                            <p className="font-bold text-xs font-sans text-white">Distribution Retailer</p>
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${distributionSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                     </div>
                  </div>
               </div>
 
+                {/* {isMenuHover && (
+                    <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
+                        <p className='font-semibold text-white'>Distribution Retailer</p>
+                    </div>
+                )} */}
+
                 {distributionSubMenu && (
-                      <DistributionSubMenu/>
+                      <DistributionSubMenu isMenuFull = {false}/>
                     )}
 
               <div className='group py-1' onClick={openAccountingSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -185,16 +225,19 @@ const Menu = () => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                  
-                            <FaBook className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Accounting System</p>
+                            <FaBook className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${accountingSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                     </div>
                  </div>
               </div>
-
+                {/* {isMenuHover && (
+                        <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
+                            <p className='font-semibold text-white'>AccountingSystem</p>
+                        </div>
+                )} */}
                 {accountingSubMenu && (
-                    <AccountingSubMenu/>
+                    <AccountingSubMenu isMenuFull = {false}/>
                 )}
 
               <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -202,8 +245,8 @@ const Menu = () => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
     
-                            <MdEmail className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Email Template</p>
+                            <MdEmail className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+
                         </div>
                        
                     </div>
@@ -215,8 +258,7 @@ const Menu = () => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
             
-                            <MdPrivacyTip className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Privacy Policy</p>
+                            <MdPrivacyTip className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                        
                     </div>
@@ -228,8 +270,8 @@ const Menu = () => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
    
-                            <RiAdminFill className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Admin/Sub-Admin Controller</p>
+                            <RiAdminFill className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            
                         </div>
                        
                     </div>
@@ -241,8 +283,8 @@ const Menu = () => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                            
-                            <PiPhoneCallFill className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Support</p>
+                            <PiPhoneCallFill className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+
                         </div>
                        
                     </div>
@@ -254,8 +296,8 @@ const Menu = () => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
             
-                            <MdPrivacyTip className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Privacy Policy</p>
+                            <MdPrivacyTip className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+
                         </div>
                     </div>
                  </div>
