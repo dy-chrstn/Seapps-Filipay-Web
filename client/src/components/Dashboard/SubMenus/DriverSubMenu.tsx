@@ -2,12 +2,14 @@
 
 // import React, { useState, useEffect } from 'react'
 
-import { MdEmojiTransportation } from "react-icons/md";
-import { RiCustomerService2Fill } from "react-icons/ri";
-import { FaCar } from "react-icons/fa";
-import { TbDeviceMobileCog } from "react-icons/tb";
-import { TbTruckDelivery } from "react-icons/tb";
+import { FaTruck } from "react-icons/fa";
+import { FaChartPie } from "react-icons/fa";
+import { TiMessages } from "react-icons/ti";
 import { IoBusiness } from "react-icons/io5";
+import { FaUserTie } from "react-icons/fa";
+import { VscGraph } from "react-icons/vsc";
+import { AiOutlineTransaction } from "react-icons/ai";
+
 
 const DriverSubMenu = () => {
 
@@ -17,8 +19,8 @@ const DriverSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <MdEmojiTransportation className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Transport Cooperative</p>
+                    <FaUserTie className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Driver List</p>
                     </div>
                 </div>
             </div>
@@ -27,8 +29,8 @@ const DriverSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <RiCustomerService2Fill className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle Service</p>
+                    <FaChartPie className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Time tracker</p>
                     </div>
                 </div>
             </div>
@@ -37,8 +39,8 @@ const DriverSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <FaCar className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle</p>
+                    <FaTruck className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Dispatch</p>
                     </div>
                 </div>
             </div>
@@ -47,8 +49,8 @@ const DriverSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <TbDeviceMobileCog className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Device</p>
+                    <VscGraph className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Sales</p>
                     </div>
                 </div>
             </div>
@@ -57,8 +59,8 @@ const DriverSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <TbTruckDelivery className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Distributor</p>
+                    <AiOutlineTransaction className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Transaction History</p>
                     </div>
                 </div>
             </div>
@@ -67,8 +69,8 @@ const DriverSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <IoBusiness className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Retailer</p>
+                    <TiMessages className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Messages</p>
                     </div>
                 </div>
             </div>

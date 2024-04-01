@@ -2,12 +2,10 @@
 
 // import React, { useState, useEffect } from 'react'
 
-import { MdEmojiTransportation } from "react-icons/md";
-import { RiCustomerService2Fill } from "react-icons/ri";
-import { FaCar } from "react-icons/fa";
-import { TbDeviceMobileCog } from "react-icons/tb";
-import { TbTruckDelivery } from "react-icons/tb";
-import { IoBusiness } from "react-icons/io5";
+
+import { IoCashOutline } from "react-icons/io5";
+import { AiOutlineTransaction } from "react-icons/ai";
+import { TiMessages } from "react-icons/ti";
 
 const DistributionSubMenu = () => {
 
@@ -17,8 +15,8 @@ const DistributionSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <MdEmojiTransportation className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Transport Cooperative</p>
+                    <IoCashOutline className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Cash In</p>
                     </div>
                 </div>
             </div>
@@ -27,8 +25,8 @@ const DistributionSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <RiCustomerService2Fill className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle Service</p>
+                    <AiOutlineTransaction className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Message Transaction History</p>
                     </div>
                 </div>
             </div>
@@ -37,8 +35,8 @@ const DistributionSubMenu = () => {
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
-                    <FaCar className='mx-2 flex-shrink-0' size={20} color={"white"} />
-                    <p className='text-white font-bold font-sans text-xs'>Vehicle</p>
+                    <TiMessages className='mx-2 flex-shrink-0' size={20} color={"white"} />
+                    <p className='text-white font-bold font-sans text-xs'>Messages</p>
                     </div>
                 </div>
             </div>
