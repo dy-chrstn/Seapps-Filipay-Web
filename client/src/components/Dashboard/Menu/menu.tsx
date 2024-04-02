@@ -11,6 +11,7 @@ import { MdPrivacyTip } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { TbSteeringWheel } from "react-icons/tb";
+import { FaUserClock } from "react-icons/fa6";
 import ClientSubMenu from './SubMenus/ClientSubMenu';
 import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
@@ -256,6 +257,19 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                 <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
+            
+                            <FaUserClock className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <p className="font-bold text-xs font-sans text-white">Admin Activity</p>
+                        </div>
+                    </div>
+                 </div>
+              </div>
+
+
+              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
+                    <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
+                        <div className=' w-full flex flex-row items-center '>
                            
                             <PiPhoneCallFill className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                             <p className="font-bold text-xs font-sans text-white">Support</p>
@@ -265,18 +279,7 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                  </div>
               </div>
 
-              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
-                    <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
-                        <div className=' w-full flex flex-row items-center '>
-            
-                            <MdPrivacyTip className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Privacy Policy</p>
-                        </div>
-                    </div>
-                 </div>
-              </div>
-
+          
 
              
 
