@@ -17,23 +17,124 @@ import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
 
-const MiniMenu = () => {
+
+interface MiniMenuProps {
+    title?: String
+}
+const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
 
     const [isHover, setIsHover] = useState(false);
-    const [isMenuHover, setIsMenuHover] = useState(false);
+    // const [isMenuHover, setIsMenuHover] = useState(false);
+    const [clientInfoWindow, setClientInfoWindow] = useState(false);
+    const [driverInfoWindow, setDriverInfoWindow] = useState(false);
+    const [riderInfoWindow, setRiderInfoWindow] = useState(false);
+    const [distributionInfoWindow, setDistributionInfoWindow] = useState(false);
+    const [accountingInfoWindow, setAccountingInfoWindow] = useState(false);
 
-    const hoverInClient = () => {
-        setTimeout(() => {
-            setIsMenuHover(true)
-        }, 300);
+    const menuHoverIn = (menu: any) => {
+
+        if(menu === "Client"){
+            setTimeout(() => {
+                setClientInfoWindow(true)
+            }, 300);
+        } 
+
+        if(menu === "Driver"){
+            setTimeout(() => {
+                setDriverInfoWindow(true)
+            }, 300);
+        } 
+
+        if(menu === "Rider"){
+            setTimeout(() => {
+                setRiderInfoWindow(true)
+            }, 300);
+        } 
+
+        if(menu === "Distribution"){
+            setTimeout(() => {
+                setDistributionInfoWindow(true)
+            }, 300);
+        } 
+
+        if(menu === "Accounting"){
+            setTimeout(() => {
+                setAccountingInfoWindow(true)
+            }, 300);
+        } 
     }
+
+
+  const menuHoverOut = (menu: any) => {
+
+        if(menu === "Client"){
+            setTimeout(() => {
+                setClientInfoWindow(false)
+            }, 300);
+        } 
+
+        if(menu === "Driver"){
+            setTimeout(() => {
+                setDriverInfoWindow(false)
+            }, 300);
+        } 
+
+        if(menu === "Rider"){
+            setTimeout(() => {
+                setRiderInfoWindow(false)
+            }, 300);
+        } 
+
+        if(menu === "Distribution"){
+            setTimeout(() => {
+                setDistributionInfoWindow(false)
+            }, 300);
+        } 
+
+        if(menu === "Accounting"){
+            setTimeout(() => {
+                setAccountingInfoWindow(false)
+            }, 300);
+        } 
+    }
+    // const hoverInClient = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInDriver = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInRider = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInDistribution = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInAccounting = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
     const hoverIn = () => {
-          setIsHover(true)
+        if(title === "Dashboard"){
+            setIsHover(true)
+        } 
+        //   setIsHover(true)
     }
 
     const hoverOut = () => {
         setIsHover(false)
-        setIsMenuHover(false)
     }
 
     const [clientSubMenu, setClientSubMenu] = useState(false)
@@ -110,7 +211,8 @@ const MiniMenu = () => {
     }
 
     return (
-      <div className='flex flex-col bg-blue-900 w-[4%] absolute top-16 pb-10 pt-10'>
+      <div className='absolute flex flex-col bg-blue-900 w-[4.5%] pb-10 pt-10 mb-[-3px] '>
+            
             {!isHover ? 
             <div className='group py-1'>
                 <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white ">
@@ -131,17 +233,18 @@ const MiniMenu = () => {
             }
             
             <div className='group py-1' onClick={openClientSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-            <div  className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
+            <div  onMouseEnter={() => menuHoverIn('Client')} onMouseLeave={() => menuHoverOut('Client')}
+            className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                 <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                     <div className='w-full flex flex-row items-center'>
-                        <FaUser onMouseEnter={hoverInClient} className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
+                        <FaUser className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
                     </div>
                     <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${clientSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                 </div>
             </div>
             </div>
 
-            {isMenuHover && (
+            {clientInfoWindow && (
                 <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
                     <p className='font-semibold text-white'>Client</p>
                 </div>
@@ -150,12 +253,13 @@ const MiniMenu = () => {
 
 
                 {clientSubMenu && (
-                    <ClientSubMenu isMenuFull = {false}/>
+                    <ClientSubMenu isMenuFull = {false} onMouseEnter={hoverIn} onMouseLeave={hoverOut}/>
                 )}
                 
 
               <div className='group py-1' onClick={openDriverSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
+                <div onMouseEnter={() => menuHoverIn('Driver')} onMouseLeave={() => menuHoverOut('Driver')}
+                className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                             
@@ -167,13 +271,15 @@ const MiniMenu = () => {
                  </div>
               </div>
                 
-                {/* {isMenuHover && (
+                {driverInfoWindow && (
                     <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
                         <p className='font-semibold text-white'>Driver</p>
                     </div>
-                )} */}
+                )}
+
+
               {driverSubMenu && (
-                    <DriverSubMenu isMenuFull = {false}/>
+                    <DriverSubMenu isMenuFull = {false} onMouseEnter={hoverIn} onMouseLeave={hoverOut}/>
                 )}
 
                
@@ -196,7 +302,7 @@ const MiniMenu = () => {
               )} */}
 
               {riderSubMenu && (
-                    <RiderSubMenu isMenuFull = {false}/>
+                    <RiderSubMenu isMenuFull = {false} onMouseEnter={hoverIn} onMouseLeave={hoverOut}/>
                 )}
 
               <div className='group py-1' onClick={openDistributionSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -219,7 +325,7 @@ const MiniMenu = () => {
                 )} */}
 
                 {distributionSubMenu && (
-                      <DistributionSubMenu isMenuFull = {false}/>
+                      <DistributionSubMenu isMenuFull = {false} onMouseEnter={hoverIn} onMouseLeave={hoverOut}/>
                     )}
 
               <div className='group py-1' onClick={openAccountingSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -239,7 +345,7 @@ const MiniMenu = () => {
                         </div>
                 )} */}
                 {accountingSubMenu && (
-                    <AccountingSubMenu isMenuFull = {false}/>
+                    <AccountingSubMenu isMenuFull = {false} onMouseEnter={hoverIn} onMouseLeave={hoverOut}/>
                 )}
 
               <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
