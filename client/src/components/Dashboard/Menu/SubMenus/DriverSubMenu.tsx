@@ -11,13 +11,17 @@ import { AiOutlineTransaction } from "react-icons/ai";
 
 type DriverSubMenuProps = {
     isMenuFull: boolean;
+    onMouseEnter: () => void;
+    onMouseLeave: () => void;
   };
 
-const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull }) => {
+const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter, onMouseLeave}) => {
 
     return (
         <div className={`bg-blue-900 w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-32 '}  p-2 pl-1 rounded-lg`}> 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
+            
+            <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -27,7 +31,8 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull }) => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
+            <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -37,7 +42,8 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull }) => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
+            <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -47,7 +53,8 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull }) => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
+            <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -57,7 +64,8 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull }) => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
+            <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -67,7 +75,8 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull }) => {
                 </div>
             </div>
 
-            <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
+            <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>

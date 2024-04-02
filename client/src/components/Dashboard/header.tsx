@@ -13,7 +13,7 @@ import Menu from './Menu/menu';
 import MiniMenu from './Menu/miniMenu'
 
 interface HeaderProps {
-  onClick?: () => void; 
+  onClick: () => void; 
   title: string;
 
 }
@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
     if(!menuVisible)
     setMenuVisible(true)
 
-    else    setMenuVisible(false)
+    else setMenuVisible(false)
   }
 
   const signOut = () => {
@@ -45,19 +45,37 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
   
   const [isProfileVisible, setIsProfileVisible] = useState(false)
   const [menuVisible, setMenuVisible] = useState(true)
+  
+
+  
 
     return (
       <div className='flex flex-row items-start w-screen mb-[-3px]'>
 
-        <div onClick = {menuOpen} className=" bg-blue-900 w-[25%]">
+        {menuVisible ?
+        
+           <div className=" bg-blue-900 py-1">
+           <div className="   flex items-center flex-row py-3 ">
+             <img onClick={() => {onClick(); menuOpen();}} className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
+             <div className="text-center">
+             </div>
+           </div>
+       </div>
+            
+      
+        : <div className=" bg-blue-900 w-[25%]">
             <div className="   flex items-center flex-row py-3 ">
-              <img onClick = {onClick} className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
-              <div className="text-center">
+              <img onClick={() => {onClick(); menuOpen();}}  className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
+              <div className="text-center pl-1">
                   <p className="text-sky-300 font-bold">Management</p>
                   <p className="text-sky-300 font-bold">Dashboard</p>
               </div>
             </div>
-        </div>
+          </div> 
+        }
+        
+     
+
         
         
         <div className="  pl-3 py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center" >   

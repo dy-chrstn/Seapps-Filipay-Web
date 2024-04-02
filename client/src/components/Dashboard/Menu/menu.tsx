@@ -16,15 +16,30 @@ import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
+import Dashboard from '../../../pages/dashboard';
 
-const Menu = () => {
+
+interface MenuProps {
+    title: String
+}
+
+const Menu: React.FC<MenuProps> = ({title}) => {
+
+    console.log(title)
 
     const [isHover, setIsHover] = useState(false);
+    const [isTitleDashboard, setIstitleDashboard] = useState(title)
 
     const hoverIn = () => {
+        if(title === "Dashboard"){
+            setIstitleDashboard("")
+        }
         setIsHover(true)
     }
     const hoverOut = () => {
+        if(title === "Dashboard"){
+            setIstitleDashboard("Dashboard")
+        }
         setIsHover(false)
     }
 
@@ -73,8 +88,9 @@ const Menu = () => {
 
     }
 
+
     return (
-      <div className='flex flex-col bg-blue-900 w-[20%] pb-10 pt-10 mb-[-3px] '>
+      <div className=' absolute flex flex-col w-[20.22%] bg-blue-900 pb-10 pt-10'>
 {/* 
             <div className=" w-[48%] py-3">
                     <div className="   flex items-center flex-row w-full h-[10&] ">
@@ -86,26 +102,26 @@ const Menu = () => {
                     </div>
             </div> */}
 
-            {!isHover ? 
-            <div className='group py-1'>
-                <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white ">
-                    <div className="w-full flex flex-row items-center py-1 bg-blue-800 ">
-                        <MdDashboard className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                        <p className="font-bold text-xs font-sans text-white">DashBoard</p>
+                { isTitleDashboard === "Dashboard" ? 
+                     <div className='group py-1'>
+                        <div className="border-l-4 py-1 group-border-l-4 group-hover:border-white">
+                            <div className="w-full flex flex-row items-center py-1 bg-blue-800">
+                            <MdDashboard className="mx-2 flex-shrink-0" size={20} color={"#7dd3fc"}/>
+                            <p className="font-bold text-xs font-sans text-white">Dashboard</p>
+                            </div>
+                        </div> 
+                     </div>
+                 : 
+                    <div className='group py-1'>
+                        <div className="border-l-4 border-blue-900 py-1 group-border-l-4 hover:border-white transition-all duration-300">
+                        <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300">
+                            <MdDashboard className="mx-2 flex-shrink-0 gap-2" size={20} color={"#7dd3fc"}/>
+                            <p className="font-bold text-xs font-sans text-white">Dashboard</p>
+                        </div>
                     </div>
-                </div> 
-            </div>
-                
-            : 
-            <div className='group py-1'>
-                <div className="border-l-4 border-blue-900 py-1 group-border-l-4 hover:border-white transition-all duration-300">
-                    <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300">
-                        <MdDashboard className= "mx-2 flex-shrink-0 gap-2 " size ={20} color={"#7dd3fc"}/>
-                        <p className="font-bold text-xs font-sans text-white">Dashboard</p>
-                    </div>
-                </div>
-            </div>
-            }
+             </div>
+                    
+                }
             
             <div className='group py-1' onClick={openClientSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
             <div  className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
@@ -141,7 +157,7 @@ const Menu = () => {
               </div>
 
               {driverSubMenu && (
-                    <DriverSubMenu isMenuFull = {true}/>
+                    <DriverSubMenu isMenuFull = {true} onMouseEnter={hoverIn} onMouseLeave ={hoverOut}/>
                 )}
 
                
@@ -160,7 +176,7 @@ const Menu = () => {
               </div>
 
               {riderSubMenu && (
-                    <RiderSubMenu isMenuFull = {true}/>
+                    <RiderSubMenu isMenuFull = {true} onMouseEnter={hoverIn} onMouseLeave ={hoverOut}/>
                 )}
 
               <div className='group py-1' onClick={openDistributionSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -178,7 +194,7 @@ const Menu = () => {
               </div>
 
                 {distributionSubMenu && (
-                      <DistributionSubMenu isMenuFull = {true}/>
+                      <DistributionSubMenu isMenuFull = {true} onMouseEnter={hoverIn} onMouseLeave ={hoverOut}/>
                     )}
 
               <div className='group py-1' onClick={openAccountingSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -195,7 +211,7 @@ const Menu = () => {
               </div>
 
                 {accountingSubMenu && (
-                    <AccountingSubMenu isMenuFull = {true}/>
+                    <AccountingSubMenu isMenuFull = {true} onMouseEnter={hoverIn} onMouseLeave ={hoverOut}/>
                 )}
 
               <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
