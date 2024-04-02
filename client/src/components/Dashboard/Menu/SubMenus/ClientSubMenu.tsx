@@ -10,6 +10,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { IoBusiness } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 
+
 type ClientSubMenuProps = {
     isMenuFull: boolean;
     onMouseEnter: () => void;
@@ -26,11 +27,11 @@ type ClientSubMenuProps = {
 
     return (
         // <div className='bg-blue-900 w-52 ml-10 p-2 pl-1 rounded-lg'>
-        <div className={`bg-blue-900 w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-20 '} p-2 pl-1 rounded-lg`}> 
+        <div className={`bg-dashboardPurple w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-20 '} p-2 pl-1 rounded-lg`}> 
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-             onClick = {() => navigatePage('/TransportCooperation')} className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+             onClick = {() => navigatePage('/TransportCooperative')} className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+                <div className='relative bg-dashboardPurple'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <MdEmojiTransportation className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -40,8 +41,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <RiCustomerService2Fill className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -51,8 +52,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <FaCar className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -62,8 +63,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <TbDeviceMobileCog className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -73,8 +74,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <TbTruckDelivery className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -84,8 +85,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <IoBusiness className='mx-2 flex-shrink-0' size={20} color={"white"} />

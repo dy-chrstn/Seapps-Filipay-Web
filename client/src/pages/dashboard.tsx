@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Header from '../components/Dashboard/header';
 import Menu from '../components/Dashboard/Menu/menu';
 import MiniMenu from '../components/Dashboard/Menu/miniMenu';
-import TransportCoopTable from '../components/Dashboard/Tables/TransportCoopTable'
 
 const Dashboard = () => {
     const [inputValue, setInputValue] = useState<string>('');
@@ -27,7 +26,6 @@ return (
         <Header title="Dashboard" onClick = {openMenu}/> 
         <div className='flex flex-row'>
           {menuOpen ? <Menu title={"Dashboard"}/> : <MiniMenu title={"Dashboard"}/> }
-          <TransportCoopTable/>
 
         </div>
     

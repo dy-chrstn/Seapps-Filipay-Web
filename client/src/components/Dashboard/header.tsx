@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
 
         {menuVisible ?
         
-           <div className=" bg-blue-900 py-1 border-b-4 border-b-black">
+           <div className=" bg-blue-900 py-1 border-b-4 border-b-blue-900">
            <div className="   flex items-center flex-row py-3 ">
              <img onClick={() => {onClick(); menuOpen();}} className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
              <div className="text-center">
@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
        </div>
             
       
-        : <div className=" bg-blue-900 w-[25%] border-b-4 border-b-black">
+        : <div className=" bg-blue-900 w-[25%] border-b-4 border-b-dashboardPurple">
             <div className="   flex items-center flex-row py-3 ">
               <img onClick={() => {onClick(); menuOpen();}}  className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
               <div className="text-center pl-1">
