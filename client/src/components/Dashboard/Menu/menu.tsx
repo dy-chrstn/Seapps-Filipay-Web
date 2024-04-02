@@ -16,12 +16,6 @@ import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
-import Dashboard from '../../../pages/dashboard';
-
-
-interface MenuProps {
-    title: String
-}
 
 const Menu: React.FC<MenuProps> = ({title}) => {
 
@@ -90,12 +84,13 @@ const Menu: React.FC<MenuProps> = ({title}) => {
 
 
     return (
-      <div className=' absolute flex flex-col w-[20.22%] bg-blue-900 pb-10 pt-10'>
+        <div className='flex flex-col bg-blue-900 absolute w-[20%] pb-10 pt-10 mb-[-3px] transparent-caret' 
+        style={{ backgroundImage: "url('/public/Img/Dashboard/dashboard-img.png')" }}>
 {/* 
             <div className=" w-[48%] py-3">
                     <div className="   flex items-center flex-row w-full h-[10&] ">
                         <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
-                        <div className="text-center">
+                        <div className="text-center ">
                             <p className="text-sky-300 font-bold">Management</p>
                             <p className="text-sky-300 font-bold">Dashboard</p>
                         </div>
