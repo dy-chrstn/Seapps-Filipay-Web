@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 // import io from 'socket.io-client';
 import {
@@ -23,11 +23,7 @@ interface MarkerData {
 }
 
 const MapContainer: React.FC = () => {
-  const defaultCenter = {
-    lat:  14.418331431423372, 
-    lng: 121.04331822703718,
-  };
-
+  const defaultCenter = useMemo(() => ({ lat: 14.418331431423372, lng: 121.04331822703718 }), []);
 
   const mapStyles = {
     height: "100vh",
@@ -237,7 +233,7 @@ const MapContainer: React.FC = () => {
                   handleMarkerRightClick(
                     marker,
                   );
-                  setDisplay({lat: parseFloat(marker.lat), lng: parseFloat(marker.long)});
+                  setDisplay({ lat: parseFloat(marker.lat), lng: parseFloat(marker.long) });
                 }}
 
               />
@@ -266,7 +262,7 @@ const MapContainer: React.FC = () => {
                 center={{
                   lat: parseFloat(marker.lat),
                   lng: parseFloat(marker.long),
-                }} 
+                }}
                 radius={marker.radius}
               />
             </React.Fragment>
