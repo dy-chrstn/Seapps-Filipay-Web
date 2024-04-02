@@ -8,14 +8,17 @@ import { FaUser } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
+
 import Menu from './Menu/menu';
 import MiniMenu from './Menu/miniMenu'
 
 interface HeaderProps {
-  onClick: () => void;
+  onClick?: () => void; 
+  title: string;
+
 }
 
-const Header: React.FC<HeaderProps> = ({onClick}) => {
+const Header: React.FC<HeaderProps> = ({onClick, title }) => {
 
   const navigate = useNavigate();
 
@@ -58,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({onClick}) => {
         
         
         <div className="  pl-3 py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center" >   
-          <p className="text-blue-900 text-3xl font-sans font-bold">Dashboard</p>
+        <p className="text-blue-900 text-3xl font-sans font-bold">{title}</p>
 
             <div onClick={(profileMenuOpen)} className="  py-1 w-[30%] flex flex-row items-center justify-end mr-10">
                   <IoIosNotifications className="mr-7" size={24} color={"black"} />

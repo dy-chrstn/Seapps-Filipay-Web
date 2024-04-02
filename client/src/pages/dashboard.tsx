@@ -24,7 +24,7 @@ const handleInputChange = (event: any) => {
     }
 return (
     <div className='w-screen h-screen'>
-        <Header onClick = {openMenu}/> 
+        <Header title="Dashboard"onClick = {openMenu}/> 
         {menuOpen ? <Menu/> : <MiniMenu/> }
         
 
