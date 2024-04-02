@@ -24,7 +24,7 @@ type ClientSubMenuProps = {
 
     return (
         // <div className='bg-blue-900 w-52 ml-10 p-2 pl-1 rounded-lg'>
-        <div onClick = {() => navigatePage('/TransportCooperation')}className={`bg-blue-900 w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-20 '} p-2 pl-1 rounded-lg`}> 
+        <div onClick = {() => navigatePage('/TransportCooperative')}className={`bg-blue-900 w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-20 '} p-2 pl-1 rounded-lg`}> 
 
             <div className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-blue-900 w-full'>
