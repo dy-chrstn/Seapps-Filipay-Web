@@ -17,7 +17,7 @@ import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
 
-const Menu = () => {
+const MiniMenu = () => {
 
     const [isHover, setIsHover] = useState(false);
     const [isMenuHover, setIsMenuHover] = useState(false);
@@ -315,5 +315,5 @@ const Menu = () => {
     );
   };
   
-  export default Menu;
+  export default MiniMenu;
   

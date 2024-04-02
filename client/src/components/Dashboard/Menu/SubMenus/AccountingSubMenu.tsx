@@ -16,6 +16,10 @@ type AccountingSubMenuProps = {
 
     const navigate = useNavigate();
 
+    const navigatePage = (page: any) => {
+        
+        navigate(page)
+    }
 
     return (
         <div className={`bg-blue-900 w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-64 '} p-2 pl-1 rounded-lg`}> 
