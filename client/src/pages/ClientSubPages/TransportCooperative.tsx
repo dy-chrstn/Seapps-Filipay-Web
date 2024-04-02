@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from '../../components/Dashboard/header';
 import Menu from '../../components/Dashboard/Menu/menu';
 import TransportCoopTable from '../../components/Dashboard/Tables/TransportCoopTable';
@@ -14,7 +14,7 @@ const TransportCooperative = () => {
   return (
     <div className='w-screen h-screen transparent-caret'>
       <Header title="Transport Cooperative" onClick={openMenu}/> 
-       {menuOpen ? <Menu title={"Vehicle"}/> : <MiniMenu title={"Vehicle"}/> }
+       {menuOpen ? <Menu title={"Transport Cooperative"}/> : <MiniMenu title={"Transport Cooperative"}/> }
 
       <div className='flex flex-col flex-grow'>
         {/* Always render TransportCoopTable regardless of menu state */}

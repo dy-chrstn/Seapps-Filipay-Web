@@ -32,7 +32,7 @@ type ClientSubMenuProps = {
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
              onClick = {() => navigatePage('/TransportCooperative')} 
              className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <MdEmojiTransportation className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -44,7 +44,7 @@ type ClientSubMenuProps = {
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
             onClick = {() => navigatePage('/VehicleService')}
             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <RiCustomerService2Fill className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -56,7 +56,7 @@ type ClientSubMenuProps = {
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
             onClick = {() => navigatePage('/Vehicle')}
             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <FaCar className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -68,7 +68,7 @@ type ClientSubMenuProps = {
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
             onClick = {() => navigatePage('/Device')}
             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <TbDeviceMobileCog className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -80,7 +80,7 @@ type ClientSubMenuProps = {
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
             onClick = {() => navigatePage('/Distributor')}
             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <TbTruckDelivery className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -92,7 +92,7 @@ type ClientSubMenuProps = {
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
             onClick = {() => navigatePage('/Retailer')}
             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-blue-900 w-full'>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <IoBusiness className='mx-2 flex-shrink-0' size={20} color={"white"} />

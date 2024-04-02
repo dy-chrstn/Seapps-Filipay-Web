@@ -12,6 +12,8 @@ import { RiAdminFill } from "react-icons/ri";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { TbSteeringWheel } from "react-icons/tb";
 import { FaUserClock } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
+
 import ClientSubMenu from './SubMenus/ClientSubMenu';
 import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
@@ -23,6 +25,14 @@ interface MiniMenuProps {
     title?: String
 }
 const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
+
+    
+    const navigate = useNavigate();
+
+    const navigatePage = (page: any) => {
+        
+        navigate(page)
+    }
 
     const [isHover, setIsHover] = useState(false);
     // const [isMenuHover, setIsMenuHover] = useState(false);
@@ -161,7 +171,9 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
       <div className='absolute flex flex-col bg-blue-900 w-[4.5%] pb-10 pt-10 mb-[-3px] '>
             
             {!isHover ? 
-            <div className='group py-1'>
+            <div 
+            onClick={() => navigatePage('/dashboard')}
+            className='group py-1'>
                 <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white ">
                     <div className="w-full flex flex-row items-center py-1 bg-blue-800 ">
                         <MdDashboard className= "mx-1  flex-shrink-0" size ={20} color={"#7dd3fc"}/>
@@ -170,7 +182,9 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
             </div>
                 
             : 
-            <div className='group py-1'>
+            <div 
+            onClick={() => navigatePage('/dashboard')}
+            className='group py-1'>
                 <div className="border-l-4 border-blue-900 py-1 group-border-l-4 hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300">
                         <MdDashboard className= "mx-1  flex-shrink-0" size ={20} color={"#7dd3fc"}/>
