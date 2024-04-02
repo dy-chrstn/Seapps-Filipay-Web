@@ -17,6 +17,10 @@ import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
 
+interface MenuProps{
+    title:String
+}
+
 const Menu: React.FC<MenuProps> = ({title}) => {
 
     console.log(title)
@@ -84,7 +88,7 @@ const Menu: React.FC<MenuProps> = ({title}) => {
 
 
     return (
-        <div className='flex flex-col bg-blue-900 absolute w-[20%] pb-10 pt-10 mb-[-3px] transparent-caret' 
+        <div className='flex flex-col bg-blue-900 absolute w-[20.27%] pb-10 pt-10 mb-[-3px] transparent-caret' 
         style={{ backgroundImage: "url('/public/Img/Dashboard/dashboard-img.png')" }}>
 {/* 
             <div className=" w-[48%] py-3">
