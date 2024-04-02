@@ -75,7 +75,8 @@ const Menu = () => {
     }
 
     return (
-      <div className='flex flex-col bg-blue-900 w-[20%] pb-10 pt-10 mb-[-3px] transparent-caret'>
+        <div className='flex flex-col bg-blue-900 absolute w-[20%] pb-10 pt-10 mb-[-3px] transparent-caret' 
+        style={{ backgroundImage: "url('/public/Img/Dashboard/dashboard-img.png')" }}>
 {/* 
             <div className=" w-[48%] py-3">
                     <div className="   flex items-center flex-row w-full h-[10&] ">
@@ -90,7 +91,7 @@ const Menu = () => {
             {!isHover ? 
             <div className='group py-1'>
                 <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white transparent-caret ">
-                    <div className="w-full flex flex-row items-center py-1 bg-blue-800 ">
+                    <div className="w-full flex flex-row items-center py-1 bg-dashboardPurple ">
                         <MdDashboard className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         <p className="font-bold text-xs font-sans text-white">DashBoard</p>
                     </div>
