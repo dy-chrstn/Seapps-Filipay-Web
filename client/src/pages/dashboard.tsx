@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import Header from '../components/Dashboard/header';
 import Menu from '../components/Dashboard/Menu/menu';
-import FilipayMenuButton from '../components/Dashboard/FilipayMenuButton';
 import MiniMenu from '../components/Dashboard/Menu/miniMenu';
 
 const Dashboard = () => {
@@ -26,7 +25,7 @@ const handleInputChange = (event: any) => {
 return (
     <div className='w-screen h-screen'>
         <Header onClick = {openMenu}/> 
-        {menuOpen ?<Menu/> : <MiniMenu/> }
+        {menuOpen ? <Menu/> : <MiniMenu/> }
         
 
     </div>
