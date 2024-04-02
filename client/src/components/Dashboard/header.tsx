@@ -7,6 +7,7 @@ import { TbTriangleInvertedFilled } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import './header.css';
 
 
 import Menu from './Menu/menu';
@@ -51,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
 
         <div onClick = {menuOpen} className=" bg-blue-900 w-[25%]">
             <div className="   flex items-center flex-row py-3 ">
-              <img onClick = {onClick} className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
+              <img onClick = {onClick} className=" w-10 h-10 flex-shrink-0 mx-3 bg-white transparent-caret" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
               <div className="text-center">
                   <p className="text-sky-300 font-bold">Management</p>
                   <p className="text-sky-300 font-bold">Dashboard</p>
@@ -64,10 +65,10 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
 
    
         
-        <div className="  pl-3 py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center" >   
+        <div className="  pl-3 py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center transparent-caret" >   
         <p className="text-blue-900 text-3xl font-sans font-bold">{title}</p>
 
-            <div onClick={(profileMenuOpen)} className="  py-1 w-[30%] flex flex-row items-center justify-end mr-10">
+            <div onClick={(profileMenuOpen)} className="  py-1 w-[30%] flex flex-row items-center justify-end mr-10 transparent-caret">
                   <IoIosNotifications className="mr-7" size={24} color={"black"} />
                 <p className="flex flex-row font-bold font-sans text-sm">Juan Dela Cruz</p>
                 <img className=" object-cover w-10 h-10 flex-shrink-0 mx-3 bg-white rounded-full" src="/Img/Dashboard/profile/profileIcon.avif" alt="FiliPay Logo" />

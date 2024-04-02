@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaSort, FaSortUp, FaSortDown, FaEdit } from "react-icons/fa";
 import { TiMessages } from 'react-icons/ti';
 import { MdOutlineSearch } from "react-icons/md";
+import './Tables.css';
 
 const TransportCoopTable = () => {
   const [sortOrder, setSortOrder] = useState<{
@@ -46,7 +47,7 @@ const TransportCoopTable = () => {
   ];
 
   return (
-    <div className="container mx-auto mt-5">
+    <div className="container mx-auto mt-5 transparent-caret">
 
       <div className="flex ml-12 flex-row ">
         <div className="flex-4 items-center">

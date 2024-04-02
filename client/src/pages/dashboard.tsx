@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import Header from '../components/Dashboard/header';
 import Menu from '../components/Dashboard/Menu/menu';
 import MiniMenu from '../components/Dashboard/Menu/miniMenu';
@@ -23,7 +22,7 @@ const handleInputChange = (event: any) => {
       setMenuOpen(false)
     }
 return (
-    <div className='w-screen h-screen'>
+    <div className='w-screen h-screen transparent-caret'>
         <Header title="Dashboard"onClick = {openMenu}/> 
         {menuOpen ? <Menu/> : <MiniMenu/> }
         

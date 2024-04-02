@@ -16,6 +16,7 @@ import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
+import './menu.css';
 
 const Menu = () => {
 
@@ -74,12 +75,12 @@ const Menu = () => {
     }
 
     return (
-      <div className='flex flex-col bg-blue-900 w-[20%] pb-10 pt-10 mb-[-3px] '>
+      <div className='flex flex-col bg-blue-900 w-[20%] pb-10 pt-10 mb-[-3px] transparent-caret'>
 {/* 
             <div className=" w-[48%] py-3">
                     <div className="   flex items-center flex-row w-full h-[10&] ">
                         <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
-                        <div className="text-center">
+                        <div className="text-center ">
                             <p className="text-sky-300 font-bold">Management</p>
                             <p className="text-sky-300 font-bold">Dashboard</p>
                         </div>
@@ -88,7 +89,7 @@ const Menu = () => {
 
             {!isHover ? 
             <div className='group py-1'>
-                <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white ">
+                <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white transparent-caret ">
                     <div className="w-full flex flex-row items-center py-1 bg-blue-800 ">
                         <MdDashboard className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         <p className="font-bold text-xs font-sans text-white">DashBoard</p>
