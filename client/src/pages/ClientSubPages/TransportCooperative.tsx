@@ -13,8 +13,8 @@ const TransportCooperative = () => {
 
   return (
     <div className='w-screen h-screen transparent-caret'>
-      <Header title="Dashboard" onClick={openMenu}/> 
-      {menuOpen ? <Menu/> : <MiniMenu/>}
+      <Header title="Transport Cooperative" onClick={openMenu}/> 
+       {menuOpen ? <Menu title={"Vehicle"}/> : <MiniMenu title={"Vehicle"}/> }
 
       <div className='flex flex-col flex-grow'>
         {/* Always render TransportCoopTable regardless of menu state */}
