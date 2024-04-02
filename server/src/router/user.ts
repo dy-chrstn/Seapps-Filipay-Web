@@ -1,11 +1,9 @@
 import express from "express";
 
 import { registerUser, loginUser } from "../controller/user";
-import { tokenAuth } from "middleware/middleware";
+import { checkCredentials, tokenAuth } from "../middleware/middleware";
 
 export default (router: express.Router) => {
-    router.post("/register", tokenAuth, registerUser);
-    router.post("/login", tokenAuth, loginUser);
-
-    return router;
+    router.post("/register", tokenAuth, checkCredentials, registerUser);
+    router.post("/login", tokenAuth, checkCredentials, loginUser);
 }

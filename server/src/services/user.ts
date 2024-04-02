@@ -1,7 +1,12 @@
-import { UserModel } from "models/user";
+import { UserModel } from "../models/user";
 
-export const createUser = async (user: object) => {
-    const newUser = new UserModel(user);
+export const createUser = async (email: string, password: string, name: string, role: string) => {
+    const newUser = new UserModel({
+        email,
+        password,
+        name,
+        role
+    });
     await newUser.save();
     return newUser;
 }

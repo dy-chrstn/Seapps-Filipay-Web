@@ -6,9 +6,19 @@ export const registerUser = async (req: express.Request, res: express.Response) 
     try {
         const { email, password, name, role } = req.body;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const existingUser = await findUserByEmail(email);
+        if (existingUser) {
+            return res.status(409).json({
+                messages:{
+                    code: 1,
+                    message: "User already exists",
+                },
+                response:{}
+            });
+        }
 
-        const user = await createUser({ email, hashedPassword, name, role });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await createUser( email, hashedPassword, name, role );
         res.status(201).json({
             messages:{
                 code: 0,
