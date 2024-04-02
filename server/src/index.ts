@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 
 
 
-const port = 3050;
+const port = process.env.PORT || 3051;
 
 const app = express();
 
@@ -17,13 +17,12 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
-
 server.listen(port, () => {
   console.log("Server running on http://localhost:" + port);
 });
 
+
 const MONGO_URL = process.env.MONGO_URL;
-// const MONGO_URL = 'mongodb://localhost:27017/googleMap';
 
 mongoose.set("strictQuery", false);
 mongoose.Promise = Promise;

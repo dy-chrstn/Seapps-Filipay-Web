@@ -20,7 +20,7 @@ import AccountingSubMenu from './SubMenus/AccountingSubMenu';
 
 
 interface MiniMenuProps {
-    title: String
+    title?: String
 }
 const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
 

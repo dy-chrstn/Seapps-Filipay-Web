@@ -37,6 +37,7 @@ export default {
         // Add more custom transition durations as needed
       },
       colors: {
+        dashboardHighlight: '#3a499b',
         dashboardPurple: '#273c90',
         // Tailwind's default color palette
         transparent: 'transparent',

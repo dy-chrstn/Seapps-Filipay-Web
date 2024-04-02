@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../components/Dashboard/header';
 import Menu from '../components/Dashboard/Menu/menu';
 import MiniMenu from '../components/Dashboard/Menu/miniMenu';
-
+import TransportCoopTable from '../components/Dashboard/Tables/TransportCoopTable'
 
 const Dashboard = () => {
     const [menuOpen, setMenuOpen] = useState(false)

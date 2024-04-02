@@ -10,6 +10,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { IoBusiness } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 
+
 type ClientSubMenuProps = {
     isMenuFull: boolean;
     onMouseEnter: () => void;
@@ -26,7 +27,7 @@ type ClientSubMenuProps = {
 
     return (
         // <div className='bg-blue-900 w-52 ml-10 p-2 pl-1 rounded-lg'>
-        <div className={`bg-blue-900 w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-20 '} p-2 pl-1 rounded-lg`}> 
+        <div className={`bg-dashboardPurple w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-20 '} p-2 pl-1 rounded-lg`}> 
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
              onClick = {() => navigatePage('/TransportCooperative')} 
