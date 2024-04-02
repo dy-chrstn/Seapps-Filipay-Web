@@ -56,10 +56,6 @@ const Header: React.FC<HeaderProps> = ({onClick}) => {
             </div>
         </div>
         
-     
-
-
-   
         
         <div className="  pl-3 py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center" >   
           <p className="text-blue-900 text-3xl font-sans font-bold">Dashboard</p>

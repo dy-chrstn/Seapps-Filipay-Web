@@ -20,13 +20,52 @@ import AccountingSubMenu from './SubMenus/AccountingSubMenu';
 const MiniMenu = () => {
 
     const [isHover, setIsHover] = useState(false);
-    const [isMenuHover, setIsMenuHover] = useState(false);
+    // const [isMenuHover, setIsMenuHover] = useState(false);
+    const [clientInfoWindow, setClientInfoWindow] = useState(false);
+    const [driverInfoWindow, setDriverInfoWindow] = useState(false);
+    const [riderInfoWindow, setRiderInfoWindow] = useState(false);
+    const [distributionInfoWindow, setDistributionInfoWindow] = useState(false);
+    const [accountingInfoWindow, setAccountingInfoWindow] = useState(false);
 
-    const hoverInClient = () => {
-        setTimeout(() => {
-            setIsMenuHover(true)
-        }, 300);
+    const menuHover = (menu) => {
+
+        if(menu === "Client"){
+            setTimeout(() => {
+                setClientInfoWindow(true)
+            }, 300);
+      
+        } 
     }
+
+    // const hoverInClient = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInDriver = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInRider = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInDistribution = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
+
+    // const hoverInAccounting = () => {
+    //     setTimeout(() => {
+    //         setIsMenuHover(true)
+    //     }, 300);
+    // }
     const hoverIn = () => {
           setIsHover(true)
     }
@@ -134,14 +173,14 @@ const MiniMenu = () => {
             <div  className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                 <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                     <div className='w-full flex flex-row items-center'>
-                        <FaUser onMouseEnter={hoverInClient} className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
+                        <FaUser onMouseEnter={menuHover} className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
                     </div>
                     <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${clientSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                 </div>
             </div>
             </div>
 
-            {isMenuHover && (
+            {clientInfoWindow && (
                 <div className='absolute py-1 px-4 bg-blue-900 rounded top-[16%] left-16'>
                     <p className='font-semibold text-white'>Client</p>
                 </div>

@@ -123,7 +123,7 @@ const Menu = () => {
            
                 {clientSubMenu && (
    
-                    <ClientSubMenu isMenuFull = {true}/>
+                    <ClientSubMenu isMenuFull = {true} onMouseEnter={hoverIn} onMouseLeave={hoverOut}/>
                 )}
                 
 
