@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Header from '../../components/Dashboard/header';
-import Menu from '../../components/Dashboard/Menu/menu';
-import MiniMenu from '../../components/Dashboard/Menu/miniMenu';
+import Header from '../../components/admin/header';
+import Menu from '../../components/admin/Menu/menu';
+import MiniMenu from '../../components/admin/Menu/miniMenu';
 
 
 const Retailer = () => {

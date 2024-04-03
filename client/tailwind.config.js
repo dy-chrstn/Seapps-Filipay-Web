@@ -11,6 +11,11 @@ export default {
         "boxHoverH": "160px"
       },
 
+      fontSize:{
+        "xxs": ".75rem",
+        "xxxs": ".60rem",
+      },
+
       width: {
         "boxWidth": "200px",
         "boxHoverW": "155px",
@@ -61,6 +66,7 @@ export default {
         'serif': ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
         'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
       },
+
 
 
 
