@@ -30,8 +30,9 @@ type ClientSubMenuProps = {
         <div className={`bg-dashboardPurple w-52 ${isMenuFull ? 'ml-10' : 'absolute left-16 top-20 '} p-2 pl-1 rounded-lg`}> 
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-             onClick = {() => navigatePage('/TransportCooperative')} className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
-                <div className='relative bg-dashboardPurple'>
+             onClick = {() => navigatePage('/TransportCooperative')} 
+             className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
+                <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
                     <MdEmojiTransportation className='mx-2 flex-shrink-0' size={20} color={"white"} />
@@ -41,7 +42,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+            onClick = {() => navigatePage('/VehicleService')}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -52,7 +54,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+            onClick = {() => navigatePage('/Vehicle')}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -63,7 +66,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+            onClick = {() => navigatePage('/Device')}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -74,7 +78,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+            onClick = {() => navigatePage('/Distributor')}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>
@@ -85,7 +90,8 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
+            onClick = {() => navigatePage('/Retailer')}
+            className='border-l-4 border-blue-900 hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative bg-dashboardPurple w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
                     <div className='flex flex-row gap-4 items-center'>

@@ -11,6 +11,9 @@ import { MdPrivacyTip } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { TbSteeringWheel } from "react-icons/tb";
+import { FaUserClock } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
+
 import ClientSubMenu from './SubMenus/ClientSubMenu';
 import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
@@ -23,7 +26,13 @@ interface MenuProps{
 
 const Menu: React.FC<MenuProps> = ({title}) => {
 
-    console.log(title)
+    const navigate = useNavigate();
+
+    const navigatePage = (page: any) => {
+        
+        navigate(page)
+    }
+
 
     const [isHover, setIsHover] = useState(false);
     const [isTitleDashboard, setIstitleDashboard] = useState(title)
@@ -87,22 +96,13 @@ const Menu: React.FC<MenuProps> = ({title}) => {
     }
 
 
+
     return (
         <div className='flex flex-col bg-blue-900 absolute w-[20.27%] pb-10 pt-10 mb-[-3px] dashboardPurple-caret' 
         style={{ backgroundImage: "url('/public/Img/Dashboard/dashboard-img.png')" }}>
-{/* 
-            <div className=" w-[48%] py-3">
-                    <div className="   flex items-center flex-row w-full h-[10&] ">
-                        <img className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
-                        <div className="text-center ">
-                            <p className="text-sky-300 font-bold">Management</p>
-                            <p className="text-sky-300 font-bold">Dashboard</p>
-                        </div>
-                    </div>
-            </div> */}
 
                 { isTitleDashboard === "Dashboard" ? 
-                     <div className='group py-1'>
+                     <div className='group py-1' onClick={() => navigatePage('/dashboard')}>
                         <div className="border-l-4 py-1 group-border-l-4 group-hover:border-white">
                             <div className="w-full flex flex-row items-center py-1 bg-white-800 ">
                             <MdDashboard className="mx-2 flex-shrink-0" size={20} color={"#7dd3fc"}/>
@@ -111,7 +111,7 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                         </div> 
                      </div>
                  : 
-                    <div className='group py-1'>
+                    <div className='group py-1' onClick={() => navigatePage('/dashboard')}>
                         <div className="border-l-4 border-blue-900 py-1 group-border-l-4 hover:border-white transition-all duration-300">
                         <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300">
                             <MdDashboard className="mx-2 flex-shrink-0 gap-2" size={20} color={"#7dd3fc"}/>
@@ -256,6 +256,19 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                 <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
+            
+                            <FaUserClock className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <p className="font-bold text-xs font-sans text-white">Admin Activity</p>
+                        </div>
+                    </div>
+                 </div>
+              </div>
+
+
+              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
+                    <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
+                        <div className=' w-full flex flex-row items-center '>
                            
                             <PiPhoneCallFill className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                             <p className="font-bold text-xs font-sans text-white">Support</p>
@@ -265,18 +278,7 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                  </div>
               </div>
 
-              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
-                    <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
-                        <div className=' w-full flex flex-row items-center '>
-            
-                            <MdPrivacyTip className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
-                            <p className="font-bold text-xs font-sans text-white">Privacy Policy</p>
-                        </div>
-                    </div>
-                 </div>
-              </div>
-
+          
 
              
 
