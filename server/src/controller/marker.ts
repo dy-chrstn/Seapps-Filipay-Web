@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { createMarker, getAllMarkers, updateMarker, deleteOneMarker } from "../services/marker";
+import { createMarker, findMarkersByCoopId, updateMarker, deleteOneMarker } from "../services/marker";
 
 export const registerMarker = async (req: express.Request, res: express.Response) => {
     try {
@@ -36,7 +36,8 @@ export const registerMarker = async (req: express.Request, res: express.Response
 
 export const getMarkers = async (req: express.Request, res: express.Response) => {
     try {
-        const markers = await getAllMarkers();
+        const coopId = req.params.id;
+        const markers = await findMarkersByCoopId(coopId);
         res.status(200).json({
             code: 0,
             message: "Markers fetched successfully",

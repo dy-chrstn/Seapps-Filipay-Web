@@ -6,10 +6,8 @@ export const createMarker = async (marker: object) => {
     return newMarker;
 }
 
-export const getAllMarkers = async () => {
-    const markers = await MarkerModel.find();
-    return markers;
-}
+export const findMarkersByCoopId = (coopId: string) => MarkerModel.find({ coopId: coopId });
+
 
 export const updateMarker = async (id: string, marker: object) => {
     const updatedMarker = await MarkerModel.findByIdAndUpdate(id, marker, { new: true });
