@@ -9,22 +9,23 @@ export const registerUser = async (req: express.Request, res: express.Response) 
         const existingUser = await findUserByEmail(email);
         if (existingUser) {
             return res.status(409).json({
-                messages:{
+                messages: {
                     code: 1,
                     message: "User already exists",
                 },
-                response:{}
+                response: {}
             });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await createUser( email, hashedPassword, name, role );
+        const user = await createUser(email, hashedPassword, name, role);
         res.status(201).json({
-            messages:{
+            messages: {
                 code: 0,
                 message: "User created successfully",
             },
-            response:{
+            response: {
+                _id: user._id,
                 email: user.email,
                 name: user.name,
                 role: user.role
@@ -32,11 +33,11 @@ export const registerUser = async (req: express.Request, res: express.Response) 
         });
     } catch (error) {
         res.status(500).json({
-            messages:{
+            messages: {
                 code: 1,
                 message: error
             },
-            response:{}
+            response: {}
         });
     }
 }
@@ -49,11 +50,12 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
         if (user) {
             if (passwordMatch) {
                 res.status(200).json({
-                    messages:{
+                    messages: {
                         code: 0,
                         message: "User logged in successfully",
                     },
-                    response:{
+                    response: {
+                        _id: user._id,
                         email: user.email,
                         name: user.name,
                         role: user.role
@@ -61,29 +63,29 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
                 });
             } else {
                 res.status(401).json({
-                    messages:{
+                    messages: {
                         code: 1,
                         message: "Invalid email or password",
                     },
-                    response:{}
+                    response: {}
                 });
             }
         } else {
             res.status(401).json({
-                messages:{
+                messages: {
                     code: 1,
                     message: "Invalid email or password",
                 },
-                response:{}
+                response: {}
             });
         }
     } catch (error) {
         res.status(500).json({
-            messages:{
+            messages: {
                 code: 1,
                 message: error
             },
-            response:{}
+            response: {}
         });
     }
 }
