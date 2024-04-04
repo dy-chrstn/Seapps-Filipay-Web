@@ -22,7 +22,15 @@ interface MarkerData {
   long: string;
 }
 
+const basicAuthConfig = {
+  auth: {
+    username: import.meta.env.VITE_USERNAME,
+    password: import.meta.env.VITE_PASSWORD
+  }
+}
+
 const MapContainer: React.FC = () => {
+
   const defaultCenter = useMemo(() => ({ lat: 14.418331431423372, lng: 121.04331822703718 }), []);
 
   const mapStyles = {
@@ -44,7 +52,7 @@ const MapContainer: React.FC = () => {
   };
 
   const openModal = (event: any) => {
-    let { x, y } = event.domEvent;
+    const { x, y } = event.domEvent;
 
     setModalPosition({ x, y });
     setModalOpen(true);
@@ -59,7 +67,7 @@ const MapContainer: React.FC = () => {
   };
 
   const AddNewPin = async (pinType: string) => {
-    const coopId = "";
+    const coopId = "660e114244b1dae6cd75d842";
     const stationName = pinType;
     const km = markers.length + 1;
     const lat = clickPosition.lat.toString();
@@ -67,14 +75,23 @@ const MapContainer: React.FC = () => {
     const radius = 5;
 
     try {
-      const res = await axios.post("http://localhost:3050/registerMarker", {
+      const tokenResponse = await axios.get("http://192.168.1.31:3050/getToken", basicAuthConfig);
+
+      const tokenConfig = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${tokenResponse.data.response.token}`
+        }
+      }
+
+      const res = await axios.post("http://192.168.1.31:3050/registerMarker", {
         coopId: coopId,
         stationName: stationName,
         km: km,
         lat: lat,
         long: lng,
         radius: radius,
-      });
+      }, tokenConfig);
 
       console.log("Marker added successfully: ", res.data);
 
@@ -88,30 +105,54 @@ const MapContainer: React.FC = () => {
 
   //reading markers from db
   useEffect(() => {
-    // Fetch markers from the server when the component mounts
-    axios
-      .get<{ code: number; message: string; markers: MarkerData[] }>(
-        "http://localhost:3050/getMarkers"
-      )
-      .then((response) => {
-        if (response.data.code === 0) {
+    const fetchToken = async () => {
+      try {
+        const tokenResponse = await axios.get('http://192.168.1.31:3050/getToken', basicAuthConfig);
+
+        const token = tokenResponse.data.response.token;
+        const tokenConfig = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        };
+
+        const coopId = '660e114244b1dae6cd75d842';
+        const markersResponse = await axios.get<{ code: number; message: string; markers: MarkerData[] }>(
+          `http://192.168.1.31:3050/getMarkers/${coopId}`,
+          tokenConfig
+        );
+
+        if (markersResponse.data.code === 0) {
           // Check if the response is successful
-          setMarkers(response.data.markers); // Set the fetched markers into the state
+          setMarkers(markersResponse.data.markers); // Set the fetched markers into the state
         } else {
-          console.error("Error fetching markers:", response.data.message);
+          console.error("Error fetching markers:", markersResponse.data.message);
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching markers:", error);
-      });
+      } catch (error) {
+        console.error("Error fetching token or markers:", error);
+      }
+    };
+
+    fetchToken();
   }, []);
+
 
   //deleting marker from db
   const handleDeleteMarker = async () => {
     if (selectedMarker !== null) {
       try {
+        const tokenResponse = await axios.get("http://192.168.1.31:3050/getToken", basicAuthConfig);
+
+        const tokenConfig = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tokenResponse.data.response.token}`
+          }
+        }
+
         const res = await axios.delete(
-          `http://localhost:3050/deleteMarker/${selectedMarker._id}`
+          `http://192.168.1.31:3050/deleteMarker/${selectedMarker._id}`, tokenConfig
         );
         setSelectedMarker(null); // Clear selected marker after deletion
         // Close the sidebar after deletion
@@ -166,12 +207,22 @@ const MapContainer: React.FC = () => {
 
   const handleMarkerDragEnd = async (e: any, markerId: string) => {
     try {
+      const tokenResponse = await axios.get("http://192.168.1.31:3050/getToken", basicAuthConfig);
+
+      const tokenConfig = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${tokenResponse.data.response.token}`
+        }
+      }
+
       const res = await axios.patch(
-        `http://localhost:3050/updateMarkerById/${markerId}`,
+        `http://192.168.1.31:3050/updateMarkerById/${markerId}`,
         {
           lat: e.latLng.lat().toString(),
           long: e.latLng.lng().toString(),
-        }
+        },
+        tokenConfig
       );
 
       if (res.status === 200) {
@@ -201,6 +252,7 @@ const MapContainer: React.FC = () => {
           mapContainerStyle={mapStyles}
           zoom={12}
           center={defaultCenter}
+          onDrag={() => setModalOpen(false)}
           onClick={openModal}
         >
           <SideBar
@@ -222,7 +274,10 @@ const MapContainer: React.FC = () => {
                 draggable={true}
                 onDrag={(e) => handleMarkerDrag(e, index)}
                 onDragEnd={(e) => handleMarkerDragEnd(e, marker._id)}
-                onClick={() => handleMarkerClick(marker)}
+                onClick={() => {
+                  handleMarkerClick(marker),
+                  setModalOpen(false)
+                }}
                 animation={google.maps.Animation.DROP}
                 onRightClick={() => {
                   pinClick(
@@ -234,6 +289,7 @@ const MapContainer: React.FC = () => {
                     marker,
                   );
                   setDisplay({ lat: parseFloat(marker.lat), lng: parseFloat(marker.long) });
+                  setModalOpen(false);
                 }}
 
               />

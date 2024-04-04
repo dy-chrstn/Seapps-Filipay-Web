@@ -39,6 +39,13 @@ const SideBar: React.FC<SideBarProps> = ({
   const lat = display.lat.toString();
   const lng = display.lng.toString();
 
+  const basicAuthConfig = {
+    auth: {
+      username: import.meta.env.VITE_USERNAME,
+      password: import.meta.env.VITE_PASSWORD
+    }
+  }
+
   useEffect(() => {
     setNewRadius(marker?.radius);
     setNewStation(marker?.stationName);
@@ -47,15 +54,25 @@ const SideBar: React.FC<SideBarProps> = ({
 
   const handleUpdate = async () => {
     try {
+      const tokenResponse = await axios.get("http://192.168.1.31:3050/getToken", basicAuthConfig);
+
+      const tokenConfig = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${tokenResponse.data.response.token}`
+        }
+      }
+
       const res = await axios.patch(
-        `http://localhost:3050/updateMarkerById/${marker?._id}`,
+        `http://192.168.1.31:3050/updateMarkerById/${marker?._id}`,
         {
           stationName: newStation,
           km: newKm,
           lat: lat,
           long: lng,
           radius: newRadius,
-        }
+        },
+        tokenConfig
       );
 
       if (res.status === 200) {
