@@ -24,7 +24,7 @@ const MonthlySales: React.FC<BarGraphProps> = ({ barData }) => {
             const ctx = chartRef.current.getContext('2d');
             if (ctx) {
                 new Chart(ctx, {
-                    type: 'line',
+                    type: 'bar',
                     data: barData,
                     options: {
                        

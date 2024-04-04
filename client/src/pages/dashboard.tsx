@@ -28,14 +28,14 @@ return (
             <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
               {menuOpen ? <Menu title={"Dashboard"}/> : <MiniMenu title={"Dashboard"}/> }
             </div>
-            
+          
             <div className='h-full w-[75%] mx-10 mt-5 '>
               <DashBoardTopBody/>
               <hr className='w-full border-t-2 border-sky-300  ' />
-                <div className='flex flex-row mt-4 h-[350px] justify-evenly bg-green-300'>
+                <div className='flex flex-row mt-4 h-[350px] justify-evenly'>
                   
-                  <div className='  2xl:w-[50%] w-[70%] px-32 shadow-xl bg-gradient-to-b from-sky-200 via-sky-100 to-sky-100'>
-                  <div className='flex flex-row bg-pink-300 h-[70px] w-[100%] items-center justify-between px-10 pr-5'>
+                  <div className='  2xl:w-[60%] w-[70%] shadow-xl bg-gradient-to-b from-sky-200 via-sky-100 to-sky-100'>
+                  <div className='flex flex-row h-[70px] w-[100%] items-center justify-between px-10 pr-5'>
                       <div className="flex flex-row items-center justify-between w-full rounded ">
                             {/* leftside */}
                         <div className='flex flex-row items-center '> 
@@ -98,8 +98,9 @@ return (
                         </div>
                       </div>
                     </div>
+                    <hr className="mx-8 self-center border-b-1 border-sky-500  " />
                     {/* Graph Container  */}
-                    <div className=' '>
+                    <div className=' px-20 w-full bg-gradient-to-b from-sky-200 via-sky-100 to-sky-100'>
                           <DashBoardSlider />
                     </div>
                   </div>

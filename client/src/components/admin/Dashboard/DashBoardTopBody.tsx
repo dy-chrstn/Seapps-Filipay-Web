@@ -19,7 +19,7 @@ return (
                     </div>
               </div>
               <div className='bg-gray-100 border-4 rounded py-2 px-3 2xl:w-[20%] w-[17%] flex flex-col justify-center shadow-xl mx-1'>
-                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Transport Cooperatives</p>
+                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Vehicle Service</p>
                     <div className=' flex flex-row items-center justify-between w-full'>
                       <p className=' p-1 px-2 rounded bg-sky-300 text-blue-500 2xl:text-sm text-xs'>TC</p>
                       <p className=' 2xl:text-xxxs text-[.45rem] font-semibold text-sky-500'>Total Units</p>
@@ -27,7 +27,7 @@ return (
                     </div>
               </div>
               <div className='bg-gray-100 border-4 rounded py-2 px-3 2xl:w-[20%] w-[17%] flex flex-col justify-center shadow-xl mx-1'>
-                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Transport Cooperatives</p>
+                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Distributor</p>
                     <div className=' flex flex-row items-center justify-between w-full'>
                       <p className=' p-1 px-2 rounded bg-sky-300 text-blue-500 2xl:text-sm text-xs'>TC</p>
                       <p className=' 2xl:text-xxxs text-[.45rem] font-semibold text-sky-500'>Total Units</p>
@@ -35,7 +35,7 @@ return (
                     </div>
               </div>
               <div className='bg-gray-100 border-4 rounded py-2 px-3 2xl:w-[20%] w-[17%] flex flex-col justify-center shadow-xl mx-1'>
-                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Transport Cooperatives</p>
+                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Retailer</p>
                     <div className=' flex flex-row items-center justify-between w-full'>
                       <p className=' p-1 px-2 rounded bg-sky-300 text-blue-500 2xl:text-sm text-xs'>TC</p>
                       <p className=' 2xl:text-xxxs text-[.45rem] font-semibold text-sky-500'>Total Units</p>
@@ -43,7 +43,7 @@ return (
                     </div>
               </div>
               <div className='bg-gray-100 border-4 rounded py-2 px-3 2xl:w-[20%] w-[17%] flex flex-col justify-center shadow-xl mx-1'>
-                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Transport Cooperatives</p>
+                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Driver</p>
                     <div className=' flex flex-row items-center justify-between w-full'>
                       <p className=' p-1 px-2 rounded bg-sky-300 text-blue-500 2xl:text-sm text-xs'>TC</p>
                       <p className=' 2xl:text-xxxs text-[.45rem] font-semibold text-sky-500'>Total Units</p>
@@ -51,7 +51,7 @@ return (
                     </div>
               </div>
               <div className='bg-gray-100 border-4 rounded py-2 px-3 2xl:w-[20%] w-[17%] flex flex-col justify-center shadow-xl mx-1'>
-                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Transport Cooperatives</p>
+                    <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Rider</p>
                     <div className=' flex flex-row items-center justify-between w-full'>
                       <p className=' p-1 px-2 rounded bg-sky-300 text-blue-500 2xl:text-sm text-xs'>TC</p>
                       <p className=' 2xl:text-xxxs text-[.45rem] font-semibold text-sky-500'>Total Units</p>
