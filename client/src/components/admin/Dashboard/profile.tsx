@@ -1,6 +1,5 @@
 //import React from 'react'
-import React, { useState } from 'react'
-import { IoIosNotifications } from "react-icons/io";
+import { useState } from 'react'
 import { MdDashboard } from "react-icons/md";
 import { FaGreaterThan } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
@@ -11,7 +10,6 @@ import { FaBook } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { MdPrivacyTip } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
-import { FaUserClock } from "react-icons/fa6";
 import { PiPhoneCallFill } from "react-icons/pi";
 
 const Menu = () => {

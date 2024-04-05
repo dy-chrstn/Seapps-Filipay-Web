@@ -7,7 +7,7 @@ import { FaPesoSign } from "react-icons/fa6";
 import { MdOutlineAddCard } from "react-icons/md";
 import { MdAccountBox } from "react-icons/md";
 import { BsGraphUpArrow } from "react-icons/bs";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 type AccountingSubMenuProps = {
     isMenuFull: boolean;
     onMouseEnter: () => void;
@@ -17,12 +17,12 @@ type AccountingSubMenuProps = {
 
   const AccountingSubMenu: React.FC<AccountingSubMenuProps> = ({ isMenuFull,  onMouseEnter, onMouseLeave}) => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const navigatePage = (page: any) => {
+    // const navigatePage = (page: any) => {
         
-        navigate(page)
-    }
+    //     navigate(page)
+    // }
 
     return (
         <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-64 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 

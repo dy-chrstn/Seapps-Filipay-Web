@@ -9,10 +9,6 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import './header.css';
 
-
-import Menu from './Menu/menu';
-import MiniMenu from './Menu/miniMenu'
-
 interface HeaderProps {
   onClick: () => void; 
   title: string;

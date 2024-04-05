@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Swiper from "swiper";
 import "swiper/swiper-bundle.css";
-import { FaSun } from "react-icons/fa";
-import { FaCloudSun } from "react-icons/fa";
-import { IoIosCloudyNight } from "react-icons/io";
+
 import DailySales from "./DailySales";
 import MonthlySales from "./MonthlySales";
 import AnnualSales from "./AnnualSalesForecast";

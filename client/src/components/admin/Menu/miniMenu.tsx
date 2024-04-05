@@ -34,7 +34,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
         navigate(page)
     }
 
-    const [isHover, setIsHover] = useState(false);
+  
     // const [isMenuHover, setIsMenuHover] = useState(false);
     const [clientInfoWindow, setClientInfoWindow] = useState(false);
     const [driverInfoWindow, setDriverInfoWindow] = useState(false);
@@ -66,7 +66,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
         }, 300);
     }
 
-    const menuHoverOut = (menu: any) => {
+    const menuHoverOut = () => {
 
         clearTimeout(hoverTimeout); 
         setClientInfoWindow(false)
@@ -85,15 +85,15 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
     const hoverIn = () => {
         if(title === "Dashboard"){
             setIstitleDashboard('')
-            setIsHover(true)
+
         } 
-        //   setIsHover(true)
+   
     }
 
     const hoverOut = () => {
         if(title === "Dashboard"){
             setIstitleDashboard(title)
-            setIsHover(false)
+      
         } 
       
     }
@@ -202,7 +202,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
             }
             
             <div className='group py-1' onClick={openClientSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-            <div  onMouseEnter={() => menuHoverIn('Client')} onMouseLeave={() => menuHoverOut('Client')}
+            <div  onMouseEnter={() => menuHoverIn('Client')} onMouseLeave={() => menuHoverOut()}
             className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                 <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                     <div className='w-full flex flex-row items-center'>
@@ -227,7 +227,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 
 
               <div className='group py-1' onClick={openDriverSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div onMouseEnter={() => menuHoverIn('Driver')} onMouseLeave={() => menuHoverOut('Driver')}
+                <div onMouseEnter={() => menuHoverIn('Driver')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -254,7 +254,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                
           
               <div className='group py-1' onClick={openRiderSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  onMouseEnter={() => menuHoverIn('Rider')} onMouseLeave={() => menuHoverOut('Rider')}
+                <div  onMouseEnter={() => menuHoverIn('Rider')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -276,7 +276,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 )}
 
               <div className='group py-1' onClick={openDistributionSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  onMouseEnter={() => menuHoverIn('Distribution')} onMouseLeave={() => menuHoverOut('Distribution')}
+                <div  onMouseEnter={() => menuHoverIn('Distribution')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -302,7 +302,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     )}
 
               <div className='group py-1' onClick={openAccountingSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  onMouseEnter={() => menuHoverIn('Accounting')} onMouseLeave={() => menuHoverOut('Accounting')}
+                <div  onMouseEnter={() => menuHoverIn('Accounting')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -326,7 +326,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 )}
 
               <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  onMouseEnter={() => menuHoverIn('Email')} onMouseLeave={() => menuHoverOut('Email')}
+                <div  onMouseEnter={() => menuHoverIn('Email')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -347,7 +347,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 )}
             
               <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  onMouseEnter={() => menuHoverIn('Privacy')} onMouseLeave={() => menuHoverOut('Privacy')}
+                <div  onMouseEnter={() => menuHoverIn('Privacy')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -367,7 +367,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 )}
 
               <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  onMouseEnter={() => menuHoverIn('Admin')} onMouseLeave={() => menuHoverOut('Admin')}
+                <div  onMouseEnter={() => menuHoverIn('Admin')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -388,7 +388,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 )}
 
                 <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                    <div  onMouseEnter={() => menuHoverIn('Activity')} onMouseLeave={() => menuHoverOut('Activity')}
+                    <div  onMouseEnter={() => menuHoverIn('Activity')} onMouseLeave={() => menuHoverOut()}
                     className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                         <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                             <div className=' w-full flex flex-row items-center '>
@@ -409,7 +409,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 )}
 
               <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div  onMouseEnter={() => menuHoverIn('Support')} onMouseLeave={() => menuHoverOut('Support')}
+                <div  onMouseEnter={() => menuHoverIn('Support')} onMouseLeave={() => menuHoverOut()}
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
