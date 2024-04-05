@@ -34,7 +34,7 @@ return (
               <hr className='w-full border-t-2 border-sky-300  ' />
                 <div className='flex flex-row mt-4 h-[350px] justify-evenly'>
                   
-                  <div className='  2xl:w-[60%] w-[70%] shadow-xl bg-gradient-to-b from-sky-200 via-sky-100 to-sky-100'>
+                  <div className='  2xl:w-[60%] w-[60%] shadow-xl bg-gradient-to-br from-[#A8C6F8] via-[#A8C6F8] to-sky-100'>
                   <div className='flex flex-row h-[70px] w-[100%] items-center justify-between px-10 pr-5'>
                       <div className="flex flex-row items-center justify-between w-full rounded ">
                             {/* leftside */}
@@ -100,7 +100,7 @@ return (
                     </div>
                     <hr className="mx-8 self-center border-b-1 border-sky-500  " />
                     {/* Graph Container  */}
-                    <div className=' px-20 w-full bg-gradient-to-b from-sky-200 via-sky-100 to-sky-100'>
+                    <div className=' px-8 w-full bg-gradient-to-b from-[#A8C6F8] via-sky-100 to-sky-100'>
                           <DashBoardSlider />
                     </div>
                   </div>

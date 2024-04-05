@@ -7,7 +7,6 @@ Chart.register(...registerables);
 interface BarGraphData {
     labels: string[];
     datasets: {
-        label: string;
         data: number[];
         backgroundColor: string[];
     }[];
@@ -27,6 +26,11 @@ const DailySales: React.FC<BarGraphProps> = ({ barData }) => {
                     type: 'bar',
                     data: barData,
                     options: {
+                    plugins: {
+                        legend: {
+                            display: false,   
+                        }
+                        }
                        
                     },
                 });

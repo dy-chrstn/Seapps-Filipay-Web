@@ -5,10 +5,10 @@ const DashBoardTopBody = () => {
   
 return (
       <div className='text-start bg-gradient-to-b from-sky-200 via-sky-100 to-sky-100 w-full px-4 py-2 mb-4 rounded-xl'>
-          <p className='font-bold text-4xl text-blue-700'>Hello John</p>
-          <span className='font-medium text-lg text-gray-500 '>Welcome Back!</span>
+          <p className='font-bold 2xl:text-4xl text-3xl text-blue-700'>Hello John</p>
+          <span className='font-medium 2xl:text-lg text-md text-gray-500 '>Welcome Back!</span>
 
-            <div className='flex flex-row mt-4'>
+            <div className='flex flex-row 2xl:mt-4 mt-1'>
 
               <div className='bg-gray-100 border-4 rounded py-2 px-3 2xl:w-[20%] w-[17%] flex flex-col justify-center shadow-xl mx-1'>
                     <p className=' font-bold w-full text-sky-900 text-right 2xl:text-xxs text-[.55rem] mb-2'>Transport Cooperatives</p>
