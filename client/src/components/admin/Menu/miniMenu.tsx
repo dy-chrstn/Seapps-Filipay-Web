@@ -34,7 +34,6 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
         navigate(page)
     }
 
-  
     // const [isMenuHover, setIsMenuHover] = useState(false);
     const [clientInfoWindow, setClientInfoWindow] = useState(false);
     const [driverInfoWindow, setDriverInfoWindow] = useState(false);
@@ -63,7 +62,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
             else if(menu === "Admin")setAdminInfoWindow(true)
             else if(menu === "Activity")setActivityInfoWindow(true)
             else setSupportInfoWindow(true)
-        }, 300);
+        }, 1000);
     }
 
     const menuHoverOut = () => {
@@ -84,16 +83,14 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
 
     const hoverIn = () => {
         if(title === "Dashboard"){
-            setIstitleDashboard('')
-
+            setIstitleDashboard('') 
         } 
-   
     }
 
     const hoverOut = () => {
         if(title === "Dashboard"){
             setIstitleDashboard(title)
-      
+           
         } 
       
     }
