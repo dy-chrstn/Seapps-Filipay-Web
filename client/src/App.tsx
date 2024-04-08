@@ -10,6 +10,7 @@ import Vehicle from './pages/ClientSubPages/Vehicle';
 import Device from './pages/ClientSubPages/Device'; 
 import Distributor from './pages/ClientSubPages/Distributor';
 import Retailer  from './pages/ClientSubPages/Retailer';
+import Profile from './pages/profile';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path='/Device' element={<Device />} />
       <Route path='/Distributor' element={<Distributor />} />
       <Route path='/Retailer' element={<Retailer />} />
+      <Route path='/profile' element={<Profile />} />
 
     </Routes>
   );
