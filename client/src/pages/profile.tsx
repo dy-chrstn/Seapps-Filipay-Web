@@ -16,10 +16,10 @@ const Profile: React.FC = () => {
 
 return (
     <div className='w-screen h-screen'>
-        <Header title="Dashboard" onClick = {openMenu}/> 
+        <Header title="Profile" onClick = {openMenu}/> 
         <div className='flex flex-row'>
             <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
-              {menuOpen ? <Menu title={"Dashboard"}/> : <MiniMenu title={"Dashboard"}/> }
+              {menuOpen ? <Menu title={""}/> : <MiniMenu title={""}/> }
             </div>
           
             <div className='h-full w-[100%] mx-10 mt-5 '>
@@ -54,6 +54,10 @@ return (
                             <span className='font-bold text-sm my-4 w-[17%] '> CONFIRM PASSWORD </span>
                             <input className='border-2 border-[#4D93B8] rounded my-4 h-8 w-[20%]' type='text'></input>
                         </div>  
+                        <div className='flex flex-row self-center 2xl:mt-12 '>
+                        <button className='bg-[#112FA7] p-2 px-12 rounded text-white mr-8 font-bold hover:transform hover:scale-110 transition duration-300'>Save</button>
+                                <button className=' hover:transform hover:scale-110 transition duration-300 border-1 border-black px-12 py-2 rounded'>Cancel</button>
+                        </div>
 
                     </div>
                   
