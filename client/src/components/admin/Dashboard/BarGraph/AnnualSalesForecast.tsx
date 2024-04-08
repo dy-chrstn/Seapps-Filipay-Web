@@ -30,7 +30,7 @@ const MonthlySales: React.FC<BarGraphProps> = ({ barData }) => {
                         legend: {
                             display: false,   
                         }
-                        }
+                      }
                     },
                 });
             }
