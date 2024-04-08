@@ -51,7 +51,6 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
     let hoverTimeout: any;
     const menuHoverIn = (menu: any) => {
 
-        hoverTimeout = setTimeout(() => {
             if(menu === "Client")setClientInfoWindow(true)
             else if(menu === "Driver")setDriverInfoWindow(true)
             else if(menu === "Rider")setRiderInfoWindow(true)
@@ -62,12 +61,11 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
             else if(menu === "Admin")setAdminInfoWindow(true)
             else if(menu === "Activity")setActivityInfoWindow(true)
             else setSupportInfoWindow(true)
-        }, 1000);
+
     }
 
     const menuHoverOut = () => {
 
-        clearTimeout(hoverTimeout); 
         setClientInfoWindow(false)
         setDriverInfoWindow(false)
         setRiderInfoWindow(false)
