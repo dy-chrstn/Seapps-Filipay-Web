@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/Dashboard/header';
 import Menu from '../../components/Dashboard/Menu/menu';
-import TransportCoopTable from '../../components/Dashboard/Tables/TransportCoopTable';
+import TransportCoopTable from '../../components/Dashboard/Tables/TransportCooperativeTable/TransportCoopTable';
 import MiniMenu from '../../components/Dashboard/Menu/miniMenu';
 
 const TransportCooperative = () => {
@@ -12,15 +12,14 @@ const TransportCooperative = () => {
   };
 
   return (
-    <div className='w-screen h-screen transparent-caret'>
-      <Header title="Transport Cooperative" onClick={openMenu}/> 
-      {menuOpen ? <Menu/> : <MiniMenu/>}
+    <div className=' w-screen h-screen transparent-caret relative'>
+    <Header title="Transport Cooperative" onClick={openMenu}/> 
+    {menuOpen ? <Menu/> : <MiniMenu/>}
 
-      <div className='flex flex-col flex-grow'>
-        {/* Always render TransportCoopTable regardless of menu state */}
-        <TransportCoopTable />
-      </div>
+    <div className=''>
+      <TransportCoopTable />
     </div>
+  </div>
   );
 };
 

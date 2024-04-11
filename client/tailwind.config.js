@@ -6,6 +6,13 @@ export default {
   theme: {
     extend: {
 
+      fontSize:{
+        'xxs': ['0.70rem', {
+          lineHeight: '0.70rem',
+        }],
+        
+      },
+
       height: {
         "boxHeight": "200px",
         "boxHoverH": "160px"
@@ -20,6 +27,7 @@ export default {
         "80%": "80%",
         "70%": "70%",
         "10%": "10%",
+        "tableWidth" : "93%",
       },
       inset: {
         'custom-top': '300px', // Define custom top direction
@@ -60,6 +68,10 @@ export default {
         'sans': ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
         'serif': ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
         'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+      },
+
+      spacing: {
+        '102': '28rem', // Custom margin value
       },
 
 
