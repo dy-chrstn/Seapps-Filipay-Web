@@ -1,0 +1,8 @@
+/* Add this CSS to your stylesheet */
+.ql-divider {
+    width: 1px; /* Adjust the width as needed */
+    background-color: #ccc; /* Divider color */
+    height: 24px; /* Divider height */
+    margin: 0 4px; /* Adjust the margin as needed */
+  }
+  

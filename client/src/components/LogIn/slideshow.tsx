@@ -88,7 +88,7 @@ const SlideShow = () => {
         <div className="swiper-slide">
           <img
             className="rounded-2xl h-full w-full object-cover"
-            src="/public/Img/login/slider-bg.png"
+            src="/Img/login/slider-bg.png"
             alt="Slide 1"
           />
           <img
