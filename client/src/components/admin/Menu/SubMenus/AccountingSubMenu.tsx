@@ -7,7 +7,7 @@ import { FaPesoSign } from "react-icons/fa6";
 import { MdOutlineAddCard } from "react-icons/md";
 import { MdAccountBox } from "react-icons/md";
 import { BsGraphUpArrow } from "react-icons/bs";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 type AccountingSubMenuProps = {
     isMenuFull: boolean;
     onMouseEnter: () => void;
@@ -24,9 +24,18 @@ type AccountingSubMenuProps = {
     //     navigate(page)
     // }
 
+    const navigate = useNavigate();
+
+    const navigatePage = (page: any) => {
+        
+        navigate(page)
+    }
+
+
     return (
         <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-64 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/AccountingSystem/AccountManagement')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -38,6 +47,7 @@ type AccountingSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/AccountingSystem/FareIncome')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -49,6 +59,7 @@ type AccountingSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/AccountingSystem/CashIncome')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -60,6 +71,7 @@ type AccountingSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/AccountingSystem/LoadSales')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -71,6 +83,7 @@ type AccountingSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/AccountingSystem/CardSales')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>

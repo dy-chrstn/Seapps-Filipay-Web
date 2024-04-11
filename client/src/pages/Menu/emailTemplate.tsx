@@ -3,8 +3,8 @@ import Header from '../../components/admin/header';
 import Menu from '../../components/admin/Menu/menu';
 import MiniMenu from '../../components/admin/Menu/miniMenu';
 
+const EmailTemplate: React.FC = () => {
 
-const Distributor = () => {
     const [menuOpen, setMenuOpen] = useState(false)
     const openMenu = () => {
       if(!menuOpen){
@@ -12,21 +12,21 @@ const Distributor = () => {
       } else
       setMenuOpen(false)
     }
+
+    
 return (
     <div className='w-screen h-screen'>
-        <Header title="Distribution" onClick = {openMenu}/> 
+        <Header title="Email Template" onClick = {openMenu}/> 
         <div className='flex flex-row'>
-          <div className='bg-pink-300 w-[5%]'>
-            {menuOpen ? <Menu title={"Distribution"}/> : <MiniMenu title={"Distribution"}/> }
-          </div>
-         
-          <div className=' bg-blue-300 mx-12'>
-              <p className='text-4xl'>Hello Louise na sa <span className='font-bold'>Distribution</span> ka po ma'am</p>
-              
-          </div>
+            <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
+              {menuOpen ? <Menu title={"Email Template"}/> : <MiniMenu title={"Email Template"}/> }
+            </div>
+          
+            <div className='h-full w-[75%] mx-10 mt-5 '>
+            </div>
+             
+          
         </div>
-    
-        
 
     </div>
   );
@@ -34,4 +34,5 @@ return (
 }
 
 
-export default Distributor;
+export default EmailTemplate;
+

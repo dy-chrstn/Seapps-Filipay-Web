@@ -47,8 +47,6 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
     const [supportInfoWindow, setSupportInfoWindow] = useState(false);
     const [isTitleDashboard, setIstitleDashboard] = useState(title)
 
-
-    let hoverTimeout: any;
     const menuHoverIn = (menu: any) => {
 
             if(menu === "Client")setClientInfoWindow(true)

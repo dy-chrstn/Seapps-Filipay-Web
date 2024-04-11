@@ -6,6 +6,8 @@ import { FaWallet } from "react-icons/fa";
 import { FaBus } from "react-icons/fa";
 import { LuMessagesSquare } from "react-icons/lu";
 import { FaClipboardList } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 type RiderSubMenuProps = {
     isMenuFull: boolean;
@@ -14,11 +16,19 @@ type RiderSubMenuProps = {
   };
 
 const RiderSubMenu: React.FC<RiderSubMenuProps> = ({ isMenuFull, onMouseEnter, onMouseLeave}) => {
+    const navigate = useNavigate();
+
+  const navigatePage = (page: any) => {
+      
+      navigate(page)
+  }
+
 
     return (
         <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-44 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 
            
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+             onClick = {() => navigatePage('/Rider/RiderList')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -30,6 +40,7 @@ const RiderSubMenu: React.FC<RiderSubMenuProps> = ({ isMenuFull, onMouseEnter, o
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+             onClick = {() => navigatePage('/Rider/Wallet')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -41,6 +52,7 @@ const RiderSubMenu: React.FC<RiderSubMenuProps> = ({ isMenuFull, onMouseEnter, o
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+             onClick = {() => navigatePage('/Rider/RideHistory')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -52,6 +64,7 @@ const RiderSubMenu: React.FC<RiderSubMenuProps> = ({ isMenuFull, onMouseEnter, o
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+             onClick = {() => navigatePage('/Rider/RiderMessages')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>

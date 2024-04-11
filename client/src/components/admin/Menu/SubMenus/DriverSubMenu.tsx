@@ -8,6 +8,9 @@ import { TiMessages } from "react-icons/ti";
 import { FaUserTie } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import { AiOutlineTransaction } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+
+
 
 type DriverSubMenuProps = {
     isMenuFull: boolean;
@@ -17,10 +20,18 @@ type DriverSubMenuProps = {
 
 const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter, onMouseLeave}) => {
 
+    const navigate = useNavigate();
+
+  const navigatePage = (page: any) => {
+      
+      navigate(page)
+  }
+
     return (
         <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-32 bg-dashboardPurple'}  p-2 pl-1 rounded-lg`}> 
             
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/Driver/DriverList')} 
              className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -32,6 +43,7 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter,
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/Driver/TimeTracker')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -43,6 +55,7 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter,
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/Driver/Dispatch')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -54,6 +67,7 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter,
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/Driver/Sales')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -65,6 +79,7 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter,
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/Driver/DriverTransactionHistory')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -76,6 +91,7 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter,
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
+            onClick = {() => navigatePage('/Driver/DriverMessages')} 
              className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>

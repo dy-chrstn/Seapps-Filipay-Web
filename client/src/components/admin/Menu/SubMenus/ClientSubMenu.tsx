@@ -30,7 +30,7 @@ type ClientSubMenuProps = {
         <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-20 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-             onClick = {() => navigatePage('/TransportCooperative')} 
+             onClick = {() => navigatePage('/Client/TransportCooperative')} 
              className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -42,7 +42,7 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            onClick = {() => navigatePage('/VehicleService')}
+            onClick = {() => navigatePage('/Client/VehicleService')}
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -54,7 +54,7 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            onClick = {() => navigatePage('/Vehicle')}
+            onClick = {() => navigatePage('/Client/Vehicle')}
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -66,7 +66,7 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            onClick = {() => navigatePage('/Device')}
+            onClick = {() => navigatePage('/Client/Device')}
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -78,7 +78,7 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            onClick = {() => navigatePage('/Distributor')}
+            onClick = {() => navigatePage('/Client/Distributor')}
             className='border-l-4 border-dashboardPurple hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
@@ -90,7 +90,7 @@ type ClientSubMenuProps = {
             </div>
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
-            onClick = {() => navigatePage('/Retailer')}
+            onClick = {() => navigatePage('/Client/Retailer')}
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>
                 <div className='relative  w-full'>
                     <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 hover:opacity-30"></div>
