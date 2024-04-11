@@ -2,9 +2,9 @@ import { useState } from 'react'
 import Header from '../components/admin/header';
 import Menu from '../components/admin/Menu/menu';
 import MiniMenu from '../components/admin/Menu/miniMenu';
-import DashBoardTopBody from '../components/admin/Dashboard/DashBoardTopBody';
+import DashBoardTopBody from '../components/Dashboard/DashBoardTopBody';
 import { LuRefreshCw } from "react-icons/lu";
-import DashBoardSlider from '../components/admin/Dashboard/BarGraph/DashBoardSlider';
+import DashBoardSlider from '../components/Dashboard/BarGraph/DashBoardSlider';
 
 const Dashboard: React.FC = () => {
 
