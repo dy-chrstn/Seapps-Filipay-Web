@@ -21,7 +21,7 @@ return (
             <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
               {menuOpen ? <Menu title={"Support"}/> : <MiniMenu title={"Support"}/> }
             </div>
-          
+        
             <div className='h-full w-[75%] mx-10 mt-5 '>
             </div>
              
