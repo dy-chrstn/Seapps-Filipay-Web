@@ -213,12 +213,14 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                     <AccountingSubMenu isMenuFull = {true} onMouseEnter={hoverIn} onMouseLeave ={hoverOut}/>
                 )}
 
-              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+              <div className='group py-1' onClick={() => navigatePage('/EmailTemplate')}
+              onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
                 <div  className="border-l-4 py-1 border-dashboardPurple group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
     
-                            <MdEmail className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <MdEmail 
+                            className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                             <p className="font-bold text-xs font-sans text-white">Email Template</p>
                         </div>
                        
@@ -226,7 +228,8 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                  </div>
               </div>
             
-              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+              <div className='group py-1' onClick={() => navigatePage('/PrivacyPolicy')}
+              onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
                 <div  className="border-l-4 py-1 border-dashboardPurple group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -239,7 +242,8 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                  </div>
               </div>
 
-              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+              <div className='group py-1' onClick={() => navigatePage('/AdminController')}
+              onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
                 <div  className="border-l-4 py-1 border-dashboardPurple group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -252,7 +256,8 @@ const Menu: React.FC<MenuProps> = ({title}) => {
                  </div>
               </div>
 
-              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+              <div className='group py-1' onClick={() => navigatePage('/AdminActivity')}
+               onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
                 <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
@@ -265,7 +270,8 @@ const Menu: React.FC<MenuProps> = ({title}) => {
               </div>
 
 
-              <div className='group py-1' onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+              <div className='group py-1' onClick={() => navigatePage('/Support')}
+              onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
                 <div  className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>

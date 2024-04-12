@@ -40,6 +40,13 @@ import LoadSales from './pages/Menu/SubPages/AccountingSubPages/loadSales';
 import CashSales from './pages/Menu/SubPages/AccountingSubPages/cashSales';
 
 
+import AdminController from './pages/Menu/adminController';
+import AdminActivity from './pages/Menu/adminActivity';
+import PrivacyPolicy from './pages/Menu/privacyPolicy';
+import EmailTemplate from './pages/Menu/emailTemplate';
+import Support from './pages/Menu/support';
+
+
 function App() {
   return (
     <Routes>
@@ -84,6 +91,14 @@ function App() {
       <Route path='/AccountingSystem/CashIncome' element={<AccountingCashIn />} />
       <Route path='/AccountingSystem/LoadSales' element={<LoadSales/>} />
       <Route path='/AccountingSystem/CardSales' element={<CashSales/>} />  
+
+
+      <Route path='/EmailTemplate' element={<EmailTemplate/>} />  
+      <Route path='/PrivacyPolicy' element={<PrivacyPolicy/>} /> 
+      <Route path='/AdminController' element={<AdminController/>} /> 
+      <Route path='/AdminActivity' element={<AdminActivity/>} /> 
+      <Route path='/Support' element={<Support/>} /> 
+
       
     </Routes>
   );
