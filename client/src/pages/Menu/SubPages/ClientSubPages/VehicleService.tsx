@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
+import VehicleServiceTable from '../../../../components/Dashboard/Tables/VehicleService/VehicleServiceTable';
 
 
 const VehicleService = () => {
@@ -12,23 +13,18 @@ const VehicleService = () => {
       } else
       setMenuOpen(false)
     }
-return (
-    <div className='w-screen h-screen'>
-        <Header title="Vehicle Service" onClick = {openMenu}/> 
-        <div className='flex flex-row'>
-          <div className='bg-pink-300 w-[5%]'>
-            {menuOpen ? <Menu title={"Vehicle Service"}/> : <MiniMenu title={"Vehicle Service"}/> }
-          </div>
-         
-          <div className=' bg-blue-300 mx-12'>
-              <p className=' text-4xl'>Hello Louise na sa <span className='font-bold'>Vehicle Service</span> ka po ma'am</p>
+    return (
+      <div className='w-screen h-screen transparent-caret'>
+        <Header title="Vehicle Service" onClick={openMenu}/> 
+         {menuOpen ? <Menu title={"Vehicle Service"}/> : <MiniMenu title={"Vehicle Service"}/> }
+  
+        <div className='flex flex-col flex-grow'>
+        {/* Always render TransportCoopTable regardless of menu state */}
+        <VehicleServiceTable />
               
           </div>
         </div>
-    
-        
-
-    </div>
+  
   );
 
 }

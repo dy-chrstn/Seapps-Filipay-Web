@@ -436,9 +436,7 @@ const columns: Column<Row>[] = useMemo(
       
 
       {
-        Header: "ACTION",
-        accessor: "action",
-        Cell: ({ row }) => (
+        Header: "ACTION",        Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
             <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
           </div>
