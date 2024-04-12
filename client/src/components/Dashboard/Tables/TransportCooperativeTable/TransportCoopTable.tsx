@@ -436,7 +436,8 @@ const columns: Column<Row>[] = useMemo(
       
 
       {
-        Header: "ACTION",        Cell: ({ row }) => (
+        Header: "ACTION",
+        Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
             <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
           </div>
@@ -466,9 +467,9 @@ const columns: Column<Row>[] = useMemo(
 
   return (
     <div className="w-tableWidth mx-auto">
-      <div className=" mx-auto mt-10 transparent-caret overflow-x-auto">
-      <div className="datepickers flex text-xs ml-16 sm:ml-32 md:ml-64 lg:ml-102 space-x-3">
-          <div className="from-datepicker">
+      <div className=" mx-auto mt-8 transparent-caret ">
+      <div className="datepickers mr-10 flex text-xs space-x-3">
+          <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
             <DatePicker
               placeholderText="MM/DD/YYYY"
@@ -559,7 +560,7 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y divide-gray-200 text-xxs ml-0 sm:ml-10 mt-5 bg-blue-900 overflow-auto">
+          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto">
           <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -584,37 +585,43 @@ const columns: Column<Row>[] = useMemo(
               </tr>
             ))}
           </thead>
-          <tbody
-            {...getTableBodyProps()}
-            className="text-center"
-          >
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  className={`border-b border-gray-200 ${
-                    row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                  } hover:bg-gray-300`}
-                >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        className="border px-2 py-1 td-truncate"
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
+          <tbody {...getTableBodyProps()} className="text-center">
+  {displayedData.length === 0 ? (
+    <tr>
+      <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
+        No results found
+      </td>
+    </tr>
+  ) : (
+    rows.map((row) => {
+      prepareRow(row);
+      return (
+        <tr
+          {...row.getRowProps()}
+          className={`border-b border-gray-200 ${
+            row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
+          } hover:bg-gray-300`}
+        >
+          {row.cells.map((cell) => {
+            return (
+              <td
+                {...cell.getCellProps()}
+                className="border px-1.5 td-truncate"
+              >
+                {cell.render("Cell")}
+              </td>
+            );
+          })}
+        </tr>
+      );
+    })
+  )}
+</tbody>
+
         </table>
 
         
-        <div className="flex justify-start ml-9 mt-4 text-xs">
+        <div className="flex justify-start ml-6 mt-4 text-xs">
         {Array.from({ length: pageCount }, (_, index) => (
           <button
             key={index}
