@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
+import DistributorTable from '../../../../components/Dashboard/Tables/Client-Tables/DistributorTable';
 
 
 const Distributor = () => {
@@ -13,22 +14,16 @@ const Distributor = () => {
       setMenuOpen(false)
     }
 return (
-    <div className='w-screen h-screen'>
-        <Header title="Distribution" onClick = {openMenu}/> 
-        <div className='flex flex-row'>
-          <div className='bg-pink-300 w-[5%]'>
-            {menuOpen ? <Menu title={"Distribution"}/> : <MiniMenu title={"Distribution"}/> }
-          </div>
-         
-          <div className=' bg-blue-300 mx-12'>
-              <p className='text-4xl'>Hello Louise na sa <span className='font-bold'>Distribution</span> ka po ma'am</p>
-              
-          </div>
-        </div>
-    
-        
+  <div className='w-screen h-screen transparent-caret'>
+  <Header title="Distributor" onClick={openMenu}/> 
+   {menuOpen ? <Menu title={"Distributor"}/> : <MiniMenu title={"Distributor"}/> }
 
+  <div className='flex flex-col flex-grow'>
+  {/* Always render TransportCoopTable regardless of menu state */}
+  <DistributorTable/>
+        
     </div>
+  </div>
   );
 
 }

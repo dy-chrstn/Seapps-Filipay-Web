@@ -3,33 +3,33 @@ import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
-import MessageAction from '../.././/Tables/Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./TransportCoopTable.css";
 import "react-calendar/dist/Calendar.css";
+import "./Table.css";
+
+
 
 
 interface Row {
   id: number;
-  logo: string;
-  transpocoop: string;
-  code: string;
-  email: string;
-  route: string;
-  chairman: string;
-  cda: string;
-  sec: string;
-  articles: string;
-  businessPermit: string;
-  bank: string;
-  resolution: string;
-  fare: string;
   date: string;
-  status: string;
+  code: string;
+  serviceType: string;
+  transpocoop: string;
+  vehicleNumber: string;
+  passengerValidator: string,
+  driverMonitor: string;
+  maker: string;
+  maxAmount: string;
+  plateNumber: string;
+  chassisNumber: string;
+  engineNumber: string;
+  distanceTravelled: string;
 }
-const TransportCoopTable: React.FC = () => {
+const VehicleTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
@@ -94,183 +94,163 @@ const TransportCoopTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      logo: "",
-      transpocoop: "Transport Corperation",
-      code: "TC001",
-      email: "coop1@example.com",
-      route: "Route 1",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱25",
-      date: "2024-04-02",
-      status: "Disapproved",
+      code: "1",
+      serviceType: "",
+      date: "04/15/2024",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 2,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC002",
-      email: "coop2@example.com",
-      route: "Route 2",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱30",
-      date: "2024-04-01",
-      status: "Approved",
+      date: "",
+      code: "2",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 3,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC003",
-      email: "coop3@example.com",
-      route: "Route 3",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱40",
-      date: "2024-04-05",
-      status: "Approved",
+      date: "",
+      code: "3",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 4,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC004",
-      email: "coop1@example.com",
-      route: "Route 4",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱25",
-      date: "2024-04-04",
-      status: "Disapproved",
+      code: "4",
+      date: "",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 5,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC005",
-      email: "coop1@example.com",
-      route: "Route 5",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱30",
-      date: "2024-04-06",
-      status: "Approved",
+      date: "",
+      code: "5",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 6,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC006",
-      email: "coop1@example.com",
-      route: "Route 6",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱40",
-      date: "2024-04-06",
-      status: "Approved",
+      date: "",
+      code: "6",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 7,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC007",
-      email: "coop1@example.com",
-      route: "Route 7",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱35",
-      date: "2024-04-02",
-      status: "Approved",
+      date: "",
+      code: "7",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 8,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC008",
-      email: "coop1@example.com",
-      route: "Route 8",
-      chairman: "John Doe",
-      cda: "",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱28 ",
-      date: "2024-04-06",
-      status: "Disapproved",
+      date: "",
+      code: "8",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 9,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC009",
-      email: "coop1@example.com",
-      route: "Route 9",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱33",
-      date: "2024-04-03",
-      status: "Approved",
+      date: "",
+      code: "9",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
     {
       id: 10,
-      logo: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC010",
-      email: "coop1@example.com",
-      route: "Route 10",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱26",
-      date: "2024-04-05",
-      status: "Disapproved",
+      date: "",
+      code: "10",
+      serviceType: "",
+      transpocoop: "",
+      vehicleNumber: "",
+      passengerValidator: "",
+      driverMonitor: "",
+      maker: "",
+      maxAmount: "",
+      plateNumber: "",
+      chassisNumber: "",
+      engineNumber: "",
+      distanceTravelled: "",
     },
   ]);
 
@@ -309,20 +289,18 @@ const TransportCoopTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.transpocoop.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.route.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.chairman.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.cda.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.sec.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.articles.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.businessPermit.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.bank.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.resolution.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.fare.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.serviceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.transpocoop.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.vehicleNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.passengerValidator.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.driverMonitor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.maker.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.maxAmount.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.plateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.chassisNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.engineNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.distanceTravelled.toLowerCase().includes(searchTerm.toLowerCase()) 
       );
     });
     setFilteredData(filtered);
@@ -345,7 +323,7 @@ const TransportCoopTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Transport_Cooperative.xlsx';
+  const fileName = 'VehicleTable.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -364,84 +342,63 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "LOGO",
-        accessor: "logo",
+        Header: "CODE",
+        accessor: "code",
         
       },
       {
-        Header: () => <div>TRANSPORT COOPERATIVE/<br/>CORPORATION</div>,
+        Header: () => <div>SERVICE<br/>TYPE</div>,
+        accessor: "serviceType",
+      },
+      {
+        Header: () => <div>TRANSPORT <br/> COOPERATIVE/<br/>CORPORATION</div>,
         accessor: "transpocoop",
       },
       {
-        Header: "CODE",
-        accessor: "code",
+        Header: () => <div>VEHICLE<br/>NUMBER</div>,
+        accessor: "vehicleNumber",
       },
       {
-        Header: () => <div>EMAIL<br/>ADDRESS</div>,
-        accessor: "email",
+        Header: () => <div>PASSENGER<br/>VALIDATOR</div>,
+        accessor: "passengerValidator",
       },
       {
-        Header: "ROUTE",
-        accessor: "route",
+        Header: () => <div>DRIVER'S<br/>MONITOR</div>,
+        accessor: "driverMonitor",
       },
       {
-        Header: "CHAIRMAN",
-        accessor: "chairman",
+        Header: "MAKER",
+        accessor: "maker",
       },
       {
-        Header: "CDA Certification",
-        accessor: "cda",
+        Header: () => <div>MAX<br/>AMOUNT</div>,
+        accessor: "maxAmount",
       },
       {
-        Header: "SEC Certification",
-        accessor: "sec",
+        Header: () => <div>PLATE<br/>NUMBER</div>,
+        accessor: "plateNumber",
       },
       {
-        Header: "ARTICLES & BY LAWS",
-        accessor: "articles",
+        Header: () => <div>CHASSIS<br/>NUMBER</div>,
+        accessor: "chassisNumber",
       },
       {
-        Header: "BUSINESS PERMIT",
-        accessor: "businessPermit",
+        Header: () => <div>ENGINE<br/>NUMBER</div>,
+        accessor: "engineNumber",
       },
       {
-        Header: "BANK CERTIFICATION",
-        accessor: "bank",
+        Header: () => <div>DISTANCE<br/>TRAVELLED</div>,
+        accessor: "distanceTravelled",
       },
-      {
-        Header: "BOARD RESOLUTION",
-        accessor: "resolution",
-      },
-      {
-        Header: "FARE MATRIX",
-        accessor: "fare",
-      },
-      {
-        Header: "DATE",
-        accessor: "date",
-      },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 td-truncate ${
-              value === "Approved" ? "text-green-500 font-bold" : "text-red-500 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-      },
-      
-
+     
       {
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+             <FaEdit />
           </div>
         ),
+        disableSortBy: true, // Disable sorting for this column
       },
       
     ],
@@ -466,8 +423,8 @@ const columns: Column<Row>[] = useMemo(
  
 
   return (
-    <div className="w-tableWidth mx-auto">
-      <div className=" mx-auto mt-8 transparent-caret ">
+    <div className="mx-auto">
+      <div className="mx-auto ml-3 mt-8 transparent-caret ">
       <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
@@ -560,28 +517,33 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto">
+          className="table-fixed divide-y overflow-x-auto divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900">
           <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-1 text-left"
-                  >
-                    <div className="flex items-center justify-center">
-                      {column.render("Header")}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <FaSortDown />
-                        ) : (
-                          <FaSortUp />
-                        )
-                      ) : (
-                        <FaSort />
-                      )}
-                    </div>
-                  </th>
-                ))}
+              {headerGroup.headers.map((column) => (
+  <th
+    {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
+    className="py-2 px-3 text-center"
+  >
+    <div className="flex items-center justify-center">
+      {column.render("Header")}
+      {column.canSort && (
+        <>
+          {column.isSorted ? (
+            column.isSortedDesc ? (
+              <FaSortDown />
+            ) : (
+              <FaSortUp />
+            )
+          ) : (
+            <FaSort />
+          )}
+        </>
+      )}
+    </div>
+  </th>
+))}
               </tr>
             ))}
           </thead>
@@ -606,7 +568,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border px-1 py-1.5 td-truncate"
               >
                 {cell.render("Cell")}
               </td>
@@ -663,4 +625,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default TransportCoopTable;
+export default VehicleTable;

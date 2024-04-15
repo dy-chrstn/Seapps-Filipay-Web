@@ -3,9 +3,9 @@ import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
-import MessageAction from '../.././/Tables/Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
-import "./VehicleService.css";
+import "./Table.css";
 
 
 
@@ -81,7 +81,7 @@ const VehicleServiceTable: React.FC = () => {
     {
       id: 1,
       servicetype: "Provincial Bus",
-      totalUnits: "2",
+      totalUnits: "1",
       status: "ACTIVE",
     },
     {
@@ -93,49 +93,49 @@ const VehicleServiceTable: React.FC = () => {
     {
       id: 3,
       servicetype: "Jeepney Class 2",
-      totalUnits: "2",
+      totalUnits: "3",
       status: "INACTIVE",
     },
     {
       id: 4,
       servicetype: "UV Express Class 3",
-      totalUnits: "2",
+      totalUnits: "4",
       status: "ACTIVE",
     },
     {
       id: 5,
       servicetype: "Airline",
-      totalUnits: "2",
+      totalUnits: "5",
       status: "INACTIVE",
     },
     {
       id: 6,
           servicetype: "Tricycle",
-      totalUnits: "2",
+      totalUnits: "6",
       status: "ACTIVE",
     },
     {
       id: 7,
           servicetype: "Ship",
-      totalUnits: "2",
+      totalUnits: "7",
       status: "ACTIVE",
     },
     {
       id: 8,
          servicetype: "UV Express Class 3",
-      totalUnits: "2",
+      totalUnits: "8",
       status: "INACTIVE",
     },
     {
       id: 9,
           servicetype: "Provincial Bus",
-      totalUnits: "2",
+      totalUnits: "9",
       status: "ACTIVE",
     },
     {
       id: 10,
           servicetype: "City Bus",
-      totalUnits: "2",
+      totalUnits: "10",
       status: "ACTIVE",
     },
   ]);
@@ -183,7 +183,7 @@ const VehicleServiceTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Transport_Cooperative.xlsx';
+  const fileName = 'VehicleServiceTable.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -202,31 +202,46 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "Service Type",
+        Header: "SERVICE TYPE",
         accessor: "servicetype",
+        width: 400,
+        minWidth: 30,
+        maxWidth: 150
+
+
         
       },
       {
-        Header: "Total Units",
+        Header: "TOTAL UNITS",
         accessor: "totalUnits",
+        width: 400,
+        minWidth: 10,
+        maxWidth: 150
+
       },
       {
         Header: "STATUS",
         accessor: "status",
+        width: 200,
+        minWidth: 30,
+        maxWidth: 150,
         Cell: ({ value }) => (
           <div
-            className={`px-1 py-1 td-truncate ${
+            className={`px-1 py-1 ${
               value === "ACTIVE" ? "text-blue-900 font-bold" : "text-gray-400 font-bold"
             }`}
           >
             {value}
           </div>
         ),
+        
       },
       
 
       {
         Header: "ACTION",
+        minWidth: 30,
+        maxWidth: 150,
         Cell: ({ row }) => (
             <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
             <FaEdit />
@@ -256,10 +271,10 @@ const columns: Column<Row>[] = useMemo(
  
 
   return (
-    <div className="mx-auto">
-      <div className=" mx-auto mt-10 transparent-caret">
-      <div className="flex text-xs ml-16 sm:ml-32 md:ml-64 lg:ml-102 space-x-3">
-          <div className="ml-44">
+    <div className="mx-auto ml-auto mr-auto transparent-caret">
+      <div className="mt-8 ml-auto ">
+      <div className="ml-sortMargin">
+      <div className="flex text-xs space-x-3">
           <select
             id="filter"
             name="filter"
@@ -270,7 +285,6 @@ const columns: Column<Row>[] = useMemo(
             <option value="Transport Cooperative">Transport Cooperative</option>
             <option value="Transport Corperation">Transport Corporation</option>
           </select>
-        </div>
 
         <div className="search-container flex items-center mt-4">
           <input
@@ -297,7 +311,7 @@ const columns: Column<Row>[] = useMemo(
           </button>
         </div>
     
-
+        </div>
 
         </div>
 
@@ -312,7 +326,7 @@ const columns: Column<Row>[] = useMemo(
     name="itemsPerPage"
     className=" w-auto border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
     onChange={handleItemsPerPageChange} 
-    value={itemsPerPage.toString()} // Bind selected value
+    value={itemsPerPage.toString()} 
   >
     <option value="5">5</option>
     <option value="8">8</option>
@@ -324,61 +338,83 @@ const columns: Column<Row>[] = useMemo(
 </div>
 </div>
 
+
+<div className="mx-auto overflow-x-auto">
         <table
           {...getTableProps()}
-          className="table-fixed divide-y divide-gray-200 text-xxs ml-0 sm:ml-10 mt-5 bg-blue-900 overflow-auto">
+          className="table-fixed max-w-fit divide-y divide-gray-200 text-xxs ml-0 sm:ml-10 mt-5 bg-blue-900 overflow-auto">
           <thead className="text-white">
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-1 text-left"
-                  >
-                    <div className="flex items-center justify-center">
-                      {column.render("Header")}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <FaSortDown />
-                        ) : (
-                          <FaSortUp />
-                        )
-                      ) : (
-                        <FaSort />
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            ))}
+          {headerGroups.map((headerGroup) => (
+  <tr {...headerGroup.getHeaderGroupProps()}>
+    {headerGroup.headers.map((column) => (
+      <th
+        {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
+        className="py-3 text-left"   style={{ minWidth: column.minWidth, width: column.width }}
+
+      >
+        <div className="flex items-center justify-center">
+          {column.render("Header")}
+          {column.canSort && (
+            <>
+              {column.isSorted ? (
+                column.isSortedDesc ? (
+                  <FaSortDown />
+                ) : (
+                  <FaSortUp />
+                )
+              ) : (
+                <FaSort />
+              )}
+            </>
+          )}
+        </div>
+      </th>
+    ))}
+  </tr>
+))}
           </thead>
           <tbody
-            {...getTableBodyProps()}
-            className="text-center"
-          >
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  className={`border-b border-gray-200 ${
-                    row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                  } hover:bg-gray-300`}
-                >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        className="border px-28 py-1"
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
+  {...getTableBodyProps()}
+  className="text-center"
+>
+  {rows.length === 0 ? (
+    <tr>
+      <td
+        colSpan={columns.length}
+        className="border px-28 py-2 bg-white"
+      >
+        No results found
+      </td>
+    </tr>
+  ) : (
+    // If rows exist, render the rows
+    rows.map((row) => {
+      prepareRow(row);
+      return (
+        <tr
+          {...row.getRowProps()}
+          className={`border-b border-gray-200 ${
+            row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
+          } hover:bg-gray-300`}
+        >
+          {row.cells.map((cell) => {
+            return (
+              <td
+                {...cell.getCellProps()}
+                className="border"
+              >
+                {cell.render("Cell")}
+              </td>
+            );
+          })}
+        </tr>
+      );
+    })
+  )}
+</tbody>
         </table>
+        </div>
+
 
         <div className="flex justify-start ml-9 mt-4 text-xs">
         {Array.from({ length: pageCount }, (_, index) => (
