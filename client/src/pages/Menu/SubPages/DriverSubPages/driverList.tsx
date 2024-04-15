@@ -23,7 +23,7 @@ return (
               {menuOpen ? <Menu title={"Driver List"}/> : <MiniMenu title={"Driver List"}/> }
             </div>
           
-            <div className='h-full w-[75%] mx-10 mt-5 '>
+            <div className='h-full w-[100%] 2xl:mx-[10%] mx-10 mt-5'>
               <DriverListTable/>
             </div>
              

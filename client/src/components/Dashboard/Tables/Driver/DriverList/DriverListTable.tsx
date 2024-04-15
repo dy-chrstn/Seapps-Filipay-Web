@@ -14,19 +14,15 @@ import "react-calendar/dist/Calendar.css";
 interface Row {
   id: number;
   LastName: string;
-  transpocoop: string;
-  code: string;
-  email: string;
-  route: string;
-  chairman: string;
-  cda: string;
-  sec: string;
-  articles: string;
-  businessPermit: string;
-  bank: string;
-  resolution: string;
-  fare: string;
-  date: string;
+  FirstName: string,
+  MiddleName: string;
+  ContactNumber: string;
+  EmailAddress: string;
+  DateOfBirth: string;
+  TransportCooperative: string;
+  Classification: string;
+  CardUID: string;
+  CardSN: string;
   status: string;
 }
 const DriverListTable: React.FC = () => {
@@ -95,233 +91,160 @@ const DriverListTable: React.FC = () => {
     {
       id: 1,
       LastName: "",
-      transpocoop: "Transport Corperation",
-      code: "TC001",
-      email: "coop1@example.com",
-      route: "Route 1",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱25",
-      date: "2024-04-02",
-      status: "Disapproved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Active",
     },
     {
       id: 2,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC002",
-      email: "coop2@example.com",
-      route: "Route 2",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱30",
-      date: "2024-04-01",
-      status: "Approved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Non-Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Active",
     },
     {
       id: 3,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC003",
-      email: "coop3@example.com",
-      route: "Route 3",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱40",
-      date: "2024-04-05",
-      status: "Approved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Non-Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Inactive",
     },
     {
       id: 4,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC004",
-      email: "coop1@example.com",
-      route: "Route 4",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱25",
-      date: "2024-04-04",
-      status: "Disapproved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Non-Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Active",
     },
     {
       id: 5,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC005",
-      email: "coop1@example.com",
-      route: "Route 5",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱30",
-      date: "2024-04-06",
-      status: "Approved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Non-Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Inactive",
     },
     {
       id: 6,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC006",
-      email: "coop1@example.com",
-      route: "Route 6",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱40",
-      date: "2024-04-06",
-      status: "Approved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Inactive",
     },
     {
       id: 7,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC007",
-      email: "coop1@example.com",
-      route: "Route 7",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱35",
-      date: "2024-04-02",
-      status: "Approved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Active",
     },
     {
       id: 8,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC008",
-      email: "coop1@example.com",
-      route: "Route 8",
-      chairman: "John Doe",
-      cda: "",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱28 ",
-      date: "2024-04-06",
-      status: "Disapproved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Active",
     },
     {
       id: 9,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC009",
-      email: "coop1@example.com",
-      route: "Route 9",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱33",
-      date: "2024-04-03",
-      status: "Approved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Inactive",
     },
     {
       id: 10,
       LastName: "",
-      transpocoop: "Transport Cooperative",
-      code: "TC010",
-      email: "coop1@example.com",
-      route: "Route 10",
-      chairman: "John Doe",
-      cda: " ",
-      sec: "",
-      articles: "",
-      businessPermit: "",
-      bank: "",
-      resolution: "",
-      fare: "₱26",
-      date: "2024-04-05",
-      status: "Disapproved",
+      FirstName:"",
+      MiddleName: "",
+      ContactNumber: "",
+      EmailAddress: "",
+      DateOfBirth: "",
+      TransportCooperative: "",
+      Classification: "Non-Regular",
+      CardUID: "",
+      CardSN: "",
+      status: "Active",
     },
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
-  
-  useEffect(() => {
-    const filtered = data.filter((item) => {
-      if (filterBy === "all") {
-        return true;
-      } else {
-        return item.transpocoop === filterBy;
-      }
-    });
-    setFilteredData(filtered);
-  }, [filterBy, data]);
-
-  useEffect(() => {
-    const filtered = data.filter((item) => {
-      const itemDate = new Date(item.date);
-      const formattedFromDate = new Date(
-        fromDate ? fromDate.getFullYear() : 0,
-        fromDate ? fromDate.getMonth() : 0,
-        fromDate ? fromDate.getDate() : 1
-      );
-      const formattedToDate = new Date(
-        toDate ? toDate.getFullYear() : 9999,
-        toDate ? toDate.getMonth() : 11,
-        toDate ? toDate.getDate() + 1 : 1
-      );
-      return itemDate >= formattedFromDate && itemDate < formattedToDate;
-    });
-    setFilteredData(filtered);
-  }, [fromDate, toDate, data]);
-
 
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.transpocoop.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.route.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.chairman.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.cda.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.sec.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.articles.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.businessPermit.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.bank.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.resolution.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.fare.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.LastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.FirstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.MiddleName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.ContactNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DateOfBirth.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.CardUID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.status.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
@@ -345,7 +268,7 @@ const DriverListTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Transport_Cooperative.xlsx';
+  const fileName = 'Dirver_List.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -364,61 +287,45 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "Last Name",
+        Header: "LAST NAME",
         accessor: "LastName",
         
       },
       {
-        Header: "First Name",
-        accessor: "transpocoop",
+        Header: "FIRST NAME",
+        accessor: "FirstName",
       },
       {
-        Header: "CODE",
-        accessor: "code",
+        Header: "MIDDLE NAME",
+        accessor: "MiddleName",
       },
       {
-        Header: () => <div>EMAIL<br/>ADDRESS</div>,
-        accessor: "email",
+        Header: "CoONTACT NUMBER",
+        accessor: "ContactNumber",
       },
       {
-        Header: "ROUTE",
-        accessor: "route",
+        Header: "EMAIL ADDRESS",
+        accessor: "EmailAddress",
       },
       {
-        Header: "CHAIRMAN",
-        accessor: "chairman",
+        Header: "DATE OF BIRTH",
+        accessor: "DateOfBirth",
       },
       {
-        Header: "CDA Certification",
-        accessor: "cda",
+        Header: "TRANSPORT COOPERATIVE",
+        accessor: "TransportCooperative",
       },
       {
-        Header: "SEC Certification",
-        accessor: "sec",
+        Header: "CLASSIFICATION",
+        accessor: "Classification",
       },
       {
-        Header: "ARTICLES & BY LAWS",
-        accessor: "articles",
+        Header: "CARD UID",
+        accessor: "CardUID",
       },
       {
-        Header: "BUSINESS PERMIT",
-        accessor: "businessPermit",
-      },
-      {
-        Header: "BANK CERTIFICATION",
-        accessor: "bank",
-      },
-      {
-        Header: "BOARD RESOLUTION",
-        accessor: "resolution",
-      },
-      {
-        Header: "FARE MATRIX",
-        accessor: "fare",
-      },
-      {
-        Header: "DATE",
-        accessor: "date",
+        Header: "CARDSN",
+        accessor: "CardSN",
       },
       {
         Header: "STATUS",
@@ -561,14 +468,14 @@ const columns: Column<Row>[] = useMemo(
         <table
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto">
-          <thead className="text-white">
+          <thead className="text-white ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-1 text-left"
+                  className="py-8 text-left text-[.60rem] 2xl:text-[.75rem]"
                   >
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center px-2">
                       {column.render("Header")}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
