@@ -3,11 +3,11 @@ import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../Tables/Actions/messageAction';
+import MessageAction from '../../../Tables/Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./TransportCoopTable.css";
+import "./DriverListTable.css";
 import "react-calendar/dist/Calendar.css";
 
 
@@ -29,18 +29,18 @@ interface Row {
   date: string;
   status: string;
 }
-const TransportCoopTable: React.FC = () => {
+const DriverListTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
   
-  const handleRemoveRecipient = () => {
-    setSelectedRow((prevRow: any) => ({
-      ...prevRow,
-      email: "" 
-    }));
-  };
+//   const handleRemoveRecipient = () => {
+//     setSelectedRow((prevRow: any) => ({
+//       ...prevRow,
+//       email: "" 
+//     }));
+//   };
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -70,11 +70,11 @@ const TransportCoopTable: React.FC = () => {
   };
 
 
-  const filterOptions = [
-    { value: "all", label: "All" },
-    { value: "Transport Cooperative", label: "Transport Cooperative" },
-    { value: "Transport Corperation", label: "Transport Corporation" },
-  ];
+//   const filterOptions = [
+//     { value: "all", label: "All" },
+//     { value: "Transport Cooperative", label: "Transport Cooperative" },
+//     { value: "Transport Corperation", label: "Transport Corporation" },
+//   ];
 
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
@@ -663,4 +663,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default TransportCoopTable;
+export default DriverListTable;
