@@ -374,7 +374,7 @@ const columns: Column<Row>[] = useMemo(
 
   return (
     <div className="w-tableWidth mx-auto">
-      <div className=" mx-auto mt-10 transparent-caret ">
+      <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
       <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
@@ -467,15 +467,15 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto">
+          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
           <thead className="text-white ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-8 text-left text-[.60rem] 2xl:text-[.75rem]"
+                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
-                    <div className="flex items-center justify-center px-2">
+                    <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
@@ -492,7 +492,7 @@ const columns: Column<Row>[] = useMemo(
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center">
+          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
