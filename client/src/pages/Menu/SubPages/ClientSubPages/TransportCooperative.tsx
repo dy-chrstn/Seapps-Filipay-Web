@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
-import TransportCoopTable from '../../../../components/Dashboard/Tables/TransportCooperativeTable/TransportCoopTable';
+import TransportCoopTable from '../../../../components/Dashboard/Tables/Client-Tables/TransportCoopTable';
 
 
 const TransportCooperative = () => {

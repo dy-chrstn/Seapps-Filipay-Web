@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
-import VehicleServiceTable from '../../../../components/Dashboard/Tables/VehicleService/VehicleServiceTable';
+import VehicleServiceTable from '../../../../components/Dashboard/Tables/Client-Tables/VehicleServiceTable';
 
 
 const VehicleService = () => {

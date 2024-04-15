@@ -18,6 +18,7 @@ export default {
         "boxHoverH": "160px"
       },
 
+
       fontSize:{
         "xxs": ".75rem",
         "xxxs": ".60rem",
@@ -76,7 +77,9 @@ export default {
       },
 
       spacing: {
-        '102': '28rem', // Custom margin value
+        '102': '28rem', 
+        'sortMargin' : '700px'
+
       },
 
 
