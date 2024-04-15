@@ -13,7 +13,7 @@ import "react-calendar/dist/Calendar.css";
 
 interface Row {
   id: number;
-  logo: string;
+  LastName: string;
   transpocoop: string;
   code: string;
   email: string;
@@ -94,7 +94,7 @@ const DriverListTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Corperation",
       code: "TC001",
       email: "coop1@example.com",
@@ -112,7 +112,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 2,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC002",
       email: "coop2@example.com",
@@ -130,7 +130,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 3,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC003",
       email: "coop3@example.com",
@@ -148,7 +148,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 4,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC004",
       email: "coop1@example.com",
@@ -166,7 +166,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 5,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC005",
       email: "coop1@example.com",
@@ -184,7 +184,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 6,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC006",
       email: "coop1@example.com",
@@ -202,7 +202,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 7,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC007",
       email: "coop1@example.com",
@@ -220,7 +220,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 8,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC008",
       email: "coop1@example.com",
@@ -238,7 +238,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 9,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC009",
       email: "coop1@example.com",
@@ -256,7 +256,7 @@ const DriverListTable: React.FC = () => {
     },
     {
       id: 10,
-      logo: "",
+      LastName: "",
       transpocoop: "Transport Cooperative",
       code: "TC010",
       email: "coop1@example.com",
@@ -364,12 +364,12 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "LOGO",
-        accessor: "logo",
+        Header: "Last Name",
+        accessor: "LastName",
         
       },
       {
-        Header: () => <div>TRANSPORT COOPERATIVE/<br/>CORPORATION</div>,
+        Header: "First Name",
         accessor: "transpocoop",
       },
       {
