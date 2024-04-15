@@ -16,7 +16,7 @@ const AdminActivity: React.FC = () => {
     
 return (
     <div className='w-screen h-screen'>
-        <Header title="AdminActivity" onClick = {openMenu}/> 
+        <Header title="Admin Activity" onClick = {openMenu}/> 
         <div className='flex flex-row'>
             <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
               {menuOpen ? <Menu title={"Admin Activity"}/> : <MiniMenu title={"Admin Activity"}/> }
