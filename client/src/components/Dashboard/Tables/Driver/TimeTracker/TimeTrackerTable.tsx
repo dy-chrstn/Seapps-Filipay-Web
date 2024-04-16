@@ -1,34 +1,29 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../../Tables/Actions/messageAction';
+// import { TiMessages } from "react-icons/ti";
+// import MessageAction from '../../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./DriverList.css";
+import "./TimeTracker.css";
 import "react-calendar/dist/Calendar.css";
 
 
 interface Row {
   id: number;
-  LastName: string;
-  FirstName: string,
-  MiddleName: string;
-  ContactNumber: string;
-  EmailAddress: string;
-  DateOfBirth: string;
-  TransportCooperative: string;
-  Classification: string;
-  CardUID: string;
-  CardSN: string;
-  status: string;
+  Name: string;
+  TransportCooperative: string,
+  Code: string;
+  Route: string;
+  TimeIN: string;
+  TimeOUT: string;
 }
-const DriverListTable: React.FC = () => {
+const TimeTrackerTable: React.FC = () => {
 
-  const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
+  // const [showModal, setShowModal] = useState(false);
+  // const [selectedRow, setSelectedRow] = useState<any>(null);
 
   
 //   const handleRemoveRecipient = () => {
@@ -38,14 +33,14 @@ const DriverListTable: React.FC = () => {
 //     }));
 //   };
 
-  const toggleModal = (row: any) => {
-    setSelectedRow(row.original);
-    setShowModal(true);
-  };
+  // const toggleModal = (row: any) => {
+  //   setSelectedRow(row.original);
+  //   setShowModal(true);
+  // };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  // const closeModal = () => {
+  //   setShowModal(false);
+  // };
 
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
@@ -90,144 +85,95 @@ const DriverListTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 2,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 3,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 4,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 5,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 6,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 7,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 8,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 9,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 10,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
+
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -235,17 +181,12 @@ const DriverListTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.LastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.FirstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.MiddleName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.ContactNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DateOfBirth.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardUID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Route.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TimeIN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TimeOUT.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -268,7 +209,7 @@ const DriverListTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Dirver_List.xlsx';
+  const fileName = 'Time_Tracker.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -287,70 +228,30 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "LAST NAME",
-        accessor: "LastName",
+        Header: "NAME",
+        accessor: "Name",
         
       },
       {
-        Header: "FIRST NAME",
-        accessor: "FirstName",
-      },
-      {
-        Header: "MIDDLE NAME",
-        accessor: "MiddleName",
-      },
-      {
-        Header: "CONTACT NUMBER",
-        accessor: "ContactNumber",
-      },
-      {
-        Header: "EMAIL ADDRESS",
-        accessor: "EmailAddress",
-      },
-      {
-        Header: "DATE OF BIRTH",
-        accessor: "DateOfBirth",
-      },
-      {
-        Header: "TRANSPORT COOPERATIVE",
+        Header: "TRANSPORT COOPERATIVE/CORPORATION",
         accessor: "TransportCooperative",
       },
       {
-        Header: "CLASSIFICATION",
-        accessor: "Classification",
+        Header: "CODE",
+        accessor: "Code",
       },
       {
-        Header: "CARD UID",
-        accessor: "CardUID",
+        Header: "ROUTE",
+        accessor: "Route",
       },
       {
-        Header: "CARDSN",
-        accessor: "CardSN",
+        Header: "TIME IN",
+        accessor: "TimeIN",
       },
       {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 td-truncate ${
-              value === "Approved" ? "text-green-500 font-bold" : "text-red-500 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
+        Header: "TIME OUT",
+        accessor: "TimeOUT",
       },
-      
-
-      {
-        Header: "ACTION",
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-          </div>
-        ),
-      },
-      
     ],
     []
   );
@@ -473,15 +374,15 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-2 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
-                    <div className="flex items-center justify-center px-1">
+                    <div className="flex items-center justify-center">
                       {column.render("Header")}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
-                          <FaSortDown />
+                          <FaSortDown color={"#2F80ED"} />
                         ) : (
-                          <FaSortUp />
+                          <FaSortUp color={"#2F80ED"}/>
                         )
                       ) : (
                         <FaSort />
@@ -492,7 +393,7 @@ const columns: Column<Row>[] = useMemo(
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className=" text-center text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -513,7 +414,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border px-1.5 td-truncate py-3"
               >
                 {cell.render("Cell")}
               </td>
@@ -542,7 +443,7 @@ const columns: Column<Row>[] = useMemo(
         ))}
 
       </div>
-      {showModal && selectedRow && (
+      {/* {showModal && selectedRow && (
   <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
     <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
     <div className="relative bg-white p-4 rounded-lg z-10">
@@ -552,7 +453,7 @@ const columns: Column<Row>[] = useMemo(
 />
     </div>
   </div>
-)}
+)} */}
 
 
       </div>
@@ -570,4 +471,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default DriverListTable;
+export default TimeTrackerTable;

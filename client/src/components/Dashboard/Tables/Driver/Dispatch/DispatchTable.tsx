@@ -7,25 +7,23 @@ import MessageAction from '../../../Tables/Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./DriverList.css";
+import "./Dispatch.css";
 import "react-calendar/dist/Calendar.css";
 
 
 interface Row {
   id: number;
-  LastName: string;
-  FirstName: string,
-  MiddleName: string;
-  ContactNumber: string;
-  EmailAddress: string;
-  DateOfBirth: string;
-  TransportCooperative: string;
-  Classification: string;
-  CardUID: string;
-  CardSN: string;
+  Name: string;
+  TransportCooperative: string,
+  VehicleCode: string;
+  Origin: string;
+  StartDate: string;
+  Destination: string;
+  EndDate: string;
+  TripNumber: string;
   status: string;
 }
-const DriverListTable: React.FC = () => {
+const DispatchTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
@@ -90,144 +88,247 @@ const DriverListTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "Completed",
     },
     {
       id: 2,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "In Progress",
     },
     {
       id: 3,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "Completed",
     },
     {
       id: 4,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "Completed",
     },
     {
       id: 5,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "Completed",
     },
     {
       id: 6,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "Completed",
     },
     {
       id: 7,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "Completed",
     },
     {
       id: 8,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "Completed",
     },
     {
       id: 9,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "In Progress",
     },
     {
       id: 10,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      Name: "",
+      TransportCooperative:"",
+      VehicleCode: "",
+      Origin: "",
+      StartDate: "",
+      Destination: "",
+      EndDate: "",
+      TripNumber: "",
+      status: "In Progress",
     },
+    {
+        id: 11,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "Completed",
+      },
+      {
+        id: 12,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "Completed",
+      },
+      {
+        id: 13,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "Completed",
+      },
+      {
+        id: 14,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "In Progress",
+      },
+      {
+        id: 15,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "Completed",
+      },
+      {
+        id: 16,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "In Progress",
+      },
+      {
+        id: 17,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "Completed",
+      },
+      {
+        id: 18,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "In Progress",
+      },
+      {
+        id: 19,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "Completed",
+      },
+      {
+        id: 20,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        Origin: "",
+        StartDate: "",
+        Destination: "",
+        EndDate: "",
+        TripNumber: "",
+        status: "In Progress",
+      },
+      
+
+
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -235,16 +336,14 @@ const DriverListTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.LastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.FirstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.MiddleName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.ContactNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DateOfBirth.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardUID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.StartDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.EndDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TripNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.status.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
@@ -287,45 +386,47 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "LAST NAME",
-        accessor: "LastName",
+        Header: "NAME",
+        accessor: "Name",
         
       },
       {
-        Header: "FIRST NAME",
-        accessor: "FirstName",
-      },
-      {
-        Header: "MIDDLE NAME",
-        accessor: "MiddleName",
-      },
-      {
-        Header: "CONTACT NUMBER",
-        accessor: "ContactNumber",
-      },
-      {
-        Header: "EMAIL ADDRESS",
-        accessor: "EmailAddress",
-      },
-      {
-        Header: "DATE OF BIRTH",
-        accessor: "DateOfBirth",
-      },
-      {
-        Header: "TRANSPORT COOPERATIVE",
+        Header: "TRANSPORT COOPERATIVE/ CORPORATION",
         accessor: "TransportCooperative",
       },
       {
-        Header: "CLASSIFICATION",
-        accessor: "Classification",
+        Header: "VEHICLE CODE",
+        accessor: "VehicleCode",
       },
       {
-        Header: "CARD UID",
-        accessor: "CardUID",
+        Header: "DEPARTURE",
+        columns: [
+          {
+            Header: "ORIGIN",
+            accessor: "Origin",
+          },
+          {
+            Header: "START DATE",
+            accessor: "StartDate",
+          },
+        ],
       },
       {
-        Header: "CARDSN",
-        accessor: "CardSN",
+        Header: "ARRIVAL",
+        columns: [
+          {
+            Header: "DESTINATION",
+            accessor: "Destination",
+          },
+          {
+            Header: "END DATE",
+            accessor: "EndDate",
+          },
+        ],
+      },
+      {
+        Header: "TRIP NUMBER",
+        accessor: "TripNumber",
       },
       {
         Header: "STATUS",
@@ -473,19 +574,19 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-2 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
                     <div className="flex items-center justify-center px-1">
-                      {column.render("Header")}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
+                      {column.render("Header") }
+                      {/* {column.isSorted ? (
+                        column.isSortedDesc && column.render("Header") !== "DEPARTURE"  && column.render("Header") !== "ARRIVAL" ? (
                           <FaSortDown />
                         ) : (
                           <FaSortUp />
                         )
                       ) : (
                         <FaSort />
-                      )}
+                      )} */}
                     </div>
                   </th>
                 ))}
@@ -570,4 +671,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default DriverListTable;
+export default DispatchTable;

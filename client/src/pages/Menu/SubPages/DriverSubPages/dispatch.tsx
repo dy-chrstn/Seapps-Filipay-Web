@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
+import DispatchTable from '../../../../components/Dashboard/Tables/Driver/Dispatch/DispatchTable';
 
 const Dispatch: React.FC = () => {
 
@@ -18,11 +19,12 @@ return (
     <div className='w-screen h-screen'>
         <Header title="Dispatch" onClick = {openMenu}/> 
         <div className='flex flex-row'>
-            <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
+            <div>
               {menuOpen ? <Menu title={"Dispatch"}/> : <MiniMenu title={"Dispatch"}/> }
             </div>
           
-            <div className='h-full w-[75%] mx-10 mt-5 '>
+            <div className='h-full w-[100%] mx-10 mt-5 '>
+              <DispatchTable/>
             </div>
              
           
