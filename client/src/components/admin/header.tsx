@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
 
         {isProfileVisible && (
 
-          <div className='absolute border border-gray-200 bg-white right-10 shadow-md top-12 '>
+          <div className='absolute border border-gray-200 bg-white right-10 shadow-md top-12 z-10 '>
                 <div onClick={() => navigatePage('/profile') } className='flex flex-row items-center hover:bg-gray-300 w-full px-4 py-2'> 
                 <FaUser className="mr-3 flex-shrink-0" size={12} color={"black"}/>
                   <p>Profile</p>
