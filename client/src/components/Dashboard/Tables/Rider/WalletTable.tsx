@@ -1,39 +1,20 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
-import "./Table.css";
 
 
 interface Row {
   id: number;
   name: string;
-  distributor: string;
-  accountNumber: string;
-  email: string;
-  mobileNumber: string;
-  photoID: string;
-  selfieVerification: string;
-  businessPermit: string;
+  contactDetails: string;
+  cardUID: string;
+  cardSN: string;
+  type: string;
+  balance: string;
 }
-const RetailerTable: React.FC = () => {
-
-  const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
-
-
-  const toggleModal = (row: any) => {
-    setSelectedRow(row.original);
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
+const WalletTable: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filterBy, setFilterBy] = useState<string>("all");
@@ -46,22 +27,21 @@ const RetailerTable: React.FC = () => {
     const selectedValue = parseInt(e.target.value, 10); 
 
     if (currentPage === 1 && itemsPerPage === 5 && selectedValue === 8) {
-      setCurrentPage(0); // Reset to page 1
+      setCurrentPage(0); 
     }
 
-    setItemsPerPage(selectedValue); // Update the state with the selected value
+    setItemsPerPage(selectedValue); 
   };
 
   const filterOptions = [
     { value: "all", label: "All" },
-    { value: "Distributor", label: "Distributor" },
-    { value: "Distributor 1", label: "Distributor 1" },
+    { value: "Type 1", label: "Type 1" },
+    { value: "Type 2", label: "Type 3" },
   ];
 
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
   };
-
 
   const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -77,112 +57,92 @@ const RetailerTable: React.FC = () => {
     {
       id: 1,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 2,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 3,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 4,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 5,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 6,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 7,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 8,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 9,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
     {
       id: 10,
       name: "",
-      distributor: "",
-      accountNumber: "",
-      email: "",
-      mobileNumber: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      contactDetails: "",
+      cardUID: "",
+      cardSN: "",
+      type: "",
+      balance: "",
     },
   ]);
 
@@ -193,7 +153,7 @@ const RetailerTable: React.FC = () => {
       if (filterBy === "all") {
         return true;
       } else {
-        return item.distributor === filterBy;
+        return item.type === filterBy;
       }
     });
     setFilteredData(filtered);
@@ -203,13 +163,11 @@ const RetailerTable: React.FC = () => {
     const filtered = data.filter((item) => {
       return (
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.distributor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.accountNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.mobileNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.photoID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.selfieVerification.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.businessPermit.toLowerCase().includes(searchTerm.toLowerCase()) 
+        item.contactDetails.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.cardUID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.cardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.balance.toLowerCase().includes(searchTerm.toLowerCase()) 
       );
     });
     setFilteredData(filtered);
@@ -232,7 +190,7 @@ const RetailerTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'RetailerTable.xlsx';
+  const fileName = 'WalletTable.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -246,84 +204,55 @@ const handleExcelDownload = () => {
   link.download = fileName;
   link.click();
 };
-
-
 const columns: Column<Row>[] = useMemo(
-  () => [
-      {
-        Header: "NAME",
-        accessor: "name",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
+    () => [
+        {
+          Header: "NAME",
+          accessor: "name",
+          width: 350,
+          minWidth: 30,
+          maxWidth: 150,
+          
+        },
+        {
+          Header: "CONTACT DETAILS",
+          accessor: "contactDetails",
+          width: 350,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "CARD UID",
+          accessor: "cardUID",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "CARD SN",
+          accessor: "cardSN",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "TYPE",
+          accessor: "type",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "BALANCE",
+          accessor: "balance",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
         
-      },
-      {
-        Header: "DISTRIBUTOR",
-        accessor: "distributor",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "ACCOUNT NUMBER",
-        accessor: "accountNumber",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "EMAIL ADDRESS",
-        accessor: "email",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "MOBILE NUMBER",
-        accessor: "mobileNumber",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "PHOTO ID",
-        accessor: "photoID",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: () => <div>SELFIE/<br/>VERIFICATION</div>,
-        accessor: "selfieVerification",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: () => <div>BUSINESS/<br/>PERMIT</div>,
-        accessor: "businessPermit",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-
-      {
-        Header: "ACTION",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-          </div>
-        ),
-        disableSortBy: true, // Disable sorting for this column
-      },
-      
-    ],
-    []
-  );
+      ],
+      []
+    );
 
 
 
@@ -344,11 +273,24 @@ const columns: Column<Row>[] = useMemo(
 
   return (
     <div className="w-tableWidth mx-auto">
-      <div className=" mx-auto mt-8 transparent-caret ">
-      <div className="mr-10 flex text-xs space-x-3">
+      <div className=" mx-auto mt-8 transparent-caret ml-5">
+      <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className=" ml-auto">
-       
-        <div className="search-container flex items-center mt-4">
+          <select
+            id="filter"
+            name="filter"
+            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
+                   value={filterBy}
+        onChange={handleChangeFilterBy} >
+            <option value="all">All</option>
+            <option value="Type 1">Type 1</option>
+            <option value="Type 2">Type 2</option>
+          </select>
+        </div>
+
+
+ <div className="">
+ <div className="search-container flex items-center mt-4">
           <input
             type="text"
             placeholder="Filter in Records..."
@@ -357,18 +299,7 @@ const columns: Column<Row>[] = useMemo(
             className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
         </div>
         </div>
-        <div className=" ml-3">
-          <select
-            id="filter"
-            name="filter"
-            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
-                   value={filterBy}
-        onChange={handleChangeFilterBy} >
-            <option value="all">All</option>
-            <option value="Distributor">Distributor</option>
-            <option value="Distributor 1">Distributor 1</option>
-          </select>
-        </div>
+
 
         <div className="clearfilter relative flex items-center mt-4">
         <button
@@ -400,7 +331,7 @@ const columns: Column<Row>[] = useMemo(
     name="itemsPerPage"
     className=" w-auto border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
     onChange={handleItemsPerPageChange} 
-    value={itemsPerPage.toString()} // Bind selected value
+    value={itemsPerPage.toString()} 
   >
     <option value="5">5</option>
     <option value="8">8</option>
@@ -421,7 +352,7 @@ const columns: Column<Row>[] = useMemo(
               {headerGroup.headers.map((column) => (
   <th
     {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-2 px-1 text-left" style={{ minWidth: column.minWidth, width: column.width }}
+    className="py-3 text-left" style={{ minWidth: column.minWidth, width: column.width }}
   >
     <div className="flex items-center justify-center">
       {column.render("Header")}
@@ -465,7 +396,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-4 py-1.5 pl-10 td-truncate"
+                className="border px-1 py-4 td-truncate"
               >
                 {cell.render("Cell")}
               </td>
@@ -492,21 +423,7 @@ const columns: Column<Row>[] = useMemo(
             {index + 1}
           </button>
         ))}
-
-      </div>
-      {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
   </div>
-)}
-
-
       </div>
       <div className="flex justify-end -mt-5 text-blue-900">
         <div className="flex items-center">
@@ -522,4 +439,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default RetailerTable;
+export default WalletTable;

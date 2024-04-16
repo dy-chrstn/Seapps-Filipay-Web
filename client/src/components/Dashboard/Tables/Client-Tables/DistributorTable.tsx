@@ -5,10 +5,7 @@ import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import "./Table.css";
-import "react-calendar/dist/Calendar.css";
 
 
 interface Row {
@@ -26,14 +23,6 @@ const DistributorTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
-
-  
-  const handleRemoveRecipient = () => {
-    setSelectedRow((prevRow: any) => ({
-      ...prevRow,
-      email: "" 
-    }));
-  };
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
