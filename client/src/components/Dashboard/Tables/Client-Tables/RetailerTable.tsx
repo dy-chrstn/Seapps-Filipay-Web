@@ -11,18 +11,19 @@ import "./Table.css";
 interface Row {
   id: number;
   name: string;
+  distributor: string;
   accountNumber: string;
   email: string;
   mobileNumber: string;
-  address: string;
   photoID: string;
   selfieVerification: string;
   businessPermit: string;
 }
-const DistributorTable: React.FC = () => {
+const RetailerTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -35,6 +36,8 @@ const DistributorTable: React.FC = () => {
 
 
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterBy, setFilterBy] = useState<string>("all");
+
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -49,6 +52,15 @@ const DistributorTable: React.FC = () => {
     setItemsPerPage(selectedValue); // Update the state with the selected value
   };
 
+  const filterOptions = [
+    { value: "all", label: "All" },
+    { value: "Distributor", label: "Distributor" },
+    { value: "Distributor 1", label: "Distributor 1" },
+  ];
+
+  const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterBy(event.target.value);
+  };
 
 
   const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,16 +69,18 @@ const DistributorTable: React.FC = () => {
 
   const clearFilters = () => {
     setSearchTerm("");
+    setFilterBy("all");
+
   };
   
   const [data] = useState([
     {
       id: 1,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -74,10 +88,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 2,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -85,10 +99,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 3,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -96,10 +110,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 4,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -107,10 +121,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 5,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -118,10 +132,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 6,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -129,10 +143,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 7,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -140,10 +154,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 8,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -151,10 +165,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 9,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -162,10 +176,10 @@ const DistributorTable: React.FC = () => {
     {
       id: 10,
       name: "",
+      distributor: "",
       accountNumber: "",
       email: "",
       mobileNumber: "",
-      address: "",
       photoID: "",
       selfieVerification: "",
       businessPermit: "",
@@ -174,15 +188,25 @@ const DistributorTable: React.FC = () => {
 
   const [filteredData, setFilteredData] = useState(data);
   
+  useEffect(() => {
+    const filtered = data.filter((item) => {
+      if (filterBy === "all") {
+        return true;
+      } else {
+        return item.distributor === filterBy;
+      }
+    });
+    setFilteredData(filtered);
+  }, [filterBy, data]);
 
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.distributor.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.accountNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.mobileNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.photoID.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.selfieVerification.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.businessPermit.toLowerCase().includes(searchTerm.toLowerCase()) 
@@ -208,7 +232,7 @@ const DistributorTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'DistributorTable.xlsx';
+  const fileName = 'RetailerTable.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -235,7 +259,14 @@ const columns: Column<Row>[] = useMemo(
         
       },
       {
-        Header: () => <div>ACCOUNT/<br/>NUMBER</div>,
+        Header: "DISTRIBUTOR",
+        accessor: "distributor",
+        width: 250,
+        minWidth: 30,
+        maxWidth: 150,
+      },
+      {
+        Header: "ACCOUNT NUMBER",
         accessor: "accountNumber",
         width: 250,
         minWidth: 30,
@@ -251,13 +282,6 @@ const columns: Column<Row>[] = useMemo(
       {
         Header: "MOBILE NUMBER",
         accessor: "mobileNumber",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "ADDRESS",
-        accessor: "address",
         width: 250,
         minWidth: 30,
         maxWidth: 150,
@@ -321,8 +345,9 @@ const columns: Column<Row>[] = useMemo(
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-8 transparent-caret ">
-      <div className="datepickers mr-10 flex text-xs space-x-3">
+      <div className="mr-10 flex text-xs space-x-3">
           <div className=" ml-auto">
+       
         <div className="search-container flex items-center mt-4">
           <input
             type="text"
@@ -331,6 +356,18 @@ const columns: Column<Row>[] = useMemo(
             onChange={handleChangeSearch}
             className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
         </div>
+        </div>
+        <div className=" ml-3">
+          <select
+            id="filter"
+            name="filter"
+            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
+                   value={filterBy}
+        onChange={handleChangeFilterBy} >
+            <option value="all">All</option>
+            <option value="Distributor">Distributor</option>
+            <option value="Distributor 1">Distributor 1</option>
+          </select>
         </div>
 
         <div className="clearfilter relative flex items-center mt-4">
@@ -384,7 +421,7 @@ const columns: Column<Row>[] = useMemo(
               {headerGroup.headers.map((column) => (
   <th
     {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-1 text-left" style={{ minWidth: column.minWidth, width: column.width }}
+    className="py-2 px-1 text-left" style={{ minWidth: column.minWidth, width: column.width }}
   >
     <div className="flex items-center justify-center">
       {column.render("Header")}
@@ -428,7 +465,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1 py-1.5 td-truncate"
+                className="border px-4 py-1.5 pl-10 td-truncate"
               >
                 {cell.render("Cell")}
               </td>
@@ -485,4 +522,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default DistributorTable;
+export default RetailerTable;

@@ -5,24 +5,31 @@ import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
-import "./Table.css";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-calendar/dist/Calendar.css";
 
 
 interface Row {
   id: number;
-  name: string;
-  accountNumber: string;
-  email: string;
-  mobileNumber: string;
+  lastName: string;
+  firstName: string;
+  middleName: string;
+  contactNumber: string;
+  dateOfBirth: string;
+  email : string;
   address: string;
-  photoID: string;
-  selfieVerification: string;
-  businessPermit: string;
+  classification: string;
+  cardUID: string;
+  cardSN: string;
+  verification: string;
+  status: string;
 }
-const DistributorTable: React.FC = () => {
+const RidersListTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+
+
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -62,113 +69,153 @@ const DistributorTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
+      dateOfBirth: "",
       email: "",
-      mobileNumber: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Standard",
+      cardUID: "",
+      cardSN: "",
+      verification: "Daily",
+      status: "",
     },
     {
       id: 2,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Student",
+      cardUID: "",
+      cardSN: "",
+      verification: "Regular",
+      status: "",
     },
     {
       id: 3,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Standard",
+      cardUID: "",
+      cardSN: "",
+      verification: "Business",
+      status: "",
     },
     {
       id: 4,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Standard",
+      cardUID: "",
+      cardSN: "",
+      verification: "Regular",
+      status: "",
     },
     {
       id: 5,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "PWD",
+      cardUID: "",
+      cardSN: "",
+      verification: "Daily",
+      status: "",
     },
     {
       id: 6,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Student",
+      cardUID: "",
+      cardSN: "",
+      verification: "Daily",
+      status: "",
     },
     {
       id: 7,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Student",
+      cardUID: "",
+      cardSN: "",
+      verification: "Regular",
+      status: "",
     },
     {
       id: 8,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Senior Citizen",
+      cardUID: "",
+      cardSN: "",
+      verification: "Business",
+      status: "",
     },
     {
       id: 9,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Standard",
+      cardUID: "",
+      cardSN: "",
+      verification: "Regular",
+      status: "",
     },
     {
       id: 10,
-      name: "",
-      accountNumber: "",
+      lastName: "",
+      firstName: "",
+      middleName: "",
+      contactNumber: "",
       email: "",
-      mobileNumber: "",
+      dateOfBirth: "",
       address: "",
-      photoID: "",
-      selfieVerification: "",
-      businessPermit: "",
+      classification: "Standard",
+      cardUID: "",
+      cardSN: "",
+      verification: "Regular",
+      status: "",
     },
   ]);
 
@@ -178,14 +225,20 @@ const DistributorTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.accountNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.middleName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.contactNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.dateOfBirth.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.mobileNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.photoID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.selfieVerification.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.businessPermit.toLowerCase().includes(searchTerm.toLowerCase()) 
+        item.classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.cardUID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.cardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.verification.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+
+
       );
     });
     setFilteredData(filtered);
@@ -208,7 +261,7 @@ const DistributorTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'DistributorTable.xlsx';
+  const fileName = 'RidersListTable.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -222,84 +275,110 @@ const handleExcelDownload = () => {
   link.download = fileName;
   link.click();
 };
-
-
 const columns: Column<Row>[] = useMemo(
-  () => [
-      {
-        Header: "NAME",
-        accessor: "name",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
+    () => [
+        {
+          Header: "FIRST NAME",
+          accessor: "firstName",
+          width: 350,
+          minWidth: 30,
+          maxWidth: 150,
+          
+        },
+        {
+          Header: "LAST NAME",
+          accessor: "lastName",
+          width: 350,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: () => <div>MIDDLE<br/>NAME</div>,
+          accessor: "middleName",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: () => <div>CONTACT<br/>NUMBER</div>,
+          accessor: "contactNumber",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: () => <div>DATE OF<br/>BIRTH</div>,
+          accessor: "dateOfBirth",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: () => <div>EMAIL<br/>ADDRESS</div>,
+          accessor: "email",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "ADDRESS",
+          accessor: "address",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "CLASSIFICATION",
+          accessor: "classification",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "CARD UID",
+          accessor: "cardUID",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "CARD SN",
+          accessor: "cardSN",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "VERIFICATION",
+          accessor: "verification",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+        {
+          Header: "STATUS",
+          accessor: "status",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+        },
+  
+        {
+          Header: "ACTION",
+          width: 250,
+          minWidth: 30,
+          maxWidth: 150,
+          Cell: ({ row }) => (
+            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+              <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+            </div>
+          ),
+          disableSortBy: true, // Disable sorting for this column
+        },
         
-      },
-      {
-        Header: () => <div>ACCOUNT/<br/>NUMBER</div>,
-        accessor: "accountNumber",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "EMAIL ADDRESS",
-        accessor: "email",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "MOBILE NUMBER",
-        accessor: "mobileNumber",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "ADDRESS",
-        accessor: "address",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: "PHOTO ID",
-        accessor: "photoID",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: () => <div>SELFIE/<br/>VERIFICATION</div>,
-        accessor: "selfieVerification",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-      {
-        Header: () => <div>BUSINESS/<br/>PERMIT</div>,
-        accessor: "businessPermit",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-      },
-
-      {
-        Header: "ACTION",
-        width: 250,
-        minWidth: 30,
-        maxWidth: 150,
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-          </div>
-        ),
-        disableSortBy: true, // Disable sorting for this column
-      },
-      
-    ],
-    []
-  );
+      ],
+      []
+    );
 
 
 
@@ -320,7 +399,7 @@ const columns: Column<Row>[] = useMemo(
 
   return (
     <div className="w-tableWidth mx-auto">
-      <div className=" mx-auto mt-8 transparent-caret ">
+      <div className=" mx-auto mt-8 transparent-caret ml-5">
       <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className=" ml-auto">
         <div className="search-container flex items-center mt-4">
@@ -485,4 +564,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default DistributorTable;
+export default RidersListTable;

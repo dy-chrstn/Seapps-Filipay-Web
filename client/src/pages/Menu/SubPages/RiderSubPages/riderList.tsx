@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
+import RidersListTable from '../../../../components/Dashboard/Tables/Rider/RidersListTable';
 
 const RiderList: React.FC = () => {
 
@@ -15,20 +16,16 @@ const RiderList: React.FC = () => {
 
     
 return (
-    <div className='w-screen h-screen'>
-        <Header title="Rider List" onClick = {openMenu}/> 
-        <div className='flex flex-row'>
-            <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
-              {menuOpen ? <Menu title={"Rider List"}/> : <MiniMenu title={"Rider List"}/> }
-            </div>
-          
-            <div className='h-full w-[75%] mx-10 mt-5 '>
-            </div>
-             
-          
-        </div>
+  <div className='w-screen h-screen transparent-caret'>
+  <Header title="Riders List" onClick={openMenu}/> 
+   {menuOpen ? <Menu title={"Riders List"}/> : <MiniMenu title={"Riders List"}/> }
 
+  <div className='flex flex-col flex-grow'>
+  {/* Always render TransportCoopTable regardless of menu state */}
+  <RidersListTable/>
+        
     </div>
+  </div>
   );
 
 }
