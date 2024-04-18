@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
+import DriverMessagesTable from '../../../../components/Dashboard/Tables/Driver/Messages/DriverMessagesTable';
 
 const Messages: React.FC = () => {
 
@@ -18,11 +19,12 @@ return (
     <div className='w-screen h-screen'>
         <Header title="Messages" onClick = {openMenu}/> 
         <div className='flex flex-row'>
-            <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
+            <div>
               {menuOpen ? <Menu title={"Messages"}/> : <MiniMenu title={"Messages"}/> }
             </div>
           
-            <div className='h-full w-[75%] mx-10 mt-5 '>
+            <div className='h-full w-[100%] mx-10 mt-5 bg-yellow-300'>
+              <DriverMessagesTable/>
             </div>
              
           
