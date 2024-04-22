@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const coopSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -10,14 +10,20 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    name: {
+    coopName: {
         type: String,
     },
-    role: {
+    coopCode: {
+        type: String,
+    },
+    pages:{
+        type: Array
+    },
+    accountType: {
         type: String,
         enum: ['user', 'userAdmin', 'administrator'],
         default: 'user'
     }
 })
 
-export const UserModel = mongoose.model('User', UserSchema)
+export const CoopModel = mongoose.model('Coop', coopSchema)
