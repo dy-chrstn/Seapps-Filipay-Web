@@ -21,7 +21,6 @@ return (
    {menuOpen ? <Menu title={"Riders List"}/> : <MiniMenu title={"Riders List"}/> }
 
   <div className='flex flex-col flex-grow'>
-  {/* Always render TransportCoopTable regardless of menu state */}
   <RidersListTable/>
         
     </div>
