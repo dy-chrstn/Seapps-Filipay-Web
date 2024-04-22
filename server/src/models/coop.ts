@@ -19,7 +19,6 @@ const coopSchema = new mongoose.Schema({
     pages:{
         type: Array
     },
-
     accountType: {
         type: String,
         enum: ['user', 'userAdmin', 'administrator'],

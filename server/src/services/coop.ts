@@ -1,6 +1,6 @@
 import { CoopModel } from "../models/coop";
 
-export const createCoop = async (email: string, password: string, coopName: string, coopCode: string, accountType: string) => {
+export const createCoop = async (email: string, password: string, coopName: string, coopCode: string, pages: [], accountType: string) => {
     const newCoop = new CoopModel({
         email,
         password,

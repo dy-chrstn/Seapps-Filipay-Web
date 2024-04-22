@@ -4,7 +4,19 @@ import bcrypt from "bcrypt";
 
 export const registerCoop = async (req: express.Request, res: express.Response) => {
     try {
-        const { email, password, coopName, coopCode, accountType } = req.body;
+        const { email, password, coopName, coopCode, pages, accountType } = req.body;
+
+        if(accountType !== "user" && accountType !== "userAdmin" && accountType !== "administrator") {
+            return res.status(401).json({
+                messages: {
+                    code: 1,
+                    message: "Invalid account type",
+                },
+                response: {}
+            });
+        }
+        
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const existingCoop = await findCoopByEmail(email);
@@ -18,7 +30,7 @@ export const registerCoop = async (req: express.Request, res: express.Response) 
             });
         }
 
-        const newCoop = await createCoop(email, hashedPassword, coopName, coopCode, accountType);
+        const newCoop = await createCoop(email, hashedPassword, coopName, coopCode, pages, accountType);
 
         res.status(201).json({
             messages: {
@@ -30,6 +42,7 @@ export const registerCoop = async (req: express.Request, res: express.Response) 
                 email: newCoop.email,
                 coopName: newCoop.coopName,
                 coopCode: newCoop.coopCode,
+                pages: newCoop.pages,
                 accountType: newCoop.accountType
             }
         });
@@ -70,6 +83,7 @@ export const loginCoop = async (req: express.Request, res: express.Response) => 
                         email: user.email,
                         coopName: user.coopName,
                         coopCode: user.coopCode,
+                        pages: user.pages,
                         accountType: user.accountType
                     }
                 });
@@ -105,11 +119,21 @@ export const loginCoop = async (req: express.Request, res: express.Response) => 
 export const updateCoop = async (req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;
-        const { email, password, coopName, coopCode, accountType } = req.body;
+        const { email, password, coopName, coopCode, pages, accountType } = req.body;
+
+        if(accountType !== "user" && accountType !== "userAdmin" && accountType !== "administrator") {
+            return res.status(401).json({
+                messages: {
+                    code: 1,
+                    message: "Invalid account type",
+                },
+                response: {}
+            });
+        }        
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const updatedCoop = await updateCoopById(id, { email, password: hashedPassword, coopName, coopCode, accountType });
+        const updatedCoop = await updateCoopById(id, { email, password: hashedPassword, coopName, coopCode, pages, accountType });
 
         res.status(200).json({
             messages: {
