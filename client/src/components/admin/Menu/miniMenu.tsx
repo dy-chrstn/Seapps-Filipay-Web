@@ -177,7 +177,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 className='group py-1'>
                     <div className=" border-l-4  py-1 group-border-l-4 group-hover:border-white ">
                         <div className="w-full flex flex-row items-center py-1 bg-blue-800 ">
-                            <MdDashboard className= "mx-1  flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <MdDashboard className= "mx-1 ml-2  flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                     </div> 
                 </div>
@@ -188,7 +188,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
             className='group py-1'>
                 <div className="border-l-4 border-blue-900 py-1 group-border-l-4 hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300">
-                        <MdDashboard className= "mx-1  flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                        <MdDashboard className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
             className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                 <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                     <div className='w-full flex flex-row items-center'>
-                        <FaUser className= "mx-1  flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
+                        <FaUser className= "mx-1 ml-2 flex-shrink-0 " size ={20} color={"#7dd3fc"}/>
                     </div>
                     <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${clientSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                 </div>
@@ -225,7 +225,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                             
-                            <TbSteeringWheel className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <TbSteeringWheel className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                             
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${driverSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
@@ -251,7 +251,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                 className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
-                        <GiFullMotorcycleHelmet onMouseEnter={hoverIn} className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                        <GiFullMotorcycleHelmet onMouseEnter={hoverIn} className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${riderSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                     </div>
@@ -274,7 +274,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                            
-                            <FaHandshake className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <FaHandshake className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${distributionSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
@@ -300,7 +300,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                  
-                            <FaBook className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <FaBook className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${accountingSubMenu ? 'rotate-90': '' }`} size ={15} color={"#7dd3fc"}/>
                     </div>
@@ -325,7 +325,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
     
-                            <MdEmail className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <MdEmail className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
 
                         </div>
                        
@@ -347,7 +347,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
             
-                            <MdPrivacyTip className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <MdPrivacyTip className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                         </div>
                        
                     </div>
@@ -368,7 +368,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
    
-                            <RiAdminFill className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <RiAdminFill className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                             
                         </div>
                        
@@ -390,7 +390,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                         <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                             <div className=' w-full flex flex-row items-center '>
     
-                                <FaUserClock className= "mx-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                                <FaUserClock className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
                                 
                             </div>
                         
@@ -412,7 +412,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
                            
-                            <PiPhoneCallFill className= "mx-1 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
+                            <PiPhoneCallFill className= "mx-1 ml-2 flex-shrink-0" size ={20} color={"#7dd3fc"}/>
 
                         </div>
                        

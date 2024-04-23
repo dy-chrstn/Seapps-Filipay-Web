@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
         {menuVisible ?
         
            <div className=" bg-dashboardPurple py-1 border-b-4 border-b-blue-900 lg:pr-1.5 2xl:pr-1.5 2xl:max-w-auto w-auto">
-           <div className="   flex items-center flex-row py-3 pr-[.1rem] ">
+           <div className="   flex items-center flex-row py-3 pr-[.35rem] ">
              <img onClick={() => {onClick(); menuOpen();}} className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
            </div>
        </div>
