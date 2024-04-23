@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 export const registerCoop = async (req: express.Request, res: express.Response) => {
     try {
-        const { email, password, coopName, coopCode, pages, accountType } = req.body;
+        const { email, password, coopName, coopCode, pages, accountType } = req.body;        
 
         if(accountType !== "user" && accountType !== "userAdmin" && accountType !== "administrator") {
             return res.status(401).json({
@@ -16,7 +16,6 @@ export const registerCoop = async (req: express.Request, res: express.Response) 
             });
         }
         
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const existingCoop = await findCoopByEmail(email);
