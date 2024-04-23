@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 
 
 
-const port = process.env.PORT || 3051;
+const port = process.env.PORT || 3050;
 
 const app = express();
 

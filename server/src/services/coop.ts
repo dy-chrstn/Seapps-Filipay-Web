@@ -6,6 +6,7 @@ export const createCoop = async (email: string, password: string, coopName: stri
         password,
         coopName,
         coopCode,
+        pages,
         accountType
     });
     await newCoop.save();
