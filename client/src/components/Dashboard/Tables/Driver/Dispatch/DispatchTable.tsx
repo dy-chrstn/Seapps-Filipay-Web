@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-// import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
-import { FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../../../Tables/Actions/messageAction';
@@ -10,7 +9,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Dispatch.css";
 import "react-calendar/dist/Calendar.css";
-
 
 interface Row {
   id: number;
@@ -24,7 +22,7 @@ interface Row {
   TripNumber: string;
   status: string;
 }
-const DispatchTable: React.FC = () => {
+const DriverListTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
@@ -328,8 +326,6 @@ const DispatchTable: React.FC = () => {
         status: "In Progress",
       },
       
-
-
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -384,68 +380,68 @@ const handleExcelDownload = () => {
 };
 
 
-  const columns: Column<Row>[] = useMemo(
-    () => [
-        {
-          Header: "NAME",
-          accessor: "Name",
-          
-        },
-        {
-          Header: "TRANSPORT COOPERATIVE/ CORPORATION",
-          accessor: "TransportCooperative",
-        },
-        {
-          Header: "VEHICLE CODE",
-          accessor: "VehicleCode",
-        },
-        {
-          Header: "ORIGIN",
-          accessor: "Origin",
-        },
-        {
-          Header: "START DATE",
-          accessor: "StartDate",
-        },
-        {
-          Header: "DESTINATION",
-          accessor: "Destination",
-        },
-        {
-          Header: "END DATE",
-              accessor: "EndDate",
-        },
-        {
-          Header: "TRIP NUMBER",
-          accessor: "TripNumber",
-        },
-        {
-          Header: "STATUS",
-          accessor: "status",
-          Cell: ({ value }) => (
-            <div
-              className={`px-1 py-1 td-truncate ${
-                value === "Completed" ? "text-[#2D9CDB] font-bold" : "text-black font-bold"
-              }`}
-            >
-              {value}
-            </div>
-          ),
-        },
-        
+const columns: Column<Row>[] = useMemo(
+  () => [
+    {
+      Header: "NAME",
+      accessor: "Name",
+      
+    },
+    {
+      Header: "TRANSPORT COOPERATIVE/ CORPORATION",
+      accessor: "TransportCooperative",
+    },
+    {
+      Header: "VEHICLE CODE",
+      accessor: "VehicleCode",
+    },
+    {
+      Header: "ORIGIN",
+      accessor: "Origin",
+    },
+    {
+      Header: "START DATE",
+      accessor: "StartDate",
+    },
+    {
+      Header: "DESTINATION",
+      accessor: "Destination",
+    },
+    {
+      Header: "END DATE",
+          accessor: "EndDate",
+    },
+    {
+      Header: "TRIP NUMBER",
+      accessor: "TripNumber",
+    },
+      {
+        Header: "STATUS",
+        accessor: "status",
+        Cell: ({ value }) => (
+          <div
+            className={`px-1 py-1 td-truncate ${
+              value === "Approved" ? "text-green-500 font-bold" : "text-red-500 font-bold"
+            }`}
+          >
+            {value}
+          </div>
+        ),
+      },
+      
 
-        {
-          Header: "ACTION",
-          Cell: ({ row }) => (
-            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-              <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-            </div>
-          ),
-        },
-        
-      ],
-      []
-    );
+      {
+        Header: "ACTION",
+        Cell: ({ row }) => (
+          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+          </div>
+        ),
+      },
+      
+    ],
+    []
+  );
 
 
 
@@ -565,19 +561,19 @@ const handleExcelDownload = () => {
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-2 2xl:py-2 2xl:pt-4 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-2 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
                     <div className="flex items-center justify-center px-1">
-                      {column.render("Header") }
-                      {/* {column.isSorted ? (
-                        column.isSortedDesc && column.render("Header") !== "DEPARTURE"  && column.render("Header") !== "ARRIVAL" ? (
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
                           <FaSortDown />
                         ) : (
                           <FaSortUp />
                         )
                       ) : (
                         <FaSort />
-                      )} */}
+                      )}
                     </div>
                   </th>
                 ))}
@@ -662,4 +658,4 @@ const handleExcelDownload = () => {
   );
 };
 
-export default DispatchTable;
+export default DriverListTable;

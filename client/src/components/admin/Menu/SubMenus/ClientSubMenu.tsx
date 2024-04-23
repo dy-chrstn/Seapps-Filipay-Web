@@ -27,7 +27,7 @@ type ClientSubMenuProps = {
 
     return (
         // <div className='bg-blue-900 w-52 ml-10 p-2 pl-1 rounded-lg'>
-        <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-20 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 
+        <div className={` w-52 ${isMenuFull ? 'ml-4' : 'absolute md:left-16 lg:left-20 top-20 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 
 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
              onClick = {() => navigatePage('/Client/TransportCooperative')} 

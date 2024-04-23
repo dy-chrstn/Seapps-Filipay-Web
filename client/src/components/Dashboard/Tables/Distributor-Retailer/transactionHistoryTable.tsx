@@ -3,40 +3,29 @@ import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../../Tables/Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./DriverList.css";
 import "react-calendar/dist/Calendar.css";
 
 
 interface Row {
   id: number;
-  LastName: string;
-  FirstName: string,
-  MiddleName: string;
-  ContactNumber: string;
-  EmailAddress: string;
-  DateOfBirth: string;
-  TransportCooperative: string;
-  Classification: string;
-  CardUID: string;
-  CardSN: string;
+  name: string;
+  typeOfTransaction: string;
+  transactionNumber: string;
+  amount: string;
+  dateOfTransaction: string;
+  balance: string;
   status: string;
 }
-const DriverListTable: React.FC = () => {
+const TransactionHistoryTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
   
-//   const handleRemoveRecipient = () => {
-//     setSelectedRow((prevRow: any) => ({
-//       ...prevRow,
-//       email: "" 
-//     }));
-//   };
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -66,12 +55,6 @@ const DriverListTable: React.FC = () => {
   };
 
 
-//   const filterOptions = [
-//     { value: "all", label: "All" },
-//     { value: "Transport Cooperative", label: "Transport Cooperative" },
-//     { value: "Transport Corperation", label: "Transport Corporation" },
-//   ];
-
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
   };
@@ -90,161 +73,147 @@ const DriverListTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Disapproved",
     },
     {
       id: 2,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Approved",
     },
     {
       id: 3,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Approved",
     },
     {
       id: 4,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Disapproved",
     },
     {
       id: 5,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Approved",
     },
     {
       id: 6,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Approved",
     },
     {
       id: 7,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Approved",
     },
     {
       id: 8,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Disapproved",
     },
     {
       id: 9,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Inactive",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Approved",
     },
     {
       id: 10,
-      LastName: "",
-      FirstName:"",
-      MiddleName: "",
-      ContactNumber: "",
-      EmailAddress: "",
-      DateOfBirth: "",
-      TransportCooperative: "",
-      Classification: "Non-Regular",
-      CardUID: "",
-      CardSN: "",
-      status: "Active",
+      name: "",
+      typeOfTransaction: "",
+      transactionNumber: "",
+      amount: "",
+      dateOfTransaction: "",
+      balance: "",
+      status: "Disapproved",
     },
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
+  
+  useEffect(() => {
+    const filtered = data.filter((item) => {
+      if (filterBy === "all") {
+        return true;
+      } else {
+        return item.status === filterBy;
+      }
+    });
+    setFilteredData(filtered);
+  }, [filterBy, data]);
+
+  useEffect(() => {
+    const filtered = data.filter((item) => {
+      const itemDate = new Date(item.dateOfTransaction);
+      const formattedFromDate = new Date(
+        fromDate ? fromDate.getFullYear() : 0,
+        fromDate ? fromDate.getMonth() : 0,
+        fromDate ? fromDate.getDate() : 1
+      );
+      const formattedToDate = new Date(
+        toDate ? toDate.getFullYear() : 9999,
+        toDate ? toDate.getMonth() : 11,
+        toDate ? toDate.getDate() + 1 : 1
+      );
+      return itemDate >= formattedFromDate && itemDate < formattedToDate;
+    });
+    setFilteredData(filtered);
+  }, [fromDate, toDate, data]);
+
 
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.LastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.FirstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.MiddleName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.ContactNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DateOfBirth.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Classification.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardUID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.typeOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.transactionNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.dateOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.balance.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.status.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
@@ -268,7 +237,7 @@ const DriverListTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Driver_List.xlsx';
+  const fileName = 'TransactionHistory_Distributor.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -287,52 +256,57 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "LAST NAME",
-        accessor: "LastName",
+        Header: "NAME",
+        accessor: "name",
+        width: 250,
+        minWidth: 30,
+        maxWidth: 150
         
       },
       {
-        Header: "FIRST NAME",
-        accessor: "FirstName",
+        Header: () => <div>TYPE OF<br/>TRANSACTION</div>,
+        accessor: "typeOfTransaction",
+        width: 250,
+        minWidth: 30,
+        maxWidth: 150
       },
       {
-        Header: "MIDDLE NAME",
-        accessor: "MiddleName",
+        Header: () => <div>TRANSACTION<br/>NUMBER</div>,
+        accessor: "transactionNumber",
+        width: 250,
+        minWidth: 30,
+        maxWidth: 150
       },
       {
-        Header: "CONTACT NUMBER",
-        accessor: "ContactNumber",
+        Header: "AMOUNT",
+        accessor: "amount",
+        width: 250,
+        minWidth: 30,
+        maxWidth: 150
       },
       {
-        Header: "EMAIL ADDRESS",
-        accessor: "EmailAddress",
+        Header: () => <div>DATE OF<br/>TRANSACTION</div>,
+        accessor: "dateOfTransaction",
+        width: 250,
+        minWidth: 30,
+        maxWidth: 150
       },
       {
-        Header: "DATE OF BIRTH",
-        accessor: "DateOfBirth",
-      },
-      {
-        Header: "TRANSPORT COOPERATIVE",
-        accessor: "TransportCooperative",
-      },
-      {
-        Header: "CLASSIFICATION",
-        accessor: "Classification",
-      },
-      {
-        Header: "CARD UID",
-        accessor: "CardUID",
-      },
-      {
-        Header: "CARDSN",
-        accessor: "CardSN",
+        Header: "BALANCE",
+        accessor: "balance",
+        width: 250,
+        minWidth: 30,
+        maxWidth: 150
       },
       {
         Header: "STATUS",
         accessor: "status",
+        width: 150,
+        minWidth: 30,
+        maxWidth: 150,
         Cell: ({ value }) => (
           <div
-            className={`px-1 py-1 td-truncate ${
+            className={`px-1 py-2 ${
               value === "Approved" ? "text-green-500 font-bold" : "text-red-500 font-bold"
             }`}
           >
@@ -346,9 +320,10 @@ const columns: Column<Row>[] = useMemo(
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+             <FaEdit />
           </div>
         ),
+        disableSortBy: true, // Disable sorting for this column
       },
       
     ],
@@ -374,7 +349,7 @@ const columns: Column<Row>[] = useMemo(
 
   return (
     <div className="w-tableWidth mx-auto">
-      <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
+      <div className=" mx-auto mt-10 transparent-caret ">
       <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
@@ -408,11 +383,24 @@ const columns: Column<Row>[] = useMemo(
                    value={filterBy}
         onChange={handleChangeFilterBy} >
             <option value="all">All</option>
-            <option value="Transport Cooperative">Transport Cooperative</option>
-            <option value="Transport Corperation">Transport Corporation</option>
+            <option value="Approved">Approved</option>
+            <option value="Disapproved">Disapproved</option>
           </select>
         </div>
+        <div className=" ml-3">
+          <select
+            id="filter"
+            name="filter"
+            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
+                   value={filterBy}
+        onChange={handleChangeFilterBy} >
+            <option value="all">All</option>
+            <option value="Cash In">Cash In</option>
+            <option value="Load-Retailer">Load-Retailer</option>
+            <option value="Load-Rider">Load-Rider</option>
 
+          </select>
+        </div>
         <div className="search-container flex items-center mt-4">
           <input
             type="text"
@@ -467,32 +455,37 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
-          <thead className="text-white ">
+          className="table-fixed divide-y overflow-x-auto divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900">
+          <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
-                  >
-                    <div className="flex items-center justify-center px-1">
-                      {column.render("Header")}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <FaSortDown />
-                        ) : (
-                          <FaSortUp />
-                        )
-                      ) : (
-                        <FaSort />
-                      )}
-                    </div>
-                  </th>
-                ))}
+              {headerGroup.headers.map((column) => (
+  <th
+    {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
+    className="py-2 text-left" style={{ minWidth: column.minWidth, width: column.width }}
+  >
+    <div className="flex items-center justify-center">
+      {column.render("Header")}
+      {column.canSort && (
+        <>
+          {column.isSorted ? (
+            column.isSortedDesc ? (
+              <FaSortDown />
+            ) : (
+              <FaSortUp />
+            )
+          ) : (
+            <FaSort />
+          )}
+        </>
+      )}
+    </div>
+  </th>
+))}
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className="text-center">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -513,7 +506,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border px-1 text-center"
               >
                 {cell.render("Cell")}
               </td>
@@ -570,4 +563,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default DriverListTable;
+export default TransactionHistoryTable;

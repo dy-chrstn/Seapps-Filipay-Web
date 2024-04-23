@@ -23,7 +23,7 @@ return (
               {menuOpen ? <Menu title={"Messages"}/> : <MiniMenu title={"Messages"}/> }
             </div>
           
-            <div className='h-full w-[100%] mx-10 mt-5 bg-yellow-300'>
+            <div className='h-full w-[100%] mx-10 mt-5'>
               <DriverMessagesTable/>
             </div>
              

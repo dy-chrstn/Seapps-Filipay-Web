@@ -98,7 +98,7 @@ const Menu: React.FC<MenuProps> = ({title}) => {
 
 
     return (
-        <div className='flex flex-col bg-blue-900 absolute lg:w-[19.94%] pb-10 pt-10 mb-[-3px] dashboardPurple-caret' 
+        <div className='flex flex-col bg-blue-900 absolute w-auto lg:w-auto pb-10 pt-10 mb-[-3px] dashboardPurple-caret' 
         style={{ backgroundImage: "url('/public/Img/Dashboard/dashboard-img.png')" }}>
 
                 { isTitleDashboard === "Dashboard" ? 

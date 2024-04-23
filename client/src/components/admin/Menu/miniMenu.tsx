@@ -169,7 +169,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
     }
 
     return (
-      <div className='absolute flex flex-col bg-blue-900 lg:w-[4.75%]  pb-10 pt-10 mb-[-3px] '>
+        <div className='absolute flex flex-col bg-blue-900 w-auto pb-10 pt-10 mb-[-3px]'>
             
             {isTitleDashboard === "Dashboard" ? 
                 <div 

@@ -18,7 +18,7 @@ interface Row {
   Concern: string;
   Remarks: string;
 }
-const DriverMessagesTable: React.FC = () => {
+const  DriverMessagesTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
@@ -148,9 +148,10 @@ const DriverMessagesTable: React.FC = () => {
       id: 10,
       Name: "",
       EmailAddress:"",
-      Concern: "",
+      Concern: "Transportation Issue",
       Remarks: "In Progress",
     },
+      
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -202,23 +203,24 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-      {
-        Header: "NAME",
-        accessor: "Name",
-        
-      },
-      {
-        Header: "EMAIL ADDRESS",
-        accessor: "EmailAddress",
-      },
-      {
-        Header: "CONCERN",
-        accessor: "Remarks",
-      },
-      {
-        Header: "REMARKS",
-        accessor: "Remarks",
-      },
+    {
+      Header: "NAME",
+      accessor: "Name",
+      
+    },
+    {
+      Header: "EMAIL ADDRESS",
+      accessor: "EmailAddress",
+    },
+    {
+      Header: "CONCERN",
+      accessor: "Concern",
+    },
+    {
+      Header: "REMARKS",
+      accessor: "Remarks",
+    },
+    
       {
         Header: "ACTION",
         Cell: ({ row }) => (
