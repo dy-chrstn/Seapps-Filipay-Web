@@ -148,7 +148,7 @@ const  DriverMessagesTable: React.FC = () => {
       id: 10,
       Name: "",
       EmailAddress:"",
-      Concern: "Transportation Issue",
+      Concern: "",
       Remarks: "In Progress",
     },
       
@@ -352,7 +352,7 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
@@ -392,7 +392,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border px-1.5 py-2 td-truncate"
               >
                 {cell.render("Cell")}
               </td>

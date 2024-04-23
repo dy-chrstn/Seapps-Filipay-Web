@@ -386,7 +386,7 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
