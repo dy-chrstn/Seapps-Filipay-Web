@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DriverMessages.css";
 import "react-calendar/dist/Calendar.css";
+import { GiTrashCan } from "react-icons/gi";
 
 
 interface Row {
@@ -219,13 +220,22 @@ const columns: Column<Row>[] = useMemo(
     {
       Header: "REMARKS",
       accessor: "Remarks",
+      Cell: ({ value }) => (
+        <div
+          className={`px-1 py-1 ${
+            value === "Completed" ? "text-[#2D9CDB] font-bold" : "text-black font-bold" 
+          }`}
+        >
+          {value}
+        </div>
+      ),
     },
     
       {
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit /> <GiTrashCan size={24} color="black" className="flex-shrink-0 mt-[-2%]"/>
           </div>
         ),
       },

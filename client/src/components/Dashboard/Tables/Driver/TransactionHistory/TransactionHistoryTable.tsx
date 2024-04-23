@@ -426,7 +426,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border border-gray-300 px-1.5 td-truncate py-3"
+                className="border border-gray-300 px-1.5 td-truncate py-3 text-black font-medium"
               >
                 {cell.render("Cell")}
               </td>
