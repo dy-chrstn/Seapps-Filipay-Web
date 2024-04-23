@@ -384,78 +384,68 @@ const handleExcelDownload = () => {
 };
 
 
-const columns: Column<Row>[] = useMemo(
-  () => [
-      {
-        Header: "NAME",
-        accessor: "Name",
+  const columns: Column<Row>[] = useMemo(
+    () => [
+        {
+          Header: "NAME",
+          accessor: "Name",
+          
+        },
+        {
+          Header: "TRANSPORT COOPERATIVE/ CORPORATION",
+          accessor: "TransportCooperative",
+        },
+        {
+          Header: "VEHICLE CODE",
+          accessor: "VehicleCode",
+        },
+        {
+          Header: "ORIGIN",
+          accessor: "Origin",
+        },
+        {
+          Header: "START DATE",
+          accessor: "StartDate",
+        },
+        {
+          Header: "DESTINATION",
+          accessor: "Destination",
+        },
+        {
+          Header: "END DATE",
+              accessor: "EndDate",
+        },
+        {
+          Header: "TRIP NUMBER",
+          accessor: "TripNumber",
+        },
+        {
+          Header: "STATUS",
+          accessor: "status",
+          Cell: ({ value }) => (
+            <div
+              className={`px-1 py-1 td-truncate ${
+                value === "Completed" ? "text-[#2D9CDB] font-bold" : "text-black font-bold"
+              }`}
+            >
+              {value}
+            </div>
+          ),
+        },
         
-      },
-      {
-        Header: "TRANSPORT COOPERATIVE/ CORPORATION",
-        accessor: "TransportCooperative",
-      },
-      {
-        Header: "VEHICLE CODE",
-        accessor: "VehicleCode",
-      },
-      {
-        Header: "DEPARTURE",
-        columns: [
-          {
-            Header: "ORIGIN",
-            accessor: "Origin",
-          },
-          {
-            Header: "START DATE",
-            accessor: "StartDate",
-          },
-        ],
-      },
-      {
-        Header: "ARRIVAL",
-        columns: [
-          {
-            Header: "DESTINATION",
-            accessor: "Destination",
-          },
-          {
-            Header: "END DATE",
-            accessor: "EndDate",
-          },
-        ],
-      },
-      {
-        Header: "TRIP NUMBER",
-        accessor: "TripNumber",
-      },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 td-truncate ${
-              value === "Completed" ? "text-[#2D9CDB] font-bold" : "text-black font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-      },
-      
 
-      {
-        Header: "ACTION",
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-          </div>
-        ),
-      },
-      
-    ],
-    []
-  );
+        {
+          Header: "ACTION",
+          Cell: ({ row }) => (
+            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+              <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+            </div>
+          ),
+        },
+        
+      ],
+      []
+    );
 
 
 
@@ -575,7 +565,7 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-2 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-2 2xl:py-2 2xl:pt-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header") }
