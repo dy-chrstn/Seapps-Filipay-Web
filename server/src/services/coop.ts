@@ -13,7 +13,6 @@ export const createCoop = async (email: string, password: string, coopName: stri
     return newCoop;
 }
 
-
 export const findCoopById = async (id: string) => {
     const coop = await CoopModel.findById(id);
     return coop;
