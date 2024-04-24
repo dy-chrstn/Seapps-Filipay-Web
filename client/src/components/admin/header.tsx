@@ -47,23 +47,21 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
   
 
     return (
-      <div className='flex flex-row items-start w-screen mb-[-3px]'>
+      <div className='flex flex-row items-start w-screen mb-[-3px] gap-7'>
 
         {menuVisible ?
         
-           <div className=" bg-blue-900 py-1 border-b-4 border-b-blue-900 w-[5%]">
-           <div className="   flex items-center flex-row py-3 ">
+           <div className=" bg-dashboardPurple py-1 border-b-4 border-b-blue-900 lg:pr-1.5 2xl:pr-1.5 2xl:max-w-auto w-auto">
+           <div className="   flex items-center flex-row py-3 pr-[.35rem] ">
              <img onClick={() => {onClick(); menuOpen();}} className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
-             <div className="text-center">
-             </div>
            </div>
        </div>
             
       
-        : <div className=" bg-blue-900 w-[25%] border-b-4 border-b-dashboardPurple">
-            <div className="   flex items-center flex-row py-3 ">
+        : <div className=" bg-dashboardPurple w-auto lg:w-auto border-b-4 border-b-dashboardPurple">
+            <div className=" flex items-center flex-row py-3 ">
               <img onClick={() => {onClick(); menuOpen();}}  className=" w-10 h-10 flex-shrink-0 mx-3 bg-white" src="/Img/Dashboard/FiliPayIcon.png" alt="FiliPay Logo" />
-              <div className="text-center pl-1">
+              <div className="text-center lg:pr-[6.4rem] 2xl:pr-[6.45rem]">
                   <p className="text-sky-300 font-bold">Management</p>
                   <p className="text-sky-300 font-bold">Dashboard</p>
               </div>
@@ -71,12 +69,8 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
           </div> 
         }
         
-     
 
-
-   
-        
-        <div className="  pl-3 py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center transparent-caret" >   
+        <div className="  py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center transparent-caret" >   
         <p className="text-blue-900 text-3xl font-sans font-bold">{title}</p>
 
             <div onClick={(profileMenuOpen)} className="  py-1 w-[30%] flex flex-row items-center justify-end mr-10 transparent-caret">

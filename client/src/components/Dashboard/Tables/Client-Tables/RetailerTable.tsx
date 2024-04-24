@@ -421,7 +421,7 @@ const columns: Column<Row>[] = useMemo(
               {headerGroup.headers.map((column) => (
   <th
     {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-2 px-1 text-left" style={{ minWidth: column.minWidth, width: column.width }}
+    className="py-2 px-1 text-center" style={{ minWidth: column.minWidth, width: column.width }}
   >
     <div className="flex items-center justify-center">
       {column.render("Header")}

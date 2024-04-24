@@ -3,44 +3,43 @@ import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
-import MessageAction from '../Actions/messageAction';
+import MessageAction from '../../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+// import "./CardSales.css";
 import "react-calendar/dist/Calendar.css";
-import "./Table.css";
-
-
 
 
 interface Row {
   id: number;
-  date: string;
-  code: string;
-  serviceType: string;
-  transpocoop: string;
-  vehicleNumber: string;
-  passengerValidator: string,
-  driverMonitor: string;
-  maker: string;
-  maxAmount: string;
-  plateNumber: string;
-  chassisNumber: string;
-  engineNumber: string;
-  distanceTravelled: string;
+  PassengerNumber: string;
+  Date: string,
+  CardSN: string;
+  DeviceID: string;
+  Origin: string;
+  Destination: string;
+  DistanceTravelled: string;
+  TypeOfPassenger: string;
+  ModeOfTransport:string;
+  PlateNumber: string;
+  StartDate: string;
+  EndDate: string;
+  RideFee: string;
+  status: string;
 }
-const VehicleTable: React.FC = () => {
+const FareIncomeTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
   
-  const handleRemoveRecipient = () => {
-    setSelectedRow((prevRow: any) => ({
-      ...prevRow,
-      email: "" 
-    }));
-  };
+//   const handleRemoveRecipient = () => {
+//     setSelectedRow((prevRow: any) => ({
+//       ...prevRow,
+//       email: "" 
+//     }));
+//   };
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -70,11 +69,11 @@ const VehicleTable: React.FC = () => {
   };
 
 
-  const filterOptions = [
-    { value: "all", label: "All" },
-    { value: "Transport Cooperative", label: "Transport Cooperative" },
-    { value: "Transport Corperation", label: "Transport Corporation" },
-  ];
+//   const filterOptions = [
+//     { value: "all", label: "All" },
+//     { value: "Transport Cooperative", label: "Transport Cooperative" },
+//     { value: "Transport Corperation", label: "Transport Corporation" },
+//   ];
 
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
@@ -94,213 +93,212 @@ const VehicleTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      code: "1",
-      serviceType: "",
-      date: "04/15/2024",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Regular",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 2,
-      date: "",
-      code: "2",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Student",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 3,
-      date: "",
-      code: "3",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Regular",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 4,
-      code: "4",
-      date: "",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Student",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 5,
-      date: "",
-      code: "5",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Regular",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Unsuccessful",
     },
     {
       id: 6,
-      date: "",
-      code: "6",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Student",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Unsuccessful",
     },
     {
       id: 7,
-      date: "",
-      code: "7",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "PWD",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 8,
-      date: "",
-      code: "8",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Senior Citizen",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 9,
-      date: "",
-      code: "9",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Senior Citizen",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Error",
     },
     {
       id: 10,
-      date: "",
-      code: "10",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "PWD",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Error",
     },
+    {
+      id: 11,
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
+      Origin: "",
+      Destination: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "PWD",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Error",
+    }
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
-  
-  useEffect(() => {
-    const filtered = data.filter((item) => {
-      if (filterBy === "all") {
-        return true;
-      } else {
-        return item.transpocoop === filterBy;
-      }
-    });
-    setFilteredData(filtered);
-  }, [filterBy, data]);
-
-  useEffect(() => {
-    const filtered = data.filter((item) => {
-      const itemDate = new Date(item.date);
-      const formattedFromDate = new Date(
-        fromDate ? fromDate.getFullYear() : 0,
-        fromDate ? fromDate.getMonth() : 0,
-        fromDate ? fromDate.getDate() : 1
-      );
-      const formattedToDate = new Date(
-        toDate ? toDate.getFullYear() : 9999,
-        toDate ? toDate.getMonth() : 11,
-        toDate ? toDate.getDate() + 1 : 1
-      );
-      return itemDate >= formattedFromDate && itemDate < formattedToDate;
-    });
-    setFilteredData(filtered);
-  }, [fromDate, toDate, data]);
-
 
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.serviceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.transpocoop.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.vehicleNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.passengerValidator.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.driverMonitor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.maker.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.maxAmount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.plateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.chassisNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.engineNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.distanceTravelled.toLowerCase().includes(searchTerm.toLowerCase()) 
+        item.PassengerNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DeviceID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DistanceTravelled.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TypeOfPassenger.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.ModeOfTransport.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.PlateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.StartDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.EndDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.RideFee.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.status.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -323,7 +321,7 @@ const VehicleTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'VehicleTable.xlsx';
+  const fileName = 'Card_Sales.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -342,63 +340,82 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "CODE",
-        accessor: "code",
+        Header: "PASSENGER NUMBER",
+        accessor: "PassengerNumber",
         
       },
       {
-        Header: () => <div>SERVICE<br/>TYPE</div>,
-        accessor: "serviceType",
+        Header: "DATE",
+        accessor: "Date",
       },
       {
-        Header: () => <div>TRANSPORT <br/> COOPERATIVE/<br/>CORPORATION</div>,
-        accessor: "transpocoop",
+        Header: "CARD SN",
+        accessor: "CardSN",
       },
       {
-        Header: () => <div>VEHICLE<br/>NUMBER</div>,
-        accessor: "vehicleNumber",
+        Header: "DEVICE ID",
+        accessor: "DeviceID",
       },
       {
-        Header: () => <div>PASSENGER<br/>VALIDATOR</div>,
-        accessor: "passengerValidator",
+        Header: "ORIGIN",
+        accessor: "Origin",
       },
       {
-        Header: () => <div>DRIVER'S<br/>MONITOR</div>,
-        accessor: "driverMonitor",
+        Header: "DESTINATION",
+        accessor: "Destination",
       },
       {
-        Header: "MAKER",
-        accessor: "maker",
+        Header: "DISTANCE TRAVELLED(KM)",
+        accessor: "DistanceTravelled",
       },
       {
-        Header: () => <div>MAX<br/>AMOUNT</div>,
-        accessor: "maxAmount",
+        Header: "TYPE OF PASSENGER",
+        accessor: "TypeOfPassenger",
       },
       {
-        Header: () => <div>PLATE<br/>NUMBER</div>,
-        accessor: "plateNumber",
+        Header: "MODE OF TRANSPORT",
+        accessor: "ModeOfTransport",
       },
       {
-        Header: () => <div>CHASSIS<br/>NUMBER</div>,
-        accessor: "chassisNumber",
+        Header: "PLATE NUMBER",
+        accessor: "PlateNumber",
       },
       {
-        Header: () => <div>ENGINE<br/>NUMBER</div>,
-        accessor: "engineNumber",
+        Header: "START DATE",
+        accessor: "StartDate",
       },
       {
-        Header: () => <div>DISTANCE<br/>TRAVELLED</div>,
-        accessor: "distanceTravelled",
+        Header: "END DATE",
+        accessor: "EndDate",
       },
-     
+      {
+        Header: "RIDE FEE",
+        accessor: "RideFee",
+      },
+      {
+        Header: "STATUS",
+        accessor: "status",
+        Cell: ({ value }) => (
+          <div
+            className={`px-1 py-1 td-truncate ${
+              value === "Successful" ? "text-green-500 font-bold" : value === "Error" ? "text-red-500 font-bold" : "text-gray-500 font-bold"
+            }`}
+          >
+            {value}
+          </div>
+        ),
+      },
+      
+
       {
         Header: "ACTION",
         Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-             <FaEdit />
-          </div>
+          <>
+           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+            </div>
+          </>
         ),
-        disableSortBy: true, // Disable sorting for this column
       },
       
     ],
@@ -423,8 +440,8 @@ const columns: Column<Row>[] = useMemo(
  
 
   return (
-    <div className="mx-auto">
-      <div className="mx-auto ml-3 mt-8 transparent-caret ">
+    <div className="w-tableWidth mx-auto">
+      <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
       <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
@@ -517,33 +534,32 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y  divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto">
+          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
           <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-  <th
-    {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-2 px-3 text-center"
-  >
-   <div className="flex items-center justify-center">
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.60rem] 2xl:text-[.70rem]"
+                  >
+                    <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
-                          <FaSortDown color={"#2F80ED"} />
+                          <FaSortDown />
                         ) : (
-                          <FaSortUp color={"#2F80ED"}/>
+                          <FaSortUp />
                         )
                       ) : (
                         <FaSort />
                       )}
                     </div>
                   </th>
-))}
+                ))}
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center">
+          <tbody {...getTableBodyProps()} className="text-center  text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -554,6 +570,7 @@ const columns: Column<Row>[] = useMemo(
     rows.map((row) => {
       prepareRow(row);
       return (
+        <>
         <tr
           {...row.getRowProps()}
           className={`border-b border-gray-200 ${
@@ -562,20 +579,42 @@ const columns: Column<Row>[] = useMemo(
         >
           {row.cells.map((cell) => {
             return (
+              <>
               <td
                 {...cell.getCellProps()}
-                className="border px-1 py-1.5 td-truncate"
+                className="border-t border-l border-gray-400 border-r px-1.5 py-2 td-truncate text-black font-medium"
               >
                 {cell.render("Cell")}
+              
               </td>
+              </>
             );
           })}
         </tr>
+        </> 
       );
     })
   )}
 </tbody>
-
+{displayedData.length === 10 && (
+  <tfoot className="">
+     <tr>
+      {columns.map((column, columnIndex) => (
+        <td
+          key={column.id}
+          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-400
+          ${columnIndex === 0 ? `border-l border-gray-400 bg-white`
+          : columnIndex === 12 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
+          : columnIndex === 13 ? `bg-blue-300 border-t border-gray-400` 
+          : columnIndex === 14 ? `bg-blue-300 border-r border-t border-gray-400` 
+          : `bg-white`}`}
+        >
+          {columnIndex === 11 ? "TOTAL" : ""}
+        </td>
+      ))}
+    </tr>
+  </tfoot>
+)}
         </table>
 
         
@@ -621,4 +660,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default VehicleTable;
+export default FareIncomeTable;

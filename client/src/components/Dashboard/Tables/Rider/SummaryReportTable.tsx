@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-//import { TiMessages } from "react-icons/ti";
-//import MessageAction from '../Actions/messageAction';
+import { TiMessages } from "react-icons/ti";
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,20 +14,11 @@ import { useNavigate } from 'react-router-dom';
 
 interface Row {
   id: number;
-  name: string;
-  referenceCode: string;
-  cardSN: string;
-  passengerValidator: string;
-  driversMonitor: string;
-  origin: string;
-  destination: string;
-  maximumFee: string;
-  rideFee: string;
-  travelDistance: string;
-  endDate: string;
-  startDate: string;
-  fare: string;
-  status: string;
+  vehicleNo: string;
+  fpCardFareCollected: string;
+  fpAppFareCollected: string;
+  totalPassenger: string;
+  totalFareCollected: string;
 }
 
 interface CustomOption {
@@ -36,7 +27,7 @@ interface CustomOption {
   }
 
 
-const RideHistoryTable: React.FC = () => {
+const SummaryReportTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
@@ -44,15 +35,6 @@ const RideHistoryTable: React.FC = () => {
   const [selectedSingleOption, setSelectedSingleOption] = useState<CustomOption | null>(null);
 
   const navigate = useNavigate();
-
-  const navigatePage = (path: string) => {
-    navigate(path);
-  };
-  
-
-  const handleViewSummaryReport = () => {
-    navigate('/Menu/SubPages/RiderSubPages/SummaryReport');
-  };
   
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -171,173 +153,83 @@ const RideHistoryTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      name: "",
-      referenceCode: "",
-      cardSN: "SNR",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "Completed",
+      vehicleNo: "PNROA-001",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 2,
-      name: "",
-      referenceCode: "",
-      cardSN: "SND",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "In Progress",
+      vehicleNo: "PNROA-002",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 3,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "Completed",
+      vehicleNo: "PNROA-003",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 4,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "Completed",
+      vehicleNo: "PNROA-004",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 5,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "In-Progress",
+      vehicleNo: "PNROA-005",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 6,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "Completed",
+      vehicleNo: "PNROA-006",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 7,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "In Progress",
+      vehicleNo: "PNROA-007",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 8,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "Completed",
+      vehicleNo: "PNROA-008",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 9,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "Completed",
+      vehicleNo: "PNROA-009",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
     {
       id: 10,
-      name: "",
-      referenceCode: "",
-      cardSN: "",
-      passengerValidator: "",
-      driversMonitor: "",
-      origin: "",
-      destination: "",
-      maximumFee: "",
-      rideFee: "",
-      travelDistance: "",
-      endDate: "",
-      startDate: "",
-      fare: "",
-      status: "In Progress",
+      vehicleNo: "PNROA-010",
+      fpCardFareCollected: "",
+      fpAppFareCollected: "",
+      totalPassenger: "",
+      totalFareCollected: "",
     },
   ]);
 
@@ -351,14 +243,14 @@ const RideHistoryTable: React.FC = () => {
     if (!selectedOptions || selectedOptions.length === 0 || selectedOptions.some(option => option.value === "All")) {
       setFilteredData(data);
     } else {
-      const filtered = data.filter(item => selectedOptions.some(option => option.value === item.cardSN));
-      setFilteredData(filtered);
+      //const filtered = data.filter(item => selectedOptions.some(option => option.value === item.cardSN));
+      //setFilteredData(filtered);
     }
   };
 
   useEffect(() => {
     const filtered = data.filter((item) => {
-      const itemDate = new Date(item.startDate);
+      //const itemDate = new Date(item.startDate);
       const formattedFromDate = new Date(
         fromDate ? fromDate.getFullYear() : 0,
         fromDate ? fromDate.getMonth() : 0,
@@ -369,7 +261,7 @@ const RideHistoryTable: React.FC = () => {
         toDate ? toDate.getMonth() : 11,
         toDate ? toDate.getDate() + 1 : 1
       );
-      return itemDate >= formattedFromDate && itemDate < formattedToDate;
+      //return itemDate >= formattedFromDate && itemDate < formattedToDate;
     });
     setFilteredData(filtered);
   }, [fromDate, toDate, data]);
@@ -377,22 +269,12 @@ const RideHistoryTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.referenceCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.cardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.passengerValidator.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.driversMonitor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.maximumFee.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.rideFee.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.travelDistance.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.endDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.startDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase()) 
-
-
-
+        item.vehicleNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.fpCardFareCollected.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.fpCardFareCollected.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.totalPassenger.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.totalFareCollected.toLowerCase().includes(searchTerm.toLowerCase()) 
+  
       );
     });
     setFilteredData(filtered);
@@ -432,115 +314,49 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
     () => [
         {
-          Header: "NAME",
-          accessor: "name",
+          Header: "VEHICLE NO.",
+          accessor: "vehicleNo",
           width: 350,
           minWidth: 30,
           maxWidth: 150,
           
         },
         {
-          Header: () => <div>REFERENCE<br/>CODE</div>,
-          accessor: "referenceCode",
+          Header: "FILIPAY CARD FARE COLLECTED",
+          accessor: "fpCardFareCollected",
           width: 350,
           minWidth: 30,
           maxWidth: 150,
         },
         {
-          Header: "CARD SN",
-          accessor: "cardSN",
+          Header: "FILIPAY APP FARE COLLECTED",
+          accessor: "fpAppFareCollected",
           width: 250,
           minWidth: 30,
           maxWidth: 150,
         },
         {
-            Header: () => <div>PASSENGER'S<br/>VALIDATOR</div>,
-            accessor: "passengerValidator",
+          Header: "TOTAL PASSENGER",
+            accessor: "totalPassenger",
             width: 250,
             minWidth: 30,
             maxWidth: 150,
           },
         {
-          Header: () => <div>DRIVER'S<br/>MONITOR</div>,
-          accessor: "driversMonitor",
+          Header: "TOTAL FARE COLLECTED",
+          accessor: "totalFareCollected",
           width: 250,
           minWidth: 30,
           maxWidth: 150,
         },
-        {
-            Header: "ORIGIN",
-            accessor: "origin",
-          width: 250,
-          minWidth: 30,
-          maxWidth: 150,
-        },
-        {
-          Header: "DESTINATION",
-          accessor: "destination",
-          width: 250,
-          minWidth: 30,
-          maxWidth: 150,
-        },
-        {
-          Header: () => <div>MAXIMUM<br/>FEE</div>,
-          accessor: "maximumFee",
-          width: 250,
-          minWidth: 30,
-          maxWidth: 150,
-        },
-        {
-          Header: "RIDE FEE",
-          accessor: "rideFee",
-          width: 250,
-          minWidth: 30,
-          maxWidth: 150,
-        },
-        {
-        Header: () => (<div>TRAVEL DISTANCE <br /> (IN KM)</div>),            
-         accessor: "travelDistance",
-          width: 250,
-          minWidth: 30,
-          maxWidth: 150,
-        },
-        {
-          Header: "END DATE",
-          accessor: "endDate",
-          width: 250,
-          minWidth: 30,
-          maxWidth: 150,
-        },
-        {
-          Header: "START DATE",
-          accessor: "startDate",
-          width: 250,
-          minWidth: 30,
-          maxWidth: 150,
-        },
-        {
-            Header: "STATUS",
-            accessor: "status",
-            width: 250,
-            minWidth: 30,
-            maxWidth: 150,
-            Cell: ({ value }) => (
-                <div
-                  className={`px-1 py-1 ${
-                    value === "Completed" ? "text-buttonDarkTeal font-bold" : "text-gray-700 font-bold"
-                  }`}
-                >
-                  {value}
-                </div>
-              ),
-          },
-  
         {
           Header: "ACTION",
           width: 250,
           minWidth: 30,
           maxWidth: 150,
           Cell: ({ row }) => (
-            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-               <FaEdit />
+            <div className="flex justify-center items-center space-x-3 text-xs text-buttonDarkTeal">
+              View
             </div>
           ),
           disableSortBy: true, // Disable sorting for this column
@@ -682,7 +498,7 @@ const columns: Column<Row>[] = useMemo(
               {headerGroup.headers.map((column) => (
   <th
     {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-1 text-center text-[.70rem] 2xl:text-[.90rem]" style={{ minWidth: column.minWidth, width: column.width }}
+    className="py-3 text-center text-[.70rem] 2xl:text-[.90rem]" style={{ minWidth: column.minWidth, width: column.width }}
   >
    <div className="flex items-center justify-center">
                       {column.render("Header")}
@@ -722,7 +538,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border border-sky-900 px-1 py-1 td-truncate"
+                className="border border-sky-900 px-1 py-2 td-truncate"
               >
                 {cell.render("Cell")}
               </td>
@@ -755,11 +571,7 @@ const columns: Column<Row>[] = useMemo(
 
       <div className="flex justify-end -mt-5 text-blue-900">
   <div className="flex items-center">
-    <button
-      className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center cursor-pointer hover:bg-blue-600 transition-colors duration-300"
-      onClick={() => navigatePage('/Menu/SubPages/RiderSubPages/SummaryReport')}>
-      View Summary Report
-    </button>
+    
   </div>
 </div>
     </div>
@@ -769,4 +581,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default RideHistoryTable;
+export default SummaryReportTable;

@@ -33,7 +33,7 @@ type AccountingSubMenuProps = {
 
 
     return (
-        <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-64 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 
+        <div className={` w-52 ${isMenuFull ? 'ml-4' : 'absolute md:left-16 lg:left-20 top-64 bg-dashboardPurple'} p-2 pl-1 rounded-lg`}> 
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
             onClick = {() => navigatePage('/AccountingSystem/AccountManagement')} 
             className='border-l-4 border-transparent hover:border-white duration-300 w-48 py-1 '>

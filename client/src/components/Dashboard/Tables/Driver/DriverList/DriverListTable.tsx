@@ -268,7 +268,7 @@ const DriverListTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Dirver_List.xlsx';
+  const fileName = 'Driver_List.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -324,7 +324,7 @@ const columns: Column<Row>[] = useMemo(
         accessor: "CardUID",
       },
       {
-        Header: "CARDSN",
+        Header: "CARD SN",
         accessor: "CardSN",
       },
       {
@@ -468,12 +468,12 @@ const columns: Column<Row>[] = useMemo(
         <table
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
-          <thead className="text-white ">
+          <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.60rem] 2xl:text-[.70rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
@@ -492,7 +492,7 @@ const columns: Column<Row>[] = useMemo(
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className="text-center  text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -513,7 +513,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border px-1.5 py-2 td-truncate text-black font-medium"
               >
                 {cell.render("Cell")}
               </td>

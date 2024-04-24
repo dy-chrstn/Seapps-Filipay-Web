@@ -463,7 +463,7 @@ const columns: Column<Row>[] = useMemo(
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-10 transparent-caret ">
-      <div className="datepickers mr-10 flex text-xs space-x-3">
+      <div className="datepickers mr-10 flex text-xxs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
             <DatePicker
@@ -513,7 +513,7 @@ const columns: Column<Row>[] = useMemo(
 
         <div className="clearfilter relative flex items-center mt-4">
         <button
-              className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs"
+              className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xxs"
               onClick={clearFilters}
             >
               Clear Filters
@@ -521,7 +521,7 @@ const columns: Column<Row>[] = useMemo(
         </div>
         <div className="flex-row mt-4">
           {" "}
-          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "  onClick={handleExcelDownload} >
+          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xxs flex items-center -mr-10 "  onClick={handleExcelDownload} >
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
@@ -555,32 +555,28 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y overflow-x-auto divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900">
+          className="table-fixed divide-y overflow-x-auto divide-gray-200 text-xxs ml-0 sm:ml-6 mt-5 bg-blue-900">
           <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
   <th
     {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-1 text-left"
-  >
-    <div className="flex items-center justify-center">
-      {column.render("Header")}
-      {column.canSort && (
-        <>
-          {column.isSorted ? (
-            column.isSortedDesc ? (
-              <FaSortDown />
-            ) : (
-              <FaSortUp />
-            )
-          ) : (
-            <FaSort />
-          )}
-        </>
-      )}
-    </div>
-  </th>
+    className="py-1 px-1 2xl:py-5 text-center text-[.60rem] 2xl:text-[.90rem]"
+    >
+   <div className="flex items-center justify-center">
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <FaSortDown color={"#2F80ED"} />
+                        ) : (
+                          <FaSortUp color={"#2F80ED"}/>
+                        )
+                      ) : (
+                        <FaSort />
+                      )}
+                    </div>
+                  </th>
 ))}
               </tr>
             ))}

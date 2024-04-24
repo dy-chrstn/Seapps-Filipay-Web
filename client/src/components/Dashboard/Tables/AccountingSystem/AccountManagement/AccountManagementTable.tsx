@@ -2,45 +2,33 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../Actions/messageAction';
+import MessageAction from '../../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
-import "./Table.css";
-
-
-
 
 interface Row {
   id: number;
-  date: string;
-  code: string;
-  serviceType: string;
-  transpocoop: string;
-  vehicleNumber: string;
-  passengerValidator: string,
-  driverMonitor: string;
-  maker: string;
-  maxAmount: string;
-  plateNumber: string;
-  chassisNumber: string;
-  engineNumber: string;
-  distanceTravelled: string;
+  NameOfCompany: string;
+  Code: string,
+  EmailAddress: string;
+  FareIncome: string;
+  LoadSales: string;
+  CardSales: string;
 }
-const VehicleTable: React.FC = () => {
+const  AccountManagementTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
   
-  const handleRemoveRecipient = () => {
-    setSelectedRow((prevRow: any) => ({
-      ...prevRow,
-      email: "" 
-    }));
-  };
+//   const handleRemoveRecipient = () => {
+//     setSelectedRow((prevRow: any) => ({
+//       ...prevRow,
+//       email: "" 
+//     }));
+//   };
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -70,11 +58,11 @@ const VehicleTable: React.FC = () => {
   };
 
 
-  const filterOptions = [
-    { value: "all", label: "All" },
-    { value: "Transport Cooperative", label: "Transport Cooperative" },
-    { value: "Transport Corperation", label: "Transport Corporation" },
-  ];
+//   const filterOptions = [
+//     { value: "all", label: "All" },
+//     { value: "Transport Cooperative", label: "Transport Cooperative" },
+//     { value: "Transport Corperation", label: "Transport Corporation" },
+//   ];
 
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
@@ -94,213 +82,108 @@ const VehicleTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      code: "1",
-      serviceType: "",
-      date: "04/15/2024",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 2,
-      date: "",
-      code: "2",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 3,
-      date: "",
-      code: "3",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 4,
-      code: "4",
-      date: "",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 5,
-      date: "",
-      code: "5",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 6,
-      date: "",
-      code: "6",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 7,
-      date: "",
-      code: "7",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 8,
-      date: "",
-      code: "8",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 9,
-      date: "",
-      code: "9",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 10,
-      date: "",
-      code: "10",
-      serviceType: "",
-      transpocoop: "",
-      vehicleNumber: "",
-      passengerValidator: "",
-      driverMonitor: "",
-      maker: "",
-      maxAmount: "",
-      plateNumber: "",
-      chassisNumber: "",
-      engineNumber: "",
-      distanceTravelled: "",
+      NameOfCompany: "",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
+      
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
-  
-  useEffect(() => {
-    const filtered = data.filter((item) => {
-      if (filterBy === "all") {
-        return true;
-      } else {
-        return item.transpocoop === filterBy;
-      }
-    });
-    setFilteredData(filtered);
-  }, [filterBy, data]);
-
-  useEffect(() => {
-    const filtered = data.filter((item) => {
-      const itemDate = new Date(item.date);
-      const formattedFromDate = new Date(
-        fromDate ? fromDate.getFullYear() : 0,
-        fromDate ? fromDate.getMonth() : 0,
-        fromDate ? fromDate.getDate() : 1
-      );
-      const formattedToDate = new Date(
-        toDate ? toDate.getFullYear() : 9999,
-        toDate ? toDate.getMonth() : 11,
-        toDate ? toDate.getDate() + 1 : 1
-      );
-      return itemDate >= formattedFromDate && itemDate < formattedToDate;
-    });
-    setFilteredData(filtered);
-  }, [fromDate, toDate, data]);
-
 
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.serviceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.transpocoop.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.vehicleNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.passengerValidator.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.driverMonitor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.maker.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.maxAmount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.plateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.chassisNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.engineNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.distanceTravelled.toLowerCase().includes(searchTerm.toLowerCase()) 
+        item.NameOfCompany.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.FareIncome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.LoadSales.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.CardSales.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -323,7 +206,7 @@ const VehicleTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'VehicleTable.xlsx';
+  const fileName = 'AccountManagement.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -341,66 +224,31 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-      {
-        Header: "CODE",
-        accessor: "code",
-        
-      },
-      {
-        Header: () => <div>SERVICE<br/>TYPE</div>,
-        accessor: "serviceType",
-      },
-      {
-        Header: () => <div>TRANSPORT <br/> COOPERATIVE/<br/>CORPORATION</div>,
-        accessor: "transpocoop",
-      },
-      {
-        Header: () => <div>VEHICLE<br/>NUMBER</div>,
-        accessor: "vehicleNumber",
-      },
-      {
-        Header: () => <div>PASSENGER<br/>VALIDATOR</div>,
-        accessor: "passengerValidator",
-      },
-      {
-        Header: () => <div>DRIVER'S<br/>MONITOR</div>,
-        accessor: "driverMonitor",
-      },
-      {
-        Header: "MAKER",
-        accessor: "maker",
-      },
-      {
-        Header: () => <div>MAX<br/>AMOUNT</div>,
-        accessor: "maxAmount",
-      },
-      {
-        Header: () => <div>PLATE<br/>NUMBER</div>,
-        accessor: "plateNumber",
-      },
-      {
-        Header: () => <div>CHASSIS<br/>NUMBER</div>,
-        accessor: "chassisNumber",
-      },
-      {
-        Header: () => <div>ENGINE<br/>NUMBER</div>,
-        accessor: "engineNumber",
-      },
-      {
-        Header: () => <div>DISTANCE<br/>TRAVELLED</div>,
-        accessor: "distanceTravelled",
-      },
-     
-      {
-        Header: "ACTION",
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-             <FaEdit />
-          </div>
-        ),
-        disableSortBy: true, // Disable sorting for this column
-      },
+    {
+      Header: "NAME OF COMPANY",
+      accessor: "NameOfCompany",
       
+    },
+    {
+      Header: "CODE",
+      accessor: "Code",
+    },
+    {
+      Header: "EMAIL ADDRESS",
+      accessor: "EmailAddress",
+    },
+    {
+      Header: "FARE INCOME",
+      accessor: "FareIncome",
+    },
+    {
+      Header: "LOAD SALES",
+      accessor: "LoadSales",
+    },
+    {
+      Header: "CARD SALES",
+      accessor: "CardSales",
+    },
     ],
     []
   );
@@ -423,8 +271,8 @@ const columns: Column<Row>[] = useMemo(
  
 
   return (
-    <div className="mx-auto">
-      <div className="mx-auto ml-3 mt-8 transparent-caret ">
+    <div className="w-tableWidth mx-auto">
+      <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
       <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
@@ -517,33 +365,32 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y  divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto">
-          <thead className="text-white">
+          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
+          <thead className="text-white ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-  <th
-    {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-2 px-3 text-center"
-  >
-   <div className="flex items-center justify-center">
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  >
+                    <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
-                          <FaSortDown color={"#2F80ED"} />
+                          <FaSortDown />
                         ) : (
-                          <FaSortUp color={"#2F80ED"}/>
+                          <FaSortUp />
                         )
                       ) : (
                         <FaSort />
                       )}
                     </div>
                   </th>
-))}
+                ))}
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center">
+          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -564,7 +411,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1 py-1.5 td-truncate"
+                className="border border-gray-300 px-1.5 py-4 td-truncate"
               >
                 {cell.render("Cell")}
               </td>
@@ -575,7 +422,25 @@ const columns: Column<Row>[] = useMemo(
     })
   )}
 </tbody>
-
+{displayedData.length === 10 && (
+  <tfoot className="">
+     <tr>
+      {columns.map((column, columnIndex) => (
+        <td
+          key={column.id}
+          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-300 hover:bg-blue-400
+          ${columnIndex === 0 ? `border-l border-gray-300 bg-white`
+          : columnIndex === 3 ? `bg-blue-300 border-l border-t border-b border-gray-300 ` 
+          : columnIndex === 4 ? `bg-blue-300 border-t border-l border-gray-300` 
+          : columnIndex === 5 ? `bg-blue-300 border-r border-l border-t border-gray-300` 
+          : `bg-white`}`}
+        >
+          {columnIndex === 2 ? "TOTAL" : ""}
+        </td>
+      ))}
+    </tr>
+  </tfoot>
+)}
         </table>
 
         
@@ -621,4 +486,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default VehicleTable;
+export default AccountManagementTable;

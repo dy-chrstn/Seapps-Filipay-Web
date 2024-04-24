@@ -28,7 +28,7 @@ const DriverSubMenu: React.FC<DriverSubMenuProps> = ({ isMenuFull, onMouseEnter,
   }
 
     return (
-        <div className={` w-52 ${isMenuFull ? 'ml-10' : 'absolute md:left-16 lg:left-20 top-32 bg-dashboardPurple'}  p-2 pl-1 rounded-lg`}> 
+        <div className={` w-52 ${isMenuFull ? 'ml-4' : 'absolute md:left-16 lg:left-20 top-32 bg-dashboardPurple'}  p-2 pl-1 rounded-lg`}> 
             
             <div onMouseEnter={onMouseEnter} onMouseLeave ={onMouseLeave}
             onClick = {() => navigatePage('/Driver/DriverList')} 

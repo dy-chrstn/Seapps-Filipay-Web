@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-// import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
-import { FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../../../Tables/Actions/messageAction';
@@ -10,7 +9,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Dispatch.css";
 import "react-calendar/dist/Calendar.css";
-
 
 interface Row {
   id: number;
@@ -328,8 +326,6 @@ const DispatchTable: React.FC = () => {
         status: "In Progress",
       },
       
-
-
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -386,55 +382,45 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-      {
-        Header: "NAME",
-        accessor: "Name",
-        
-      },
-      {
-        Header: "TRANSPORT COOPERATIVE/ CORPORATION",
-        accessor: "TransportCooperative",
-      },
-      {
-        Header: "VEHICLE CODE",
-        accessor: "VehicleCode",
-      },
-      {
-        Header: "DEPARTURE",
-        columns: [
-          {
-            Header: "ORIGIN",
-            accessor: "Origin",
-          },
-          {
-            Header: "START DATE",
-            accessor: "StartDate",
-          },
-        ],
-      },
-      {
-        Header: "ARRIVAL",
-        columns: [
-          {
-            Header: "DESTINATION",
-            accessor: "Destination",
-          },
-          {
-            Header: "END DATE",
-            accessor: "EndDate",
-          },
-        ],
-      },
-      {
-        Header: "TRIP NUMBER",
-        accessor: "TripNumber",
-      },
+    {
+      Header: "NAME",
+      accessor: "Name",
+      
+    },
+    {
+      Header: "TRANSPORT COOPERATIVE/ CORPORATION",
+      accessor: "TransportCooperative",
+    },
+    {
+      Header: "VEHICLE CODE",
+      accessor: "VehicleCode",
+    },
+    {
+      Header: "ORIGIN",
+      accessor: "Origin",
+    },
+    {
+      Header: "START DATE",
+      accessor: "StartDate",
+    },
+    {
+      Header: "DESTINATION",
+      accessor: "Destination",
+    },
+    {
+      Header: "END DATE",
+          accessor: "EndDate",
+    },
+    {
+      Header: "TRIP NUMBER",
+      accessor: "TripNumber",
+    },
       {
         Header: "STATUS",
         accessor: "status",
         Cell: ({ value }) => (
           <div
-            className={`px-1 py-1 td-truncate ${
+            className={`px-1 py-1 ${
               value === "Completed" ? "text-[#2D9CDB] font-bold" : "text-black font-bold"
             }`}
           >
@@ -571,23 +557,27 @@ const columns: Column<Row>[] = useMemo(
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
           <thead className="text-white ">
+          <div className="font-bold absolute lg:left-[34%] left-[35%] pt-2 lg:text-[.80rem] 2xl:px-[6.7%] lg:px-[6.5%] px-[6%] py-2 ">DEPARTURE</div>
+          <div className="font-bold absolute  lg:left-[51.7%] left-[52.6%] pt-2 lg:text-[.80rem] 2xl:px-[7.2%] lg:px-[7%] px-[6.8%] py-2">ARRIVAL</div>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-2 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="pb-2 pt-4 2xl:pb-2 text-left text-[.70rem] 2xl:text-[.80rem]"
                   >
+
+                
                     <div className="flex items-center justify-center px-1">
-                      {column.render("Header") }
-                      {/* {column.isSorted ? (
-                        column.isSortedDesc && column.render("Header") !== "DEPARTURE"  && column.render("Header") !== "ARRIVAL" ? (
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
                           <FaSortDown />
                         ) : (
                           <FaSortUp />
                         )
                       ) : (
                         <FaSort />
-                      )} */}
+                      )}
                     </div>
                   </th>
                 ))}

@@ -296,10 +296,10 @@ const columns: Column<Row>[] = useMemo(
 </div>
 
 
-<div className="mx-auto overflow-x-auto">
+<div className="mx-auto">
         <table
           {...getTableProps()}
-          className="table-fixed max-w-fit divide-y divide-gray-200 text-xxs ml-0 sm:ml-10 mt-5 bg-blue-900 overflow-auto">
+          className="table-fixed divide-y divide-gray-200 text-xxs ml-0 sm:ml-10 mt-5 bg-blue-900 overflow-auto">
           <thead className="text-white">
           {headerGroups.map((headerGroup) => (
   <tr {...headerGroup.getHeaderGroupProps()}>
@@ -310,22 +310,18 @@ const columns: Column<Row>[] = useMemo(
 
       >
         <div className="flex items-center justify-center">
-          {column.render("Header")}
-          {column.canSort && (
-            <>
-              {column.isSorted ? (
-                column.isSortedDesc ? (
-                  <FaSortDown />
-                ) : (
-                  <FaSortUp />
-                )
-              ) : (
-                <FaSort />
-              )}
-            </>
-          )}
-        </div>
-      </th>
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <FaSortDown color={"#2F80ED"} />
+                        ) : (
+                          <FaSortUp color={"#2F80ED"}/>
+                        )
+                      ) : (
+                        <FaSort />
+                      )}
+                    </div>
+                  </th>
     ))}
   </tr>
 ))}

@@ -50,10 +50,10 @@ const RidersListTable: React.FC = () => {
     const selectedValue = parseInt(e.target.value, 10); 
 
     if (currentPage === 1 && itemsPerPage === 5 && selectedValue === 8) {
-      setCurrentPage(0); // Reset to page 1
+      setCurrentPage(0); 
     }
 
-    setItemsPerPage(selectedValue); // Update the state with the selected value
+    setItemsPerPage(selectedValue); 
   };
 
 
@@ -369,11 +369,11 @@ const columns: Column<Row>[] = useMemo(
           minWidth: 30,
           maxWidth: 150,
           Cell: ({ row }) => (
-            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal hover:text-blue-600 transition-colors duration-300">
               <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
             </div>
           ),
-          disableSortBy: true, // Disable sorting for this column
+          disableSortBy: true, 
         },
         
       ],
@@ -414,15 +414,15 @@ const columns: Column<Row>[] = useMemo(
 
         <div className="clearfilter relative flex items-center mt-4">
         <button
-              className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs"
-              onClick={clearFilters}
+        className="border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs transition-colors duration-300 hover:border-blue-600 hover:text-blue-600"
+        onClick={clearFilters}
             >
               Clear Filters
             </button>
         </div>
         <div className="flex-row mt-4">
           {" "}
-          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "  onClick={handleExcelDownload} >
+          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10   hover:bg-blue-600 transition-colors duration-300"  onClick={handleExcelDownload} >
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
@@ -463,25 +463,21 @@ const columns: Column<Row>[] = useMemo(
               {headerGroup.headers.map((column) => (
   <th
     {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-1 text-left" style={{ minWidth: column.minWidth, width: column.width }}
+    className="py-1 text-center text-[.70rem] 2xl:text-[.90rem]" style={{ minWidth: column.minWidth, width: column.width }}
   >
     <div className="flex items-center justify-center">
-      {column.render("Header")}
-      {column.canSort && (
-        <>
-          {column.isSorted ? (
-            column.isSortedDesc ? (
-              <FaSortDown />
-            ) : (
-              <FaSortUp />
-            )
-          ) : (
-            <FaSort />
-          )}
-        </>
-      )}
-    </div>
-  </th>
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <FaSortDown color={"#2F80ED"} />
+                        ) : (
+                          <FaSortUp color={"#2F80ED"}/>
+                        )
+                      ) : (
+                        <FaSort />
+                      )}
+                    </div>
+                  </th>
 ))}
               </tr>
             ))}
@@ -552,8 +548,8 @@ const columns: Column<Row>[] = useMemo(
       </div>
       <div className="flex justify-end -mt-5 text-blue-900">
         <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
+        <FaPlus className="text-blue-900 text-xxs cursor-pointer " />
+        <span className="ml-1 text-xxs font-bold transit  hover:text-blue-600 transition-colors duration-300">Add</span>
         </div>      
 </div>
 

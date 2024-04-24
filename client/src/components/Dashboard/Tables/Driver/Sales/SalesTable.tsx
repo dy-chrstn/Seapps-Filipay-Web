@@ -408,7 +408,7 @@ const columns: Column<Row>[] = useMemo(
         accessor: "status",
         Cell: ({ value }) => (
           <div
-            className={`px-1 py-1 td-truncate ${
+            className={`px-1 py-1 ${
               value === "Completed" ? "text-green-500 font-bold" : value === "In Progress" ? "text-[#2D9CDB] font-bold" : "text-red-500 font-bold"
             }`}
           >
@@ -549,7 +549,7 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-8 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.80rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
