@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import SlideShow from "../components/LogIn/slideshow";
 import { useNavigate } from "react-router-dom";
 import coopApi from "../api/coop";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const LogIn = () => {
   const [isValid, setIsValid] = useState(true);
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [fields, setFields] = useState({
     email: "",
@@ -16,33 +18,42 @@ const LogIn = () => {
   const [message, setMessage] = useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFields((states) => ({
       ...states,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
-    try {
-      const response = await coopApi.loginCoop(fields.email, fields.password); 
+    setMessage("");
+    setLoading(true);
 
-      console.log("Response: ", response);
+    setTimeout( async () => {
+      try {
+        const response = await coopApi.loginCoop(fields.email, fields.password);
 
-      const indicator = await response.messages.message
+        console.log("Response: ", response);
 
-      if(response.messages.code === 0) {
-        navigate("/dashboard");
-      }else{
-        setMessage(indicator);
+        const indicator = await response.messages.message;
+
+        if (response.messages.code === 0) {
+          navigate("/dashboard");
+          setLoading(false);
+        } else {
+          setMessage(indicator);
+          setIsValid(false);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error logging in:", error);
+        setMessage("Cannot connect to server. Please try again later.");
         setIsValid(false);
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error logging in:", error);
-      setIsValid(false);
-    }
+    }, 1500);
   };
 
   return (
@@ -104,7 +115,7 @@ const LogIn = () => {
             </div>
             <div className="flex justify-center">
               {!isValid ? (
-                <p className="text-xs font-medium font-sans mt-5 text-red-500">
+                <p className="text-xs font-medium font-sans mb-5 text-red-500">
                   {message}
                 </p>
               ) : null}
@@ -113,7 +124,7 @@ const LogIn = () => {
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-xl text-lg px-5 py-2.5 w-full"
             >
-              SIGN IN
+              {loading ? <PulseLoader color="#FFFFFF" size={10} /> : "SIGN IN"}
             </button>
           </form>
         </div>
