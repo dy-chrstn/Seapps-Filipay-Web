@@ -22,7 +22,7 @@ server.listen(port, () => {
   // console.log("Server running on http://192.168.1.31:" + port);
 });
 
-const MONGO_URL = process.env.MONGO_CLOUD_URL;
+const MONGO_URL = process.env.MONGO_URL;
 
 mongoose.set("strictQuery", false);
 mongoose.Promise = Promise;
