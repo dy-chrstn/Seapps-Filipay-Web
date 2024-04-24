@@ -5,9 +5,6 @@ import bodyParser from "body-parser";
 import router from "./router";
 import cors from "cors";
 import mongoose from "mongoose";
-// import socketIO from "socket.io"; // Import the socket.io module
-
-
 
 const port = process.env.PORT || 3050;
 
