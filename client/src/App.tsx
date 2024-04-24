@@ -26,6 +26,7 @@ import RiderList from './pages/Menu/SubPages/RiderSubPages/riderList';
 import Wallet from './pages/Menu/SubPages/RiderSubPages/wallet';
 import RideHistory from './pages/Menu/SubPages/RiderSubPages/rideHistory';
 import RiderMessages from './pages/Menu/SubPages/RiderSubPages/messages';
+import SummaryReport from './pages/Menu/SubPages/RiderSubPages/SummaryReport';
 
 //Distributor Retailer
 import DistributorCashIn from './pages/Menu/SubPages/DistributorSubPages/cashIn';
@@ -79,6 +80,8 @@ function App() {
       <Route path='/Rider/Wallet' element={<Wallet />} />
       <Route path='/Rider/RideHistory' element={<RideHistory />} />
       <Route path='/Rider/RiderMessages' element={<RiderMessages />} />
+      <Route path='/Menu/SubPages/RiderSubPages/SummaryReport' element={<SummaryReport />} />
+
 
       {/* DistributorSubPages */}
       <Route path='/DistributorRetailer/CashIn' element={<DistributorCashIn />} />
