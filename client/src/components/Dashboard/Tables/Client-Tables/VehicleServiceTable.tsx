@@ -13,7 +13,6 @@ interface Row {
   id: number;
   servicetype: string,
   totalUnits: string,
-  status: string;
 }
 const VehicleServiceTable: React.FC = () => {
 
@@ -82,61 +81,61 @@ const VehicleServiceTable: React.FC = () => {
       id: 1,
       servicetype: "Provincial Bus",
       totalUnits: "1",
-      status: "ACTIVE",
+ 
     },
     {
       id: 2,
       servicetype: "City Bus",
       totalUnits: "2",
-      status: "ACTIVE",
+
     },
     {
       id: 3,
       servicetype: "Jeepney Class 2",
       totalUnits: "3",
-      status: "INACTIVE",
+
     },
     {
       id: 4,
       servicetype: "UV Express Class 3",
       totalUnits: "4",
-      status: "ACTIVE",
+
     },
     {
       id: 5,
       servicetype: "Airline",
       totalUnits: "5",
-      status: "INACTIVE",
+
     },
     {
       id: 6,
           servicetype: "Tricycle",
       totalUnits: "6",
-      status: "ACTIVE",
+
     },
     {
       id: 7,
           servicetype: "Ship",
       totalUnits: "7",
-      status: "ACTIVE",
+
     },
     {
       id: 8,
          servicetype: "UV Express Class 3",
       totalUnits: "8",
-      status: "INACTIVE",
+
     },
     {
       id: 9,
           servicetype: "Provincial Bus",
       totalUnits: "9",
-      status: "ACTIVE",
+
     },
     {
       id: 10,
           servicetype: "City Bus",
       totalUnits: "10",
-      status: "ACTIVE",
+
     },
   ]);
 
@@ -159,8 +158,7 @@ const VehicleServiceTable: React.FC = () => {
       return (
        
         item.servicetype.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.totalUnits.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.totalUnits.toLowerCase().includes(searchTerm.toLowerCase()) 
       );
     });
     setFilteredData(filtered);
@@ -219,36 +217,8 @@ const columns: Column<Row>[] = useMemo(
         maxWidth: 150
 
       },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        width: 200,
-        minWidth: 30,
-        maxWidth: 150,
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 ${
-              value === "ACTIVE" ? "text-blue-900 font-bold" : "text-gray-400 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-        
-      },
       
-
-      {
-        Header: "ACTION",
-        minWidth: 30,
-        maxWidth: 150,
-        Cell: ({ row }) => (
-            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <FaEdit />
-          </div>
-        ),
-      },
-      
+    
     ],
     []
   );
@@ -337,38 +307,33 @@ const columns: Column<Row>[] = useMemo(
   </label>
 </div>
 </div>
+ 
 
-
-<div className="mx-auto overflow-x-auto">
         <table
           {...getTableProps()}
-          className="table-fixed max-w-fit divide-y divide-gray-200 text-xxs ml-0 sm:ml-10 mt-5 bg-blue-900 overflow-auto">
+          className="table-fixed ml-5 divide-y divide-gray-200 text-xs sm:ml-52 mt-5 bg-blue-900 overflow-auto">
           <thead className="text-white">
           {headerGroups.map((headerGroup) => (
   <tr {...headerGroup.getHeaderGroupProps()}>
     {headerGroup.headers.map((column) => (
       <th
         {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-        className="py-3 text-left"   style={{ minWidth: column.minWidth, width: column.width }}
+        className="py-3 text-center"   style={{ minWidth: column.minWidth, width: column.width }}
 
       >
         <div className="flex items-center justify-center">
-          {column.render("Header")}
-          {column.canSort && (
-            <>
-              {column.isSorted ? (
-                column.isSortedDesc ? (
-                  <FaSortDown />
-                ) : (
-                  <FaSortUp />
-                )
-              ) : (
-                <FaSort />
-              )}
-            </>
-          )}
-        </div>
-      </th>
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <FaSortDown color={"#2F80ED"} />
+                        ) : (
+                          <FaSortUp color={"#2F80ED"}/>
+                        )
+                      ) : (
+                        <FaSort />
+                      )}
+                    </div>
+                  </th>
     ))}
   </tr>
 ))}
@@ -401,7 +366,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border"
+                className="border py-2"
               >
                 {cell.render("Cell")}
               </td>
@@ -413,7 +378,6 @@ const columns: Column<Row>[] = useMemo(
   )}
 </tbody>
         </table>
-        </div>
 
 
         <div className="flex justify-start ml-9 mt-4 text-xs">
@@ -431,9 +395,9 @@ const columns: Column<Row>[] = useMemo(
          </div>
        </div>
        <div className="flex justify-end -mt-5 text-blue-900">
-         <div className="flex items-center">
+         <div className="flex mr-36 items-center">
            <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-           <span className="ml-1 text-xxs font-bold">Add</span>
+           <span className="text-xxs font-bold">Add</span>
          </div>
        </div>
      </div>

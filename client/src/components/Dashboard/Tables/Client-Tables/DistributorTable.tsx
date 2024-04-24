@@ -377,32 +377,28 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y overflow-x-auto divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900">
+          className="table-fixed divide-y overflow-x-auto divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto">
           <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
   <th
     {...column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : {})}
-    className="py-1 text-left" style={{ minWidth: column.minWidth, width: column.width }}
+    className="py-1 text-center" style={{ minWidth: column.minWidth, width: column.width }}
   >
-    <div className="flex items-center justify-center">
-      {column.render("Header")}
-      {column.canSort && (
-        <>
-          {column.isSorted ? (
-            column.isSortedDesc ? (
-              <FaSortDown />
-            ) : (
-              <FaSortUp />
-            )
-          ) : (
-            <FaSort />
-          )}
-        </>
-      )}
-    </div>
-  </th>
+     <div className="flex items-center justify-center">
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <FaSortDown color={"#2F80ED"} />
+                        ) : (
+                          <FaSortUp color={"#2F80ED"}/>
+                        )
+                      ) : (
+                        <FaSort />
+                      )}
+                    </div>
+                  </th>
 ))}
               </tr>
             ))}
