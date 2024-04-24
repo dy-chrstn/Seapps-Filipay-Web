@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
-
+import AccountManagementTable from '../../../../components/Dashboard/Tables/Accounting System/AccountManagement/AccountManagementTable'
 const AccountManagement: React.FC = () => {
 
     const [menuOpen, setMenuOpen] = useState(false)
@@ -18,11 +18,12 @@ return (
     <div className='w-screen h-screen'>
         <Header title="Account Management" onClick = {openMenu}/> 
         <div className='flex flex-row'>
-            <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
+            <div>
               {menuOpen ? <Menu title={"Account Management"}/> : <MiniMenu title={"Account Management"}/> }
             </div>
           
-            <div className='h-full w-[75%] mx-10 mt-5 '>
+            <div className='h-full w-[100%] mx-10 mt-5 '>
+              <AccountManagementTable/>
             </div>
              
           

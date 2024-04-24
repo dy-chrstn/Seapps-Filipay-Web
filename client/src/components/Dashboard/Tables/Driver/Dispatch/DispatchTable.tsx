@@ -22,7 +22,7 @@ interface Row {
   TripNumber: string;
   status: string;
 }
-const DriverListTable: React.FC = () => {
+const DispatchTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
@@ -662,4 +662,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default DriverListTable;
+export default DispatchTable;
