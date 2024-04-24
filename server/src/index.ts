@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 
 server.listen(port, () => {
-  console.log("Server running on http://localhost:" + port);
+  console.log("Server running on http://localhost:" + port + "/v1/api");
   // console.log("Server running on http://192.168.1.31:" + port);
 });
 
@@ -30,4 +30,4 @@ mongoose.connect(MONGO_URL);
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
 app.use(cors());
-app.use("/", router());
+app.use("/v1/api", router());
