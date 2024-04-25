@@ -284,7 +284,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({title}) => {
 
                 {distributionInfoWindow && (
                     <div className='flex flex-row absolute py-1 px-4 bg-blue-900 rounded top-[40%] left-16'>
-                        <p className='font-semibold text-white mr-1'>Distribution</p>
+                        <p className='font-semibold text-white mr-1'>Distributor</p>
                         <p className='font-semibold text-white'>Retailer</p>
                     </div>
                 )}
