@@ -12,11 +12,22 @@ import "./Table.css";
 import vehicleApi from "../../../../api/vehicle";
 import { Vehicle } from "../../../../interface/vehicle";
 import coopApi from "../../../../api/coop";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const VehicleTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [vehicleData, setVehicleData] = useState<Vehicle[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  
+  const [fromDate, setFromDate] = useState<Date | null>(null);
+  const [toDate, setToDate] = useState<Date | null>(null);
+  const [filterBy, setFilterBy] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   const handleRemoveRecipient = () => {
     setSelectedRow((prevRow: any) => ({
@@ -34,13 +45,6 @@ const VehicleTable: React.FC = () => {
     setShowModal(false);
   };
 
-  const [fromDate, setFromDate] = useState<Date | null>(null);
-  const [toDate, setToDate] = useState<Date | null>(null);
-  const [filterBy, setFilterBy] = useState<string>("all");
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   const handleItemsPerPageChange = (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -107,23 +111,23 @@ const VehicleTable: React.FC = () => {
     fetchVehicles();
   }, []);
 
-  // useEffect(() => {
-  //   const filtered = vehicleData.filter((item) => {
-  //     const itemDate = new Date(item);
-  //     const formattedFromDate = new Date(
-  //       fromDate ? fromDate.getFullYear() : 0,
-  //       fromDate ? fromDate.getMonth() : 0,
-  //       fromDate ? fromDate.getDate() : 1
-  //     );
-  //     const formattedToDate = new Date(
-  //       toDate ? toDate.getFullYear() : 9999,
-  //       toDate ? toDate.getMonth() : 11,
-  //       toDate ? toDate.getDate() + 1 : 1
-  //     );
-  //     return itemDate >= formattedFromDate && itemDate < formattedToDate;
-  //   });
-  //   setFilteredData(filtered);
-  // }, [fromDate, toDate, data]);
+  useEffect(() => {
+    const filtered = vehicleData.filter((item) => {
+      const itemDate = new Date(item.createdAt);
+      const formattedFromDate = new Date(
+        fromDate ? fromDate.getFullYear() : 0,
+        fromDate ? fromDate.getMonth() : 0,
+        fromDate ? fromDate.getDate() : 1
+      );
+      const formattedToDate = new Date(
+        toDate ? toDate.getFullYear() : 9999,
+        toDate ? toDate.getMonth() : 11,
+        toDate ? toDate.getDate() + 1 : 1
+      );
+      return itemDate >= formattedFromDate && itemDate < formattedToDate;
+    });
+    setFilteredData(filtered);
+  }, [fromDate, toDate, vehicleData]);
 
   useEffect(() => {
     const filtered = vehicleData.filter((item) => {
@@ -152,7 +156,8 @@ const VehicleTable: React.FC = () => {
   const startIndex = currentPage * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
   const displayedData = useMemo(
-    () => filteredData.slice(startIndex, endIndex),
+    () => 
+      filteredData.slice(startIndex, endIndex),
     [filteredData, startIndex, endIndex]
   );
 
@@ -456,9 +461,9 @@ const VehicleTable: React.FC = () => {
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="text-center py-4 font-medium bg-white"
+                  className="border px-28 py-2 bg-white"
                 >
-                  No results found
+                  {displayedData.length === 0 ? <ClipLoader color="#2F80ED" size={20} />: "No Records Found"}
                 </td>
               </tr>
             ) : (
