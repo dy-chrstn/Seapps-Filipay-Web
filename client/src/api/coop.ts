@@ -59,6 +59,24 @@ const coopApi = {
       throw new Error("Failed to login coop");
     }
   },
+
+  findCoop: async (id: string) => {
+    try {
+      const token = await tokenApi.getToken();
+      const response = await fetch(`${BASE_URL}/findCoop/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token.token}`,
+        },
+      });
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Failed to find coop");
+    }
+  }
 };
 
 export default coopApi;

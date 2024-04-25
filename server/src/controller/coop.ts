@@ -1,5 +1,5 @@
 import express from "express";
-import { createCoop, findCoopByEmail, updateCoopById } from "../services/coop";
+import { createCoop, findCoopByEmail, updateCoopById, findCoopById } from "../services/coop";
 import bcrypt from "bcrypt";
 
 export const registerCoop = async (req: express.Request, res: express.Response) => {
@@ -147,6 +147,48 @@ export const updateCoop = async (req: express.Request, res: express.Response) =>
                 accountType: updatedCoop.accountType
             }
         });
+    } catch (error) {
+        res.status(500).json({
+            messages: {
+                code: 1,
+                message: error
+            },
+            response: {}
+        });
+    }
+}
+
+export const findCoop = async (req: express.Request, res: express.Response) => {
+    try {
+        const { id } = req.params;
+
+        const coop = await findCoopById(id);
+
+        if(!coop) {
+            return res.status(404).json({
+                messages: {
+                    code: 1,
+                    message: "Coop not found",
+                },
+                response: {}
+            });
+        }
+
+        res.status(200).json({
+            messages: {
+                code: 0,
+                message: "Coop found successfully",
+            },
+            response: {
+                _id: coop._id,
+                email: coop.email,
+                coopName: coop.coopName,
+                coopCode: coop.coopCode,
+                pages: coop.pages,
+                accountType: coop.accountType
+            }
+        });
+
     } catch (error) {
         res.status(500).json({
             messages: {
