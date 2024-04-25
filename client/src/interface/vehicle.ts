@@ -12,5 +12,7 @@ export interface Vehicle {
     chassisNumber: String,
     engineNumber: String,
     distanceTravelled: String,
-    status: String
+    status: String,
+    createdAt: Date,
+    updatedAt: Date
 }

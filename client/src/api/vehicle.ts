@@ -1,22 +1,6 @@
 import { BASE_URL } from "../contants/contants";
 import tokenApi from "./token";
-
-interface Vehicle {
-    coopId: string;
-    code: string;
-    serviceType: string;
-    coopName: string;
-    vehicleNumber: string;
-    validator: string;
-    monitor: string;
-    maker: string;
-    maxAmount: number;
-    plateNumber: string;
-    chassisNumber: string;
-    engineNumber: string;
-    distanceTravelled: string;
-    status: string;
-}
+import { Vehicle } from "../interface/vehicle";
 
 const vehicleApi = {
     registerVehicle: async (vehicle: Vehicle) => {
