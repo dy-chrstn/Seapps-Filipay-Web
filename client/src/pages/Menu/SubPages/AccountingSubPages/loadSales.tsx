@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
+import LoadSalesTable from '../../../../components/Dashboard/Tables/AccountingSystem/LoadSales/LoadSalesTable';
 
 const LoadSales: React.FC = () => {
 
@@ -18,11 +19,12 @@ return (
     <div className='w-screen h-screen'>
         <Header title=" Load Sales" onClick = {openMenu}/> 
         <div className='flex flex-row'>
-            <div className={`${menuOpen ?'w-[25%]' : 'w-[25%]'} `}>
+            <div>
               {menuOpen ? <Menu title={" Load Sales"}/> : <MiniMenu title={" Load Sales"}/> }
             </div>
           
-            <div className='h-full w-[75%] mx-10 mt-5 '>
+            <div className='h-full w-[100%] mx-10 mt-5 '>
+              <LoadSalesTable/>
             </div>
              
           

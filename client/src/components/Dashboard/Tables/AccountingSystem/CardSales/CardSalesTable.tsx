@@ -6,18 +6,20 @@ import MessageAction from '../../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+// import "./CardSales.css";
 import "react-calendar/dist/Calendar.css";
+
 
 interface Row {
   id: number;
-  NameOfCompany: string;
-  Code: string,
-  EmailAddress: string;
-  FareIncome: string;
-  LoadSales: string;
-  CardSales: string;
+  DistributorTransportCooperative: string;
+  AccountNumber: string;
+  CardSN: string,
+  Type: string;
+  NumberOfCardsSold: string;
+  Amount: string;
 }
-const  AccountManagementTable: React.FC = () => {
+const CardSalesTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow] = useState<any>(null);
@@ -77,95 +79,103 @@ const  AccountManagementTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 2,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 3,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 4,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 5,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 6,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 7,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 8,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 9,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 10,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
-      FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
-      
+    {
+      id: 11,
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
+      CardSN: "",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
+    }
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -173,12 +183,12 @@ const  AccountManagementTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.NameOfCompany.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.FareIncome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.LoadSales.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardSales.toLowerCase().includes(searchTerm.toLowerCase())
+        item.DistributorTransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.AccountNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.NumberOfCardsSold.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Amount.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -201,7 +211,7 @@ const  AccountManagementTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'AccountManagement.xlsx';
+  const fileName = 'Card_Sales.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -219,31 +229,32 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-    {
-      Header: "NAME OF COMPANY",
-      accessor: "NameOfCompany",
+      {
+        Header: "DISTRIBUTOR/TRANSPORT COOPERATIVE",
+        accessor: "DistributorTransportCooperative",
+        
+      },
+      {
+        Header: "ACCOUNT NUMBER",
+        accessor: "AccountNumber",
+      },
+      {
+        Header: "CARD SN",
+        accessor: "CardSN",
+      },
+      {
+        Header: "TYPE",
+        accessor: "Type",
+      },
+      {
+        Header: "NUMBER OF CARDS SOLD",
+        accessor: "NumberOfCardsSold",
+      },
+      {
+        Header: "AMOUNT",
+        accessor: "Amount",
+      },
       
-    },
-    {
-      Header: "CODE",
-      accessor: "Code",
-    },
-    {
-      Header: "EMAIL ADDRESS",
-      accessor: "EmailAddress",
-    },
-    {
-      Header: "FARE INCOME",
-      accessor: "FareIncome",
-    },
-    {
-      Header: "LOAD SALES",
-      accessor: "LoadSales",
-    },
-    {
-      Header: "CARD SALES",
-      accessor: "CardSales",
-    },
     ],
     []
   );
@@ -361,12 +372,12 @@ const columns: Column<Row>[] = useMemo(
         <table
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
-          <thead className="text-white ">
+          <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.70rem] 2xl:text-[.70rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
@@ -385,7 +396,7 @@ const columns: Column<Row>[] = useMemo(
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className="text-center  text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -396,6 +407,7 @@ const columns: Column<Row>[] = useMemo(
     rows.map((row) => {
       prepareRow(row);
       return (
+        <>
         <tr
           {...row.getRowProps()}
           className={`border-b border-gray-200 ${
@@ -404,15 +416,19 @@ const columns: Column<Row>[] = useMemo(
         >
           {row.cells.map((cell) => {
             return (
+              <>
               <td
                 {...cell.getCellProps()}
-                className="border border-gray-300 px-1.5 py-4 td-truncate"
+                className="border-t border-l border-gray-400 border-r px-1.5 py-4 td-truncate text-black font-medium"
               >
                 {cell.render("Cell")}
+              
               </td>
+              </>
             );
           })}
         </tr>
+        </> 
       );
     })
   )}
@@ -423,14 +439,14 @@ const columns: Column<Row>[] = useMemo(
       {columns.map((column, columnIndex) => (
         <td
           key={column.id}
-          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-300 hover:bg-blue-400
-          ${columnIndex === 0 ? `border-l border-gray-300 bg-white`
-          : columnIndex === 3 ? `bg-blue-300 border-l border-t border-b border-gray-300 ` 
-          : columnIndex === 4 ? `bg-blue-300 border-t border-l border-gray-300` 
-          : columnIndex === 5 ? `bg-blue-300 border-r border-l border-t border-gray-300` 
+          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-400
+          ${columnIndex === 0 ? `border-l border-gray-400 bg-white`
+          : columnIndex === 4 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
+          : columnIndex === 5 ? `bg-blue-300 border-t border-l border-gray-400` 
+          : columnIndex === 6 ? `bg-blue-300 border-r border-t border-gray-400` 
           : `bg-white`}`}
         >
-          {columnIndex === 2 ? "TOTAL" : ""}
+          {columnIndex === 3 ? "TOTAL" : ""}
         </td>
       ))}
     </tr>
@@ -481,4 +497,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default AccountManagementTable;
+export default CardSalesTable;

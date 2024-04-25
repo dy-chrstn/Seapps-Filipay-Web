@@ -36,9 +36,9 @@ import DistributorMessages from './pages/Menu/SubPages/DistributorSubPages/messa
 // Accounting System
 import AccountManagement from './pages/Menu/SubPages/AccountingSubPages/accountManagement';
 import FareIncome from './pages/Menu/SubPages/AccountingSubPages/fareIncome';
-import AccountingCashIn from './pages/Menu/SubPages/DistributorSubPages/cashIn';
+import AccountingCashIncome from './pages/Menu/SubPages/AccountingSubPages/cashIncome';
 import LoadSales from './pages/Menu/SubPages/AccountingSubPages/loadSales';
-import CashSales from './pages/Menu/SubPages/AccountingSubPages/cashSales';
+import CardSales from './pages/Menu/SubPages/AccountingSubPages/cardSales';
 
 
 import AdminController from './pages/Menu/adminController';
@@ -91,9 +91,9 @@ function App() {
       {/* AccountingSystemSubPages */}
       <Route path='/AccountingSystem/AccountManagement' element={<AccountManagement />} />
       <Route path='/AccountingSystem/FareIncome' element={<FareIncome />} />
-      <Route path='/AccountingSystem/CashIncome' element={<AccountingCashIn />} />
+      <Route path='/AccountingSystem/CashIncome' element={<AccountingCashIncome/>} />
       <Route path='/AccountingSystem/LoadSales' element={<LoadSales/>} />
-      <Route path='/AccountingSystem/CardSales' element={<CashSales/>} />  
+      <Route path='/AccountingSystem/CardSales' element={<CardSales/>} />  
 
 
       <Route path='/EmailTemplate' element={<EmailTemplate/>} />  

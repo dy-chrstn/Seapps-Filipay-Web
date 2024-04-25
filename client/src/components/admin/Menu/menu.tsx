@@ -34,20 +34,18 @@ const Menu: React.FC<MenuProps> = ({title}) => {
     }
 
 
-    const [isHover, setIsHover] = useState(false);
     const [isTitleDashboard, setIstitleDashboard] = useState(title)
 
     const hoverIn = () => {
         if(title === "Dashboard"){
             setIstitleDashboard("")
         }
-        setIsHover(true)
+
     }
     const hoverOut = () => {
         if(title === "Dashboard"){
             setIstitleDashboard("Dashboard")
         }
-        setIsHover(false)
     }
 
     const [clientSubMenu, setClientSubMenu] = useState(false)
