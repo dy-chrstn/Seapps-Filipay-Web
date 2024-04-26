@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import { MarkerData } from "../interface/routes";
 // import io from 'socket.io-client';
 import {
   GoogleMap,
@@ -12,26 +13,18 @@ import {
 import Modal from "./Modal";
 import SideBar from "./SideBar";
 
-interface MarkerData {
-  _id: string;
-  coopId: string;
-  stationName: string;
-  km: number;
-  radius: number;
-  lat: string;
-  long: string;
-}
-
 const basicAuthConfig = {
   auth: {
     username: import.meta.env.VITE_USERNAME,
-    password: import.meta.env.VITE_PASSWORD
-  }
-}
+    password: import.meta.env.VITE_PASSWORD,
+  },
+};
 
 const MapContainer: React.FC = () => {
-
-  const defaultCenter = useMemo(() => ({ lat: 14.418331431423372, lng: 121.04331822703718 }), []);
+  const defaultCenter = useMemo(
+    () => ({ lat: 14.418331431423372, lng: 121.04331822703718 }),
+    []
+  );
 
   const mapStyles = {
     height: "100vh",
@@ -75,23 +68,30 @@ const MapContainer: React.FC = () => {
     const radius = 5;
 
     try {
-      const tokenResponse = await axios.get("http://192.168.1.31:3050/getToken", basicAuthConfig);
+      const tokenResponse = await axios.get(
+        "http://192.168.1.31:3050/getToken",
+        basicAuthConfig
+      );
 
       const tokenConfig = {
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${tokenResponse.data.response.token}`
-        }
-      }
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenResponse.data.response.token}`,
+        },
+      };
 
-      const res = await axios.post("http://192.168.1.31:3050/registerMarker", {
-        coopId: coopId,
-        stationName: stationName,
-        km: km,
-        lat: lat,
-        long: lng,
-        radius: radius,
-      }, tokenConfig);
+      const res = await axios.post(
+        "http://192.168.1.31:3050/registerMarker",
+        {
+          coopId: coopId,
+          stationName: stationName,
+          km: km,
+          lat: lat,
+          long: lng,
+          radius: radius,
+        },
+        tokenConfig
+      );
 
       console.log("Marker added successfully: ", res.data);
 
@@ -107,27 +107,34 @@ const MapContainer: React.FC = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const tokenResponse = await axios.get('http://192.168.1.31:3050/getToken', basicAuthConfig);
+        const tokenResponse = await axios.get(
+          "http://192.168.1.31:3050/getToken",
+          basicAuthConfig
+        );
 
         const token = tokenResponse.data.response.token;
         const tokenConfig = {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         };
 
-        const coopId = '660e114244b1dae6cd75d842';
-        const markersResponse = await axios.get<{ code: number; message: string; markers: MarkerData[] }>(
-          `http://192.168.1.31:3050/getMarkers/${coopId}`,
-          tokenConfig
-        );
+        const coopId = "660e114244b1dae6cd75d842";
+        const markersResponse = await axios.get<{
+          code: number;
+          message: string;
+          markers: MarkerData[];
+        }>(`http://192.168.1.31:3050/getMarkers/${coopId}`, tokenConfig);
 
         if (markersResponse.data.code === 0) {
           // Check if the response is successful
           setMarkers(markersResponse.data.markers); // Set the fetched markers into the state
         } else {
-          console.error("Error fetching markers:", markersResponse.data.message);
+          console.error(
+            "Error fetching markers:",
+            markersResponse.data.message
+          );
         }
       } catch (error) {
         console.error("Error fetching token or markers:", error);
@@ -137,22 +144,25 @@ const MapContainer: React.FC = () => {
     fetchToken();
   }, []);
 
-
   //deleting marker from db
   const handleDeleteMarker = async () => {
     if (selectedMarker !== null) {
       try {
-        const tokenResponse = await axios.get("http://192.168.1.31:3050/getToken", basicAuthConfig);
+        const tokenResponse = await axios.get(
+          "http://192.168.1.31:3050/getToken",
+          basicAuthConfig
+        );
 
         const tokenConfig = {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tokenResponse.data.response.token}`
-          }
-        }
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenResponse.data.response.token}`,
+          },
+        };
 
         const res = await axios.delete(
-          `http://192.168.1.31:3050/deleteMarker/${selectedMarker._id}`, tokenConfig
+          `http://192.168.1.31:3050/deleteMarker/${selectedMarker._id}`,
+          tokenConfig
         );
         setSelectedMarker(null); // Clear selected marker after deletion
         // Close the sidebar after deletion
@@ -207,14 +217,17 @@ const MapContainer: React.FC = () => {
 
   const handleMarkerDragEnd = async (e: any, markerId: string) => {
     try {
-      const tokenResponse = await axios.get("http://192.168.1.31:3050/getToken", basicAuthConfig);
+      const tokenResponse = await axios.get(
+        "http://192.168.1.31:3050/getToken",
+        basicAuthConfig
+      );
 
       const tokenConfig = {
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${tokenResponse.data.response.token}`
-        }
-      }
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenResponse.data.response.token}`,
+        },
+      };
 
       const res = await axios.patch(
         `http://192.168.1.31:3050/updateMarkerById/${markerId}`,
@@ -275,23 +288,22 @@ const MapContainer: React.FC = () => {
                 onDrag={(e) => handleMarkerDrag(e, index)}
                 onDragEnd={(e) => handleMarkerDragEnd(e, marker._id)}
                 onClick={() => {
-                  handleMarkerClick(marker),
-                  setModalOpen(false)
+                  handleMarkerClick(marker), setModalOpen(false);
                 }}
                 animation={google.maps.Animation.DROP}
                 onRightClick={() => {
                   pinClick(
                     marker.km,
                     parseFloat(marker.lat),
-                    parseFloat(marker.long),
+                    parseFloat(marker.long)
                   );
-                  handleMarkerRightClick(
-                    marker,
-                  );
-                  setDisplay({ lat: parseFloat(marker.lat), lng: parseFloat(marker.long) });
+                  handleMarkerRightClick(marker);
+                  setDisplay({
+                    lat: parseFloat(marker.lat),
+                    lng: parseFloat(marker.long),
+                  });
                   setModalOpen(false);
                 }}
-
               />
               {selectedMarker && selectedMarker._id === marker._id && (
                 <InfoWindow
