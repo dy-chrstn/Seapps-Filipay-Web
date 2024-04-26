@@ -1,32 +1,25 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../../Tables/Actions/messageAction';
+import MessageAction from '../../Tables/Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./Sales.css";
+// import "./DriverMessages.css";
 import "react-calendar/dist/Calendar.css";
 
 
 interface Row {
   id: number;
   Name: string;
-  TransportCooperative: string,
-  VehicleCode: string;
-  TypeOfTransaction: string;
-  TransactionNumber: string;
-  DateOfTransaction: string;
-  Amount: string;
-  Balance: string;
-  status: string;
+  Activity: string,
+  DataAccessed: string;
 }
-const SalesTable: React.FC = () => {
+const  AdminActivityTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [selectedRow] = useState<any>(null);
 
   
 //   const handleRemoveRecipient = () => {
@@ -36,10 +29,6 @@ const SalesTable: React.FC = () => {
 //     }));
 //   };
 
-  const toggleModal = (row: any) => {
-    setSelectedRow(row.original);
-    setShowModal(true);
-  };
 
   const closeModal = () => {
     setShowModal(false);
@@ -89,231 +78,64 @@ const SalesTable: React.FC = () => {
     {
       id: 1,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      Activity:"",
+      DataAccessed: "",
     },
     {
       id: 2,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      Activity:"",
+      DataAccessed: "",
     },
     {
       id: 3,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Error",
+      Activity:"",
+      DataAccessed: "",
     },
     {
       id: 4,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      Activity:"",
+      DataAccessed: "",
     },
     {
       id: 5,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Error",
+      Activity:"",
+      DataAccessed: "",
     },
     {
       id: 6,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      Activity:"",
+      DataAccessed: "",
     },
     {
       id: 7,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed ",
+      Activity:"",
+      DataAccessed: "",
     },
     {
-        id: 8,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
+      id: 8,
+      Name: "",
+      Activity:"",
+      DataAccessed: "",
+    },
     {
       id: 9,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      Activity:"",
+      DataAccessed: "",
     },
     {
       id: 10,
       Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      Activity:"",
+      DataAccessed: "",
     },
-    {
-        id: 11,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 12,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
-      {
-        id: 13,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
-      {
-        id: 14,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
-      {
-        id: 15,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 16,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 17,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
-      {
-        id: 18,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 19,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
+      
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -322,14 +144,8 @@ const SalesTable: React.FC = () => {
     const filtered = data.filter((item) => {
       return (
         item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TypeOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransactionNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DateOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Balance.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.Activity.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DataAccessed.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -352,7 +168,7 @@ const SalesTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Sales.xlsx';
+  const fileName = 'Driver_Messages.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -370,63 +186,19 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-      {
-        Header: "NAME",
-        accessor: "Name",
-        
-      },
-      {
-        Header: "TRANSPORT COOPERATIVE/ COOPERATION",
-        accessor: "TransportCooperative",
-      },
-      {
-        Header: "VEHICLE CODE",
-        accessor: "VehicleCode",
-      },
-      {
-        Header: "TYPE OF TRANSACTION",
-        accessor: "TypeOfTransaction",
-      },
-      {
-        Header: "TRANSACTION NUMBER",
-        accessor: "TransactionNumber",
-      },
-      {
-        Header: "DATE OF TRANSACTION",
-        accessor: "DateOfTransaction",
-      },
-      {
-        Header: "AMOUNT",
-        accessor: "Amount",
-      },
-      {
-        Header: "BALANCE",
-        accessor: "Balance",
-      },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 ${
-              value === "Completed" ? "text-green-500 font-bold" : value === "In Progress" ? "text-[#2D9CDB] font-bold" : "text-red-500 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-      },
+    {
+      Header: "NAME",
+      accessor: "Name",
       
-
-      {
-        Header: "ACTION",
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-          </div>
-        ),
-      },
-      
+    },
+    {
+      Header: "ACTIVITY",
+      accessor: "Activity",
+    },
+    {
+      Header: "DATA ACCESSED",
+      accessor: "DataAccessed",
+    },
     ],
     []
   );
@@ -549,7 +321,7 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-2 2xl:py-4 text-left text-[.70rem] 2xl:text-[.80rem]"
+                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
@@ -589,7 +361,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border border-gray-300 px-1.5 py-4"
               >
                 {cell.render("Cell")}
               </td>
@@ -646,4 +418,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default SalesTable;
+export default AdminActivityTable;
