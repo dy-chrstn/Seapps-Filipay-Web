@@ -402,7 +402,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 py-2 td-truncate"
+                className="border border-gray-400 px-1.5 py-2 td-truncate"
               >
                 {cell.render("Cell")}
               </td>
