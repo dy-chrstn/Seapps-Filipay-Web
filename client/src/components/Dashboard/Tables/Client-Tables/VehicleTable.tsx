@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
 import "./Table.css";
 import vehicleApi from "../../../../api/vehicle";
-import { Vehicle } from "../../../../interface/vehicle";
+import { Vehicle } from "../../../../interface/client";
 import coopApi from "../../../../api/coop";
 import ClipLoader from "react-spinners/ClipLoader";
 

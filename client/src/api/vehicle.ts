@@ -1,6 +1,6 @@
 import { BASE_URL } from "../contants/contants";
 import tokenApi from "./token";
-import { Vehicle } from "../interface/vehicle";
+import { Vehicle } from "../interface/client";
 
 const vehicleApi = {
     registerVehicle: async (vehicle: Vehicle) => {
