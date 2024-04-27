@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import MessageAction from '../../Actions/messageAction';
 import * as XLSX from "xlsx";
@@ -20,7 +20,7 @@ interface Row {
 const  AccountManagementTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [selectedRow] = useState<any>(null);
 
   
 //   const handleRemoveRecipient = () => {
@@ -29,11 +29,6 @@ const  AccountManagementTable: React.FC = () => {
 //       email: "" 
 //     }));
 //   };
-
-  const toggleModal = (row: any) => {
-    setSelectedRow(row.original);
-    setShowModal(true);
-  };
 
   const closeModal = () => {
     setShowModal(false);

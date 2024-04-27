@@ -1,26 +1,22 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import MessageAction from '../../../Tables/Actions/messageAction';
-import * as XLSX from "xlsx";
-import DatePicker from "react-datepicker";
+import MessageAction from '../../Tables/Actions/messageAction';
 import "react-datepicker/dist/react-datepicker.css";
-import "./TransactionHistory.css";
+// import "./DriverMessages.css";
 import "react-calendar/dist/Calendar.css";
+import { GiTrashCan } from "react-icons/gi";
+import * as XLSX from "xlsx";
 
 
 interface Row {
   id: number;
   Name: string;
-  TransportCooperative: string;
-  VehicleCode: string;
-  TypeOfTransaction: string;
-  TransactionNumber: string;
-  DateOfTransaction: string;
-  Amount: string;
+  EmailAddress: string,
+  Role: string,
 }
-const TransactionHistoryTable: React.FC = () => {
+const  SubAdminControllerTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow] = useState<any>(null);
@@ -33,14 +29,10 @@ const TransactionHistoryTable: React.FC = () => {
 //     }));
 //   };
 
-
   const closeModal = () => {
     setShowModal(false);
   };
 
-  const [fromDate, setFromDate] = useState<Date | null>(null);
-  const [toDate, setToDate] = useState<Date | null>(null);
-  const [filterBy, setFilterBy] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -63,18 +55,11 @@ const TransactionHistoryTable: React.FC = () => {
 //     { value: "Transport Corperation", label: "Transport Corporation" },
 //   ];
 
-  const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilterBy(event.target.value);
-  };
-
   const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
   const clearFilters = () => {
-    setFromDate(null);
-    setToDate(null);
-    setFilterBy("all");
     setSearchTerm("");
   };
   
@@ -82,103 +67,64 @@ const TransactionHistoryTable: React.FC = () => {
     {
       id: 1,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Cash In",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Admin",
     },
     {
       id: 2,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Load",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Sub-Admin",
     },
     {
       id: 3,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Ride",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Sub-Admin",
     },
     {
       id: 4,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "CheckBalance",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Sub-Admin",
     },
     {
       id: 5,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "CheckBalance",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Admin",
     },
     {
       id: 6,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Check Balance",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Admin",
     },
     {
       id: 7,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Ride",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Admin",
     },
     {
       id: 8,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Ride",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Admin",
     },
     {
       id: 9,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Ride",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Sub-Admin",
     },
     {
       id: 10,
       Name: "",
-      TransportCooperative: "",
-      VehicleCode: "",
-      TypeOfTransaction: "Load",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
+      EmailAddress:"",
+      Role:"Sub-Admin",
     },
+      
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -187,14 +133,8 @@ const TransactionHistoryTable: React.FC = () => {
     const filtered = data.filter((item) => {
       return (
         item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TypeOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransactionNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DateOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Amount.toLowerCase().includes(searchTerm.toLowerCase())
-
+        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Role.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -213,53 +153,54 @@ const TransactionHistoryTable: React.FC = () => {
     setCurrentPage(pageNumber);
   };
 
+  const handleExcelDownload = () => {
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileName = 'Admin/Sub-Admin_Controller.xlsx';
+    
+    // Convert data to XLS format
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const dataBlob = new Blob([excelBuffer], {type: fileType});
+    const url = URL.createObjectURL(dataBlob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.click();
+  };
+  
 
-  
-const handleExcelDownload = () => {
-  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Transaction_History.xlsx';
-  
-  // Convert data to XLS format
-  const ws = XLSX.utils.json_to_sheet(data);
-  const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-  const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-  const dataBlob = new Blob([excelBuffer], {type: fileType});
-  const url = URL.createObjectURL(dataBlob);
-  
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = fileName;
-  link.click();
-};
 
 
 const columns: Column<Row>[] = useMemo(
   () => [
+    {
+      Header: "NAME",
+      accessor: "Name",
+    },
+    {
+      Header: "EMAIL ADDRESS",
+      accessor: "EmailAddress",
+    },
+    {
+      Header: "ROLE",
+      accessor: "Role",
+      Cell: ({ value }) => (
+        <div className="flex justify-center items-center text-sm font-bold text-blue-900">
+          {value}
+        </div>
+      ),
+    },
       {
-        Header: "NAME",
-        accessor: "Name",
-        
+        Header: "ACTION",
+        Cell: () => (
+          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+            <FaEdit /> <GiTrashCan size={24} color="black" className="flex-shrink-0 mt-[-2%]"/>
+          </div>
+        ),
       },
-      {
-        Header: "TRANSPORT COOPERATIVE / CORPORATION",
-        accessor: "TransportCooperative",
-      },
-      {
-        Header: "VEHICLE CODE",
-        accessor: "VehicleCode",
-      },
-      {
-        Header: "TYPE OF TRANSACTION",
-        accessor: "TypeOfTransaction",
-      },
-      {
-        Header: "DATE OF TRANSACTION",
-        accessor: "DateOfTransaction",
-      },
-      {
-        Header: "AMOUNT",
-        accessor: "Amount",
-      },
+      
     ],
     []
   );
@@ -284,44 +225,7 @@ const columns: Column<Row>[] = useMemo(
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-      <div className="datepickers mr-10 flex text-xs space-x-3">
-          <div className="from-datepicker ml-auto">
-            <label>From:<br/></label>
-            <DatePicker
-              placeholderText="MM/DD/YYYY"
-              showIcon
-              toggleCalendarOnIconClick
-              selected={fromDate}
-              onChange={(date) => setFromDate(date)}
-              className="border border-gray-300 rounded-md py-1 focus:outline-none w-28"
-            />
-
-          </div>
-          <div className="to-datepicker">
-            <label>To:<br/></label>
-            <DatePicker
-              placeholderText="MM/DD/YYYY"
-              showIcon
-              toggleCalendarOnIconClick
-              selected={toDate}
-              onChange={(date) => setToDate(date)}
-              className="border border-gray-300 rounded-md py-1 focus:outline-none w-28"
-              minDate={fromDate} 
-            />
-          </div>
-          <div className=" ml-3">
-          <select
-            id="filter"
-            name="filter"
-            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
-                   value={filterBy}
-        onChange={handleChangeFilterBy} >
-            <option value="all">All</option>
-            <option value="Transport Cooperative">Transport Cooperative</option>
-            <option value="Transport Corperation">Transport Corporation</option>
-          </select>
-        </div>
-
+      <div className="datepickers mr-10 flex text-xs space-x-3 justify-end">
         <div className="search-container flex items-center mt-4">
           <input
             type="text"
@@ -346,9 +250,6 @@ const columns: Column<Row>[] = useMemo(
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
-    
-
-
         </div>
 
 
@@ -376,15 +277,15 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
+          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full ">
           <thead className="text-white ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-2 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
-                    <div className="flex items-center justify-center px-1">
+                    <div className="flex items-center justify-center">
                       {column.render("Header")}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
@@ -422,7 +323,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border border-gray-300 px-1.5 td-truncate py-3 text-black font-medium"
+                className="border border-gray-400 px-1.5 py-2"
               >
                 {cell.render("Cell")}
               </td>
@@ -479,4 +380,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default TransactionHistoryTable;
+export default SubAdminControllerTable;

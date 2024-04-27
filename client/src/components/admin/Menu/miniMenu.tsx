@@ -314,7 +314,6 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
                 </div>
             )}
 
-
             {distributionSubMenu && (
                 <DistributionSubMenu isMenuFull={false} onMouseEnter={hoverIn} onMouseLeave={hoverOut} />
             )}

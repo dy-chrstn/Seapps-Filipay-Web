@@ -1,46 +1,31 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import {FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../../Tables/Actions/messageAction';
+import MessageAction from '../../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./Sales.css";
+// import "./CardSales.css";
 import "react-calendar/dist/Calendar.css";
 
 
 interface Row {
   id: number;
-  Name: string;
-  TransportCooperative: string,
-  VehicleCode: string;
-  TypeOfTransaction: string;
-  TransactionNumber: string;
-  DateOfTransaction: string;
-  Amount: string;
-  Balance: string;
-  status: string;
+  DriverName: string;
+  VehicleCode: string,
+  Origin: string;
+  Destination: string;
+  Cash: string;
+  FareIncome: string;
+  Total: string;
 }
-const SalesTable: React.FC = () => {
+const CashIncomeTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [selectedRow] = useState<any>(null);
 
   
-//   const handleRemoveRecipient = () => {
-//     setSelectedRow((prevRow: any) => ({
-//       ...prevRow,
-//       email: "" 
-//     }));
-//   };
-
-  const toggleModal = (row: any) => {
-    setSelectedRow(row.original);
-    setShowModal(true);
-  };
-
   const closeModal = () => {
     setShowModal(false);
   };
@@ -88,232 +73,114 @@ const SalesTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
       id: 2,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
       id: 3,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Error",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
       id: 4,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
       id: 5,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Error",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
       id: 6,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
       id: 7,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed ",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
-        id: 8,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
+      id: 8,
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
+    },
     {
       id: 9,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
       id: 10,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
     },
     {
-        id: 11,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 12,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
-      {
-        id: 13,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
-      {
-        id: 14,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
-      {
-        id: 15,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 16,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 17,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
-      {
-        id: 18,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 19,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
+      id: 11,
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
+    }
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -321,15 +188,13 @@ const SalesTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DriverName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TypeOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransactionNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DateOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Balance.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.Origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Cash.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.FareIncome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Total.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -352,7 +217,7 @@ const SalesTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Sales.xlsx';
+  const fileName = 'Cash_Income.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -371,59 +236,42 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "NAME",
-        accessor: "Name",
+        Header: "DRIVER NAME",
+        accessor: "DriverName",
         
-      },
-      {
-        Header: "TRANSPORT COOPERATIVE/ COOPERATION",
-        accessor: "TransportCooperative",
       },
       {
         Header: "VEHICLE CODE",
         accessor: "VehicleCode",
       },
       {
-        Header: "TYPE OF TRANSACTION",
-        accessor: "TypeOfTransaction",
+        Header: "ORIGIN",
+        accessor: "Origin",
       },
       {
-        Header: "TRANSACTION NUMBER",
-        accessor: "TransactionNumber",
+        Header: "DESTINATION",
+        accessor: "Destination",
       },
       {
-        Header: "DATE OF TRANSACTION",
-        accessor: "DateOfTransaction",
+        Header: "CASH",
+        accessor: "Cash",
       },
       {
-        Header: "AMOUNT",
-        accessor: "Amount",
+        Header: "FARE INCOME",
+        accessor: "FareIncome",
       },
       {
-        Header: "BALANCE",
-        accessor: "Balance",
+        Header: "TOTAL",
+        accessor: "Total",
       },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 ${
-              value === "Completed" ? "text-green-500 font-bold" : value === "In Progress" ? "text-[#2D9CDB] font-bold" : "text-red-500 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-      },
-      
-
       {
         Header: "ACTION",
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-          </div>
+        Cell: () => (
+          <>
+           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+             <FaEdit />
+            </div>
+          </>
         ),
       },
       
@@ -544,31 +392,22 @@ const columns: Column<Row>[] = useMemo(
         <table
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
-          <thead className="text-white ">
+          <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-2 2xl:py-4 text-left text-[.70rem] 2xl:text-[.80rem]"
+                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.60rem] 2xl:text-[.70rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <FaSortDown />
-                        ) : (
-                          <FaSortUp />
-                        )
-                      ) : (
-                        <FaSort />
-                      )}
                     </div>
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className="text-center  text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -579,6 +418,7 @@ const columns: Column<Row>[] = useMemo(
     rows.map((row) => {
       prepareRow(row);
       return (
+        <>
         <tr
           {...row.getRowProps()}
           className={`border-b border-gray-200 ${
@@ -587,20 +427,42 @@ const columns: Column<Row>[] = useMemo(
         >
           {row.cells.map((cell) => {
             return (
+              <>
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border-t border-l border-gray-400 border-r px-1.5 py-2 td-truncate text-black font-medium"
               >
                 {cell.render("Cell")}
+              
               </td>
+              </>
             );
           })}
         </tr>
+        </> 
       );
     })
   )}
 </tbody>
-
+{displayedData.length === 10 && (
+  <tfoot className="">
+     <tr>
+      {columns.map((column, columnIndex) => (
+        <td
+          key={column.id}
+          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-400
+          ${columnIndex === 0 ? `border-l border-gray-400 bg-white`
+          : columnIndex === 4 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
+          : columnIndex === 5 ? `bg-blue-300 border-t border-l border-gray-400` 
+          : columnIndex === 6 ? `bg-blue-300 border-r border-t border-l border-gray-400` 
+          : `bg-white`}`}
+        >
+          {columnIndex === 3 ? "TOTAL" : ""}
+        </td>
+      ))}
+    </tr>
+  </tfoot>
+)}
         </table>
 
         
@@ -646,4 +508,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default SalesTable;
+export default CashIncomeTable;

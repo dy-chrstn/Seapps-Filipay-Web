@@ -35,20 +35,18 @@ const Menu: React.FC<MenuProps> = ({ title }) => {
     }
 
 
-    const [isHover, setIsHover] = useState(false);
     const [isTitleDashboard, setIstitleDashboard] = useState(title)
 
     const hoverIn = () => {
         if (title === "Dashboard") {
             setIstitleDashboard("")
         }
-        setIsHover(true)
+
     }
     const hoverOut = () => {
         if (title === "Dashboard") {
             setIstitleDashboard("Dashboard")
         }
-        setIsHover(false)
     }
 
     const [clientSubMenu, setClientSubMenu] = useState(false)
@@ -196,6 +194,7 @@ const Menu: React.FC<MenuProps> = ({ title }) => {
                             <FaHandshake className="mx-2 flex-shrink-0" size={20} color={"#7dd3fc"} />
 
                             <p className="font-bold text-xs font-sans text-white">Distribution Retailer</p>
+
                         </div>
                         <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${distributionSubMenu ? 'rotate-90' : ''}`} size={15} color={"#7dd3fc"} />
                     </div>
