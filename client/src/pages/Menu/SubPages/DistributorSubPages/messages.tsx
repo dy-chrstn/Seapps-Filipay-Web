@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
+import DistributorMessagesTable from '../../../../components/Dashboard/Tables/Distributor-Retailer/messagesTable';
+
 
 const Messages: React.FC = () => {
 
@@ -22,7 +24,8 @@ return (
               {menuOpen ? <Menu title={"Messages"}/> : <MiniMenu title={"Messages"}/> }
             </div>
           
-            <div className='h-full w-[75%] mx-10 mt-5 '>
+            <div className='mx-10 mt-5 '>
+            <DistributorMessagesTable/>
             </div>
              
           

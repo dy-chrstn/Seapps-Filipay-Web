@@ -191,9 +191,9 @@ const columns: Column<Row>[] = useMemo(
  
 
   return (
-    <div className="w-tableWidth mx-auto">
+    <div className="w-tableWidth mx-auto mr-20">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-      <div className="datepickers mr-10 flex text-xs space-x-3 justify-end">
+      <div className="datepickers mr-0 flex text-xs space-x-3 justify-end">
         <div className="search-container flex items-center mt-4">
           <input
             type="text"
@@ -215,7 +215,7 @@ const columns: Column<Row>[] = useMemo(
         </div>
 
 
-  <div className="flex pl-10 flex-row">
+  <div className="flex pl-0 flex-row">
   <div className="flex flex-row items-center">
   <label htmlFor="itemsPerPage" className="  text-xs text-gray-700">
     Show:
@@ -239,7 +239,7 @@ const columns: Column<Row>[] = useMemo(
 
         <table
           {...getTableProps()}
-          className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full ">
+          className="table-fixed divide-y divide-gray-200 text-xs sm:ml-0 mt-5 bg-blue-900 overflow-auto w-full ">
           <thead className="text-white ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -300,7 +300,7 @@ const columns: Column<Row>[] = useMemo(
         </table>
 
         
-        <div className="flex justify-start ml-6 mt-4 text-xs">
+        <div className="flex justify-start ml-0 mt-4 text-xs">
         {Array.from({ length: pageCount }, (_, index) => (
           <button
             key={index}

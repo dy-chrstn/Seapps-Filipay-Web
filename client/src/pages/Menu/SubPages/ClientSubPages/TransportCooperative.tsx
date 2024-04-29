@@ -17,8 +17,7 @@ const TransportCooperative = () => {
       <Header title="Transport Cooperative" onClick={openMenu}/> 
        {menuOpen ? <Menu title={"Transport Cooperative"}/> : <MiniMenu title={"Transport Cooperative"}/> }
 
-      <div className='flex flex-col flex-grow'>
-        {/* Always render TransportCoopTable regardless of menu state */}
+       <div className='w-[100%] mx-3 mt-5'>
         <TransportCoopTable />
       
       </div>

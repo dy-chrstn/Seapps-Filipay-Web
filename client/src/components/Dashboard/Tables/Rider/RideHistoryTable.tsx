@@ -82,7 +82,6 @@ const RideHistoryTable: React.FC = () => {
   ];
 
 
-   // Custom styles for react-select filter
    const customStyles: StylesConfig<CustomOption, true> = {
     control: (provided, state) => ({
       ...provided,

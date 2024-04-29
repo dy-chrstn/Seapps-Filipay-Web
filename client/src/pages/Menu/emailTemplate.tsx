@@ -23,7 +23,7 @@ return (
               {menuOpen ? <Menu title={"Email Template"}/> : <MiniMenu title={"Email Template"}/> }
             </div>
           
-            <div className='h-full w-[90%] mx-10 mt-5 '>
+            <div className='h-full w-[90%] mx-10  mt-5 '>
               <EmailTemplateTable/>
             </div>
              

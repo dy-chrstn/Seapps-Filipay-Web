@@ -49,12 +49,6 @@ const  SubAdminControllerTable: React.FC = () => {
   };
 
 
-//   const filterOptions = [
-//     { value: "all", label: "All" },
-//     { value: "Transport Cooperative", label: "Transport Cooperative" },
-//     { value: "Transport Corperation", label: "Transport Corporation" },
-//   ];
-
   const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -223,9 +217,9 @@ const columns: Column<Row>[] = useMemo(
  
 
   return (
-    <div className="w-tableWidth mx-auto">
+    <div className="w-tableWidth mx-auto pr-32">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-      <div className="datepickers mr-10 flex text-xs space-x-3 justify-end">
+      <div className="datepickers mr-2 flex text-xs space-x-3 justify-end">
         <div className="search-container flex items-center mt-4">
           <input
             type="text"
@@ -253,7 +247,7 @@ const columns: Column<Row>[] = useMemo(
         </div>
 
 
-  <div className="flex pl-10 flex-row">
+  <div className="flex pl-7 flex-row">
   <div className="flex flex-row items-center">
   <label htmlFor="itemsPerPage" className="  text-xs text-gray-700">
     Show:
@@ -366,14 +360,14 @@ const columns: Column<Row>[] = useMemo(
 
 
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
-        </div>      
+  <div className="flex justify-end -mt-5 text-blue-900">
+    <div className="flex items-center ml-20">
+      <span className="text-xxs font-bold mr-1">Add</span>
+      <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
+    </div>
+  </div>
 </div>
 
-    </div>
     
 
     
