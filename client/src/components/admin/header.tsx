@@ -71,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({onClick, title }) => {
         
 
         <div className="  py-3 w-full  h-[10%] border-b-2 flex flex-row justify-between items-center transparent-caret" >   
-        <p className="text-blue-900 text-3xl font-sans font-bold">{title}</p>
+        <p className="text-blue-900 text-3xl font-sans font-bold mt-4">{title}</p>
 
             <div onClick={(profileMenuOpen)} className="  py-1 w-[30%] flex flex-row items-center justify-end mr-10 transparent-caret">
                   <IoIosNotifications className="mr-7" size={24} color={"black"} />
