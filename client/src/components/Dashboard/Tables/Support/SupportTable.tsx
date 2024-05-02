@@ -262,9 +262,9 @@ const columns: Column<Row>[] = useMemo(
  
 
   return (
-    <div className="w-tableWidth mx-auto">
+    <div className="w-tableWidth mx-auto pr-32">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-      <div className="datepickers mr-10 flex text-xs space-x-3">
+      <div className="datepickers mr-1 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
             <DatePicker
@@ -332,7 +332,7 @@ const columns: Column<Row>[] = useMemo(
         </div>
 
 
-  <div className="flex pl-10 flex-row">
+  <div className="flex pl-10 flex-row mt-2">
   <div className="flex flex-row items-center">
   <label htmlFor="itemsPerPage" className="  text-xs text-gray-700">
     Show:

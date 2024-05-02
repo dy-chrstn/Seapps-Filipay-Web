@@ -9,7 +9,7 @@ interface DisplayProps {
 const Display: React.FC<DisplayProps> = ({lat, lng }) => {
     return (
       <div className = "absolute top-20 left-5 bg-white">
-        <h1>Cureent Location</h1>
+        <h1>Current Location</h1>
         <div>{lat}</div>
         <div>{lng}</div>
       </div>

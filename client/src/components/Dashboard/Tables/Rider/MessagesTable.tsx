@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy, Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
-import MessageAction from '../../../Tables/Actions/messageAction';
+import MessageAction from '../../Tables/Actions/messageAction';
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import * as XLSX from "xlsx";
@@ -16,7 +16,7 @@ interface Row {
   Remarks: string;
 }
 
-const DriverMessagesTable: React.FC = () => {
+const RiderMessagesTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
@@ -271,8 +271,8 @@ const DriverMessagesTable: React.FC = () => {
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
         <div className="datepickers mr-5 flex text-xs space-x-3">
-          <div className="from-datepicker  ml-auto"></div>
-          <div className=" ml-3 mt-4">
+          <div className="from-datepicker ml-auto"></div>
+          <div className=" mt-4">
           <Select
        options={filterOptions}
   placeholder="Filter by remarks"
@@ -423,4 +423,4 @@ const DriverMessagesTable: React.FC = () => {
   );
 };
 
-export default DriverMessagesTable;
+export default RiderMessagesTable;

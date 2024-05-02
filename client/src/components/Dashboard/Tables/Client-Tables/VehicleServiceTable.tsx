@@ -6,16 +6,12 @@ import { TiMessages } from "react-icons/ti";
 import MessageAction from "../Actions/messageAction";
 import * as XLSX from "xlsx";
 import "./Table.css";
-import { Vehicle } from "../../../../interface/vehicle";
+import { Vehicle } from "../../../../interface/client";
 import vehicleApi from "../../../../api/vehicle";
 import coopApi from "../../../../api/coop";
 import ClipLoader from "react-spinners/ClipLoader";
+import { VehicleService } from "../../../../interface/client";
 
-interface VehicleService {
-  id: number;
-  serviceType: String;
-  totalUnits: string;
-}
 const VehicleServiceTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);

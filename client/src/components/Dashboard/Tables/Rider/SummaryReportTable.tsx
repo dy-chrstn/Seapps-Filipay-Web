@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../Actions/messageAction';
+//import { TiMessages } from "react-icons/ti";
+//import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -529,19 +529,26 @@ const columns: Column<Row>[] = useMemo(
       prepareRow(row);
       return (
         <tr
-          {...row.getRowProps()} 
-          className={`border-b border-gray-200 ${
-            row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
-          } hover:bg-gray-300`}
-        >
-          {row.cells.map((cell) => {
-            return (
-              <td
-                {...cell.getCellProps()}
-                className="border border-sky-900 px-1 py-2 td-truncate"
-              >
-                {cell.render("Cell")}
-              </td>
+        {...row.getRowProps()} 
+        className={`border-b border-gray-200 ${
+          row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
+        } hover:bg-gray-300`}
+      >
+        {row.cells.map((cell) => {
+          return (
+            <td
+      {...cell.getCellProps()}
+      className={`border border-gray-300 px-1 py-2 td-truncate ${cell.column.id === "fpCardFareCollected" || cell.column.id === "totalFareCollected" ? "text-left" : ""}`}
+    >
+      {cell.column.id === "fpCardFareCollected" || cell.column.id === "totalFareCollected" ? (
+        <>
+          <span className="text-blue-950 text-sm font-bold">₱</span>
+          {cell.value} 
+        </>
+      ) : (
+        cell.render("Cell") 
+      )}
+    </td>
             );
           })}
         </tr>
@@ -549,7 +556,31 @@ const columns: Column<Row>[] = useMemo(
     })
   )}
 </tbody>
-
+{displayedData.length === 10 && (
+   <tfoot className="">
+   <tr>
+     {columns.map((column, columnIndex) => (
+       <td
+         key={column.id}
+         className={`border pr-4 py-3 font-bold text-[.80rem] text-[#00548C] border-t border-b border-gray-300 hover:bg-blue-400 ${columnIndex === 0 ? ` bg-blue-300` : `bg-blue-300`} ${columnIndex === 1 || columnIndex === 4 ? `text-left pl-1` : `text-center`}`}
+       >
+         {columnIndex === 0 ? "TOTAL" : (
+           <>
+             {columnIndex === 1 || columnIndex === 4 ? (
+               <>
+                 <span className="text-blue-950 text-sm font-bold">₱</span>
+               </>
+             ) : (
+               ""
+             )}
+           </>
+         )}
+       </td>
+     
+      ))}
+    </tr>
+  </tfoot>
+)}
         </table>
 
         

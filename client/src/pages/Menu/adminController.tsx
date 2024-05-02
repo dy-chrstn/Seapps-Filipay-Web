@@ -23,7 +23,7 @@ return (
               {menuOpen ? <Menu title={"Admin Controller"}/> : <MiniMenu title={"Admin Controller"}/> }
             </div>
           
-            <div className='h-full w-[90%] mx-10 mt-5 '>
+            <div className='h-full w-[90%] mx-10 mt-5'>
               <SubAdminControllerTable/>
             </div>
              
