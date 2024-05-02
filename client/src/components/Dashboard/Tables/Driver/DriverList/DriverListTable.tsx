@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect} from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../../../Tables/Actions/messageAction';
@@ -8,9 +8,6 @@ import * as XLSX from "xlsx";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DriverList.css";
 import "react-calendar/dist/Calendar.css";
-import { FaSearch } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
-
 
 interface Row {
   id: number;
@@ -244,14 +241,14 @@ const DriverListTable: React.FC = () => {
           item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.DateOfBirth.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.Classification.includes(searchTerm) ||
+          (item.Classification.includes(searchTerm) && item.status.includes(selectedStatus)) ||
           item.CardUID.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.status.includes(searchTerm) 
       );
     });
     setFilteredData(filtered);
-  }, [searchTerm, data]);
+  }, [searchTerm, selectedStatus, data]);
 
   // Calculate pagination indexes
   const startIndex = currentPage * itemsPerPage;
