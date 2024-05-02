@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy, Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaSearch } from "react-icons/fa";
 import MessageAction from '../../../Tables/Actions/messageAction';
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
@@ -29,11 +29,9 @@ const DriverMessagesTable: React.FC = () => {
     setShowModal(false);
   };
 
-  const [fromDate, setFromDate] = useState<Date | null>(null);
-  const [toDate, setToDate] = useState<Date | null>(null);
-
   const [filterBy, setFilterBy] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchString, setSearchString] = useState<string>("")
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -47,6 +45,21 @@ const DriverMessagesTable: React.FC = () => {
 
     setItemsPerPage(selectedValue); 
   };
+
+  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleChangeSearch()
+      return
+    }
+  }
+  const handleChangeSearch = () => {
+      setSearchTerm(searchString);
+  };
+  
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value)
+    setSearchTerm("")
+  }
 
   const [data] = useState<Row[]>([
     {
@@ -138,6 +151,19 @@ const DriverMessagesTable: React.FC = () => {
     setFilteredData(filtered);
   }, [searchTerm, filterBy, data]);
 
+  //filter Records
+  useEffect(() => {
+    const filtered = data.filter((item) => {
+      return (
+        item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Concern.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Remarks.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
+
   const columns: Column<Row>[] = useMemo(
     () => [
       {
@@ -222,18 +248,7 @@ const DriverMessagesTable: React.FC = () => {
         
       })
   };
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
 
-  const clearFilters = () => {
-    setFromDate(null);
-    setToDate(null);
-    setFilterBy("all");
-    setSearchTerm("");
-    setDropdownValue(null); // Assuming you have a state for the dropdown value named dropdownValue
-  };
-  
   const [dropdownValue, setDropdownValue] = useState<{ value: string; label: string } | null>(null);
 
   const {
@@ -274,39 +289,35 @@ const DriverMessagesTable: React.FC = () => {
           <div className="from-datepicker  ml-auto"></div>
           <div className=" ml-3 mt-4">
           <Select
-       options={filterOptions}
-  placeholder="Filter by remarks"
-  value={dropdownValue}
-  onChange={(newValue: any, actionMeta: ActionMeta<any>) => {
-    if (newValue && newValue.value !== "all") {
-      setFilterBy(newValue.value);
-    } else {
-      setFilterBy("all");
-    }
-    setDropdownValue(newValue); // Update dropdown value
-  }}
+        options={filterOptions}
+        placeholder="Filter by remarks"
+        value={dropdownValue}
+        onChange={(newValue: any, actionMeta: ActionMeta<any>) => {
+          if (newValue && newValue.value !== "all") {
+            setFilterBy(newValue.value);
+          } else {
+            setFilterBy("all");
+          }
+          setDropdownValue(newValue); // Update dropdown value
+        }}
   styles={customStyles}
 />
           </div>
 
-          <div className="search-container flex items-center mt-4">
-            <input
-              type="text"
-              placeholder="Filter in Records..."
-              value={searchTerm}
-              onChange={handleChangeSearch}
-              className="h-7 border border-gray-300 rounded-md py-1 px-2 "
-            />
-          </div>
-
-          <div className="clearfilter relative flex items-center mt-4">
-            <button
-              className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs"
-              onClick={clearFilters}
-            >
-              Clear Filters
-            </button>
-          </div>
+          <div className="search-container w-[30%] flex items-center mt-4">
+          <input
+            type="text"
+            placeholder="Filter in Records..."
+            value={searchString}
+            onChange={handleFilterRecords}
+            onKeyDown={handleEnterButton}
+            className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
+          <FaSearch
+            onClick={handleChangeSearch}
+            className = "absolute right-[8rem] lg:right-[9rem] 2xl:right-[10.7rem]"
+           size = {17} 
+           color = "#00548C"/>
+        </div>
           <div className="flex-row mt-4">
             {" "}
             <button
