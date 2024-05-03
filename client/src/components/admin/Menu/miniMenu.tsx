@@ -11,16 +11,16 @@ import { MdPrivacyTip } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { TbSteeringWheel } from "react-icons/tb";
-import { FaMapMarkedAlt } from "react-icons/fa";
 import { FaUserClock } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import { GiCrossroad } from "react-icons/gi";
 
 import ClientSubMenu from './SubMenus/ClientSubMenu';
 import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
-
+import RoutesSubMenu from './SubMenus/RoutesSubMenu';
 
 interface MiniMenuProps {
     title?: String
@@ -39,8 +39,10 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
     const [clientInfoWindow, setClientInfoWindow] = useState(false);
     const [driverInfoWindow, setDriverInfoWindow] = useState(false);
     const [riderInfoWindow, setRiderInfoWindow] = useState(false);
+    
     const [distributionInfoWindow, setDistributionInfoWindow] = useState(false);
     const [accountingInfoWindow, setAccountingInfoWindow] = useState(false);
+    const [routesInfoWindow, setRoutesInfoWindow] = useState(false);
     const [emailInfoWindow, setEmailInfoWindow] = useState(false);
     const [privacyInfoWindow, setPrivacyInfoWindow] = useState(false);
     const [adminInfoWindow, setAdminInfoWindow] = useState(false);
@@ -56,6 +58,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
         else if (menu === "Rider") setRiderInfoWindow(true)
         else if (menu === "Distribution") setDistributionInfoWindow(true)
         else if (menu === "Accounting") setAccountingInfoWindow(true)
+        else if (menu === "Routes") setRoutesInfoWindow(true)
         else if (menu === "Email") setEmailInfoWindow(true)
         else if (menu === "Maps") setMapsWindow(true)
         else if (menu === "Privacy") setPrivacyInfoWindow(true)
@@ -72,6 +75,7 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
         setRiderInfoWindow(false)
         setDistributionInfoWindow(false)
         setAccountingInfoWindow(false)
+        setRoutesInfoWindow(false)
         setEmailInfoWindow(false)
         setMapsWindow(false)
         setPrivacyInfoWindow(false)
@@ -103,7 +107,9 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
             setRiderSubMenu(false)
             setDistributionSubMenu(false)
             setAccountingSubMenu(false)
+            setRoutesInfoWindow(false)
             setClientInfoWindow(false)
+            setRoutesSubMenu(false)
         }
 
         else
@@ -119,6 +125,9 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
             setRiderSubMenu(false)
             setDistributionSubMenu(false)
             setAccountingSubMenu(false)
+            setRoutesSubMenu(false)
+            setRoutesInfoWindow(false)
+            setClientInfoWindow(false)
             setDriverInfoWindow(false)
         }
 
@@ -135,6 +144,9 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
             setRiderSubMenu(true)
             setDistributionSubMenu(false)
             setAccountingSubMenu(false)
+            setRoutesSubMenu(false)
+            setRoutesInfoWindow(false)
+            setClientInfoWindow(false)
             setRiderInfoWindow(false)
         }
         else
@@ -150,6 +162,9 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
             setRiderSubMenu(false)
             setDistributionSubMenu(true)
             setAccountingSubMenu(false)
+            setRoutesSubMenu(false)
+            setRoutesInfoWindow(false)
+            setClientInfoWindow(false)
             setDistributionInfoWindow(false)
         }
         else
@@ -165,11 +180,29 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
             setRiderSubMenu(false)
             setDistributionSubMenu(false)
             setAccountingSubMenu(true)
+            setRoutesSubMenu(false)
+            setRoutesInfoWindow(false)
             setAccountingInfoWindow(false)
         }
         else
             setAccountingSubMenu(false)
 
+    }
+
+    const [routesSubMenu, setRoutesSubMenu] = useState(false)
+
+    const openRoutesSubMenu = () => {
+        if (!routesSubMenu) {
+            setClientSubMenu(false)
+            setDriverSubMenu(false)
+            setRiderSubMenu(false)
+            setDistributionSubMenu(false)
+            setAccountingSubMenu(false)
+            setRoutesInfoWindow(false)
+            setRoutesSubMenu(true)
+        }
+        else
+            setRoutesSubMenu(false)
     }
 
     return (
@@ -198,25 +231,28 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
                 </div>
             }
 
-            <div className='group py-1' onClick={() => navigatePage('/stations')}
-                onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
-                <div onMouseEnter={() => menuHoverIn('Maps')} onMouseLeave={() => menuHoverOut()}
+            {/* Routes */}
+            <div className='group py-1' onClick={openRoutesSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                <div onMouseEnter={() => menuHoverIn('Routes')} onMouseLeave={() => menuHoverOut()}
                     className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-blue-800 transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
 
-                            <FaMapMarkedAlt className="mx-1 ml-2 flex-shrink-0" size={20} color={"#7dd3fc"} />
-
+                            <GiCrossroad className="mx-1 ml-2 flex-shrink-0" size={20} color={"#7dd3fc"} />
                         </div>
-
+                        <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${routesSubMenu ? 'rotate-90' : ''}`} size={15} color={"#7dd3fc"} />
                     </div>
                 </div>
             </div>
 
-            {mapsWindow && (
+            {routesInfoWindow && (
                 <div className='flex flex-row absolute py-1 px-4 bg-blue-900 rounded top-[15%] left-16'>
-                    <p className='font-semibold text-white mr-1'>Maps </p>
+                    <p className='font-semibold text-white mr-1'>Station</p>
                 </div>
+            )}
+
+            {routesSubMenu && (
+                <RoutesSubMenu isMenuFull={false} onMouseEnter={hoverIn} onMouseLeave={hoverOut} />
             )}
 
             <div className='group py-1' onClick={openClientSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
@@ -341,6 +377,8 @@ const MiniMenu: React.FC<MiniMenuProps> = ({ title }) => {
             {accountingSubMenu && (
                 <AccountingSubMenu isMenuFull={false} onMouseEnter={hoverIn} onMouseLeave={hoverOut} />
             )}
+
+            
 
             <div className='group py-1' onClick={() => navigatePage('/EmailTemplate')}
                 onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
