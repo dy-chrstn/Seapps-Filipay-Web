@@ -101,7 +101,7 @@ const SlideShow = () => {
         <div className="swiper-slide relative">
           <img
             className="rounded-2xl h-full w-full object-cover"
-            src="/public/Img/login/slider-bg.png"
+            src="/Img/login/slider-bg.png"
             alt="Slide 2"
           />
 
@@ -137,7 +137,7 @@ const SlideShow = () => {
         <div className="swiper-slide relative">
           <img
             className="rounded-2xl h-full w-full object-cover"
-            src="/public/Img/login/slider-bg.png"
+            src="/Img/login/slider-bg.png"
             alt="Slide 3"/>
 
           <div className="grid grid-cols-2 gap-4 absolute top-7 left-6 right-6">
