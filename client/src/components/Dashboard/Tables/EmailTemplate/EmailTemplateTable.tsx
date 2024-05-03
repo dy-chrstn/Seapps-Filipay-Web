@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoSendSharp } from "react-icons/io5";
 import MessageAction from '../../Tables/Actions/messageAction';
 import "react-datepicker/dist/react-datepicker.css";
@@ -32,7 +32,7 @@ const  EmailTemplateTable: React.FC = () => {
   };
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-
+  const [searchString, setSearchString] = useState<string>("")
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   
@@ -53,13 +53,29 @@ const  EmailTemplateTable: React.FC = () => {
 //     { value: "Transport Corperation", label: "Transport Corporation" },
 //   ];
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  if(event.key === "Enter"){
+    handleChangeSearch()
+    return
+  }
+}
+const handleChangeSearch = () => {
 
-  const clearFilters = () => {
-    setSearchTerm("");
-  };
+    if(searchString === "Non-Regular"){
+      setSearchTerm("Non-regular");
+      return
+    }
+    setSearchTerm(searchString);
+};
+
+const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setSearchString(event.target.value)
+  setSearchTerm("")
+}
+
+  // const clearFilters = () => {
+  //   setSearchTerm("");
+  // };
   
   const [data] = useState([
     {
@@ -194,23 +210,19 @@ const columns: Column<Row>[] = useMemo(
     <div className="w-tableWidth mx-auto mr-20">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
       <div className="datepickers mr-0 flex text-xs space-x-3 justify-end">
-        <div className="search-container flex items-center mt-4">
+      <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
             placeholder="Filter in Records..."
-            value={searchTerm}
-            onChange={handleChangeSearch}
-            className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
-        </div>
-
-
-        <div className="clearfilter relative flex items-center mt-4">
-        <button
-              className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs"
-              onClick={clearFilters}
-            >
-              Clear Filters
-            </button>
+            value={searchString}
+            onChange={handleFilterRecords}
+            onKeyDown={handleEnterButton}
+            className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
+          <FaSearch
+            onClick={handleChangeSearch}
+            className = "absolute right-[5.5rem] lg:right-[7rem] 2xl:right-[8.1rem]"
+           size = {17} 
+           color = "#00548C"/>
         </div>
         </div>
 

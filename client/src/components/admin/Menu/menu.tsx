@@ -12,7 +12,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { TbSteeringWheel } from "react-icons/tb";
 import { FaUserClock } from "react-icons/fa6";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import { GiCrossroad } from "react-icons/gi";
 import { useNavigate } from 'react-router-dom';
 
 import ClientSubMenu from './SubMenus/ClientSubMenu';
@@ -20,6 +20,7 @@ import DriverSubMenu from './SubMenus/DriverSubMenu';
 import RiderSubMenu from './SubMenus/RiderSubMenu';
 import DistributionSubMenu from './SubMenus/DistributionSubmenu';
 import AccountingSubMenu from './SubMenus/AccountingSubMenu';
+import RoutesSubMenu from './SubMenus/RoutesSubMenu';
 
 interface MenuProps {
     title?: String
@@ -73,7 +74,17 @@ const Menu: React.FC<MenuProps> = ({ title }) => {
             setAccountingSubMenu(true)
         else
             setAccountingSubMenu(false)
+    }
 
+
+    const [routesSubmenu, setRoutesSubMenu] = useState(false)
+
+
+    const openRoutesSubMenu = () => {
+        if (!routesSubmenu)
+            setRoutesSubMenu(true)
+        else
+            setRoutesSubMenu(false)
     }
 
     const [riderSubMenu, setRiderSubMenu] = useState(false)
@@ -116,21 +127,25 @@ const Menu: React.FC<MenuProps> = ({ title }) => {
                         </div>
                     </div>
                 </div>
-
             }
 
-            <div className='group py-1' onClick={() => navigatePage('/stations')}
-                onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+            {/* Routes */}
+            <div className='group py-1' onClick={openRoutesSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
                 <div className="border-l-4 py-1 border-blue-900 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
                     <div className="w-full flex flex-row items-center py-1 group-hover:bg-dashboardHighlight transition-all duration-300 pr-5">
                         <div className=' w-full flex flex-row items-center '>
-                            <FaMapMarkedAlt className="mx-2 flex-shrink-0" size={20} color={"#7dd3fc"} />
-                            <p className="font-bold text-xs font-sans text-white">Map</p>
+
+                            <GiCrossroad  className="mx-2 flex-shrink-0" size={20} color={"#7dd3fc"} />
+                            <p className="font-bold text-xs font-sans text-white">Station</p>
                         </div>
+                        <FaGreaterThan className={`flex-shrink-0 h-4 group-hover:h-5 duration-200 transform ${routesSubmenu ? 'rotate-90' : ''}`} size={15} color={"#7dd3fc"} />
                     </div>
                 </div>
             </div>
 
+            {routesSubmenu && (
+                <RoutesSubMenu isMenuFull={true} onMouseEnter={hoverIn} onMouseLeave={hoverOut} />
+            )}
 
             <div className='group py-1' onClick={openClientSubMenu} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
                 <div className=" border-l-4 border-blue-900 py-1 group-hover:border-l-4 group-hover:border-white transition-all duration-300">
@@ -221,6 +236,8 @@ const Menu: React.FC<MenuProps> = ({ title }) => {
             {accountingSubMenu && (
                 <AccountingSubMenu isMenuFull={true} onMouseEnter={hoverIn} onMouseLeave={hoverOut} />
             )}
+
+            
 
             <div className='group py-1' onClick={() => navigatePage('/EmailTemplate')}
                 onMouseEnter={hoverIn} onMouseLeave={hoverOut}>

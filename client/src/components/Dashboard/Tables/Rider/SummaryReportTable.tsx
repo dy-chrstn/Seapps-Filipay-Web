@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 //import { TiMessages } from "react-icons/ti";
 //import MessageAction from '../Actions/messageAction';
@@ -48,6 +48,7 @@ const SummaryReportTable: React.FC = () => {
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchString, setSearchString] = useState<string>("")
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -140,15 +141,25 @@ const SummaryReportTable: React.FC = () => {
   };
 
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleChangeSearch()
+      return
+    }
+  }
+  const handleChangeSearch = () => {
+
+      if(searchString === "Non-Regular"){
+        setSearchTerm("Non-regular");
+        return
+      }
+      setSearchTerm(searchString);
   };
 
-  const clearFilters = () => {
-    setFromDate(null);
-    setToDate(null);
-    setSearchTerm("");
-  };
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value)
+    setSearchTerm("")
+  }
   
   const [data] = useState([
     {
@@ -386,8 +397,7 @@ const columns: Column<Row>[] = useMemo(
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-8 transparent-caret ml-5">
-      <div className="datepickers mr-10 flex text-xxs space-x-3">
-          <div className="from-datepicker ml-auto">
+        <div className="datepickers flex text-xxs space-x-3 items-center justify-end mb-4 ">
             <label>From:<br/></label>
             <DatePicker
               placeholderText="MM/DD/YYYY"
@@ -397,9 +407,6 @@ const columns: Column<Row>[] = useMemo(
               onChange={(date) => setFromDate(date)}
               className="border border-gray-300 rounded-md py-1 focus:outline-none w-28"
             />
-
-          </div>
-          <div className="to-datepicker">
             <label>To:<br/></label>
             <DatePicker
               placeholderText="MM/DD/YYYY"
@@ -410,59 +417,44 @@ const columns: Column<Row>[] = useMemo(
               className="border border-gray-300 rounded-md py-1 focus:outline-none w-28"
               minDate={fromDate} 
             />
-          </div>
-          <div className="">
-        <div className="flex items-center mt-4">     
 
-        <div className="flex items-center mr-3">     
-         <Select
-          options={options}
-          isMulti
-          placeholder="Filter by Card SN"
-          value={selectedOptions}
-          onChange={(newValue: MultiValue<CustomOption>, actionMeta: ActionMeta<CustomOption>) => {
-            setSelectedOptions(newValue as CustomOption[]);
-          }}
-          styles={customStyles} 
-        />
-  </div>
-
-  <div className="flex items-center mr-3">     
-  <Select
-        options={singleOptions}
-        placeholder="Transport Cooperative"
-        value={selectedSingleOption}
-        onChange={(newValue: CustomOption | null) => setSelectedSingleOption(newValue)}
-        styles={customSingleSelectStyles}
-      />
-      </div> 
-
+            <Select
+              options={options}
+              isMulti
+              placeholder="Filter by Card SN"
+              value={selectedOptions}
+              onChange={(newValue: MultiValue<CustomOption>, actionMeta: ActionMeta<CustomOption>) => {
+                setSelectedOptions(newValue as CustomOption[]);
+              }}
+              styles={customStyles} 
+              />
+              <Select
+                options={singleOptions}
+                placeholder="Transport Cooperative"
+                value={selectedSingleOption}
+                onChange={(newValue: CustomOption | null) => setSelectedSingleOption(newValue)}
+                styles={customSingleSelectStyles}
+              />
+         <div className="search-container w-[20%] flex items-center">
           <input
             type="text"
             placeholder="Filter in Records..."
-            value={searchTerm}
-            onChange={handleChangeSearch}
-            className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
+            value={searchString}
+            onChange={handleFilterRecords}
+            onKeyDown={handleEnterButton}
+            className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
+          <FaSearch
+            onClick={handleChangeSearch}
+            className = "absolute right-[7.2rem] lg:right-[8.2rem] 2xl:right-[10.4rem]"
+           size = {17} 
+           color = "#00548C"/>
         </div>
-        </div>
-
-
-        <div className="clearfilter relative flex items-center mt-4">
-        <button
-              className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs"
-              onClick={clearFilters}
-            >
-              Clear Filters
-            </button>
-        </div>
-        <div className="flex-row mt-4">
+        <div className="flex-row">
           {" "}
-          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10  hover:bg-blue-600 transition-colors duration-300"  onClick={handleExcelDownload} >
+          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center hover:bg-blue-600 transition-colors duration-300"  onClick={handleExcelDownload} >
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
-    
-
 
         </div>
 
