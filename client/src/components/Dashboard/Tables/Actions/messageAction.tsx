@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import QuillToolbar from "./richTextEditor/editor";
+
 
 interface MessageActionProps {
   onClose: () => void;
@@ -36,7 +36,7 @@ const MessageAction: React.FC<MessageActionProps> = ({ onClose, recipient }) => 
           <div className="mb-4">
             <label className="text-xs font-bold text-black">Message:</label>
             <div className="mt-2">
-            {/* <QuillToolbar value={editorHtml} onChange={handleEditorChange} /> */}
+
             </div>
           </div>
         </div>

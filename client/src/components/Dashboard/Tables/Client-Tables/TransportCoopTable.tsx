@@ -4,6 +4,7 @@ import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../Actions/messageAction';
+import EditDetailsAction from '../Actions/EditAction/ClientTables/TransportCoopEdit';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -32,8 +33,13 @@ interface Row {
 const TransportCoopTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false); 
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
   
 
   const toggleModal = (row: any) => {
@@ -43,6 +49,15 @@ const TransportCoopTable: React.FC = () => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const toggleEditModal = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true);
+  };
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
   };
 
   const [fromDate, setFromDate] = useState<Date | null>(null);
@@ -433,7 +448,8 @@ const columns: Column<Row>[] = useMemo(
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+            <TiMessages onClick={() => toggleModal(row)} /> 
+            <FaEdit onClick={() => handleEdit(row)} /> 
           </div>
         ),
         disableSortBy: true, // Disable sorting for this column
@@ -631,14 +647,26 @@ const columns: Column<Row>[] = useMemo(
         ))}
 
       </div>
-      {showModal && selectedRow && (
+     {showEditModal && selectedRow && (
   <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
     <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
     <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
+      <EditDetailsAction
+        rowData={selectedRow}
+        onClose={closeEditModal}
+      />
+    </div>
+  </div>
+)}
+
+{showModal && selectedRow && (
+  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+    <div className="relative bg-white p-4 rounded-lg z-10">
+      <MessageAction
+        recipient={selectedRow.email}
+        onClose={closeModal}
+      />
     </div>
   </div>
 )}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../../components/admin/header';
 import Menu from '../../components/admin/Menu/menu';
 import MiniMenu from '../../components/admin/Menu/miniMenu';
-import Editor from '../../components/Dashboard/Tables/Actions/richTextEditor/editor';
+import Editor from '../../components/Dashboard/Tables/Actions/richTextEditor/editorPrivacyPolicy';
 
 
 const PrivacyPolicy: React.FC = () => {
@@ -24,7 +24,7 @@ return (
               {menuOpen ? <Menu title={"Privacy Policy"}/> : <MiniMenu title={"Privacy Policy"}/> }
             </div>
           
-            <div className="inline-block justify-center items-center -ml-32 mt-10 h">
+            <div className=" justify-center items-center -ml-32 mt-10 h">
             <Editor/>
             </div>
              
