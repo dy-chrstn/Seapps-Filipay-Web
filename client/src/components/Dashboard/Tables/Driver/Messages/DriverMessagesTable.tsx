@@ -285,7 +285,7 @@ const DriverMessagesTable: React.FC = () => {
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-        <div className="datepickers mr-5 flex text-xs space-x-3">
+        <div className="datepickers mr-4 flex text-xs space-x-3">
           <div className="from-datepicker  ml-auto"></div>
           <div className=" ml-3 mt-4">
           <Select
@@ -304,7 +304,7 @@ const DriverMessagesTable: React.FC = () => {
 />
           </div>
 
-          <div className="search-container w-[30%] flex items-center mt-4">
+        <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
             placeholder="Filter in Records..."

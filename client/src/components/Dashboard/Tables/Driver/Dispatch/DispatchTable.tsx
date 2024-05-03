@@ -468,7 +468,7 @@ const columns: Column<Row>[] = useMemo(
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-      <div className="datepickers mr-3 flex text-xs space-x-3">
+      <div className="datepickers mr-4 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
             <DatePicker
@@ -505,7 +505,7 @@ const columns: Column<Row>[] = useMemo(
           </select>
         </div>
 
-        <div className="search-container w-[30%] flex items-center mt-4">
+        <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
             placeholder="Filter in Records..."

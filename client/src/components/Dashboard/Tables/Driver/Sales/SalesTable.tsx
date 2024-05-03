@@ -494,7 +494,7 @@ const columns: Column<Row>[] = useMemo(
           </select>
         </div>
 
-        <div className="search-container w-[30%] flex items-center mt-4">
+        <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
             placeholder="Filter in Records..."

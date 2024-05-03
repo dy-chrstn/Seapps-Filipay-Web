@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
 
@@ -17,6 +17,7 @@ interface Row {
 const WalletTable: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchString, setSearchString] = useState<string>("")
   const [filterBy, setFilterBy] = useState<string>("all");
 
 
@@ -33,25 +34,35 @@ const WalletTable: React.FC = () => {
     setItemsPerPage(selectedValue); 
   };
 
-  const filterOptions = [
-    { value: "all", label: "All" },
-    { value: "Type 1", label: "Type 1" },
-    { value: "Type 2", label: "Type 3" },
-  ];
+  // const filterOptions = [
+  //   { value: "all", label: "All" },
+  //   { value: "Type 1", label: "Type 1" },
+  //   { value: "Type 2", label: "Type 3" },
+  // ];
 
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
   };
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleChangeSearch()
+      return
+    }
+  }
+  const handleChangeSearch = () => {
+
+      if(searchString === "Non-Regular"){
+        setSearchTerm("Non-regular");
+        return
+      }
+      setSearchTerm(searchString);
   };
 
-  const clearFilters = () => {
-    setSearchTerm("");
-    setFilterBy("all");
-
-  };
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value)
+    setSearchTerm("")
+  }
   
   const [data] = useState([
     {
@@ -275,39 +286,31 @@ const columns: Column<Row>[] = useMemo(
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-8 transparent-caret ml-5">
       <div className="datepickers mr-10 flex text-xs space-x-3">
-          <div className=" ml-auto">
+          <div className=" ml-auto w-[15%]">
           <select
             id="filter"
             name="filter"
-            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
+            className="mt-4 w-full py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
                    value={filterBy}
-        onChange={handleChangeFilterBy} >
-            <option value="all">All</option>
+            onChange={handleChangeFilterBy} >
+            <option value="all">Filter by Type</option>
             <option value="Type 1">Type 1</option>
             <option value="Type 2">Type 2</option>
           </select>
         </div>
-
-
- <div className="">
- <div className="search-container flex items-center mt-4">
+        <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
             placeholder="Filter in Records..."
-            value={searchTerm}
-            onChange={handleChangeSearch}
-            className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
-        </div>
-        </div>
-
-
-        <div className="clearfilter relative flex items-center mt-4">
-        <button
-        className="border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs transition-colors duration-300 hover:border-blue-600 hover:text-blue-600"
-        onClick={clearFilters}
-            >
-              Clear Filters
-            </button>
+            value={searchString}
+            onChange={handleFilterRecords}
+            onKeyDown={handleEnterButton}
+            className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
+          <FaSearch
+            onClick={handleChangeSearch}
+            className = "absolute right-[7.2rem] lg:right-[8.2rem] 2xl:right-[10.4rem]"
+           size = {17} 
+           color = "#00548C"/>
         </div>
         <div className="flex-row mt-4">
           {" "}

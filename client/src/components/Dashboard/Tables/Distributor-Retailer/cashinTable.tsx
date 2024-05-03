@@ -1,8 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
 import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
@@ -42,6 +41,7 @@ const CashInTable: React.FC = () => {
   const [toDate, setToDate] = useState<Date | null>(null);
   const [filterBy, setFilterBy] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchString, setSearchString] = useState<string>("")
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -67,16 +67,26 @@ const CashInTable: React.FC = () => {
     setFilterBy(event.target.value);
   };
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+  
+  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleChangeSearch()
+      return
+    }
+  }
+  const handleChangeSearch = () => {
+
+      if(searchString === "Non-Regular"){
+        setSearchTerm("Non-regular");
+        return
+      }
+      setSearchTerm(searchString);
   };
 
-  const clearFilters = () => {
-    setFromDate(null);
-    setToDate(null);
-    setFilterBy("all");
-    setSearchTerm("");
-  };
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value)
+    setSearchTerm("")
+  }
   
   const [data] = useState([
     {
@@ -355,7 +365,7 @@ const columns: Column<Row>[] = useMemo(
 
       {
         Header: "ACTION",
-        Cell: ({ row }) => (
+        Cell: () => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
              <FaEdit />
           </div>
@@ -425,23 +435,19 @@ const columns: Column<Row>[] = useMemo(
           </select>
         </div>
 
-        <div className="search-container flex items-center mt-4">
-          <input
-            type="text"
-            placeholder="Filter in Records..."
-            value={searchTerm}
-            onChange={handleChangeSearch}
-            className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
-        </div>
-
-
-        <div className="clearfilter relative flex items-center mt-4">
-        <button
-              className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs"
-              onClick={clearFilters}
-            >
-              Clear Filters
-            </button>
+        <div className="search-container w-[20%] flex items-center mt-4">
+            <input
+              type="text"
+              placeholder="Filter in Records..."
+              value={searchString}
+              onChange={handleFilterRecords}
+              onKeyDown={handleEnterButton}
+              className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
+            <FaSearch
+              onClick={handleChangeSearch}
+              className = "absolute right-[7.5rem] lg:right-[8.3rem] 2xl:right-[10.1rem]"
+            size = {17} 
+            color = "#00548C"/>
         </div>
         <div className="flex-row mt-4">
           {" "}

@@ -379,7 +379,7 @@ const columns: Column<Row>[] = useMemo(
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-      <div className=" datepickers mr-3 flex text-xs space-x-3 justify-end items-baseline">
+      <div className=" datepickers mr-4 flex text-xs space-x-3 justify-end items-baseline">
           <select 
             className="bg-white w-[15%] h-7 border rounded-[.27rem] border-gray-500 pl-2"
             value={selectedClassification} onChange={handleFilterClassifications}>
@@ -394,7 +394,7 @@ const columns: Column<Row>[] = useMemo(
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
           </select>
-        <div className="search-container w-[30%] flex items-center mt-4">
+        <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
             placeholder="Filter in Records..."
