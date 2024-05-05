@@ -1,9 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy, Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from "../Actions/messageAction";
 import * as XLSX from "xlsx";
 import "./Table.css";
 import { Vehicle } from "../../../../interface/client";
@@ -11,10 +9,66 @@ import vehicleApi from "../../../../api/vehicle";
 import coopApi from "../../../../api/coop";
 import ClipLoader from "react-spinners/ClipLoader";
 import { VehicleService } from "../../../../interface/client";
+import AddDetailsAction from '../Actions/AddAction/ClientTables/VehicleServiceAdd';
+import Select, {StylesConfig } from "react-select";
+
 
 const VehicleServiceTable: React.FC = () => {
+
+  interface CustomOption {
+    value: string;
+    label: string;
+  }
+  
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showAddModal, setShowAddModal] = useState(false); 
+  const [selectedSingleOption, setSelectedSingleOption] = useState<CustomOption | null>(null);
+  const [selectedFilterOption, setSelectedFilterOption] = useState<CustomOption | null>(null);
+
+
+  const singleOptions: CustomOption[] = [
+    { value: "Transport Cooperative", label: "Transport Cooperative" },
+    { value: "Transport Corporation", label: "Transport Corporation" }
+  ];
+
+
+    
+  const customSingleSelectStyles: StylesConfig<CustomOption, false> = {
+    control: (provided, state) => ({
+      ...provided,
+      minHeight: '28px',
+      height: '28px',
+      
+    }),
+    valueContainer: (provided, state) => ({
+        ...provided,
+        padding: '0 5px'
+        
+      }),
+      input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+      
+    }),
+    indicatorSeparator: state => ({
+      display: 'none',
+      
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '26px',
+    }),
+    dropdownIndicator: base => ({
+        ...base,
+        color: "#00558d", // Custom colour
+        
+      })
+  };
+
+  const handleAdd = () => {
+    setShowAddModal(true);
+  };
 
   const handleRemoveRecipient = () => {
     setSelectedRow((prevRow: any) => ({
@@ -57,31 +111,28 @@ const VehicleServiceTable: React.FC = () => {
     setItemsPerPage(selectedValue); // Update the state with the selected value
   };
 
-  const filterOptions = [
-    { value: "all", label: "All" },
-    { value: "Transport Cooperative", label: "Transport Cooperative" },
-    { value: "Transport Corperation", label: "Transport Corporation" },
-  ];
 
-  const handleChangeFilterBy = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
   };
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value)
+    setSearchTerm("")
+  }
+
+  const handleChangeSearch = () => {
+    setSearchTerm(searchTerm);
+};
 
   const clearFilters = () => {
     setFromDate(null);
     setToDate(null);
-    setFilterBy("all");
+    setSelectedFilterOption(null); 
     setSearchTerm("");
   };
 
   const [filteredData, setFilteredData] = useState(vehicleServiceData);
-
   useEffect(() => {
     const filtered = vehicleServiceData.filter((item) => {
       if (filterBy === "all") {
@@ -89,19 +140,15 @@ const VehicleServiceTable: React.FC = () => {
       } else {
         return item.serviceType === filterBy;
       }
+    }).filter((item) => {
+      if (!selectedFilterOption) {
+        return true;
+      } else {
+        return item.serviceType === selectedFilterOption.value;
+      }
     });
     setFilteredData(filtered);
-  }, [filterBy, vehicleServiceData]);
-
-  useEffect(() => {
-    const filtered = vehicleServiceData.filter((item) => {
-      return (
-        item.serviceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.totalUnits.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    });
-    setFilteredData(filtered);
-  }, [searchTerm, vehicleServiceData]);
+  }, [filterBy, selectedFilterOption, vehicleServiceData]);
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -170,6 +217,8 @@ const VehicleServiceTable: React.FC = () => {
     fetchVehicles();
   }, []);
 
+  
+
   // Calculate pagination indexes
   const startIndex = currentPage * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
@@ -235,33 +284,32 @@ const VehicleServiceTable: React.FC = () => {
   return (
     <div className="mx-auto ml-auto mr-auto transparent-caret">
       <div className="mt-8 ml-auto ">
-        <div className="ml-sortMargin">
+        <div className="ml-sortMargin mt-1">
           <div className="flex text-xs space-x-3">
-            <select
-              id="filter"
-              name="filter"
-              className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
-              value={filterBy}
-              onChange={handleChangeFilterBy}
-            >
-              <option value="all">All</option>
-              <option value="Transport Cooperative">
-                Transport Cooperative
-              </option>
-              <option value="Transport Corperation">
-                Transport Corporation
-              </option>
-            </select>
-
-            <div className="search-container flex items-center mt-4">
-              <input
-                type="text"
-                placeholder="Filter in Records..."
-                value={searchTerm}
-                onChange={handleChangeSearch}
-                className="h-7 border border-gray-300 rounded-md py-1 px-2 "
-              />
+            <div className="mt-[1rem]">
+          <Select
+              options={singleOptions}
+              placeholder="Transport Cooperative"
+              value={selectedFilterOption}
+              onChange={(newValue: CustomOption | null) => setSelectedFilterOption(newValue)}
+              styles={customSingleSelectStyles}
+            />
             </div>
+            <div className="search-container relative mt-[1.05rem]">
+        <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[0.25rem] 2xl:right-[10.4rem] top-[0.90rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
+      </div>
+
 
             <div className="clearfilter relative flex items-center mt-4">
               <button
@@ -389,13 +437,27 @@ const VehicleServiceTable: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex mr-36 items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="text-xxs font-bold">Add</span>
+     
+
+      <div className="flex justify-end -mt-1 mr-44">
+        <button className="flex items-center text-blue-900" onClick={handleAdd}> 
+      <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
+      <span className="ml-1 text-xxs font-bold">Add</span>
+    </button>
+  </div>
+
+ {/* Modal for AddDetailsAction */}
+ {showAddModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <AddDetailsAction onClose={() => setShowAddModal(false)} />
+          </div>
         </div>
-      </div>
+      )}
+
     </div>
+
   );
 };
 

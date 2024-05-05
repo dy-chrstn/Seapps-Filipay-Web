@@ -425,7 +425,7 @@ const columns: Column<Row>[] = useMemo(
     name="itemsPerPage"
     className=" w-auto border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
     onChange={handleItemsPerPageChange} 
-    value={itemsPerPage.toString()} // Bind selected value
+    value={itemsPerPage.toString()}
   >
     <option value="5">5</option>
     <option value="8">8</option>

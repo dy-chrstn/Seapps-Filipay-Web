@@ -1,15 +1,17 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../Actions/messageAction';
 import EditDetailsAction from '../Actions/EditAction/ClientTables/TransportCoopEdit';
+import AddDetailsAction from '../Actions/AddAction/ClientTables/TransportCoopAdd';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Table.css";
 import "react-calendar/dist/Calendar.css";
+import Select, {StylesConfig } from "react-select";
 
 
 interface Row {
@@ -30,17 +32,89 @@ interface Row {
   date: string;
   status: string;
 }
+
+interface CustomOption {
+  value: string;
+  label: string;
+}
+
+
 const TransportCoopTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false); 
+  const [showAddModal, setShowAddModal] = useState(false); 
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [selectedSingleOption, setSelectedSingleOption] = useState<CustomOption | null>(null);
+  const [selectedFilterOption, setSelectedFilterOption] = useState<CustomOption | null>(null);
+
+
+
+
+  const singleOptions: CustomOption[] = [
+    { value: "Transport Cooperative", label: "Transport Cooperative" },
+    { value: "Transport Corporation", label: "Transport Corporation" }
+  ];
+
+  
+  const customSingleSelectStyles: StylesConfig<CustomOption, false> = {
+    control: (provided, state) => ({
+      ...provided,
+      minHeight: '28px',
+      height: '28px',
+      
+    }),
+    valueContainer: (provided, state) => ({
+        ...provided,
+        padding: '0 5px'
+        
+      }),
+      input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+      
+    }),
+    indicatorSeparator: state => ({
+      display: 'none',
+      
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '26px',
+    }),
+    dropdownIndicator: base => ({
+        ...base,
+        color: "#00558d", // Custom colour
+        
+      })
+  };
+
+
+  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleChangeSearch()
+      return
+    }
+  }
+  const handleChangeSearch = () => {
+      setSearchTerm(searchTerm);
+  };
+
+
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value)
+    setSearchTerm("")
+  }
+
 
   const handleEdit = (row: any) => {
     setSelectedRow(row.original);
     setShowEditModal(true); 
   };
   
+  const handleAdd = () => {
+    setShowAddModal(true);
+  };
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -79,25 +153,19 @@ const TransportCoopTable: React.FC = () => {
   };
 
 
-  // const filterOptions = [
-  //   { value: "all", label: "All" },
-  //   { value: "Transport Cooperative", label: "Transport Cooperative" },
-  //   { value: "Transport Corperation", label: "Transport Corporation" },
-  // ];
+
 
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
   };
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
 
   const clearFilters = () => {
     setFromDate(null);
     setToDate(null);
-    setFilterBy("all");
     setSearchTerm("");
+    setSelectedFilterOption(null); 
+
   };
   
   const [data] = useState([
@@ -284,7 +352,6 @@ const TransportCoopTable: React.FC = () => {
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
-  
   useEffect(() => {
     const filtered = data.filter((item) => {
       if (filterBy === "all") {
@@ -292,9 +359,16 @@ const TransportCoopTable: React.FC = () => {
       } else {
         return item.transpocoop === filterBy;
       }
+    }).filter((item) => {
+      if (!selectedFilterOption) {
+        return true;
+      } else {
+        return item.transpocoop === selectedFilterOption.value;
+      }
     });
     setFilteredData(filtered);
-  }, [filterBy, data]);
+  }, [filterBy, selectedFilterOption, data]);
+  
 
   useEffect(() => {
     const filtered = data.filter((item) => {
@@ -478,7 +552,7 @@ const columns: Column<Row>[] = useMemo(
 
   return (
     <div className="w-tableWidth mx-auto">
-      <div className=" mx-auto mt-10 transparent-caret ">
+      <div className=" mx-auto mt-10  ">
       <div className="datepickers mr-10 flex text-xxs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
@@ -504,27 +578,32 @@ const columns: Column<Row>[] = useMemo(
               minDate={fromDate} 
             />
           </div>
-          <div className=" ml-3">
-          <select
-            id="filter"
-            name="filter"
-            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
-                   value={filterBy}
-        onChange={handleChangeFilterBy} >
-            <option value="all">All</option>
-            <option value="Transport Cooperative">Transport Cooperative</option>
-            <option value="Transport Corperation">Transport Corporation</option>
-          </select>
+          <div className=" ml-3 mt-[1.1rem]">
+             <Select
+              options={singleOptions}
+              placeholder="Transport Cooperative"
+              value={selectedFilterOption}
+              onChange={(newValue: CustomOption | null) => setSelectedFilterOption(newValue)}
+              styles={customSingleSelectStyles}
+            />
+
         </div>
 
-        <div className="search-container flex items-center mt-4">
-          <input
-            type="text"
-            placeholder="Filter in Records..."
-            value={searchTerm}
-            onChange={handleChangeSearch}
-            className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
-        </div>
+          <div className="search-container relative mt-[1.05rem]">
+        <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[0.25rem] 2xl:right-[10.4rem] top-[0.90rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
+      </div>
+
 
 
         <div className="clearfilter relative flex items-center mt-4">
@@ -672,13 +751,23 @@ const columns: Column<Row>[] = useMemo(
 )}
 
 
-      </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
-        </div>      
-</div>
+        </div>
+        <div className="flex justify-end -mt-5">
+        <button className="flex items-center text-blue-900" onClick={handleAdd}> 
+      <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
+      <span className="ml-1 text-xxs font-bold">Add</span>
+    </button>
+  </div>
+
+ {/* Modal for AddDetailsAction */}
+ {showAddModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <AddDetailsAction onClose={() => setShowAddModal(false)} />
+          </div>
+        </div>
+      )}
 
     </div>
     

@@ -2,8 +2,6 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-//import { TiMessages } from "react-icons/ti";
-//import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -631,6 +629,8 @@ const columns: Column<Row>[] = useMemo(
                 size = {17} 
                 color = "#00548C"/>
               </div>
+
+              
               <div className="flex-row">
                 {" "}
                 <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10  hover:bg-blue-600 transition-colors duration-300"  onClick={handleExcelDownload} >
