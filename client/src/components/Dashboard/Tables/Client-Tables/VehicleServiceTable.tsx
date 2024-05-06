@@ -10,61 +10,37 @@ import coopApi from "../../../../api/coop";
 import ClipLoader from "react-spinners/ClipLoader";
 import { VehicleService } from "../../../../interface/client";
 import AddDetailsAction from '../Actions/AddAction/ClientTables/VehicleServiceAdd';
-import Select, {StylesConfig } from "react-select";
+import TransportCoopDropdown from '../Filters/transportcoopdropdown';
 
 
 const VehicleServiceTable: React.FC = () => {
 
-  interface CustomOption {
-    value: string;
-    label: string;
-  }
   
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [showAddModal, setShowAddModal] = useState(false); 
-  const [selectedSingleOption, setSelectedSingleOption] = useState<CustomOption | null>(null);
-  const [selectedFilterOption, setSelectedFilterOption] = useState<CustomOption | null>(null);
+  const [selectedFilterOption, setSelectedFilterOption] = useState<TransportCoopOption | null>(null);
 
+  
+  interface CustomOption {
+    value: string;
+    label: string;
+  }
 
+  interface TransportCoopOption {
+    value: string;
+    label: string;
+  }
+  
   const singleOptions: CustomOption[] = [
     { value: "Transport Cooperative", label: "Transport Cooperative" },
     { value: "Transport Corporation", label: "Transport Corporation" }
   ];
 
 
-    
-  const customSingleSelectStyles: StylesConfig<CustomOption, false> = {
-    control: (provided, state) => ({
-      ...provided,
-      minHeight: '28px',
-      height: '28px',
-      
-    }),
-    valueContainer: (provided, state) => ({
-        ...provided,
-        padding: '0 5px'
-        
-      }),
-      input: (provided, state) => ({
-      ...provided,
-      margin: '0px',
-      
-    }),
-    indicatorSeparator: state => ({
-      display: 'none',
-      
-    }),
-    indicatorsContainer: (provided, state) => ({
-      ...provided,
-      height: '26px',
-    }),
-    dropdownIndicator: base => ({
-        ...base,
-        color: "#00558d", // Custom colour
-        
-      })
-  };
+  
+  
+
 
   const handleAdd = () => {
     setShowAddModal(true);
@@ -128,8 +104,8 @@ const VehicleServiceTable: React.FC = () => {
   const clearFilters = () => {
     setFromDate(null);
     setToDate(null);
-    setSelectedFilterOption(null); 
     setSearchTerm("");
+    setSelectedFilterOption(null); 
   };
 
   const [filteredData, setFilteredData] = useState(vehicleServiceData);
@@ -287,16 +263,14 @@ const VehicleServiceTable: React.FC = () => {
         <div className="ml-sortMargin mt-1">
           <div className="flex text-xs space-x-3">
             <div className="mt-[1rem]">
-          <Select
-              options={singleOptions}
-              placeholder="Transport Cooperative"
-              value={selectedFilterOption}
-              onChange={(newValue: CustomOption | null) => setSelectedFilterOption(newValue)}
-              styles={customSingleSelectStyles}
-            />
+            <TransportCoopDropdown
+            options={singleOptions}
+            value={selectedFilterOption} 
+            onChange={(newValue: CustomOption | null) => setSelectedFilterOption(newValue || selectedFilterOption)}
+          />
             </div>
             <div className="search-container relative mt-[1.05rem]">
-        <input
+            <input
           type="text"
           placeholder="Filter in Records..."
           value={searchTerm}
@@ -311,6 +285,7 @@ const VehicleServiceTable: React.FC = () => {
       </div>
 
 
+
             <div className="clearfilter relative flex items-center mt-4">
               <button
                 className=" border border-buttonDarkTeal rounded-md p-1 h-7 text-buttonDarkTeal font-semibold text-xs"
@@ -322,7 +297,7 @@ const VehicleServiceTable: React.FC = () => {
             <div className="flex-row mt-4">
               {" "}
               <button
-                className=" bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "
+                className=" hover:bg-blue-600 transition-colors duration-300 bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10   "
                 onClick={handleExcelDownload}
               >
                 Download <IoMdDownload className="ml-1" />
@@ -440,8 +415,8 @@ const VehicleServiceTable: React.FC = () => {
      
 
       <div className="flex justify-end -mt-1 mr-44">
-        <button className="flex items-center text-blue-900" onClick={handleAdd}> 
-      <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
+        <button className="hover:text-blue-600 transition-colors duration-300 flex items-center text-blue-900" onClick={handleAdd}> 
+      <FaPlus className="hover:text-blue-600 transition-colors duration-300 text-blue-900 text-xxs cursor-pointer" />
       <span className="ml-1 text-xxs font-bold">Add</span>
     </button>
   </div>

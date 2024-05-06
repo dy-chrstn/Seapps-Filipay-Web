@@ -1,8 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy, Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
 import MessageAction from "../Actions/messageAction";
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
@@ -13,21 +12,37 @@ import vehicleApi from "../../../../api/vehicle";
 import { Vehicle } from "../../../../interface/client";
 import coopApi from "../../../../api/coop";
 import ClipLoader from "react-spinners/ClipLoader";
+import TransportCoopDropdown from '../Filters/transportcoopdropdown';
+import AddDetailsAction from '../Actions/AddAction/ClientTables/VehicleAdd';
+
 
 const VehicleTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [vehicleData, setVehicleData] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false); 
 
   
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
   const [filterBy, setFilterBy] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedFilterOption, setSelectedFilterOption] = useState<any>(null);
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+
+
+  const singleOptions = [
+    { value: "Transport Cooperative", label: "Transport Cooperative" },
+    { value: "Transport Corporation", label: "Transport Corporation" }
+  ];
+  
+  interface CustomOption {
+    value: string;
+    label: string;
+  }
 
   const handleRemoveRecipient = () => {
     setSelectedRow((prevRow: any) => ({
@@ -45,6 +60,9 @@ const VehicleTable: React.FC = () => {
     setShowModal(false);
   };
 
+  const handleAdd = () => {
+    setShowAddModal(true);
+  };
 
   const handleItemsPerPageChange = (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -73,6 +91,8 @@ const VehicleTable: React.FC = () => {
     setToDate(null);
     setFilterBy("all");
     setSearchTerm("");
+    setSelectedFilterOption(null); // Clear the selected option
+
   };
 
   const [filteredData, setFilteredData] = useState(vehicleData);
@@ -353,32 +373,29 @@ const VehicleTable: React.FC = () => {
               minDate={fromDate}
             />
           </div>
-          <div className=" ml-3">
-            <select
-              id="filter"
-              name="filter"
-              className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
-              value={filterBy}
-              onChange={handleChangeFilterBy}
-            >
-              <option value="all">All</option>
-              <option value="Transport Cooperative">
-                Transport Cooperative
-              </option>
-              <option value="Transport Corperation">
-                Transport Corporation
-              </option>
-            </select>
+          <div className=" ml-3 mt-4">
+          <TransportCoopDropdown
+            options={singleOptions}
+            value={selectedFilterOption} 
+            onChange={(newValue: CustomOption | null) => setSelectedFilterOption(newValue || selectedFilterOption)}
+          />
+
+
           </div>
 
           <div className="search-container flex items-center mt-4">
-            <input
-              type="text"
-              placeholder="Filter in Records..."
-              value={searchTerm}
-              onChange={handleChangeSearch}
-              className="h-7 border border-gray-300 rounded-md py-1 px-2 "
-            />
+          <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[15.5rem] 2xl:right-[10.4rem] top-[8.60rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
           </div>
 
           <div className="clearfilter relative flex items-center mt-4">
@@ -392,7 +409,7 @@ const VehicleTable: React.FC = () => {
           <div className="flex-row mt-4">
             {" "}
             <button
-              className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "
+              className="hover:bg-blue-600 transition-colors duration-300 bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "
               onClick={handleExcelDownload}
             >
               Download <IoMdDownload className="ml-1" />
@@ -518,13 +535,25 @@ const VehicleTable: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
+      <div className="flex justify-end -mt-1">
+        <button className="hover:text-blue-600 transition-colors duration-300 flex items-center text-blue-900" onClick={handleAdd}> 
+      <FaPlus className="hover:text-blue-600 transition-colors duration-300 text-blue-900 text-xxs cursor-pointer" />
+      <span className="ml-1 text-xxs font-bold">Add</span>
+    </button>
+  </div>
+
+ {/* Modal for AddDetailsAction */}
+ {showAddModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <AddDetailsAction onClose={() => setShowAddModal(false)} />
+          </div>
         </div>
+      )}
+
+
       </div>
-    </div>
   );
 };
 

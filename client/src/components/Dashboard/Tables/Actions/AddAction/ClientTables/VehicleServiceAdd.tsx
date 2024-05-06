@@ -161,7 +161,7 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           <button className="border border-gray-500 text-xxxs font-bold text-gray-700 py-1 px-4 rounded-md" onClick={handleDeleteModal}>
             DELETE
           </button>
-          <button className="ml-2 bg-blue-800 text-xxxs font-bold text-white py-1 px-4 rounded-md mr-2" onClick={handleSaveChanges}>
+          <button className="hover:bg-blue-600 transition-colors duration-300 ml-2 bg-blue-800 text-xxxs font-bold text-white py-1 px-4 rounded-md mr-2" onClick={handleSaveChanges}>
             SAVE
           </button>
         </div>

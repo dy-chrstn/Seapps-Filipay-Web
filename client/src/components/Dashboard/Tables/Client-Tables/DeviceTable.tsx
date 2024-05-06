@@ -203,7 +203,7 @@ const DeviceTable: React.FC = () => {
             <div className="flex-row mt-4">
               {" "}
               <button
-                className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "
+                className="hover:bg-blue-600 transition-colors duration-300 bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "
                 onClick={handleExcelDownload}
               >
                 Download <IoMdDownload className="ml-1" />

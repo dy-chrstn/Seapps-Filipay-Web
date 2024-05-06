@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Table.css";
 import "react-calendar/dist/Calendar.css";
-import Select, {StylesConfig } from "react-select";
+import TransportCoopDropdown from '../Filters/transportcoopdropdown';
 
 
 interface Row {
@@ -33,10 +33,11 @@ interface Row {
   status: string;
 }
 
-interface CustomOption {
+interface TransportCoopOption {
   value: string;
   label: string;
 }
+
 
 
 const TransportCoopTable: React.FC = () => {
@@ -45,49 +46,18 @@ const TransportCoopTable: React.FC = () => {
   const [showEditModal, setShowEditModal] = useState(false); 
   const [showAddModal, setShowAddModal] = useState(false); 
   const [selectedRow, setSelectedRow] = useState<any>(null);
-  const [selectedSingleOption, setSelectedSingleOption] = useState<CustomOption | null>(null);
-  const [selectedFilterOption, setSelectedFilterOption] = useState<CustomOption | null>(null);
+  const [selectedFilterOption, setSelectedFilterOption] = useState<TransportCoopOption | null>(null);
 
 
-
+  interface CustomOption {
+    value: string;
+    label: string;
+  }
 
   const singleOptions: CustomOption[] = [
     { value: "Transport Cooperative", label: "Transport Cooperative" },
     { value: "Transport Corporation", label: "Transport Corporation" }
   ];
-
-  
-  const customSingleSelectStyles: StylesConfig<CustomOption, false> = {
-    control: (provided, state) => ({
-      ...provided,
-      minHeight: '28px',
-      height: '28px',
-      
-    }),
-    valueContainer: (provided, state) => ({
-        ...provided,
-        padding: '0 5px'
-        
-      }),
-      input: (provided, state) => ({
-      ...provided,
-      margin: '0px',
-      
-    }),
-    indicatorSeparator: state => ({
-      display: 'none',
-      
-    }),
-    indicatorsContainer: (provided, state) => ({
-      ...provided,
-      height: '26px',
-    }),
-    dropdownIndicator: base => ({
-        ...base,
-        color: "#00558d", // Custom colour
-        
-      })
-  };
 
 
   const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -521,9 +491,9 @@ const columns: Column<Row>[] = useMemo(
       {
         Header: "ACTION",
         Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> 
-            <FaEdit onClick={() => handleEdit(row)} /> 
+          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal ">
+            <TiMessages className="hover:text-blue-600 transition-colors duration-300"  onClick={() => toggleModal(row)} /> 
+            <FaEdit className="hover:text-blue-600 transition-colors duration-300" onClick={() => handleEdit(row)} /> 
           </div>
         ),
         disableSortBy: true, // Disable sorting for this column
@@ -579,14 +549,11 @@ const columns: Column<Row>[] = useMemo(
             />
           </div>
           <div className=" ml-3 mt-[1.1rem]">
-             <Select
-              options={singleOptions}
-              placeholder="Transport Cooperative"
-              value={selectedFilterOption}
-              onChange={(newValue: CustomOption | null) => setSelectedFilterOption(newValue)}
-              styles={customSingleSelectStyles}
-            />
-
+          <TransportCoopDropdown
+            options={singleOptions}
+            value={selectedFilterOption} 
+            onChange={(newValue: CustomOption | null) => setSelectedFilterOption(newValue || selectedFilterOption)}
+          />
         </div>
 
           <div className="search-container relative mt-[1.05rem]">
@@ -616,7 +583,7 @@ const columns: Column<Row>[] = useMemo(
         </div>
         <div className="flex-row mt-4">
           {" "}
-          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xxs flex items-center -mr-10 "  onClick={handleExcelDownload} >
+          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xxs flex items-center -mr-10  hover:bg-blue-600 transition-colors duration-300 "  onClick={handleExcelDownload} >
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
@@ -753,8 +720,8 @@ const columns: Column<Row>[] = useMemo(
 
         </div>
         <div className="flex justify-end -mt-5">
-        <button className="flex items-center text-blue-900" onClick={handleAdd}> 
-      <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
+        <button className="flex items-center text-blue-900  hover:text-blue-600 transition-colors duration-300" onClick={handleAdd}> 
+      <FaPlus className="text-blue-900 text-xxs cursor-pointer hover:text-blue-600 transition-colors duration-300" />
       <span className="ml-1 text-xxs font-bold">Add</span>
     </button>
   </div>

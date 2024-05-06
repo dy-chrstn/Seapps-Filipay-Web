@@ -33,9 +33,6 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
   };
 
   const handleSaveChanges = () => {
-    // Logic to save edited data
-    // You can send addedData to your backend or update it in your state
-    // After saving, you may also close the modal
     onClose();
   };
 
@@ -44,25 +41,21 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
   };
 
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Logic to handle logo upload
     const file = e.target.files?.[0];
     if (file) {
-      // Handle file upload
     }
   };
 
   const handleRemoveLogo = () => {
-    // Logic to remove logo
-    // You can set addedData.logo to an empty string or null
+
     setAddedData((prevData: any) => ({
       ...prevData,
-      logo: "", // or null
+      logo: "", 
     }));
   };
 
   const handleViewLogo = () => {
-    // Logic to view logo
-    // You can implement a modal or some other method to display the logo
+   
   };
 
   const customStyles = {
@@ -96,7 +89,7 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
     }),
     dropdownIndicator: (base: any)=> ({
       ...base,
-      color: "#00558d", // Custom colour
+      color: "#00558d", 
     })
   };
 
@@ -321,7 +314,7 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
 
           <div className="flex justify-end mt-2">
             <button className="border border-gray-500 text-xxxs font-bold text-gray-700 py-1 px-4 rounded-md" onClick={handleDeleteModal}>DELETE</button>
-            <button className="ml-2 bg-blue-800 text-xxxs font-bold text-white py-1 px-4 rounded-md mr-2" onClick={handleSaveChanges}>SAVE</button>
+            <button className="ml-2 hover:bg-blue-600 transition-colors duration-300 bg-blue-800 text-xxxs font-bold text-white py-1 px-4 rounded-md mr-2" onClick={handleSaveChanges}>SAVE</button>
           </div>
         </div>
       </div>

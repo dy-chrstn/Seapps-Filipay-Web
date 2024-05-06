@@ -7,6 +7,7 @@ import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
+import TransportCoopDropdown from '../../Filters/transportcoopdropdown';
 
 interface Row {
   id: number;
@@ -17,10 +18,28 @@ interface Row {
   LoadSales: string;
   CardSales: string;
 }
+
+interface TransportCoopOption {
+  value: string;
+  label: string;
+}
+
+interface CustomOption {
+  value: string;
+  label: string;
+}
+
+const singleOptions: CustomOption[] = [
+  { value: "Transport Cooperative", label: "Transport Cooperative" },
+  { value: "Transport Corporation", label: "Transport Corporation" }
+];
+
+
 const  AccountManagementTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow] = useState<any>(null);
+  const [selectedFilterOption, setSelectedFilterOption] = useState<TransportCoopOption | null>(null);
 
   
 //   const handleRemoveRecipient = () => {
@@ -311,16 +330,13 @@ const columns: Column<Row>[] = useMemo(
             />
           </div>
           <div className=" ml-3">
-          <select
-            id="filter"
-            name="filter"
-            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
-                   value={filterBy}
-        onChange={handleChangeFilterBy} >
-            <option value="all">All</option>
-            <option value="Transport Cooperative">Transport Cooperative</option>
-            <option value="Transport Corperation">Transport Corporation</option>
-          </select>
+          <TransportCoopDropdown
+            options={singleOptions}
+            value={singleOptions.find(option => option.label === "Transport Cooperative") || null}
+            onChange={(newValue: TransportCoopOption | null) =>
+              setSelectedFilterOption(newValue)
+            }
+          />
         </div>
 
         <div className="search-container w-[20%] flex items-center mt-4">
