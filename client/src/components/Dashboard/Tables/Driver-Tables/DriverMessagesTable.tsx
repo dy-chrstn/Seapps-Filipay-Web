@@ -28,16 +28,17 @@ const DriverMessagesTable: React.FC = () => {
     setShowEditModal(false);
   };
 
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
+
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
     setShowModal(true);
   };
 
-  const handleEdit = (row: any) => {
-    setSelectedRow(row.original);
-    setShowEditModal(true); 
-  };
 
   const closeModal = () => {
     setShowModal(false);
