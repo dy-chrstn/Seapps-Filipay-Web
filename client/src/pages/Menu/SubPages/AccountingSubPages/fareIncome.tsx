@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
-import FareIncomeTable from '../../../../components/Dashboard/Tables/AccountingSystem/FareIncome/FareIncomeTable';
+import FareIncomeTable from '../../../../components/Dashboard/Tables/AccountingSystem/FareIncomeTable';
 
 const FareIncome: React.FC = () => {
 

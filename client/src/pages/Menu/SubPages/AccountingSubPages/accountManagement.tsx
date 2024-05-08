@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
-import AccountManagementTable from '../../../../components/Dashboard/Tables/AccountingSystem/AccountManagement/AccountManagementTable'
+import AccountManagementTable from '../../../../components/Dashboard/Tables/AccountingSystem/AccountManagementTable'
 const AccountManagement: React.FC = () => {
 
     const [menuOpen, setMenuOpen] = useState(false)

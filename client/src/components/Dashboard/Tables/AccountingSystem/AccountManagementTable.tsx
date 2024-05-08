@@ -2,32 +2,45 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import MessageAction from '../../Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import "./CardSales.css";
 import "react-calendar/dist/Calendar.css";
+import TransportCoopDropdown from '../Filters/transportcoopdropdown';
 
 
 interface Row {
   id: number;
-  PassengerNumber: string;
-  Date: string;
-  NameOfCompany: string,
-  DeviceID: string;
-  ReferenceID: string;
-  PaymentMethod: string;
-  Type: string;
-  CardSN: string;
-  Amount: string;
-  ServiceFee: string;
-  status: string;
+  NameOfCompany: string;
+  Code: string,
+  EmailAddress: string;
+  FareIncome: string;
+  LoadSales: string;
+  CardSales: string;
 }
-const LoadSalesTable: React.FC = () => {
+
+interface TransportCoopOption {
+  value: string;
+  label: string;
+}
+
+interface CustomOption {
+  value: string;
+  label: string;
+}
+
+const singleOptions: CustomOption[] = [
+  { value: "Transport Cooperative", label: "Transport Cooperative" },
+  { value: "Transport Corporation", label: "Transport Corporation" }
+];
+
+
+const  AccountManagementTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow] = useState<any>(null);
+  const [selectedFilterOption, setSelectedFilterOption] = useState<TransportCoopOption | null>(null);
 
   
 //   const handleRemoveRecipient = () => {
@@ -101,158 +114,95 @@ const LoadSalesTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Driver",
-      Type: "Card",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Successful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 2,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Distributor",
-      Type: "Card",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Successful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 3,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Distributor",
-      Type: "Card",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Successful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 4,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Distributor",
-      Type: "Card",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Successful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 5,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Driver",
-      Type: "App",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Unsuccessful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 6,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Driver",
-      Type: "App",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "unsuccessful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 7,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Driver",
-      Type: "App",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Successful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 8,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Driver",
-      Type: "App",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Successful",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 9,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Distributor",
-      Type: "App",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Error",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
     {
       id: 10,
-      PassengerNumber: "",
-      Date:"",
       NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Driver",
-      Type: "Card",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Error",
+      Code:"",
+      EmailAddress: "",
+      FareIncome: "",
+      LoadSales: "",
+      CardSales: "",
     },
-    {
-      id: 11,
-      PassengerNumber: "",
-      Date:"",
-      NameOfCompany: "",
-      DeviceID: "",
-      ReferenceID: "",
-      PaymentMethod: "Driver",
-      Type: "Card",
-      CardSN: "",
-      Amount: "",
-      ServiceFee: "",
-      status: "Successful",
-    }
+      
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -260,17 +210,12 @@ const LoadSalesTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.PassengerNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DeviceID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.ReferenceID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.PaymentMethod.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.ServiceFee.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.NameOfCompany.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.FareIncome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.LoadSales.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.CardSales.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -293,7 +238,7 @@ const LoadSalesTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Load_Sales.xlsx';
+  const fileName = 'AccountManagement.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -311,61 +256,31 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-      {
-        Header: "PASSENGER NUMBER",
-        accessor: "PassengerNumber",
-        
-      },
-      {
-        Header: "DATE",
-        accessor: "Date",
-      },
-      {
-        Header: "NAME OF COMPANY",
-        accessor: "NameOfCompany",
-      },
-      {
-        Header: "DEVICE ID",
-        accessor: "DeviceID",
-      },
-      {
-        Header: "REFERENCE ID",
-        accessor: "ReferenceID",
-      },
-      {
-        Header: "PAYMENT METHOD",
-        accessor: "PaymentMethod",
-      },
-      {
-        Header: "TYPE",
-        accessor: "Type",
-      },
-      {
-        Header: "CARD SN",
-        accessor: "CardSN",
-      },
-      {
-        Header: "AMOUNT",
-        accessor: "Amount",
-      },
-      {
-        Header: "SERVICE FEE",
-        accessor: "ServiceFee",
-      },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 td-truncate ${
-              value === "Successful" ? "text-green-500 font-bold" : value === "Error" ? "text-red-500 font-bold" : "text-gray-500 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-      },
+    {
+      Header: "NAME OF COMPANY",
+      accessor: "NameOfCompany",
       
+    },
+    {
+      Header: "CODE",
+      accessor: "Code",
+    },
+    {
+      Header: "EMAIL ADDRESS",
+      accessor: "EmailAddress",
+    },
+    {
+      Header: "FARE INCOME",
+      accessor: "FareIncome",
+    },
+    {
+      Header: "LOAD SALES",
+      accessor: "LoadSales",
+    },
+    {
+      Header: "CARD SALES",
+      accessor: "CardSales",
+    },
     ],
     []
   );
@@ -416,17 +331,15 @@ const columns: Column<Row>[] = useMemo(
             />
           </div>
           <div className=" ml-3">
-          <select
-            id="filter"
-            name="filter"
-            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
-                   value={filterBy}
-        onChange={handleChangeFilterBy} >
-            <option value="all">All</option>
-            <option value="Transport Cooperative">Transport Cooperative</option>
-            <option value="Transport Corperation">Transport Corporation</option>
-          </select>
+          <TransportCoopDropdown
+            options={singleOptions}
+            value={singleOptions.find(option => option.label === "Transport Cooperative") || null}
+            onChange={(newValue: TransportCoopOption | null) =>
+              setSelectedFilterOption(newValue)
+            }
+          />
         </div>
+
         <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
@@ -478,12 +391,12 @@ const columns: Column<Row>[] = useMemo(
         <table
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
-          <thead className="text-white">
+          <thead className="text-white ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.60rem] 2xl:text-[.70rem]"
+                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
@@ -502,7 +415,7 @@ const columns: Column<Row>[] = useMemo(
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center  text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -513,7 +426,6 @@ const columns: Column<Row>[] = useMemo(
     rows.map((row) => {
       prepareRow(row);
       return (
-        <>
         <tr
           {...row.getRowProps()}
           className={`border-b border-gray-200 ${
@@ -522,19 +434,15 @@ const columns: Column<Row>[] = useMemo(
         >
           {row.cells.map((cell) => {
             return (
-              <>
               <td
                 {...cell.getCellProps()}
-                className="border-t border-l border-gray-400 border-r px-1.5 py-2 td-truncate text-black font-medium"
+                className="border border-gray-300 px-1.5 py-4 td-truncate"
               >
                 {cell.render("Cell")}
-              
               </td>
-              </>
             );
           })}
         </tr>
-        </> 
       );
     })
   )}
@@ -545,14 +453,14 @@ const columns: Column<Row>[] = useMemo(
       {columns.map((column, columnIndex) => (
         <td
           key={column.id}
-          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-400
-          ${columnIndex === 0 ? `border-l border-gray-400 bg-white`
-          : columnIndex === 8 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
-          : columnIndex === 9 ? `bg-blue-300 border-t border-l border-gray-400` 
-          : columnIndex === 10 ? `bg-blue-300 border-r border-t border-gray-400` 
+          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-300 hover:bg-blue-400
+          ${columnIndex === 0 ? `border-l border-gray-300 bg-white`
+          : columnIndex === 3 ? `bg-blue-300 border-l border-t border-b border-gray-300 ` 
+          : columnIndex === 4 ? `bg-blue-300 border-t border-l border-gray-300` 
+          : columnIndex === 5 ? `bg-blue-300 border-r border-l border-t border-gray-300` 
           : `bg-white`}`}
         >
-          {columnIndex === 7 ? "TOTAL" : ""}
+          {columnIndex === 2 ? "TOTAL" : ""}
         </td>
       ))}
     </tr>
@@ -603,4 +511,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default LoadSalesTable;
+export default AccountManagementTable;

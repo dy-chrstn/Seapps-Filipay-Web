@@ -1,54 +1,42 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaPlus, FaSearch } from "react-icons/fa";
+import {FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import MessageAction from '../../Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import EditDetailsAction from "../Actions/EditAction/ClientTables/TransportCoopEdit";
+import './AccountingSystem.css'
 import "react-calendar/dist/Calendar.css";
-import TransportCoopDropdown from '../../Filters/transportcoopdropdown';
+
 
 interface Row {
   id: number;
-  NameOfCompany: string;
-  Code: string,
-  EmailAddress: string;
+  DriverName: string;
+  VehicleCode: string,
+  Origin: string;
+  Destination: string;
+  Cash: string;
   FareIncome: string;
-  LoadSales: string;
-  CardSales: string;
+  Total: string;
 }
-
-interface TransportCoopOption {
-  value: string;
-  label: string;
-}
-
-interface CustomOption {
-  value: string;
-  label: string;
-}
-
-const singleOptions: CustomOption[] = [
-  { value: "Transport Cooperative", label: "Transport Cooperative" },
-  { value: "Transport Corporation", label: "Transport Corporation" }
-];
-
-
-const  AccountManagementTable: React.FC = () => {
+const CashIncomeTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRow] = useState<any>(null);
-  const [selectedFilterOption, setSelectedFilterOption] = useState<TransportCoopOption | null>(null);
-
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
   
-//   const handleRemoveRecipient = () => {
-//     setSelectedRow((prevRow: any) => ({
-//       ...prevRow,
-//       email: "" 
-//     }));
-//   };
 
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
+  
   const closeModal = () => {
     setShowModal(false);
   };
@@ -103,6 +91,7 @@ const  AccountManagementTable: React.FC = () => {
     setSearchTerm("")
   }
 
+
   // const clearFilters = () => {
   //   setFromDate(null);
   //   setToDate(null);
@@ -113,95 +102,114 @@ const  AccountManagementTable: React.FC = () => {
   const [data] = useState([
     {
       id: 1,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 2,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 3,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 4,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 5,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 6,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 7,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 8,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 9,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
     {
       id: 10,
-      NameOfCompany: "",
-      Code:"",
-      EmailAddress: "",
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
       FareIncome: "",
-      LoadSales: "",
-      CardSales: "",
+      Total: "",
     },
-      
+    {
+      id: 11,
+      DriverName: "",
+      VehicleCode:"",
+      Origin: "",
+      Destination: "",
+      Cash: "",
+      FareIncome: "",
+      Total: "",
+    }
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -209,12 +217,13 @@ const  AccountManagementTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.NameOfCompany.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DriverName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Cash.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.FareIncome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.LoadSales.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.CardSales.toLowerCase().includes(searchTerm.toLowerCase())
+        item.Total.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -237,7 +246,7 @@ const  AccountManagementTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'AccountManagement.xlsx';
+  const fileName = 'Cash_Income.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -255,31 +264,46 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-    {
-      Header: "NAME OF COMPANY",
-      accessor: "NameOfCompany",
+      {
+        Header: "DRIVER NAME",
+        accessor: "DriverName",
+        
+      },
+      {
+        Header: "VEHICLE CODE",
+        accessor: "VehicleCode",
+      },
+      {
+        Header: "ORIGIN",
+        accessor: "Origin",
+      },
+      {
+        Header: "DESTINATION",
+        accessor: "Destination",
+      },
+      {
+        Header: "CASH",
+        accessor: "Cash",
+      },
+      {
+        Header: "FARE INCOME",
+        accessor: "FareIncome",
+      },
+      {
+        Header: "TOTAL",
+        accessor: "Total",
+      },
+      {
+        Header: "ACTION",
+        Cell: ({row}) => (
+          <>
+           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
+           <FaEdit className = "edit-icon" onClick={() => handleEdit(row)} />
+            </div>
+          </>
+        ),
+      },
       
-    },
-    {
-      Header: "CODE",
-      accessor: "Code",
-    },
-    {
-      Header: "EMAIL ADDRESS",
-      accessor: "EmailAddress",
-    },
-    {
-      Header: "FARE INCOME",
-      accessor: "FareIncome",
-    },
-    {
-      Header: "LOAD SALES",
-      accessor: "LoadSales",
-    },
-    {
-      Header: "CARD SALES",
-      accessor: "CardSales",
-    },
     ],
     []
   );
@@ -330,15 +354,17 @@ const columns: Column<Row>[] = useMemo(
             />
           </div>
           <div className=" ml-3">
-          <TransportCoopDropdown
-            options={singleOptions}
-            value={singleOptions.find(option => option.label === "Transport Cooperative") || null}
-            onChange={(newValue: TransportCoopOption | null) =>
-              setSelectedFilterOption(newValue)
-            }
-          />
+          <select
+            id="filter"
+            name="filter"
+            className="mt-4 w-fit py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
+                   value={filterBy}
+        onChange={handleChangeFilterBy} >
+            <option value="all">All</option>
+            <option value="Transport Cooperative">Transport Cooperative</option>
+            <option value="Transport Corperation">Transport Corporation</option>
+          </select>
         </div>
-
         <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
@@ -390,31 +416,22 @@ const columns: Column<Row>[] = useMemo(
         <table
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
-          <thead className="text-white ">
+          <thead className="text-white">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-4 text-left text-[.70rem] 2xl:text-[.90rem]"
+                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.60rem] 2xl:text-[.70rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <FaSortDown />
-                        ) : (
-                          <FaSortUp />
-                        )
-                      ) : (
-                        <FaSort />
-                      )}
                     </div>
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className="text-center  text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -425,6 +442,7 @@ const columns: Column<Row>[] = useMemo(
     rows.map((row) => {
       prepareRow(row);
       return (
+        <>
         <tr
           {...row.getRowProps()}
           className={`border-b border-gray-200 ${
@@ -433,15 +451,19 @@ const columns: Column<Row>[] = useMemo(
         >
           {row.cells.map((cell) => {
             return (
+              <>
               <td
                 {...cell.getCellProps()}
-                className="border border-gray-300 px-1.5 py-4 td-truncate"
+                className="border-t border-l border-gray-400 border-r px-1.5 py-2 td-truncate text-black font-medium"
               >
                 {cell.render("Cell")}
+              
               </td>
+              </>
             );
           })}
         </tr>
+        </> 
       );
     })
   )}
@@ -452,14 +474,14 @@ const columns: Column<Row>[] = useMemo(
       {columns.map((column, columnIndex) => (
         <td
           key={column.id}
-          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-300 hover:bg-blue-400
-          ${columnIndex === 0 ? `border-l border-gray-300 bg-white`
-          : columnIndex === 3 ? `bg-blue-300 border-l border-t border-b border-gray-300 ` 
-          : columnIndex === 4 ? `bg-blue-300 border-t border-l border-gray-300` 
-          : columnIndex === 5 ? `bg-blue-300 border-r border-l border-t border-gray-300` 
+          className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-400
+          ${columnIndex === 0 ? `border-l border-gray-400 bg-white`
+          : columnIndex === 4 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
+          : columnIndex === 5 ? `bg-blue-300 border-t border-l border-gray-400` 
+          : columnIndex === 6 ? `bg-blue-300 border-r border-t border-l border-gray-400` 
           : `bg-white`}`}
         >
-          {columnIndex === 2 ? "TOTAL" : ""}
+          {columnIndex === 3 ? "TOTAL" : ""}
         </td>
       ))}
     </tr>
@@ -483,16 +505,28 @@ const columns: Column<Row>[] = useMemo(
 
       </div>
       {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+          <MessageAction
+            recipient={selectedRow.email}
+            onClose={closeModal}
+          />
+          </div>
+        </div>
+      )}
+
+      {showEditModal && selectedRow && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+              <EditDetailsAction
+                rowData={selectedRow}
+                onClose={closeEditModal}
+              />
+            </div>
+          </div>
+        )}
 
 
       </div>
@@ -510,4 +544,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default AccountManagementTable;
+export default CashIncomeTable;

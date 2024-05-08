@@ -1,31 +1,61 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import {FaEdit, FaPlus, FaSearch } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import MessageAction from '../../Actions/messageAction';
+import { TiMessages } from "react-icons/ti";
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import "./CardSales.css";
 import "react-calendar/dist/Calendar.css";
-
+import EditDetailsAction from "../Actions/EditAction/ClientTables/TransportCoopEdit";
+import './AccountingSystem.css'
 
 interface Row {
   id: number;
-  DriverName: string;
-  VehicleCode: string,
+  PassengerNumber: string;
+  Date: string,
+  CardSN: string;
+  DeviceID: string;
   Origin: string;
   Destination: string;
-  Cash: string;
-  FareIncome: string;
-  Total: string;
+  DistanceTravelled: string;
+  TypeOfPassenger: string;
+  ModeOfTransport:string;
+  PlateNumber: string;
+  StartDate: string;
+  EndDate: string;
+  RideFee: string;
+  status: string;
 }
-const CashIncomeTable: React.FC = () => {
+const FareIncomeTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRow] = useState<any>(null);
-
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
   
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
+  
+//   const handleRemoveRecipient = () => {
+//     setSelectedRow((prevRow: any) => ({
+//       ...prevRow,
+//       email: "" 
+//     }));
+//   };
+
+  const toggleModal = (row: any) => {
+    setSelectedRow(row.original);
+    setShowModal(true);
+  };
+
   const closeModal = () => {
     setShowModal(false);
   };
@@ -80,124 +110,200 @@ const CashIncomeTable: React.FC = () => {
     setSearchTerm("")
   }
 
-
-  // const clearFilters = () => {
-  //   setFromDate(null);
-  //   setToDate(null);
-  //   setFilterBy("all");
-  //   setSearchTerm("");
-  // };
+  const clearFilters = () => {
+    setFromDate(null);
+    setToDate(null);
+    setFilterBy("all");
+    setSearchTerm("");
+  };
   
   const [data] = useState([
     {
       id: 1,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Regular",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 2,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Student",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 3,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Regular",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 4,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Student",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 5,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Regular",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Unsuccessful",
     },
     {
       id: 6,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Student",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Unsuccessful",
     },
     {
       id: 7,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "PWD",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 8,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Senior Citizen",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Successful",
     },
     {
       id: 9,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "Senior Citizen",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Error",
     },
     {
       id: 10,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "PWD",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Error",
     },
     {
       id: 11,
-      DriverName: "",
-      VehicleCode:"",
+      PassengerNumber: "",
+      Date:"",
+      CardSN: "",
+      DeviceID: "",
       Origin: "",
       Destination: "",
-      Cash: "",
-      FareIncome: "",
-      Total: "",
+      DistanceTravelled: "",
+      TypeOfPassenger: "PWD",
+      ModeOfTransport: "Jeepney",
+      PlateNumber: "",
+      StartDate: "",
+      EndDate:"",
+      RideFee: "",
+      status: "Error",
     }
   ]);
 
@@ -206,13 +312,20 @@ const CashIncomeTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.DriverName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.PassengerNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DeviceID.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.Origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.Destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Cash.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.FareIncome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Total.toLowerCase().includes(searchTerm.toLowerCase())
+        item.DistanceTravelled.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TypeOfPassenger.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.ModeOfTransport.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.PlateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.StartDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.EndDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.RideFee.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.status.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -235,7 +348,7 @@ const CashIncomeTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Cash_Income.xlsx';
+  const fileName = 'Card_Sales.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -254,13 +367,21 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "DRIVER NAME",
-        accessor: "DriverName",
+        Header: "PASSENGER NUMBER",
+        accessor: "PassengerNumber",
         
       },
       {
-        Header: "VEHICLE CODE",
-        accessor: "VehicleCode",
+        Header: "DATE",
+        accessor: "Date",
+      },
+      {
+        Header: "CARD SN",
+        accessor: "CardSN",
+      },
+      {
+        Header: "DEVICE ID",
+        accessor: "DeviceID",
       },
       {
         Header: "ORIGIN",
@@ -271,23 +392,55 @@ const columns: Column<Row>[] = useMemo(
         accessor: "Destination",
       },
       {
-        Header: "CASH",
-        accessor: "Cash",
+        Header: "DISTANCE TRAVELLED(KM)",
+        accessor: "DistanceTravelled",
       },
       {
-        Header: "FARE INCOME",
-        accessor: "FareIncome",
+        Header: "TYPE OF PASSENGER",
+        accessor: "TypeOfPassenger",
       },
       {
-        Header: "TOTAL",
-        accessor: "Total",
+        Header: "MODE OF TRANSPORT",
+        accessor: "ModeOfTransport",
       },
+      {
+        Header: "PLATE NUMBER",
+        accessor: "PlateNumber",
+      },
+      {
+        Header: "START DATE",
+        accessor: "StartDate",
+      },
+      {
+        Header: "END DATE",
+        accessor: "EndDate",
+      },
+      {
+        Header: "RIDE FEE",
+        accessor: "RideFee",
+      },
+      {
+        Header: "STATUS",
+        accessor: "status",
+        Cell: ({ value }) => (
+          <div
+            className={`px-1 py-1 td-truncate ${
+              value === "Successful" ? "text-green-500 font-bold" : value === "Error" ? "text-red-500 font-bold" : "text-gray-500 font-bold"
+            }`}
+          >
+            {value}
+          </div>
+        ),
+      },
+      
+
       {
         Header: "ACTION",
-        Cell: () => (
+        Cell: ({ row }) => (
           <>
            <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-             <FaEdit />
+              <TiMessages className = "message-icon" onClick={() => toggleModal(row)} /> 
+              <FaEdit className = "edit-icon" onClick={() => handleEdit(row)} />
             </div>
           </>
         ),
@@ -354,6 +507,7 @@ const columns: Column<Row>[] = useMemo(
             <option value="Transport Corperation">Transport Corporation</option>
           </select>
         </div>
+
         <div className="search-container w-[20%] flex items-center mt-4">
           <input
             type="text"
@@ -414,6 +568,15 @@ const columns: Column<Row>[] = useMemo(
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <FaSortDown />
+                        ) : (
+                          <FaSortUp />
+                        )
+                      ) : (
+                        <FaSort />
+                      )}
                     </div>
                   </th>
                 ))}
@@ -465,12 +628,12 @@ const columns: Column<Row>[] = useMemo(
           key={column.id}
           className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-400
           ${columnIndex === 0 ? `border-l border-gray-400 bg-white`
-          : columnIndex === 4 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
-          : columnIndex === 5 ? `bg-blue-300 border-t border-l border-gray-400` 
-          : columnIndex === 6 ? `bg-blue-300 border-r border-t border-l border-gray-400` 
+          : columnIndex === 12 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
+          : columnIndex === 13 ? `bg-blue-300 border-t border-gray-400` 
+          : columnIndex === 14 ? `bg-blue-300 border-r border-t border-gray-400` 
           : `bg-white`}`}
         >
-          {columnIndex === 3 ? "TOTAL" : ""}
+          {columnIndex === 11 ? "TOTAL" : ""}
         </td>
       ))}
     </tr>
@@ -494,16 +657,28 @@ const columns: Column<Row>[] = useMemo(
 
       </div>
       {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+            <MessageAction
+              recipient={selectedRow.email}
+              onClose={closeModal}
+            />
+            </div>
+          </div>
+        )}
+
+        {showEditModal && selectedRow && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+              <EditDetailsAction
+                rowData={selectedRow}
+                onClose={closeEditModal}
+              />
+            </div>
+          </div>
+        )}
 
 
       </div>
@@ -521,4 +696,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default CashIncomeTable;
+export default FareIncomeTable;

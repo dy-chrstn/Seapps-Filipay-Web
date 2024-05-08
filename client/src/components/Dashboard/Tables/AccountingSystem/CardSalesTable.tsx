@@ -1,9 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,25 +12,17 @@ import "react-calendar/dist/Calendar.css";
 
 interface Row {
   id: number;
-  PassengerNumber: string;
-  Date: string,
-  CardSN: string;
-  DeviceID: string;
-  Origin: string;
-  Destination: string;
-  DistanceTravelled: string;
-  TypeOfPassenger: string;
-  ModeOfTransport:string;
-  PlateNumber: string;
-  StartDate: string;
-  EndDate: string;
-  RideFee: string;
-  status: string;
+  DistributorTransportCooperative: string;
+  AccountNumber: string;
+  CardSN: string,
+  Type: string;
+  NumberOfCardsSold: string;
+  Amount: string;
 }
-const FareIncomeTable: React.FC = () => {
+const CardSalesTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [selectedRow] = useState<any>(null);
 
   
 //   const handleRemoveRecipient = () => {
@@ -40,11 +31,6 @@ const FareIncomeTable: React.FC = () => {
 //       email: "" 
 //     }));
 //   };
-
-  const toggleModal = (row: any) => {
-    setSelectedRow(row.original);
-    setShowModal(true);
-  };
 
   const closeModal = () => {
     setShowModal(false);
@@ -100,200 +86,112 @@ const FareIncomeTable: React.FC = () => {
     setSearchTerm("")
   }
 
-  const clearFilters = () => {
-    setFromDate(null);
-    setToDate(null);
-    setFilterBy("all");
-    setSearchTerm("");
-  };
+  // const clearFilters = () => {
+  //   setFromDate(null);
+  //   setToDate(null);
+  //   setFilterBy("all");
+  //   setSearchTerm("");
+  // };
   
   const [data] = useState([
     {
       id: 1,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Regular",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Successful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 2,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Student",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Successful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 3,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Regular",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Successful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 4,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Student",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Successful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 5,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Regular",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Unsuccessful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 6,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Student",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Unsuccessful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 7,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "PWD",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Successful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 8,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Senior Citizen",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Successful",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 9,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "Senior Citizen",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Error",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 10,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "PWD",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Error",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     },
     {
       id: 11,
-      PassengerNumber: "",
-      Date:"",
+      DistributorTransportCooperative: "",
+      AccountNumber:"",
       CardSN: "",
-      DeviceID: "",
-      Origin: "",
-      Destination: "",
-      DistanceTravelled: "",
-      TypeOfPassenger: "PWD",
-      ModeOfTransport: "Jeepney",
-      PlateNumber: "",
-      StartDate: "",
-      EndDate:"",
-      RideFee: "",
-      status: "Error",
+      Type: "",
+      NumberOfCardsSold: "",
+      Amount: "",
     }
   ]);
 
@@ -302,20 +200,12 @@ const FareIncomeTable: React.FC = () => {
   useEffect(() => {
     const filtered = data.filter((item) => {
       return (
-        item.PassengerNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DistributorTransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.AccountNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.CardSN.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DeviceID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DistanceTravelled.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TypeOfPassenger.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.ModeOfTransport.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.PlateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.StartDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.EndDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.RideFee.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.Type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.NumberOfCardsSold.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Amount.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -357,82 +247,29 @@ const handleExcelDownload = () => {
 const columns: Column<Row>[] = useMemo(
   () => [
       {
-        Header: "PASSENGER NUMBER",
-        accessor: "PassengerNumber",
+        Header: "DISTRIBUTOR/TRANSPORT COOPERATIVE",
+        accessor: "DistributorTransportCooperative",
         
       },
       {
-        Header: "DATE",
-        accessor: "Date",
+        Header: "ACCOUNT NUMBER",
+        accessor: "AccountNumber",
       },
       {
         Header: "CARD SN",
         accessor: "CardSN",
       },
       {
-        Header: "DEVICE ID",
-        accessor: "DeviceID",
+        Header: "TYPE",
+        accessor: "Type",
       },
       {
-        Header: "ORIGIN",
-        accessor: "Origin",
+        Header: "NUMBER OF CARDS SOLD",
+        accessor: "NumberOfCardsSold",
       },
       {
-        Header: "DESTINATION",
-        accessor: "Destination",
-      },
-      {
-        Header: "DISTANCE TRAVELLED(KM)",
-        accessor: "DistanceTravelled",
-      },
-      {
-        Header: "TYPE OF PASSENGER",
-        accessor: "TypeOfPassenger",
-      },
-      {
-        Header: "MODE OF TRANSPORT",
-        accessor: "ModeOfTransport",
-      },
-      {
-        Header: "PLATE NUMBER",
-        accessor: "PlateNumber",
-      },
-      {
-        Header: "START DATE",
-        accessor: "StartDate",
-      },
-      {
-        Header: "END DATE",
-        accessor: "EndDate",
-      },
-      {
-        Header: "RIDE FEE",
-        accessor: "RideFee",
-      },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 td-truncate ${
-              value === "Successful" ? "text-green-500 font-bold" : value === "Error" ? "text-red-500 font-bold" : "text-gray-500 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-      },
-      
-
-      {
-        Header: "ACTION",
-        Cell: ({ row }) => (
-          <>
-           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-            </div>
-          </>
-        ),
+        Header: "AMOUNT",
+        accessor: "Amount",
       },
       
     ],
@@ -553,7 +390,7 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.60rem] 2xl:text-[.70rem]"
+                  className="py-4 2xl:py-4 text-left text-[.50rem] lg:text-[.70rem] 2xl:text-[.70rem]"
                   >
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
@@ -595,7 +432,7 @@ const columns: Column<Row>[] = useMemo(
               <>
               <td
                 {...cell.getCellProps()}
-                className="border-t border-l border-gray-400 border-r px-1.5 py-2 td-truncate text-black font-medium"
+                className="border-t border-l border-gray-400 border-r px-1.5 py-4 td-truncate text-black font-medium"
               >
                 {cell.render("Cell")}
               
@@ -617,12 +454,12 @@ const columns: Column<Row>[] = useMemo(
           key={column.id}
           className={`text-right pr-4 py-4 font-bold text-[.90rem] text-[#00548C] border-t border-b border-gray-400
           ${columnIndex === 0 ? `border-l border-gray-400 bg-white`
-          : columnIndex === 12 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
-          : columnIndex === 13 ? `bg-blue-300 border-t border-gray-400` 
-          : columnIndex === 14 ? `bg-blue-300 border-r border-t border-gray-400` 
+          : columnIndex === 4 ? `bg-blue-300 border-l border-t border-b border-gray-400 ` 
+          : columnIndex === 5 ? `bg-blue-300 border-t border-l border-gray-400` 
+          : columnIndex === 6 ? `bg-blue-300 border-r border-t border-gray-400` 
           : `bg-white`}`}
         >
-          {columnIndex === 11 ? "TOTAL" : ""}
+          {columnIndex === 3 ? "TOTAL" : ""}
         </td>
       ))}
     </tr>
@@ -673,4 +510,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default FareIncomeTable;
+export default CardSalesTable;
