@@ -7,7 +7,6 @@ const App = () => {
   const [value, setValue] = useState<string>();
 
   useEffect(() => {
-    // Initialize Jodit instance
     const editor = Jodit.make("#editor", {
       "useSearch": false,
       "disablePlugins": "ai-assistant",

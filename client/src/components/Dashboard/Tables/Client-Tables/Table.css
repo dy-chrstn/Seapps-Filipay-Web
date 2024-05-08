@@ -5,4 +5,33 @@
   white-space: nowrap;
 }
 
+.message-icon {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
 
+.message-icon:hover {
+  color: #2563EB; 
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+ 
+.edit-icon {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-icon:hover {
+  color: #2563EB; 
+  transform: scale(1.1); 
+  cursor: pointer;
+}
+
+.trash-icon {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.trash-icon:hover {
+  color: #2563EB; 
+  transform: scale(1.1); 
+  cursor: pointer;
+}

@@ -7,8 +7,9 @@ interface AddDetailsActionProps {
 
 const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
   const [addedData, setAddedData] = useState<any>({
-    serviceType: "",
-    totalUnits: "",
+    code: "",
+    type: "",
+    status: "",
   });
 
   const handleFieldChange = (selectedOption: any) => {
@@ -48,13 +49,13 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
     }),
     menu: (provided: any) => ({
       ...provided,
-      fontSize: "0.78rem",
+      fontSize: "0.68rem",
       width: "150px",
-      marginTop: "-4px",
+      marginTop: "-4px", 
     }),
     option: (provided: any) => ({
       ...provided,
-      fontSize: "0.78rem",
+      fontSize: "0.68rem",
       padding: "0.02rem 0.2rem",
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -71,7 +72,7 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
       <div className="relative bg-white p-4 rounded-lg z-10">
         <div className="flex items-center">
           <h2 className="text-[0.78rem] font-bold mr-auto text-blue-800">
-            Add Details
+            Add Device
           </h2>
           <div className="flex space-x-2">
             <button className="text-sm font-semibold text-gray-500 hover:text-gray-700">
@@ -86,20 +87,32 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </div>
         </div>
 
+        {/* Device Number Field */}
+
         <div className="pl-0 mt-3 flex items-center">
           <label className="text-[0.68rem] font-bold text-black mr-2">
-            Service Type:
+            Device Number:
           </label>
-          <div className="ml-14">
+          <input
+            type="text"
+            value={addedData.code}
+            onChange={(e) =>
+              setAddedData({ ...addedData, code: e.target.value })
+            }
+            className="ml-[3.50rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[9.70rem] h-5"
+          />
+        </div>
+
+        {/* Type Field */}
+        <div className="mt-2 flex items-center">
+          <label className="text-[0.68rem] font-bold text-black mr-2">
+            Type:
+          </label>
+          <div className="ml-[9rem] text-[0.68rem]">
             <Select
               options={[
-                { value: "Provincial Bus", label: "Provincial Bus" },
-                { value: "City Bus", label: "City Bus" },
-                { value: "Jeepney Class 2", label: "Jeepney Class 2" },
-                { value: "UV Express Class 3", label: "UV Express Class 3" },
-                { value: "Airline", label: "Airline" },
-                { value: "Tricycle", label: "Tricycle" },
-                { value: "Ship", label: "Ship" },
+                { value: "Passenger Validator", label: "Passenger Validator" },
+                { value: "Driver’s Monitor", label: "Driver’s Monitor" },
               ]}
               value={
                 addedData.serviceType
@@ -115,28 +128,13 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </div>
         </div>
 
-        {/* Code Field */}
-        <div className="mt-2 flex items-center">
-          <label className="text-[0.68rem] font-bold text-black mr-2">
-            Total Units:
-          </label>
-          <input
-            type="text"
-            value={addedData.totalUnits}
-            onChange={(e) =>
-              setAddedData({ ...addedData, totalUnits: e.target.value })
-            }
-            className="ml-[4.10rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[7.70rem] h-5"
-          />
-        </div>
-
         {/* Status Field */}
         <div className="mt-2 flex items-center">
-          <label className="text-[0.68rem] font-bold text-black mr-2">
+          <label className="text-[0.68rem] font-bold text-black mr-2 ">
             Status:
           </label>
           <div>
-            <label className="ml-[5.20rem] inline-flex items-center text-[0.68rem] space-x-3">
+            <label className="ml-[6.70rem] inline-flex items-center text-[0.68rem] space-x-3">
               <input
                 type="radio"
                 value="Active"
@@ -146,7 +144,7 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
                 }
                 className="form-radio"
               />
-              <span className="ml-2">Active</span>
+              <span className="">Active</span>
             </label>
             <label className="inline-flex items-center ml-2 text-[0.68rem] space-x-3">
               <input
@@ -156,14 +154,14 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
                 onChange={() =>
                   setAddedData({ ...addedData, status: "Inactive" })
                 }
-                className="form-radio"
+                className="form-radio ml-2"
               />
               <span className="ml-2">Inactive</span>
             </label>
           </div>
         </div>
 
-        <div className="flex justify-end mt-3 -mr-2">
+        <div className="flex justify-end mt-4 -mr-2">
           <button
             className="border border-gray-500 text-[0.62rem] font-bold text-gray-700 py-1 px-4 rounded-md"
             onClick={handleDeleteModal}

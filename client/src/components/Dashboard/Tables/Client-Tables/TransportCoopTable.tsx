@@ -492,11 +492,11 @@ const columns: Column<Row>[] = useMemo(
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal ">
-            <TiMessages className="hover:text-blue-600 transition-colors duration-300"  onClick={() => toggleModal(row)} /> 
-            <FaEdit className="hover:text-blue-600 transition-colors duration-300" onClick={() => handleEdit(row)} /> 
+              <TiMessages className = "message-icon" onClick={() => toggleModal(row)} /> 
+            <FaEdit onClick={() => handleEdit(row)}  className = "edit-icon" />
           </div>
         ),
-        disableSortBy: true, // Disable sorting for this column
+        disableSortBy: true, 
       },
       
     ],
@@ -583,7 +583,7 @@ const columns: Column<Row>[] = useMemo(
         </div>
         <div className="flex-row mt-4">
           {" "}
-          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xxs flex items-center -mr-10  hover:bg-blue-600 transition-colors duration-300 "  onClick={handleExcelDownload} >
+          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xxs flex items-center -mr-10  hover:bg-blue-600 transition-colors duration-300"  onClick={handleExcelDownload} >
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
