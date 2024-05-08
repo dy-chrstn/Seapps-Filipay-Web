@@ -110,12 +110,12 @@ const FareIncomeTable: React.FC = () => {
     setSearchTerm("")
   }
 
-  const clearFilters = () => {
-    setFromDate(null);
-    setToDate(null);
-    setFilterBy("all");
-    setSearchTerm("");
-  };
+  // const clearFilters = () => {
+  //   setFromDate(null);
+  //   setToDate(null);
+  //   setFilterBy("all");
+  //   setSearchTerm("");
+  // };
   
   const [data] = useState([
     {
