@@ -3,26 +3,37 @@ import { FaImage } from "react-icons/fa6";
 import { BiSolidFilePdf } from "react-icons/bi";
 import Select from "react-select";
 
-interface EditDetailsActionProps {
-  rowData: any;
-  onClose: () => void;
-}
+interface AddDetailsActionProps {
+    onClose: () => void;
+  }
 
-const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
-  rowData,
+  const AddDetailsAction: React.FC<AddDetailsActionProps> = ({
   onClose,
 }) => {
-  const [editedData, setEditedData] = useState<any>(rowData);
+    const [addedData, setaddedData] = useState<any>({
+        lastName: "",
+        firstName:  "",
+        middleName:  "",
+        contactNumber:  "",
+        dateOfBirth:  "",
+        email :  "",
+        address:  "",
+        classification:  "",
+        cardUID:  "",
+        cardSN:  "",
+        verification:  "",
+        status:  "",
+      });
 
   const handleClassificationChange = (selectedOption: any) => {
-    setEditedData((prevData: any) => ({
-      ...prevData,
+    setaddedData((prevData: any) => ({
+        ...prevData,
       Classification: selectedOption.value,
     }));
   };
 
   const handleTransportChange = (selectedOption: any) => {
-    setEditedData((prevData: any) => ({
+    setaddedData((prevData: any) => ({
       ...prevData,
       transport: selectedOption.value,
     }));
@@ -37,7 +48,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
     onClose();
   };
 
-  const handlePhotoIDUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIdentityVerificationUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
     }
@@ -51,7 +62,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
     }
   };
 
-  const handleBusinessPermitUpload = (
+  const handleBusinessVerificationload = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
@@ -59,30 +70,30 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
     }
   };
 
-  const handleRemovePhotoID = () => {
-    setEditedData((prevData: any) => ({
+  const handleRemoveIdentityVerification = () => {
+    setaddedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
     }));
   };
 
   const handleRemoveSelfieVerification = () => {
-    setEditedData((prevData: any) => ({
+    setaddedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
     }));
   };
 
-  const handleRemoveBusinessPermit = () => {
-    setEditedData((prevData: any) => ({
+  const handleRemoveBusinessVerification = () => {
+    setaddedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
     }));
   };
 
-  const handleViewPhotoID = () => {};
+  const handleViewIdentityVerification = () => {};
   const handleViewSelfieVerification = () => {};
-  const handleViewBusinessPermit = () => {};
+  const handleViewBusinessVerification = () => {};
 
   const customStyles = {
     control: (provided: any) => ({
@@ -125,7 +136,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
       <div className="relative bg-white p-4 rounded-lg z-10">
         <div className="flex items-center">
           <h2 className="text-[0.78rem]  font-bold mr-auto text-blue-800">
-            Edit Details
+            Add Details
           </h2>
           <div className="flex space-x-2">
             <button className="text-sm font-semibold text-gray-500 hover:text-gray-700">
@@ -148,9 +159,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.LastName}
+              value={addedData.lastName}
               onChange={(e) =>
-                setEditedData({ ...editedData, LastName: e.target.value })
+                setaddedData({ ...addedData, lastName: e.target.value })
               }
               className=" text-sky-600 ml-[4.50rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -162,9 +173,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.FirstName}
+              value={addedData.firstName}
               onChange={(e) =>
-                setEditedData({ ...editedData, FirstName: e.target.value })
+                setaddedData({ ...addedData, firstName: e.target.value })
               }
               className=" text-sky-600 ml-[4.50rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -176,9 +187,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.MiddleName}
+              value={addedData.middleName}
               onChange={(e) =>
-                setEditedData({ ...editedData, MiddleName: e.target.value })
+                setaddedData({ ...addedData, middleName: e.target.value })
               }
               className=" text-sky-600 ml-[3.60rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -190,27 +201,31 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.ContactNumber}
+              value={addedData.contactNumber}
               onChange={(e) =>
-                setEditedData({ ...editedData, ContactNumber: e.target.value })
+                setaddedData({ ...addedData, contactNumber: e.target.value })
               }
               className=" text-sky-600 ml-[2.60rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
 
-          <div className="mb-3 flex items-center">
+
+                {/* DOB Field */}
+                <div className="mt-2 flex items-center">
             <label className="text-[0.68rem] font-bold text-black mr-2">
-              Driver's License:
+              Date of Birth:
             </label>
             <input
-              type="text"
-              value={editedData.DriversLicense}
+              type="date"
+              value={addedData.dateOfBirth}
               onChange={(e) =>
-                setEditedData({ ...editedData, DriversLicense: e.target.value })
+                setaddedData({ ...addedData, dateOfBirth: e.target.value })
               }
-              className=" text-sky-600 ml-[2.99rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
+              className="ml-[8.60rem] px-0 py-1 border border-gray-400 rounded-md text-[0.68rem] w-[6rem]"
             />
           </div>
+
+       
 
           {/* Email Address Field */}
           <div className="mt-2 flex items-center">
@@ -219,28 +234,29 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.EmailAddress}
+              value={addedData.email}
               onChange={(e) =>
-                setEditedData({ ...editedData, EmailAddress: e.target.value })
+                setaddedData({ ...addedData, email: e.target.value })
               }
               className="text-sky-600 ml-[3.40rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
 
-          {/* DOB Field */}
-          <div className="mt-2 flex items-center">
+         {/* Address Field */}
+         <div className="mt-2 flex items-center">
             <label className="text-[0.68rem] font-bold text-black mr-2">
-              Date of Birth:
+               Address:
             </label>
             <input
-              type="date"
-              value={editedData.DateOfBirth}
+              type="text"
+              value={addedData.address}
               onChange={(e) =>
-                setEditedData({ ...editedData, DateOfBirth: e.target.value })
+                setaddedData({ ...addedData, address: e.target.value })
               }
-              className="ml-[8.60rem] px-0 py-1 border border-gray-400 rounded-md text-[0.68rem] w-[6rem]"
+              className="text-sky-600 ml-[5.40rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
+
 
           {/* Classification Field */}
           <div className="mt-3 flex items-center">
@@ -250,45 +266,21 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             <div className="pl-[4.60rem] mb-2">
             <Select
               options={[
-                { value: "Regular", label: "Regular" },
-                { value: "Non-Regular", label: "Non-Regular" },
+                { value: "Standard", label: "Standard" },
+                { value: "Student", label: "Student" },
+                { value: "PWD", label: "PWD" },
+                { value: "Senior Citizen", label: "Senior Citizen" },
+
+
               ]}
-              value={editedData.Classification ? { value: editedData.Classification, label: editedData.Classification } : null}
+              value={addedData.classification ? { value: addedData.classification, label: addedData.classification } : null}
               onChange={handleClassificationChange}
               styles={customStyles} 
             />
             </div>
           </div>
 
-          <div className="mt-1 flex items-center">
-          <label className="text-[0.68rem] font-bold text-black mr-2 ">
-            Transport Cooperative/
-            <br />
-            Corporation:{" "}
-          </label>
-
-          <div className="ml-[1.50rem] mb-2">
-            <Select
-              options={[
-                {
-                  value: "Transport Cooperative",
-                  label: "Transport Cooperative",
-                },
-                {
-                  value: "Transport Corporation",
-                  label: "Transport Corporation",
-                },
-              ]}
-              value={
-                editedData.TransportCooperative
-                  ? { value: editedData.TransportCooperative, label: editedData.TransportCooperative }
-                  : null
-              }
-              onChange={handleTransportChange}
-              styles={customStyles}
-            />
-          </div>
-        </div>
+          
 
     {/* Card Details Field */}
     <div className="mt-2 flex items-center">
@@ -297,9 +289,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.CardUID}
+              value={addedData.CardUID}
               onChange={(e) =>
-                setEditedData({ ...editedData, CardUID: e.target.value })
+                setaddedData({ ...addedData, CardUID: e.target.value })
               }
               className="text-sky-600 ml-[5.0rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -311,13 +303,123 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.CardSN}
+              value={addedData.CardSN}
               onChange={(e) =>
-                setEditedData({ ...editedData, CardSN: e.target.value })
+                setaddedData({ ...addedData, CardSN: e.target.value })
               }
               className="text-sky-600 ml-[5.30rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
+
+          <div className="">
+            {/* Photo and Selfie FILES */}
+            <div className="mt-3 flex items-center">
+            <label className="text-[0.68rem] font-bold text-black">
+            Identity Verification</label>
+            <div className="ml-[4.25rem] flex items-center">
+              <FaImage className="text-gray-400 text-[1.35rem]" />
+              <label
+                className="text-blue-500 cursor-pointer mr-2 ml-2 text-[0.68rem]"
+                onClick={handleViewIdentityVerification}
+              >
+                View
+              </label>
+              <label
+                className="text-blue-500 cursor-pointer mr-2 text-[0.68rem]"
+                htmlFor="IdentityVerificationUpload"
+              >
+                Upload
+              </label>
+              <input
+                id="IdentityVerificationUpload"
+                type="file"
+                name="logo"
+                onChange={handleIdentityVerificationUpload}
+                className="hidden"
+              />
+              <label
+                className="text-gray-600 cursor-pointer text-[0.68rem]"
+                onClick={handleRemoveIdentityVerification}
+              >
+                Remove
+              </label>
+            </div>
+          </div>
+          </div>
+
+
+          <div className="">
+            {/* Photo and Selfie FILES */}
+            <div className="mt-3 flex items-center">
+            <label className="text-[0.68rem] font-bold text-black">
+            Selfie Verification</label>
+            <div className="ml-[4.90rem] flex items-center">
+              <FaImage className="text-gray-400 text-[1.35rem]" />
+              <label
+                className="text-blue-500 cursor-pointer mr-2 ml-2 text-[0.68rem]"
+                onClick={handleViewSelfieVerification}
+              >
+                View
+              </label>
+              <label
+                className="text-blue-500 cursor-pointer mr-2 text-[0.68rem]"
+                htmlFor="SelfieVerificationUpload"
+              >
+                Upload
+              </label>
+              <input
+                id="IdentityVerificationUpload"
+                type="file"
+                name="Selfie"
+                onChange={handleSelfieVerificationUpload}
+                className="hidden"
+              />
+              <label
+                className="text-gray-600 cursor-pointer text-[0.68rem]"
+                onClick={handleRemoveSelfieVerification}
+              >
+                Remove
+              </label>
+            </div>
+          </div>
+          </div>
+
+
+          <div className="">
+            <div className="mt-3 flex items-center">
+            <label className="text-[0.68rem] font-bold text-black">
+            Business Verification</label>
+            <div className="ml-[3.55rem] flex items-center">
+              <BiSolidFilePdf className="text-gray-400 text-[1.80rem]" />
+              <label
+                className="text-blue-500 cursor-pointer mr-2 ml-2 text-[0.68rem]"
+                onClick={handleViewBusinessVerification}
+              >
+                View
+              </label>
+              <label
+                className="text-blue-500 cursor-pointer mr-2 text-[0.68rem]"
+                htmlFor="BusinessVerificationUpload"
+              >
+                Upload
+              </label>
+              <input
+                id="BusinessVerificationUpload"
+                type="file"
+                name="Business Verification"
+                onChange={handleBusinessVerificationload}
+                className="hidden"
+              />
+              <label
+                className="text-gray-600 cursor-pointer text-[0.68rem]"
+                onClick={handleRemoveBusinessVerification}
+              >
+                Remove
+              </label>
+            </div>
+          </div>
+          </div>
+
 
 
 {/* Status Field */}
@@ -330,9 +432,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
               <input
                 type="radio"
                 value="Active"
-                checked={editedData.status === "Active"}
+                checked={addedData.status === "Active"}
                 onChange={() =>
-                  setEditedData({ ...editedData, status: "Active" })
+                  setaddedData({ ...addedData, status: "Active" })
                 }
                 className="form-radio"
               />
@@ -342,9 +444,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
               <input
                 type="radio"
                 value="Inactive"
-                checked={editedData.status === "Inactive"}
+                checked={addedData.status === "Inactive"}
                 onChange={() =>
-                  setEditedData({ ...editedData, status: "Inactive" })
+                  setaddedData({ ...addedData, status: "Inactive" })
                 }
                 className="form-radio ml-2"
               />
@@ -353,6 +455,11 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
           </div>
         </div>
 
+
+
+
+
+        
 
           <div className="flex justify-end mt-4">
             <button
@@ -374,4 +481,4 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
   );
 };
 
-export default EditDetailsAction;
+export default AddDetailsAction;

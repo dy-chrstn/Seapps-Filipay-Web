@@ -8,7 +8,8 @@ import * as XLSX from "xlsx";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
 import './Rider.css'
-import EditDetailsAction from "../Actions/EditAction/ClientTables/TransportCoopEdit";
+import EditDetailsAction from "../Actions/EditAction/RiderTables/RidersListEdit";
+import AddDetailsAction from '../Actions/AddAction/RiderTables/RidersListAdd';
 
 interface Row {
   id: number;
@@ -30,7 +31,8 @@ const RidersListTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [showEditModal, setShowEditModal] = useState(false); 
-  
+  const [showAddModal, setShowAddModal] = useState(false); 
+
 
   const closeEditModal = () => {
     setShowEditModal(false);
@@ -40,7 +42,10 @@ const RidersListTable: React.FC = () => {
     setSelectedRow(row.original);
     setShowEditModal(true); 
   };
-
+  
+  const handleAdd = () => {
+    setShowAddModal(true);
+  };
 
 
 
@@ -430,18 +435,18 @@ const columns: Column<Row>[] = useMemo(
       <div className="datepickers mr-10 flex text-xs space-x-3">
         <div className=" ml-auto w-[20%]">
           <div className="search-container w-full flex items-center mt-4">
-            <input
-              type="text"
-              placeholder="Filter in Records..."
-              value={searchString}
-              onChange={handleFilterRecords}
-              onKeyDown={handleEnterButton}
-              className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
-            <FaSearch
-              onClick={handleChangeSearch}
-              className = "absolute right-[7.2rem] lg:right-[8.2rem] 2xl:right-[10.4rem]"
-            size = {17} 
-            color = "#00548C"/>
+          <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[9.2rem] lg:right-[8.20rem] 2xl:right-[10.4rem] top-[8.50rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
           </div>
         </div>
         <div className="flex-row mt-4">
@@ -581,14 +586,27 @@ const columns: Column<Row>[] = useMemo(
 
 
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-        <FaPlus className="text-blue-900 text-xxs cursor-pointer " />
-        <span className="ml-1 text-xxs font-bold transit  hover:text-blue-600 transition-colors duration-300">Add</span>
-        </div>      
+      <div className="flex justify-end -mt-5">
+        <button className="flex items-center text-blue-900  hover:text-blue-600 transition-colors duration-300" onClick={handleAdd}> 
+      <FaPlus className="text-blue-900 text-xxs cursor-pointer hover:text-blue-600 transition-colors duration-300" />
+      <span className="ml-1 text-xxs font-bold">Add</span>
+    </button>
+  </div> 
+
+  
+ {/* Modal for AddDetailsAction */}
+ {showAddModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <AddDetailsAction onClose={() => setShowAddModal(false)} />
+          </div>
+        </div>
+      )}
+
 </div>
 
-    </div>
+  
     
 
     

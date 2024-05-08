@@ -9,7 +9,7 @@ import "react-calendar/dist/Calendar.css";
 import Select, { MultiValue, ActionMeta, StylesConfig } from "react-select";
 import { useNavigate } from 'react-router-dom';
 import './Rider.css'
-import EditDetailsAction from "../Actions/EditAction/ClientTables/TransportCoopEdit";
+import EditDetailsAction from "../Actions/EditAction/RiderTables/RideHistoryEdit";
 
 interface Row {
   id: number;
@@ -629,18 +629,18 @@ const columns: Column<Row>[] = useMemo(
                 styles={customSingleSelectStyles}
               />
               <div className="search-container w-[20%] flex items-center">
-                <input
-                  type="text"
-                  placeholder="Filter in Records..."
-                  value={searchString}
-                  onChange={handleFilterRecords}
-                  onKeyDown={handleEnterButton}
-                  className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
-                <FaSearch
-                  onClick={handleChangeSearch}
-                  className = "absolute right-[7.2rem] lg:right-[8.2rem] 2xl:right-[10.4rem]"
-                size = {17} 
-                color = "#00548C"/>
+              <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[8.25rem] 2xl:right-[10.4rem] top-[7.60rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
               </div>
 
               

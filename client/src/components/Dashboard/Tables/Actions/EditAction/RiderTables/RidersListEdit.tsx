@@ -37,7 +37,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
     onClose();
   };
 
-  const handlePhotoIDUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIdentityVerificationUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
     }
@@ -51,7 +51,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
     }
   };
 
-  const handleBusinessPermitUpload = (
+  const handleBusinessVerificationload = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
@@ -59,7 +59,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
     }
   };
 
-  const handleRemovePhotoID = () => {
+  const handleRemoveIdentityVerification = () => {
     setEditedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
@@ -73,16 +73,16 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
     }));
   };
 
-  const handleRemoveBusinessPermit = () => {
+  const handleRemoveBusinessVerification = () => {
     setEditedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
     }));
   };
 
-  const handleViewPhotoID = () => {};
+  const handleViewIdentityVerification = () => {};
   const handleViewSelfieVerification = () => {};
-  const handleViewBusinessPermit = () => {};
+  const handleViewBusinessVerification = () => {};
 
   const customStyles = {
     control: (provided: any) => ({
@@ -148,9 +148,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.LastName}
+              value={editedData.lastName}
               onChange={(e) =>
-                setEditedData({ ...editedData, LastName: e.target.value })
+                setEditedData({ ...editedData, lastName: e.target.value })
               }
               className=" text-sky-600 ml-[4.50rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -162,9 +162,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.FirstName}
+              value={editedData.firstName}
               onChange={(e) =>
-                setEditedData({ ...editedData, FirstName: e.target.value })
+                setEditedData({ ...editedData, firstName: e.target.value })
               }
               className=" text-sky-600 ml-[4.50rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -176,9 +176,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.MiddleName}
+              value={editedData.middleName}
               onChange={(e) =>
-                setEditedData({ ...editedData, MiddleName: e.target.value })
+                setEditedData({ ...editedData, middleName: e.target.value })
               }
               className=" text-sky-600 ml-[3.60rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -190,27 +190,31 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.ContactNumber}
+              value={editedData.contactNumber}
               onChange={(e) =>
-                setEditedData({ ...editedData, ContactNumber: e.target.value })
+                setEditedData({ ...editedData, contactNumber: e.target.value })
               }
               className=" text-sky-600 ml-[2.60rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
 
-          <div className="mb-3 flex items-center">
+
+                {/* DOB Field */}
+                <div className="mt-2 flex items-center">
             <label className="text-[0.68rem] font-bold text-black mr-2">
-              Driver's License:
+              Date of Birth:
             </label>
             <input
-              type="text"
-              value={editedData.DriversLicense}
+              type="date"
+              value={editedData.dateOfBirth}
               onChange={(e) =>
-                setEditedData({ ...editedData, DriversLicense: e.target.value })
+                setEditedData({ ...editedData, dateOfBirth: e.target.value })
               }
-              className=" text-sky-600 ml-[2.99rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
+              className="ml-[8.60rem] px-0 py-1 border border-gray-400 rounded-md text-[0.68rem] w-[6rem]"
             />
           </div>
+
+       
 
           {/* Email Address Field */}
           <div className="mt-2 flex items-center">
@@ -219,28 +223,29 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.EmailAddress}
+              value={editedData.email}
               onChange={(e) =>
-                setEditedData({ ...editedData, EmailAddress: e.target.value })
+                setEditedData({ ...editedData, email: e.target.value })
               }
               className="text-sky-600 ml-[3.40rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
 
-          {/* DOB Field */}
-          <div className="mt-2 flex items-center">
+         {/* Address Field */}
+         <div className="mt-2 flex items-center">
             <label className="text-[0.68rem] font-bold text-black mr-2">
-              Date of Birth:
+               Address:
             </label>
             <input
-              type="date"
-              value={editedData.DateOfBirth}
+              type="text"
+              value={editedData.address}
               onChange={(e) =>
-                setEditedData({ ...editedData, DateOfBirth: e.target.value })
+                setEditedData({ ...editedData, address: e.target.value })
               }
-              className="ml-[8.60rem] px-0 py-1 border border-gray-400 rounded-md text-[0.68rem] w-[6rem]"
+              className="text-sky-600 ml-[5.40rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
+
 
           {/* Classification Field */}
           <div className="mt-3 flex items-center">
@@ -250,45 +255,21 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             <div className="pl-[4.60rem] mb-2">
             <Select
               options={[
-                { value: "Regular", label: "Regular" },
-                { value: "Non-Regular", label: "Non-Regular" },
+                { value: "Standard", label: "Standard" },
+                { value: "Student", label: "Student" },
+                { value: "PWD", label: "PWD" },
+                { value: "Senior Citizen", label: "Senior Citizen" },
+
+
               ]}
-              value={editedData.Classification ? { value: editedData.Classification, label: editedData.Classification } : null}
+              value={editedData.classification ? { value: editedData.classification, label: editedData.classification } : null}
               onChange={handleClassificationChange}
               styles={customStyles} 
             />
             </div>
           </div>
 
-          <div className="mt-1 flex items-center">
-          <label className="text-[0.68rem] font-bold text-black mr-2 ">
-            Transport Cooperative/
-            <br />
-            Corporation:{" "}
-          </label>
-
-          <div className="ml-[1.50rem] mb-2">
-            <Select
-              options={[
-                {
-                  value: "Transport Cooperative",
-                  label: "Transport Cooperative",
-                },
-                {
-                  value: "Transport Corporation",
-                  label: "Transport Corporation",
-                },
-              ]}
-              value={
-                editedData.TransportCooperative
-                  ? { value: editedData.TransportCooperative, label: editedData.TransportCooperative }
-                  : null
-              }
-              onChange={handleTransportChange}
-              styles={customStyles}
-            />
-          </div>
-        </div>
+          
 
     {/* Card Details Field */}
     <div className="mt-2 flex items-center">
@@ -318,6 +299,116 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
               className="text-sky-600 ml-[5.30rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
+
+          <div className="">
+            {/* Photo and Selfie FILES */}
+            <div className="mt-3 flex items-center">
+            <label className="text-[0.68rem] font-bold text-black">
+            Identity Verification</label>
+            <div className="ml-[4.25rem] flex items-center">
+              <FaImage className="text-gray-400 text-[1.35rem]" />
+              <label
+                className="text-blue-500 cursor-pointer mr-2 ml-2 text-[0.68rem]"
+                onClick={handleViewIdentityVerification}
+              >
+                View
+              </label>
+              <label
+                className="text-blue-500 cursor-pointer mr-2 text-[0.68rem]"
+                htmlFor="IdentityVerificationUpload"
+              >
+                Upload
+              </label>
+              <input
+                id="IdentityVerificationUpload"
+                type="file"
+                name="logo"
+                onChange={handleIdentityVerificationUpload}
+                className="hidden"
+              />
+              <label
+                className="text-gray-600 cursor-pointer text-[0.68rem]"
+                onClick={handleRemoveIdentityVerification}
+              >
+                Remove
+              </label>
+            </div>
+          </div>
+          </div>
+
+
+          <div className="">
+            {/* Photo and Selfie FILES */}
+            <div className="mt-3 flex items-center">
+            <label className="text-[0.68rem] font-bold text-black">
+            Selfie Verification</label>
+            <div className="ml-[4.90rem] flex items-center">
+              <FaImage className="text-gray-400 text-[1.35rem]" />
+              <label
+                className="text-blue-500 cursor-pointer mr-2 ml-2 text-[0.68rem]"
+                onClick={handleViewSelfieVerification}
+              >
+                View
+              </label>
+              <label
+                className="text-blue-500 cursor-pointer mr-2 text-[0.68rem]"
+                htmlFor="SelfieVerificationUpload"
+              >
+                Upload
+              </label>
+              <input
+                id="IdentityVerificationUpload"
+                type="file"
+                name="Selfie"
+                onChange={handleSelfieVerificationUpload}
+                className="hidden"
+              />
+              <label
+                className="text-gray-600 cursor-pointer text-[0.68rem]"
+                onClick={handleRemoveSelfieVerification}
+              >
+                Remove
+              </label>
+            </div>
+          </div>
+          </div>
+
+
+          <div className="">
+            <div className="mt-3 flex items-center">
+            <label className="text-[0.68rem] font-bold text-black">
+            Business Verification</label>
+            <div className="ml-[3.55rem] flex items-center">
+              <BiSolidFilePdf className="text-gray-400 text-[1.80rem]" />
+              <label
+                className="text-blue-500 cursor-pointer mr-2 ml-2 text-[0.68rem]"
+                onClick={handleViewBusinessVerification}
+              >
+                View
+              </label>
+              <label
+                className="text-blue-500 cursor-pointer mr-2 text-[0.68rem]"
+                htmlFor="BusinessVerificationUpload"
+              >
+                Upload
+              </label>
+              <input
+                id="BusinessVerificationUpload"
+                type="file"
+                name="Business Verification"
+                onChange={handleBusinessVerificationload}
+                className="hidden"
+              />
+              <label
+                className="text-gray-600 cursor-pointer text-[0.68rem]"
+                onClick={handleRemoveBusinessVerification}
+              >
+                Remove
+              </label>
+            </div>
+          </div>
+          </div>
+
 
 
 {/* Status Field */}
@@ -353,6 +444,11 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
           </div>
         </div>
 
+
+
+
+
+        
 
           <div className="flex justify-end mt-4">
             <button
