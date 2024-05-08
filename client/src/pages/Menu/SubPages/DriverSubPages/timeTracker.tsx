@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
-import TimeTrackerTable from '../../../../components/Dashboard/Tables/Driver/TimeTracker/TimeTrackerTable';
+import TimeTrackerTable from '../../../../components/Dashboard/Tables/Driver-Tables/TimeTrackerTable';
 
 const TimeTracker: React.FC = () => {
 

@@ -1,32 +1,44 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch} from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../../Tables/Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./Dispatch.css";
+import "./Driver.css";
 import "react-calendar/dist/Calendar.css";
+import EditDetailsAction from '../Actions/EditAction/ClientTables/TransportCoopEdit';
+
 
 interface Row {
   id: number;
   Name: string;
   TransportCooperative: string,
   VehicleCode: string;
-  Origin: string;
-  StartDate: string;
-  Destination: string;
-  EndDate: string;
-  TripNumber: string;
+  TypeOfTransaction: string;
+  TransactionNumber: string;
+  DateOfTransaction: string;
+  Amount: string;
+  Balance: string;
   status: string;
 }
-const DispatchTable: React.FC = () => {
+const SalesTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
+  
 
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
   
 //   const handleRemoveRecipient = () => {
 //     setSelectedRow((prevRow: any) => ({
@@ -63,43 +75,44 @@ const DispatchTable: React.FC = () => {
     setItemsPerPage(selectedValue); // Update the state with the selected value
   };
 
-
 //   const filterOptions = [
 //     { value: "all", label: "All" },
 //     { value: "Transport Cooperative", label: "Transport Cooperative" },
 //     { value: "Transport Corperation", label: "Transport Corporation" },
 //   ];
 
-const handleChangeFilterByCode = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setFilterBy(event.target.value);
-};
+  const handleChangeFilterByCode = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterBy(event.target.value);
+  };
 
-const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
-  if(event.key === "Enter"){
-    handleChangeSearch()
-    return
+  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleChangeSearch()
+      return
+    }
   }
-}
-const handleChangeSearch = () => {
-    setSearchTerm(searchString);
-};
+  const handleChangeSearch = () => {
+      setSearchTerm(searchString);
+  };
+  
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value)
+    setSearchTerm("")
+  }
 
-const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setSearchString(event.target.value)
-  setSearchTerm("")
-}
-
+  
+  
   const [data] = useState([
     {
       id: 1,
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
+      TypeOfTransaction: "Card",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
       status: "Completed",
     },
     {
@@ -107,95 +120,95 @@ const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "In Progress",
+      TypeOfTransaction: "Card",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
+      status: "Completed",
     },
     {
       id: 3,
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "Completed",
+      TypeOfTransaction: "Card",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
+      status: "Error",
     },
     {
       id: 4,
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "Completed",
+      TypeOfTransaction: "Card",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
+      status: "In Progress",
     },
     {
       id: 5,
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "Completed",
+      TypeOfTransaction: "App",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
+      status: "Error",
     },
     {
       id: 6,
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "Completed",
+      TypeOfTransaction: "App",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
+      status: "In Progress",
     },
     {
       id: 7,
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "Completed",
+      TypeOfTransaction: "App",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
+      status: "Completed ",
     },
     {
-      id: 8,
-      Name: "",
-      TransportCooperative:"",
-      VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "Completed",
-    },
+        id: 8,
+        Name: "",
+        TransportCooperative:"",
+        VehicleCode: "",
+        TypeOfTransaction: "Card",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
+        status: "Error",
+      },
     {
       id: 9,
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
+      TypeOfTransaction: "Card",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
       status: "In Progress",
     },
     {
@@ -203,23 +216,23 @@ const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
       Name: "",
       TransportCooperative:"",
       VehicleCode: "",
-      Origin: "",
-      StartDate: "",
-      Destination: "",
-      EndDate: "",
-      TripNumber: "",
-      status: "In Progress",
+      TypeOfTransaction: "Card",
+      TransactionNumber: "",
+      DateOfTransaction: "",
+      Amount: "",
+      Balance: "",
+      status: "Completed",
     },
     {
         id: 11,
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
+        TypeOfTransaction: "App",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
         status: "Completed",
       },
       {
@@ -227,47 +240,47 @@ const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
-        status: "Completed",
+        TypeOfTransaction: "App",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
+        status: "In Progress",
       },
       {
         id: 13,
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
-        status: "Completed",
+        TypeOfTransaction: "Card",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
+        status: "In Progress",
       },
       {
         id: 14,
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
-        status: "In Progress",
+        TypeOfTransaction: "Card",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
+        status: "Error",
       },
       {
         id: 15,
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
+        TypeOfTransaction: "Card",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
         status: "Completed",
       },
       {
@@ -275,62 +288,49 @@ const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
-        status: "In Progress",
+        TypeOfTransaction: "Card",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
+        status: "Completed",
       },
       {
         id: 17,
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
-        status: "Completed",
+        TypeOfTransaction: "App",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
+        status: "Error",
       },
       {
         id: 18,
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
-        status: "In Progress",
+        TypeOfTransaction: "App",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
+        status: "Completed",
       },
       {
         id: 19,
         Name: "",
         TransportCooperative:"",
         VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
-        status: "Completed",
-      },
-      {
-        id: 20,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        Origin: "",
-        StartDate: "",
-        Destination: "",
-        EndDate: "",
-        TripNumber: "",
+        TypeOfTransaction: "App",
+        TransactionNumber: "",
+        DateOfTransaction: "",
+        Amount: "",
+        Balance: "",
         status: "In Progress",
       },
-      
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -341,11 +341,11 @@ const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
         item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.StartDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.EndDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TripNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TypeOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TransactionNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.DateOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Balance.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.status.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
@@ -369,7 +369,7 @@ const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Dispatch.xlsx';
+  const fileName = 'Sales.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -387,46 +387,46 @@ const handleExcelDownload = () => {
 
 const columns: Column<Row>[] = useMemo(
   () => [
-    {
-      Header: "NAME",
-      accessor: "Name",
-      
-    },
-    {
-      Header: "TRANSPORT COOPERATIVE/ CORPORATION",
-      accessor: "TransportCooperative",
-    },
-    {
-      Header: "VEHICLE CODE",
-      accessor: "VehicleCode",
-    },
-    {
-      Header: "ORIGIN",
-      accessor: "Origin",
-    },
-    {
-      Header: "START DATE",
-      accessor: "StartDate",
-    },
-    {
-      Header: "DESTINATION",
-      accessor: "Destination",
-    },
-    {
-      Header: "END DATE",
-          accessor: "EndDate",
-    },
-    {
-      Header: "TRIP NUMBER",
-      accessor: "TripNumber",
-    },
+      {
+        Header: "NAME",
+        accessor: "Name",
+        
+      },
+      {
+        Header: "TRANSPORT COOPERATIVE/ COOPERATION",
+        accessor: "TransportCooperative",
+      },
+      {
+        Header: "VEHICLE CODE",
+        accessor: "VehicleCode",
+      },
+      {
+        Header: "TYPE OF TRANSACTION",
+        accessor: "TypeOfTransaction",
+      },
+      {
+        Header: "TRANSACTION NUMBER",
+        accessor: "TransactionNumber",
+      },
+      {
+        Header: "DATE OF TRANSACTION",
+        accessor: "DateOfTransaction",
+      },
+      {
+        Header: "AMOUNT",
+        accessor: "Amount",
+      },
+      {
+        Header: "BALANCE",
+        accessor: "Balance",
+      },
       {
         Header: "STATUS",
         accessor: "status",
         Cell: ({ value }) => (
           <div
             className={`px-1 py-1 ${
-              value === "Completed" ? "text-[#2D9CDB] font-bold" : "text-black font-bold"
+              value === "Completed" ? "text-green-500 font-bold" : value === "In Progress" ? "text-[#2D9CDB] font-bold" : "text-red-500 font-bold"
             }`}
           >
             {value}
@@ -439,7 +439,8 @@ const columns: Column<Row>[] = useMemo(
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+             <TiMessages className = "message-icon" onClick={() => toggleModal(row)} /> 
+             <FaEdit onClick={() => handleEdit(row)}  className = "edit-icon" />
           </div>
         ),
       },
@@ -499,7 +500,7 @@ const columns: Column<Row>[] = useMemo(
             name="filter"
             className="mt-4 w-full py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
                    value={filterBy}
-            onChange={handleChangeFilterByCode} >
+        onChange={handleChangeFilterByCode} >
             <option value="all">Filter by Vehicle Code</option>
             <option value="Code">Code</option>
           </select>
@@ -557,16 +558,12 @@ const columns: Column<Row>[] = useMemo(
           {...getTableProps()}
           className="table-fixed divide-y divide-gray-200 text-xs ml-0 sm:ml-7 mt-5 bg-blue-900 overflow-auto w-full">
           <thead className="text-white ">
-          <div className="font-bold absolute lg:left-[34%] left-[35%] pt-2 lg:text-[.80rem] 2xl:px-[6.7%] lg:px-[6.5%] px-[6%] py-2 ">DEPARTURE</div>
-          <div className="font-bold absolute  lg:left-[51.7%] left-[52.6%] pt-2 lg:text-[.80rem] 2xl:px-[7.2%] lg:px-[7%] px-[6.8%] py-2">ARRIVAL</div>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="pb-2 pt-4 2xl:pb-2 text-left text-[.70rem] 2xl:text-[.80rem]"
+                  className="py-2 2xl:py-4 text-left text-[.70rem] 2xl:text-[.80rem]"
                   >
-
-                
                     <div className="flex items-center justify-center px-1">
                       {column.render("Header")}
                       {column.isSorted ? (
@@ -635,16 +632,28 @@ const columns: Column<Row>[] = useMemo(
 
       </div>
       {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+          <MessageAction
+            recipient={selectedRow.email}
+            onClose={closeModal}
+          />
+          </div>
+        </div>
+      )}
+
+      {showEditModal && selectedRow && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <EditDetailsAction
+              rowData={selectedRow}
+              onClose={closeEditModal}
+            />
+          </div>
+        </div>
+      )}
 
 
       </div>
@@ -662,4 +671,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default DispatchTable;
+export default SalesTable;

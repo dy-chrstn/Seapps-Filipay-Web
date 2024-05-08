@@ -1,12 +1,14 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy, Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaSearch } from "react-icons/fa";
-import MessageAction from '../../../Tables/Actions/messageAction';
+import MessageAction from '../Actions/messageAction';
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import * as XLSX from "xlsx";
 import Select, { ActionMeta, StylesConfig } from "react-select";
 import { GiTrashCan } from "react-icons/gi";
+import './Driver.css'
+import EditDetailsAction from '../Actions/EditAction/ClientTables/TransportCoopEdit';
 
 interface Row {
   id: number;
@@ -19,10 +21,22 @@ interface Row {
 const DriverMessagesTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
+  
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
     setShowModal(true);
+  };
+
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
   };
 
   const closeModal = () => {
@@ -195,8 +209,9 @@ const DriverMessagesTable: React.FC = () => {
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />{" "}
-            <GiTrashCan size={24} color="black" className="flex-shrink-0 mt-[-2%]" />
+            <TiMessages className = "message-icon" onClick={() => toggleModal(row)} /> 
+            <FaEdit className = "edit-icon" onClick={() => handleEdit(row)} />{" "}
+            <GiTrashCan size={24} color="black" className="trash-icon flex-shrink-0 mt-[-2%]" />
           </div>
         ),
       },
@@ -419,16 +434,28 @@ const DriverMessagesTable: React.FC = () => {
           ))}
         </div>
         {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+              <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+              <div className="relative bg-white p-4 rounded-lg z-10">
+                <MessageAction
+                  recipient={selectedRow.email}
+                  onClose={closeModal}
+                />
+              </div>
+            </div>
+          )}
+
+          {showEditModal && selectedRow && (
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+              <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+              <div className="relative bg-white p-4 rounded-lg z-10">
+                <EditDetailsAction
+                  rowData={selectedRow}
+                  onClose={closeEditModal}
+                />
+              </div>
+            </div>
+          )}
       </div>
     </div>
   );

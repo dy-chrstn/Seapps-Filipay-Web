@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from '../../../../components/admin/header';
 import Menu from '../../../../components/admin/Menu/menu';
 import MiniMenu from '../../../../components/admin/Menu/miniMenu';
-import SalesTable from '../../../../components/Dashboard/Tables/Driver/Sales/SalesTable';
+import SalesTable from '../../../../components/Dashboard/Tables/Driver-Tables/SalesTable';
 
 const Sales: React.FC = () => {
 

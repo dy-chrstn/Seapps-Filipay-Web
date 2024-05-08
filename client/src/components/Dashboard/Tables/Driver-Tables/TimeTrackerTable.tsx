@@ -1,13 +1,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../../../Tables/Actions/messageAction';
+// import { TiMessages } from "react-icons/ti";
+// import MessageAction from '../../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./Sales.css";
+import "./Driver.css";
 import "react-calendar/dist/Calendar.css";
 
 
@@ -15,18 +15,15 @@ interface Row {
   id: number;
   Name: string;
   TransportCooperative: string,
-  VehicleCode: string;
-  TypeOfTransaction: string;
-  TransactionNumber: string;
-  DateOfTransaction: string;
-  Amount: string;
-  Balance: string;
-  status: string;
+  Code: string;
+  Route: string;
+  TimeIN: string;
+  TimeOUT: string;
 }
-const SalesTable: React.FC = () => {
+const TimeTrackerTable: React.FC = () => {
 
-  const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
+  // const [showModal, setShowModal] = useState(false);
+  // const [selectedRow, setSelectedRow] = useState<any>(null);
 
   
 //   const handleRemoveRecipient = () => {
@@ -36,14 +33,14 @@ const SalesTable: React.FC = () => {
 //     }));
 //   };
 
-  const toggleModal = (row: any) => {
-    setSelectedRow(row.original);
-    setShowModal(true);
-  };
+  // const toggleModal = (row: any) => {
+  //   setSelectedRow(row.original);
+  //   setShowModal(true);
+  // };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  // const closeModal = () => {
+  //   setShowModal(false);
+  // };
 
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
@@ -51,9 +48,10 @@ const SalesTable: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchString, setSearchString] = useState<string>("")
 
+
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  
+
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = parseInt(e.target.value, 10); 
 
@@ -63,6 +61,7 @@ const SalesTable: React.FC = () => {
 
     setItemsPerPage(selectedValue); // Update the state with the selected value
   };
+
 
 //   const filterOptions = [
 //     { value: "all", label: "All" },
@@ -83,243 +82,104 @@ const SalesTable: React.FC = () => {
   const handleChangeSearch = () => {
       setSearchTerm(searchString);
   };
-  
+
   const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchString(event.target.value)
     setSearchTerm("")
   }
-
-  
   
   const [data] = useState([
     {
       id: 1,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 2,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 3,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Error",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 4,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 5,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Error",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 6,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 7,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "App",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed ",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
-        id: 8,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
+      id: 8,
+      Name: "",
+      TransportCooperative:"",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
+    },
     {
       id: 9,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "In Progress",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
     {
       id: 10,
       Name: "",
       TransportCooperative:"",
-      VehicleCode: "",
-      TypeOfTransaction: "Card",
-      TransactionNumber: "",
-      DateOfTransaction: "",
-      Amount: "",
-      Balance: "",
-      status: "Completed",
+      Code: "",
+      Route: "",
+      TimeIN: "",
+      TimeOUT: "",
     },
-    {
-        id: 11,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 12,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
-      {
-        id: 13,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
-      {
-        id: 14,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
-      {
-        id: 15,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 16,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "Card",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 17,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Error",
-      },
-      {
-        id: 18,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "Completed",
-      },
-      {
-        id: 19,
-        Name: "",
-        TransportCooperative:"",
-        VehicleCode: "",
-        TypeOfTransaction: "App",
-        TransactionNumber: "",
-        DateOfTransaction: "",
-        Amount: "",
-        Balance: "",
-        status: "In Progress",
-      },
+
   ]);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -329,13 +189,10 @@ const SalesTable: React.FC = () => {
       return (
         item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.TransportCooperative.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.VehicleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TypeOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.TransactionNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.DateOfTransaction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Balance.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.Code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Route.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TimeIN.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.TimeOUT.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filtered);
@@ -358,7 +215,7 @@ const SalesTable: React.FC = () => {
   
 const handleExcelDownload = () => {
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileName = 'Sales.xlsx';
+  const fileName = 'Time_Tracker.xlsx';
   
   // Convert data to XLS format
   const ws = XLSX.utils.json_to_sheet(data);
@@ -382,57 +239,25 @@ const columns: Column<Row>[] = useMemo(
         
       },
       {
-        Header: "TRANSPORT COOPERATIVE/ COOPERATION",
+        Header: "TRANSPORT COOPERATIVE/CORPORATION",
         accessor: "TransportCooperative",
       },
       {
-        Header: "VEHICLE CODE",
-        accessor: "VehicleCode",
+        Header: "CODE",
+        accessor: "Code",
       },
       {
-        Header: "TYPE OF TRANSACTION",
-        accessor: "TypeOfTransaction",
+        Header: "ROUTE",
+        accessor: "Route",
       },
       {
-        Header: "TRANSACTION NUMBER",
-        accessor: "TransactionNumber",
+        Header: "TIME IN",
+        accessor: "TimeIN",
       },
       {
-        Header: "DATE OF TRANSACTION",
-        accessor: "DateOfTransaction",
+        Header: "TIME OUT",
+        accessor: "TimeOUT",
       },
-      {
-        Header: "AMOUNT",
-        accessor: "Amount",
-      },
-      {
-        Header: "BALANCE",
-        accessor: "Balance",
-      },
-      {
-        Header: "STATUS",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <div
-            className={`px-1 py-1 ${
-              value === "Completed" ? "text-green-500 font-bold" : value === "In Progress" ? "text-[#2D9CDB] font-bold" : "text-red-500 font-bold"
-            }`}
-          >
-            {value}
-          </div>
-        ),
-      },
-      
-
-      {
-        Header: "ACTION",
-        Cell: ({ row }) => (
-          <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
-          </div>
-        ),
-      },
-      
     ],
     []
   );
@@ -457,7 +282,7 @@ const columns: Column<Row>[] = useMemo(
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-      <div className="datepickers mr-4 flex text-xs space-x-3">
+        <div className="datepickers mr-4 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto">
             <label>From:<br/></label>
             <DatePicker
@@ -486,9 +311,9 @@ const columns: Column<Row>[] = useMemo(
           <select
             id="filter"
             name="filter"
-            className="mt-4 w-full py-1 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
+            className="mt-4 py-1 w-full px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-xs"
                    value={filterBy}
-        onChange={handleChangeFilterByCode} >
+            onChange={handleChangeFilterByCode} >
             <option value="all">Filter by Vehicle Code</option>
             <option value="Code">Code</option>
           </select>
@@ -514,10 +339,7 @@ const columns: Column<Row>[] = useMemo(
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
-    
-
-
-        </div>
+      </div>
 
 
   <div className="flex pl-10 flex-row">
@@ -550,15 +372,15 @@ const columns: Column<Row>[] = useMemo(
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="py-2 2xl:py-4 text-left text-[.70rem] 2xl:text-[.80rem]"
+                  className="py-2 2xl:py-4 text-center text-[.70rem] 2xl:text-[.90rem]"
                   >
-                    <div className="flex items-center justify-center px-1">
+                    <div className="flex items-center justify-center">
                       {column.render("Header")}
                       {column.isSorted ? (
                         column.isSortedDesc ? (
-                          <FaSortDown />
+                          <FaSortDown color={"#2F80ED"} />
                         ) : (
-                          <FaSortUp />
+                          <FaSortUp color={"#2F80ED"}/>
                         )
                       ) : (
                         <FaSort />
@@ -569,7 +391,7 @@ const columns: Column<Row>[] = useMemo(
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
+          <tbody {...getTableBodyProps()} className=" text-center text-[.75rem] 2xl:text-[.90rem]">
   {displayedData.length === 0 ? (
     <tr>
       <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
@@ -590,7 +412,7 @@ const columns: Column<Row>[] = useMemo(
             return (
               <td
                 {...cell.getCellProps()}
-                className="border px-1.5 td-truncate"
+                className="border px-1.5 td-truncate py-3"
               >
                 {cell.render("Cell")}
               </td>
@@ -619,7 +441,7 @@ const columns: Column<Row>[] = useMemo(
         ))}
 
       </div>
-      {showModal && selectedRow && (
+      {/* {showModal && selectedRow && (
   <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
     <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
     <div className="relative bg-white p-4 rounded-lg z-10">
@@ -629,7 +451,7 @@ const columns: Column<Row>[] = useMemo(
 />
     </div>
   </div>
-)}
+)} */}
 
 
       </div>
@@ -647,4 +469,4 @@ const columns: Column<Row>[] = useMemo(
   );
 };
 
-export default SalesTable;
+export default TimeTrackerTable;
