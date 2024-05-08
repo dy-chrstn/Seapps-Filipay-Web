@@ -1,0 +1,26 @@
+.textButton{
+    transition: color 0.3s ease
+  }
+
+  .textButton:hover {
+    color: #2563EB; 
+    cursor: pointer;
+  }
+
+  .submitButton{
+    transition: background-color 0.3s ease
+  }
+
+  .submitButton:hover{
+    background-color: #2563EB; 
+    cursor: pointer;
+  }
+
+  .deleteButton{
+    transition: color 0.3s ease
+  }
+
+  .deleteButton:hover{
+    color: red; 
+    cursor: pointer;
+  }
