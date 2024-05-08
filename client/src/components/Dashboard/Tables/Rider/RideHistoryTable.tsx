@@ -8,7 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
 import Select, { MultiValue, ActionMeta, StylesConfig } from "react-select";
 import { useNavigate } from 'react-router-dom';
-
+import './Rider.css'
+import EditDetailsAction from "../Actions/EditAction/ClientTables/TransportCoopEdit";
 
 interface Row {
   id: number;
@@ -40,6 +41,18 @@ const RideHistoryTable: React.FC = () => {
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [selectedOptions, setSelectedOptions] = useState<CustomOption[] | null>(null);
   const [selectedSingleOption, setSelectedSingleOption] = useState<CustomOption | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
+  
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
+
 
   const navigate = useNavigate();
 
@@ -548,7 +561,7 @@ const columns: Column<Row>[] = useMemo(
           maxWidth: 150,
           Cell: ({ row }) => (
             <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-               <FaEdit />
+              <FaEdit className = "edit-icon" onClick={() => handleEdit(row)} />{" "}
             </div>
           ),
           disableSortBy: true, // Disable sorting for this column
@@ -738,7 +751,17 @@ const columns: Column<Row>[] = useMemo(
             {index + 1}
           </button>
         ))}
-
+        {showEditModal && selectedRow && (
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+              <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+              <div className="relative bg-white p-4 rounded-lg z-10">
+                <EditDetailsAction
+                  rowData={selectedRow}
+                  onClose={closeEditModal}
+                />
+              </div>
+            </div>
+          )}
       </div>
       </div>
 
