@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy, Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
 import "./Table.css";
@@ -8,10 +8,13 @@ import { Device } from "../../../../interface/client";
 import ClipLoader from "react-spinners/ClipLoader";
 import vehicleApi from "../../../../api/vehicle";
 import coopApi from "../../../../api/coop";
+import AddDetailsAction from '../Actions/AddAction/ClientTables/DeviceAdd';
 
 const DeviceTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showAddModal, setShowAddModal] = useState(false); 
+
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -20,6 +23,10 @@ const DeviceTable: React.FC = () => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const handleAdd = () => {
+    setShowAddModal(true);
   };
 
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -183,13 +190,18 @@ const DeviceTable: React.FC = () => {
         <div className="ml-sortMargin">
           <div className="flex text-xs space-x-3">
             <div className="search-container flex items-center mt-4">
-              <input
-                type="text"
-                placeholder="Filter in Records..."
-                value={searchTerm}
-                onChange={handleChangeSearch}
-                className="h-7 border border-gray-300 rounded-md py-1 px-2 "
-              />
+            <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[20.5rem] 2xl:right-[10.4rem] top-[8.60rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
             </div>
 
             <div className="clearfilter relative flex items-center mt-4">
@@ -320,13 +332,28 @@ const DeviceTable: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
+
+      <div className="flex justify-end -mt-1">
+        <button className="hover:text-blue-600 transition-colors duration-300 flex items-center text-blue-900" onClick={handleAdd}> 
+      <FaPlus className="hover:text-blue-600 transition-colors duration-300 text-blue-900 text-xxs cursor-pointer" />
+      <span className="ml-1 text-xxs font-bold">Add</span>
+    </button>
+  </div>
+
+
+ {/* Modal for AddDetailsAction */}
+ {showAddModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <AddDetailsAction onClose={() => setShowAddModal(false)} />
+          </div>
         </div>
+      )}
+
+
+
       </div>
-    </div>
   );
 };
 

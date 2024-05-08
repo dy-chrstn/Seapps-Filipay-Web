@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { Range } from "react-range";
 
-interface AddDetailsActionProps {
+interface EditDetailsActionProps {
   onClose: () => void;
 }
 
-const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
-  const [addedData, setAddedData] = useState<any>({
+const EditDetailsAction: React.FC<EditDetailsActionProps> = ({ onClose }) => {
+  const [editedData, seteditedData] = useState<any>({
     serviceType: "",
     coopName: "",
     vehicleNumber: "",
@@ -22,21 +22,21 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
   });
 
   const handleServiceTypeChange = (selectedOption: any) => {
-    setAddedData((prevData: any) => ({
+    seteditedData((prevData: any) => ({
       ...prevData,
       serviceType: selectedOption.value,
     }));
   };
 
   const handleTransportChange = (selectedOption: any) => {
-    setAddedData((prevData: any) => ({
+    seteditedData((prevData: any) => ({
       ...prevData,
       transport: selectedOption.value,
     }));
   };
 
   const handleMaxAmountChange = (values: number[]) => {
-    setAddedData((prevData: any) => ({
+    seteditedData((prevData: any) => ({
       ...prevData,
       maxAmount: values[0],
     }));
@@ -163,10 +163,10 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
                 { value: "Others", label: "Others" },
               ]}
               value={
-                addedData.serviceType
+                editedData.serviceType
                   ? {
-                      value: addedData.serviceType,
-                      label: addedData.serviceType,
+                      value: editedData.serviceType,
+                      label: editedData.serviceType,
                     }
                   : null
               }
@@ -197,8 +197,8 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
                 },
               ]}
               value={
-                addedData.transport
-                  ? { value: addedData.transport, label: addedData.transport }
+                editedData.transport
+                  ? { value: editedData.transport, label: editedData.transport }
                   : null
               }
               onChange={handleTransportChange}
@@ -215,9 +215,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </label>
           <input
             type="text"
-            value={addedData.validator}
+            value={editedData.validator}
             onChange={(e) =>
-              setAddedData({ ...addedData, validator: e.target.value })
+              seteditedData({ ...editedData, validator: e.target.value })
             }
             className="ml-[2.20rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[9.70rem] h-5"
           />
@@ -230,9 +230,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </label>
           <input
             type="text"
-            value={addedData.monitor}
+            value={editedData.monitor}
             onChange={(e) =>
-              setAddedData({ ...addedData, monitor: e.target.value })
+              seteditedData({ ...editedData, monitor: e.target.value })
             }
             className="ml-[3.20rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[9.70rem] h-5"
           />
@@ -244,9 +244,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </label>
           <input
             type="text"
-            value={addedData.maker}
+            value={editedData.maker}
             onChange={(e) =>
-              setAddedData({ ...addedData, maker: e.target.value })
+              seteditedData({ ...editedData, maker: e.target.value })
             }
             className="ml-[6.90rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[9.70rem] h-5"
           />
@@ -263,7 +263,7 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
                 step={1}
                 min={0}
                 max={10000}
-                values={[addedData.maxAmount]}
+                values={[editedData.maxAmount]}
                 onChange={handleMaxAmountChange}
                 renderTrack={({ props, children }) => (
                   <div
@@ -298,10 +298,10 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
               <input
                 type="text"
                 inputMode="numeric"
-                value={addedData.maxAmount}
+                value={editedData.maxAmount}
                 onChange={(e) =>
-                  setAddedData({
-                    ...addedData,
+                  seteditedData({
+                    ...editedData,
                     maxAmount: parseInt(e.target.value) || 0,
                   })
                 }
@@ -327,9 +327,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </label>
           <input
             type="text"
-            value={addedData.plateNumber}
+            value={editedData.plateNumber}
             onChange={(e) =>
-              setAddedData({ ...addedData, plateNumber: e.target.value })
+              seteditedData({ ...editedData, plateNumber: e.target.value })
             }
             className="ml-[4.0rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[9.70rem] h-5"
           />
@@ -341,9 +341,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </label>
           <input
             type="text"
-            value={addedData.chassisNumber}
+            value={editedData.chassisNumber}
             onChange={(e) =>
-              setAddedData({ ...addedData, chassisNumber: e.target.value })
+              seteditedData({ ...editedData, chassisNumber: e.target.value })
             }
             className="ml-[3.30rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[9.70rem] h-5"
           />
@@ -355,9 +355,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </label>
           <input
             type="text"
-            value={addedData.engineNumber}
+            value={editedData.engineNumber}
             onChange={(e) =>
-              setAddedData({ ...addedData, engineNumber: e.target.value })
+              seteditedData({ ...editedData, engineNumber: e.target.value })
             }
             className="ml-[3.30rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[9.70rem] h-5"
           />
@@ -374,9 +374,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
                 step={1}
                 min={0}
                 max={10000}
-                values={[addedData.distanceTravelled]}
+                values={[editedData.distanceTravelled]}
                 onChange={(values) =>
-                  setAddedData({ ...addedData, distanceTravelled: values[0] })
+                  seteditedData({ ...editedData, distanceTravelled: values[0] })
                 }
                 renderTrack={({ props, children }) => (
                   <div
@@ -411,10 +411,10 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
               <input
                 type="text"
                 inputMode="numeric"
-                value={addedData.distanceTravelled}
+                value={editedData.distanceTravelled}
                 onChange={(e) =>
-                  setAddedData({
-                    ...addedData,
+                  seteditedData({
+                    ...editedData,
                     distanceTravelled: parseInt(e.target.value) || 0,
                   })
                 }
@@ -452,4 +452,4 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
   );
 };
 
-export default AddDetailsAction;
+export default EditDetailsAction;

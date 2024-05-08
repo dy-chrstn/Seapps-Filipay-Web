@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaImage } from "react-icons/fa6";
 import { BiSolidFilePdf } from "react-icons/bi";
 import Select from "react-select";
-import DateTimePicker from "react-datetime-picker";
+
 
 interface EditDetailsActionProps {
   rowData: any;
@@ -13,7 +13,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
   rowData,
   onClose,
 }) => {
-  const [editedData, setEditedData] = useState<any>(rowData); // State to hold edited data
+  const [editedData, setEditedData] = useState<any>(rowData); 
 
   const handleFieldChange = (selectedOption: any) => {
     setEditedData((prevData: any) => ({
@@ -150,6 +150,30 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
               className=" text-sky-600 ml-[6rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
           </div>
+
+
+          {/* Distributor Field */}
+          <div className="mb-3 flex items-center">
+          <label className="text-[0.68rem] font-bold text-black mr-2">
+              Distributor:
+            </label>
+            <div className="pl-[5.20rem] mb-2">
+            <Select
+              options={[
+                { value: "Distributor 1", label: "Distributor 1" },
+                { value: "Distributor 2", label: "Distributor 2" },
+              ]}
+              value={editedData.distributor ? { value: editedData.distributor, label: editedData.distributor } : null}
+              onChange={handleFieldChange}
+              styles={customStyles} 
+            />
+            </div>
+          </div>
+
+
+
+
+
 
           {/* Acc No Field */}
           <div className="mt-1 flex items-center">

@@ -1,11 +1,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import "./Table.css";
+import AddDetailsAction from '../Actions/AddAction/ClientTables/DistributorAdd';
+import EditDetailsAction from '../Actions/EditAction/ClientTables/DistributorEdit';
 
 
 interface Row {
@@ -23,6 +25,12 @@ const DistributorTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
+  const [showAddModal, setShowAddModal] = useState(false); 
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -33,11 +41,6 @@ const DistributorTable: React.FC = () => {
     setShowModal(false);
   };
 
-
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = parseInt(e.target.value, 10); 
@@ -51,9 +54,29 @@ const DistributorTable: React.FC = () => {
 
 
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  const handleChangeSearch = () => {
+    setSearchTerm(searchTerm);
+};
+
+
+const handleEdit = (row: any) => {
+  setSelectedRow(row.original);
+  setShowEditModal(true); 
+};
+
+const toggleEditModal = (row: any) => {
+  setSelectedRow(row.original);
+  setShowEditModal(true);
+};
+
+const closeEditModal = () => {
+  setShowEditModal(false);
+};
+
+const handleAdd = () => {
+  setShowAddModal(true);
+};
+
 
   const clearFilters = () => {
     setSearchTerm("");
@@ -291,10 +314,11 @@ const columns: Column<Row>[] = useMemo(
         maxWidth: 150,
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />
+          <TiMessages className = "message-icon" onClick={() => toggleModal(row)} /> 
+            <FaEdit onClick={() => handleEdit(row)}  className = "edit-icon" />
           </div>
         ),
-        disableSortBy: true, // Disable sorting for this column
+        disableSortBy: true, 
       },
       
     ],
@@ -324,12 +348,18 @@ const columns: Column<Row>[] = useMemo(
       <div className="datepickers mr-10 flex text-xs space-x-3">
           <div className=" ml-auto">
         <div className="search-container flex items-center mt-4">
-          <input
-            type="text"
-            placeholder="Filter in Records..."
-            value={searchTerm}
-            onChange={handleChangeSearch}
-            className="h-7 border border-gray-300 rounded-md py-1 px-2 " />
+        <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[12.60rem] 2xl:right-[20.4rem] top-[8.60rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
         </div>
         </div>
 
@@ -343,7 +373,7 @@ const columns: Column<Row>[] = useMemo(
         </div>
         <div className="flex-row mt-4">
           {" "}
-          <button className="bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "  onClick={handleExcelDownload} >
+          <button className="hover:bg-blue-600 transition-colors duration-300 bg-blue-500 rounded-md h-7 px-1 text-white font-semibold text-xs flex items-center -mr-10 "  onClick={handleExcelDownload} >
             Download <IoMdDownload className="ml-1"/>
           </button>
         </div>
@@ -465,15 +495,34 @@ const columns: Column<Row>[] = useMemo(
   </div>
 )}
 
-
+{showEditModal && selectedRow && (
+  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+    <div className="relative bg-white p-4 rounded-lg z-10">
+      <EditDetailsAction
+        rowData={selectedRow}
+        onClose={closeEditModal}
+      />
+    </div>
+  </div>
+)}
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
-        </div>      
-</div>
+      <div className="flex justify-end -mt-5">
+        <button className="flex items-center text-blue-900  hover:text-blue-600 transition-colors duration-300" onClick={handleAdd}> 
+      <FaPlus className="text-blue-900 text-xxs cursor-pointer hover:text-blue-600 transition-colors duration-300" />
+      <span className="ml-1 text-xxs font-bold">Add</span>
+    </button>
+  </div>
 
+ {/* Modal for AddDetailsAction */}
+ {showAddModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <AddDetailsAction onClose={() => setShowAddModal(false)} />
+          </div>
+        </div>
+      )}
     </div>
     
 

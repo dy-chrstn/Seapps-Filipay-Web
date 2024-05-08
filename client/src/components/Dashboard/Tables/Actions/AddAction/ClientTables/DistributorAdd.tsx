@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import { FaImage } from "react-icons/fa6";
 import { BiSolidFilePdf } from "react-icons/bi";
-import Select from "react-select";
-import DateTimePicker from "react-datetime-picker";
 
-interface EditDetailsActionProps {
-  rowData: any;
+
+interface AddDetailsAction {
   onClose: () => void;
 }
 
-const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
-  rowData,
-  onClose,
-}) => {
-  const [editedData, setEditedData] = useState<any>(rowData); // State to hold edited data
+const AddDetailsAction: React.FC<AddDetailsAction> = ({onClose,}) => {
+  const [addedData, setaddedData] = useState<any>({
+    name: "",
+    accountNumber: "",
+    email: "",
+    mobileNumber: "",
+    address: "",
+    photoID: "",
+    selfieVerification: "",
+    businessPermit: "",
+  });
+
 
   const handleFieldChange = (selectedOption: any) => {
-    setEditedData((prevData: any) => ({
+    setaddedData((prevData: any) => ({
       ...prevData,
       transport: selectedOption.value,
     }));
@@ -51,7 +56,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
 
 
   const handleRemovePhotoID = () => {
-    setEditedData((prevData: any) => ({
+    setaddedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
     }));
@@ -59,7 +64,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
 
 
   const handleRemoveSelfieVerification = () => {
-    setEditedData((prevData: any) => ({
+    setaddedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
     }));
@@ -67,7 +72,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
 
   
   const handleRemoveBusinessPermit = () => {
-    setEditedData((prevData: any) => ({
+    setaddedData((prevData: any) => ({
       ...prevData,
       selfieVerification: "",
     }));
@@ -120,7 +125,7 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
       <div className="relative bg-white p-4 rounded-lg z-10">
         <div className="flex items-center">
           <h2 className="text-[0.78rem]  font-bold mr-auto text-blue-800">
-            Edit Details
+            Add Details
           </h2>
           <div className="flex space-x-2">
             <button className="text-sm font-semibold text-gray-500 hover:text-gray-700">
@@ -143,9 +148,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.name}
+              value={addedData.name}
               onChange={(e) =>
-                setEditedData({ ...editedData, name: e.target.value })
+                setaddedData({ ...addedData, name: e.target.value })
               }
               className=" text-sky-600 ml-[6rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -158,9 +163,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.accountNumber}
+              value={addedData.accountNumber}
               onChange={(e) =>
-                setEditedData({ ...editedData, accountNumber: e.target.value })
+                setaddedData({ ...addedData, accountNumber: e.target.value })
               }
               className="text-sky-600 ml-[2.50rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -173,9 +178,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.email}
+              value={addedData.email}
               onChange={(e) =>
-                setEditedData({ ...editedData, email: e.target.value })
+                setaddedData({ ...addedData, email: e.target.value })
               }
               className="text-sky-600 ml-[3.50rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -188,9 +193,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.mobileNumber}
+              value={addedData.mobileNumber}
               onChange={(e) =>
-                setEditedData({ ...editedData, mobileNumber: e.target.value })
+                setaddedData({ ...addedData, mobileNumber: e.target.value })
               }
               className="text-sky-600 ml-[2.90rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -203,9 +208,9 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
             </label>
             <input
               type="text"
-              value={editedData.address}
+              value={addedData.address}
               onChange={(e) =>
-                setEditedData({ ...editedData, address: e.target.value })
+                setaddedData({ ...addedData, address: e.target.value })
               }
               className="text-sky-600 ml-[86px] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
             />
@@ -339,4 +344,4 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({
   );
 };
 
-export default EditDetailsAction;
+export default AddDetailsAction;

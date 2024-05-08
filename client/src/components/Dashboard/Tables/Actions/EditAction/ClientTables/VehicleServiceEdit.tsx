@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-interface AddDetailsActionProps {
+interface EditDetailsActionProps {
   onClose: () => void;
 }
 
-const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
-  const [addedData, setAddedData] = useState<any>({
+const EditDetailsAction: React.FC<EditDetailsActionProps> = ({ onClose }) => {
+  const [editedData, seteditedData] = useState<any>({
     serviceType: "",
     totalUnits: "",
   });
 
   const handleFieldChange = (selectedOption: any) => {
-    setAddedData((prevData: any) => ({
+    seteditedData((prevData: any) => ({
       ...prevData,
       serviceType: selectedOption.value,
     }));
@@ -102,10 +102,10 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
                 { value: "Ship", label: "Ship" },
               ]}
               value={
-                addedData.serviceType
+                editedData.serviceType
                   ? {
-                      value: addedData.serviceType,
-                      label: addedData.serviceType,
+                      value: editedData.serviceType,
+                      label: editedData.serviceType,
                     }
                   : null
               }
@@ -122,9 +122,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
           </label>
           <input
             type="text"
-            value={addedData.totalUnits}
+            value={editedData.totalUnits}
             onChange={(e) =>
-              setAddedData({ ...addedData, totalUnits: e.target.value })
+              seteditedData({ ...editedData, totalUnits: e.target.value })
             }
             className="ml-[4.10rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-[7.70rem] h-5"
           />
@@ -140,9 +140,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
               <input
                 type="radio"
                 value="Active"
-                checked={addedData.status === "Active"}
+                checked={editedData.status === "Active"}
                 onChange={() =>
-                  setAddedData({ ...addedData, status: "Active" })
+                  seteditedData({ ...editedData, status: "Active" })
                 }
                 className="form-radio"
               />
@@ -152,9 +152,9 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
               <input
                 type="radio"
                 value="Inactive"
-                checked={addedData.status === "Inactive"}
+                checked={editedData.status === "Inactive"}
                 onChange={() =>
-                  setAddedData({ ...addedData, status: "Inactive" })
+                  seteditedData({ ...editedData, status: "Inactive" })
                 }
                 className="form-radio"
               />
@@ -182,4 +182,4 @@ const AddDetailsAction: React.FC<AddDetailsActionProps> = ({ onClose }) => {
   );
 };
 
-export default AddDetailsAction;
+export default EditDetailsAction;

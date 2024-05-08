@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FaImage } from "react-icons/fa6";
 import { BiSolidFilePdf } from "react-icons/bi";
 import Select from "react-select";
-import DateTimePicker from 'react-datetime-picker';
 
 interface EditDetailsActionProps {
   rowData: any;
@@ -10,7 +9,7 @@ interface EditDetailsActionProps {
 }
 
 const EditDetailsAction: React.FC<EditDetailsActionProps> = ({ rowData, onClose }) => {
-  const [editedData, setEditedData] = useState<any>(rowData); // State to hold edited data
+  const [editedData, setEditedData] = useState<any>(rowData); 
 
   const handleFieldChange = (selectedOption: any) => {
     setEditedData((prevData: any) => ({
@@ -20,9 +19,6 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({ rowData, onClose 
   };
 
   const handleSaveChanges = () => {
-    // Logic to save edited data
-    // You can send editedData to your backend or update it in your state
-    // After saving, you may also close the modal
     onClose();
   };
 
@@ -31,25 +27,20 @@ const EditDetailsAction: React.FC<EditDetailsActionProps> = ({ rowData, onClose 
   };
 
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Logic to handle logo upload
     const file = e.target.files?.[0];
     if (file) {
-      // Handle file upload
     }
   };
 
   const handleRemoveLogo = () => {
-    // Logic to remove logo
-    // You can set editedData.logo to an empty string or null
+
     setEditedData((prevData: any) => ({
       ...prevData,
-      logo: "", // or null
+      logo: "", 
     }));
   };
 
   const handleViewLogo = () => {
-    // Logic to view logo
-    // You can implement a modal or some other method to display the logo
   };
 
 const customStyles = {
@@ -88,7 +79,7 @@ const customStyles = {
     }),
     dropdownIndicator: (base: any)=> ({
       ...base,
-      color: "#00558d", // Custom colour
+      color: "#00558d", 
 
     })
   };
