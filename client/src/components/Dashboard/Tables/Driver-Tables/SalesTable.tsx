@@ -1,15 +1,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { TiMessages } from "react-icons/ti";
-import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Driver.css";
 import "react-calendar/dist/Calendar.css";
-import EditDetailsAction from '../Actions/EditAction/ClientTables/TransportCoopEdit';
+import EditDetailsAction from '../Actions/EditAction/DriverTables/SalesEdit';
 
 
 interface Row {
@@ -185,7 +183,7 @@ const SalesTable: React.FC = () => {
       DateOfTransaction: "",
       Amount: "",
       Balance: "",
-      status: "Completed ",
+      status: "Completed",
     },
     {
         id: 8,
@@ -439,7 +437,6 @@ const columns: Column<Row>[] = useMemo(
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-             <TiMessages className = "message-icon" onClick={() => toggleModal(row)} /> 
              <FaEdit onClick={() => handleEdit(row)}  className = "edit-icon" />
           </div>
         ),
@@ -507,18 +504,18 @@ const columns: Column<Row>[] = useMemo(
         </div>
 
         <div className="search-container w-[20%] flex items-center mt-4">
-          <input
-            type="text"
-            placeholder="Filter in Records..."
-            value={searchString}
-            onChange={handleFilterRecords}
-            onKeyDown={handleEnterButton}
-            className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
-          <FaSearch
-            onClick={handleChangeSearch}
-            className = "absolute right-[8rem] lg:right-[9rem] 2xl:right-[10.7rem]"
-           size = {17} 
-           color = "#00548C"/>
+        <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[9.2rem] lg:right-[8.90rem] 2xl:right-[10.4rem] top-[8.30rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
         </div>
         <div className="flex-row mt-4">
           {" "}
@@ -631,17 +628,6 @@ const columns: Column<Row>[] = useMemo(
         ))}
 
       </div>
-      {showModal && selectedRow && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-          <div className="relative bg-white p-4 rounded-lg z-10">
-          <MessageAction
-            recipient={selectedRow.email}
-            onClose={closeModal}
-          />
-          </div>
-        </div>
-      )}
 
       {showEditModal && selectedRow && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
@@ -657,15 +643,7 @@ const columns: Column<Row>[] = useMemo(
 
 
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
-        </div>      
-</div>
-
-    </div>
-    
+</div>    
 
     
   );

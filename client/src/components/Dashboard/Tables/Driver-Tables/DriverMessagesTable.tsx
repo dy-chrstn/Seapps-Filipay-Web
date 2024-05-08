@@ -8,7 +8,7 @@ import * as XLSX from "xlsx";
 import Select, { ActionMeta, StylesConfig } from "react-select";
 import { GiTrashCan } from "react-icons/gi";
 import './Driver.css'
-import EditDetailsAction from '../Actions/EditAction/ClientTables/TransportCoopEdit';
+import EditDetailsAction from '../Actions/EditAction/DriverTables/MessagesEdit';
 
 interface Row {
   id: number;
@@ -321,18 +321,18 @@ const DriverMessagesTable: React.FC = () => {
           </div>
 
         <div className="search-container w-[20%] flex items-center mt-4">
-          <input
-            type="text"
-            placeholder="Filter in Records..."
-            value={searchString}
-            onChange={handleFilterRecords}
-            onKeyDown={handleEnterButton}
-            className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
-          <FaSearch
-            onClick={handleChangeSearch}
-            className = "absolute right-[8rem] lg:right-[9rem] 2xl:right-[10.7rem]"
-           size = {17} 
-           color = "#00548C"/>
+        <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[9.2rem] lg:right-[8.90rem] 2xl:right-[10.4rem] top-[8.30rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
         </div>
           <div className="flex-row mt-4">
             {" "}
@@ -397,29 +397,37 @@ const DriverMessagesTable: React.FC = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  className={`border-b border-gray-200 ${row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                    } hover:bg-gray-300`}
-                >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        className="border px-1.5 py-2 td-truncate"
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+  {filteredData.length === 0 ? (
+    <tr>
+      <td colSpan={columns.length} className="text-center py-4 font-medium bg-white">
+        No results found
+      </td>
+    </tr>
+  ) : (
+    rows.map((row) => {
+      prepareRow(row);
+      return (
+        <tr
+          {...row.getRowProps()}
+          className={`border-b border-gray-200 ${row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
+          } hover:bg-gray-300`}
+        >
+          {row.cells.map((cell) => {
+            return (
+              <td
+                {...cell.getCellProps()}
+                className="border px-1.5 py-2 td-truncate"
+              >
+                {cell.render("Cell")}
+              </td>
+            );
+          })}
+        </tr>
+      );
+    })
+  )}
+</tbody>
+</table>
 
         <div className="flex justify-start ml-6 mt-4 text-xs">
           {Array.from({ length: Math.ceil(filteredData.length / itemsPerPage) }, (_, index) => (

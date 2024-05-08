@@ -24,7 +24,7 @@ interface Row {
 }
 const RetailerTable: React.FC = () => {
 
-  const [selectedValue, setSelectedValue] = useState<any>(null); // State to manage selected value
+  const [selectedValue, setSelectedValue] = useState<any>(null); 
   const [options] = useState([
     { value: "Distributor 1", label: "Distributor 1" },
     { value: "Distributor 2", label: "Distributor 2" },
@@ -84,15 +84,7 @@ const RetailerTable: React.FC = () => {
   ];
 
   
-  const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilterBy(event.target.value);
-  };
-
-
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
+  
   const clearFilters = () => {
     setSearchTerm("");
     setSelectedValue(null);

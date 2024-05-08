@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaPlus, FaSearch } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
@@ -346,18 +346,18 @@ const columns: Column<Row>[] = useMemo(
         </div>
         
         <div className="search-container w-[20%] flex items-center mt-4">
-          <input
-            type="text"
-            placeholder="Filter in Records..."
-            value={searchString}
-            onChange={handleFilterRecords}
-            onKeyDown={handleEnterButton}
-            className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
-          <FaSearch
-            onClick={handleChangeSearch}
-            className = "absolute right-[8rem] lg:right-[9rem] 2xl:right-[10.7rem]"
-           size = {17} 
-           color = "#00548C"/>
+        <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[9.2rem] lg:right-[8.90rem] 2xl:right-[10.4rem] top-[8.30rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
         </div>
         <div className="flex-row mt-4">
           {" "}
@@ -484,14 +484,8 @@ const columns: Column<Row>[] = useMemo(
 
 
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
-        </div>      
+     
 </div>
-
-    </div>
     
 
     
