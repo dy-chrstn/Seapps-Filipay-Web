@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { BiSolidFilePdf } from "react-icons/bi";
-import philippineFlag from "./ph-flag.png";
 
 interface AddDetailsAction {
   onClose: () => void;
@@ -9,14 +8,13 @@ interface AddDetailsAction {
 const AddDetailsAction: React.FC<AddDetailsAction> = ({ onClose }) => {
   const [addedData, setaddedData] = useState<any>({
     name: "",
-    bankPartner: "",
-    transactionNumber: "",
-    referenceNumber: "",
-    dateOfTransaction: "",
-    amount: "",
-    balance: "",
-    receipt: "",
-    status: "",
+    accountNumber: "",
+    email: "",
+    mobileNumber: "",
+    address: "",
+    photoID: "",
+    selfieVerification: "",
+    businessPermit: "",
   });
 
   const handleFieldChange = (selectedOption: any) => {
@@ -36,20 +34,6 @@ const AddDetailsAction: React.FC<AddDetailsAction> = ({ onClose }) => {
 
 
 
-  const handleReceiptUpload = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) {
-    }
-  };
-
-  const handleRemoveReceipt = () => {
-    setaddedData((prevData: any) => ({
-      ...prevData,
-      selfieVerification: "",
-    }));
-  };
 
   const handleViewReceipt = () => {};
 
@@ -94,7 +78,7 @@ const AddDetailsAction: React.FC<AddDetailsAction> = ({ onClose }) => {
       <div className="relative bg-white p-4 rounded-lg z-10">
         <div className="flex items-center">
           <h2 className="text-[0.78rem]  font-bold mr-auto text-blue-800">
-            Add Cash In
+            Add Card Sales
           </h2>
           <div className="flex space-x-2">
             <button className="text-sm font-semibold text-gray-500 hover:text-gray-700">
@@ -110,55 +94,11 @@ const AddDetailsAction: React.FC<AddDetailsAction> = ({ onClose }) => {
         </div>
 
         <div className="pl-0 mt-2">
-          {/* Name Actions */}
-          <div className="mb-3 flex items-center">
-            <label className="text-[0.68rem] font-bold text-black mr-2">
-              Name:
-            </label>
-            <input
-              type="text"
-              value={addedData.name}
-              onChange={(e) =>
-                setaddedData({ ...addedData, name: e.target.value })
-              }
-              className=" text-sky-600 ml-[6rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
-            />
-          </div>
-
-          {/* Bank Partner Field */}
-          <div className="mt-1 flex items-center">
-            <label className="text-[0.68rem] font-bold text-black mr-2">
-              Bank Partner:
-            </label>
-            <input
-              type="text"
-              value={addedData.bankPartner}
-              onChange={(e) =>
-                setaddedData({ ...addedData, bankPartner: e.target.value })
-              }
-              className="text-sky-600 ml-[3.70rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
-            />
-          </div>
-
-          {/*TN Field*/}
-          <div className="mt-2 flex items-center">
-            <label className="text-[0.68rem] font-bold text-black mr-2">
-              Transaction Number:
-            </label>
-            <input
-              type="text"
-              value={addedData.transactionNumber}
-              onChange={(e) =>
-                setaddedData({ ...addedData, transactionNumber: e.target.value })
-              }
-              className="text-sky-600 ml-[1.30rem] px-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
-            />
-          </div>
-
+    
           {/* Date Field */}
           <div className="mt-2 flex items-center">
             <label className="text-[0.68rem] font-bold text-black mr-2">
-              Date of Transaction:
+              Date
             </label>
             <input
               type="date"
@@ -170,66 +110,8 @@ const AddDetailsAction: React.FC<AddDetailsAction> = ({ onClose }) => {
             />
           </div>
 
-          {/* Amount Field */}
-          <div className="mt-2 flex items-center relative">
-            <label className="text-[0.68rem] font-bold text-black mr-2">
-              Amount:
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-20 top-1 flex items-center pl-2 text-gray-700 text-xxs font-bold">
-                <img
-                  src={philippineFlag}
-                  alt="Philippine Flag"
-                  className="h-3 w-3 mr-1"
-                />{" "}
-                Php |
-              </span>
-              <input
-                type="text"
-                value={addedData.amount}
-                onChange={(e) =>
-                  setaddedData({ ...addedData, amount: e.target.value })
-                }
-                className="text-sky-600 ml-[5.20rem] pl-14 pr-2 pb-1 border border-gray-300 rounded-md text-[0.68rem] w-44 h-5"
-              />
-            </div>
-          </div>
-
-          <div className="">
-            <div className="mt-2 flex items-center">
-              <label className="text-[0.68rem] font-bold text-black">
-                Receipt
-              </label>
-              <div className="ml-[5.75rem] flex items-center">
-                <BiSolidFilePdf className="text-gray-400 text-[1.75rem]" />
-                <label
-                  className="text-blue-500 cursor-pointer mr-2 ml-2 text-[0.68rem]"
-                  onClick={handleViewReceipt}
-                >
-                  View
-                </label>
-                <label
-                  className="text-blue-500 cursor-pointer mr-2 text-[0.68rem]"
-                  htmlFor="Receipt"
-                >
-                  Upload
-                </label>
-                <input
-                  id="Receipt"
-                  type="file"
-                  name="logo"
-                  onChange={handleReceiptUpload}
-                  className="hidden"
-                />
-                <label
-                  className="text-gray-600 cursor-pointer text-[0.68rem]"
-                  onClick={handleRemoveReceipt}
-                >
-                  Remove
-                </label>
-              </div>
-            </div>
-
+         
+ 
             {/* Status Field */}
             <div className="mt-2 flex items-center">
               <label className="text-[0.68rem] font-bold text-black mr-2 ">
@@ -280,7 +162,6 @@ const AddDetailsAction: React.FC<AddDetailsAction> = ({ onClose }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
