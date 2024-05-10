@@ -1,12 +1,12 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy,  Column } from "react-table";
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaPlus, FaSearch } from "react-icons/fa";
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaSearch } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import MessageAction from '../Actions/messageAction';
 import * as XLSX from "xlsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
+import EditDetailsAction from "../Actions/EditAction/DistributorRetailerTables/TransactionHistoryEdit";
 
 
 interface Row {
@@ -40,6 +40,7 @@ const TransactionHistoryTable: React.FC = () => {
   const [filterBy, setFilterBy] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchString, setSearchString] = useState<string>("")
+  const [showEditModal, setShowEditModal] = useState(false); 
 
 
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -55,6 +56,10 @@ const TransactionHistoryTable: React.FC = () => {
     setItemsPerPage(selectedValue); // Update the state with the selected value
   };
 
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
 
   const handleChangeFilterBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterBy(event.target.value);
@@ -66,6 +71,11 @@ const TransactionHistoryTable: React.FC = () => {
       return
     }
   }
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
   const handleChangeSearch = () => {
 
       if(searchString === "Non-Regular"){
@@ -328,9 +338,9 @@ const columns: Column<Row>[] = useMemo(
 
       {
         Header: "ACTION",
-        Cell: () => (
+        Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-             <FaEdit />
+            <FaEdit className="edit-icon" onClick={() => handleEdit(row)} />{" "}
           </div>
         ),
         disableSortBy: true, // Disable sorting for this column
@@ -412,18 +422,18 @@ const columns: Column<Row>[] = useMemo(
           </select>
         </div>
         <div className="search-container w-[20%] flex items-center mt-4">
-            <input
-              type="text"
-              placeholder="Filter in Records..."
-              value={searchString}
-              onChange={handleFilterRecords}
-              onKeyDown={handleEnterButton}
-              className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
-            <FaSearch
-              onClick={handleChangeSearch}
-              className = "absolute right-[7.5rem] lg:right-[8.3rem] 2xl:right-[10.1rem]"
-            size = {17} 
-            color = "#00548C"/>
+             <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[8.50rem] 2xl:right-[10.4rem] top-[9.10rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
         </div>
         <div className="flex-row mt-4">
           {" "}
@@ -541,28 +551,24 @@ const columns: Column<Row>[] = useMemo(
         ))}
 
       </div>
-      {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+      {showEditModal && selectedRow && (
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+              <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+              <div className="relative bg-white p-4 rounded-lg z-10">
+                <EditDetailsAction
+                  rowData={selectedRow}
+                  onClose={closeEditModal}
+                />
+              </div>
+            </div>
+          )}
+
 
 
       </div>
-      <div className="flex justify-end -mt-5 text-blue-900">
-        <div className="flex items-center">
-          <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
-          <span className="ml-1 text-xxs font-bold">Add</span>
-        </div>      
+     
 </div>
 
-    </div>
     
 
     

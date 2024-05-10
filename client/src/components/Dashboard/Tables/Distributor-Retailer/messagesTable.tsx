@@ -1,12 +1,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useTable, useSortBy, Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaSearch } from "react-icons/fa";
-import MessageAction from '../Actions/messageAction';
+import MessageAction from '../../Tables/Actions/messageAction';
 import { IoMdDownload } from "react-icons/io";
 import { TiMessages } from "react-icons/ti";
 import * as XLSX from "xlsx";
 import Select, { ActionMeta, StylesConfig } from "react-select";
 import { GiTrashCan } from "react-icons/gi";
+import EditDetailsAction from "../Actions/EditAction/DriverTables/MessagesEdit";
 
 interface Row {
   id: number;
@@ -16,9 +17,20 @@ interface Row {
   Remarks: string;
 }
 
-const DistributorMessagesTable: React.FC = () => {
+const RiderMessagesTable: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
+  
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEditModal(true); 
+  };
 
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
@@ -28,9 +40,6 @@ const DistributorMessagesTable: React.FC = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-
-  const [fromDate, setFromDate] = useState<Date | null>(null);
-  const [toDate, setToDate] = useState<Date | null>(null);
 
   const [filterBy, setFilterBy] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -48,6 +57,27 @@ const DistributorMessagesTable: React.FC = () => {
 
     setItemsPerPage(selectedValue); 
   };
+
+  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleChangeSearch()
+      return
+    }
+  }
+  const handleChangeSearch = () => {
+    const trimmedSearchString = searchString.trim().toLowerCase();
+    if (trimmedSearchString === "non-regular") {
+      setSearchTerm("Non-regular");
+    } else {
+      setSearchTerm(trimmedSearchString);
+    }
+  };
+  
+
+  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value)
+    setSearchTerm("")
+  }
 
   const [data] = useState<Row[]>([
     {
@@ -124,20 +154,19 @@ const DistributorMessagesTable: React.FC = () => {
   ]);
 
   const [filteredData, setFilteredData] = useState<Row[]>(data);
-
-  useEffect(() => {
+   useEffect(() => {
     const filtered = data.filter((item) => {
-      if (filterBy === "all") {
-        return true; // Show all items if "all" is selected
-      } else {
-        return item.Remarks.toLowerCase() === filterBy.toLowerCase()
+      return (
+        item.Remarks.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.EmailAddress.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Concern.toLowerCase().includes(searchTerm.toLowerCase());
-      }
+        item.Concern.toLowerCase().includes(searchTerm.toLowerCase()) 
+
+      );
     });
     setFilteredData(filtered);
-  }, [searchTerm, filterBy, data]);
+  }, [searchTerm, data]);
+
 
   const columns: Column<Row>[] = useMemo(
     () => [
@@ -170,7 +199,8 @@ const DistributorMessagesTable: React.FC = () => {
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit />{" "}
+            <TiMessages className = "message-icon" onClick={() => toggleModal(row)} /> 
+            <FaEdit className = "edit-icon" onClick={() => handleEdit(row)} />{" "}
             <GiTrashCan size={24} color="black" className="flex-shrink-0 mt-[-2%]" />
           </div>
         ),
@@ -223,26 +253,7 @@ const DistributorMessagesTable: React.FC = () => {
         
       })
   };
-  const handleEnterButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if(event.key === "Enter"){
-      handleChangeSearch()
-      return
-    }
-  }
-  const handleChangeSearch = () => {
-
-      if(searchString === "Non-Regular"){
-        setSearchTerm("Non-regular");
-        return
-      }
-      setSearchTerm(searchString);
-  };
-
-  const handleFilterRecords = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchString(event.target.value)
-    setSearchTerm("")
-  }
-  
+ 
   const [dropdownValue, setDropdownValue] = useState<{ value: string; label: string } | null>(null);
 
   const {
@@ -279,9 +290,9 @@ const DistributorMessagesTable: React.FC = () => {
   return (
     <div className="w-tableWidth mx-auto">
       <div className=" mx-auto mt-2 2xl:mt-8 transparent-caret ">
-        <div className="datepickers mr-4 flex text-xs space-x-3">
+        <div className="datepickers mr-5 flex text-xs space-x-3">
           <div className="from-datepicker ml-auto"></div>
-          <div className=" ml-3 mt-4">
+          <div className=" mt-4">
           <Select
        options={filterOptions}
   placeholder="Filter by remarks"
@@ -297,21 +308,20 @@ const DistributorMessagesTable: React.FC = () => {
   styles={customStyles}
 />
           </div>
-
           <div className="search-container w-[20%] flex items-center mt-4">
-            <input
-              type="text"
-              placeholder="Filter in Records..."
-              value={searchString}
-              onChange={handleFilterRecords}
-              onKeyDown={handleEnterButton}
-              className="h-7 border border-gray-500 rounded-[.2rem] py-1 px-2 w-full caret-black" />
-            <FaSearch
-              onClick={handleChangeSearch}
-              className = "absolute right-[8rem] lg:right-[9rem] 2xl:right-[10.7rem]"
-            size = {17} 
-            color = "#00548C"/>
-        </div>
+          <input
+          type="text"
+          placeholder="Filter in Records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="h-7 border border-gray-300 rounded-[.2rem] py-1 px-2 w-full caret-black foc"
+        />
+        <FaSearch
+          className="absolute right-[7.2rem] lg:right-[9.25rem] 2xl:right-[10.4rem] top-[8.30rem] transform -translate-y-1/2"
+          size={17}
+          color="#00558d"
+        />
+          </div>
           <div className="flex-row mt-4">
             {" "}
             <button
@@ -375,28 +385,37 @@ const DistributorMessagesTable: React.FC = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()} className="text-center text-[.75rem] 2xl:text-[.90rem]">
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  className={`border-b border-gray-200 ${row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
-                    } hover:bg-gray-300`}
-                >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        className="border px-1.5 py-2 td-truncate"
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
+  {filteredData.length === 0 ? (
+    <tr>
+      <td colSpan={columns.length} className="py-4 font-medium bg-white">
+        No results found
+      </td>
+    </tr>
+  ) : (
+    rows.map((row) => {
+      prepareRow(row);
+      return (
+        <tr
+          {...row.getRowProps()}
+          className={`border-b border-gray-200 ${row.index % 2 === 0 ? "bg-white" : "bg-gray-100"
+          } hover:bg-gray-300`}
+        >
+          {row.cells.map((cell) => {
+            return (
+              <td
+                {...cell.getCellProps()}
+                className="border px-1.5 py-2 td-truncate"
+              >
+                {cell.render("Cell")}
+              </td>
+            );
+          })}
+        </tr>
+      );
+    })
+  )}
+</tbody>
+
         </table>
 
         <div className="flex justify-start ml-6 mt-4 text-xs">
@@ -413,19 +432,31 @@ const DistributorMessagesTable: React.FC = () => {
           ))}
         </div>
         {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+            <MessageAction
+              recipient={selectedRow.email}
+              onClose={closeModal}
+            />
+            </div>
+          </div>
+        )}
+        
+        {showEditModal && selectedRow && (
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+              <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+              <div className="relative bg-white p-4 rounded-lg z-10">
+                <EditDetailsAction
+                  rowData={selectedRow}
+                  onClose={closeEditModal}
+                />
+              </div>
+            </div>
+          )}
       </div>
     </div>
   );
 };
 
-export default DistributorMessagesTable;
+export default RiderMessagesTable;
