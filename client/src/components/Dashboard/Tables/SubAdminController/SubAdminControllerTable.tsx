@@ -8,7 +8,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
 import { GiTrashCan } from "react-icons/gi";
 import * as XLSX from "xlsx";
-
+import '../Actions/actions.css'
+import EditDetailsAction from "../Actions/EditAction/ClientTables/TransportCoopEdit";
+import { DeleteTemplate } from "../Actions/EditAction/DeleteTemplate";
+import { EditSubAdmin } from "../Actions/EditAction/SubAdmin/EditSubAdmin";
 
 interface Row {
   id: number;
@@ -19,9 +22,10 @@ interface Row {
 const  SubAdminControllerTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRow] = useState<any>(null);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [showEditModal, setShowEditModal] = useState(false); 
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false); 
 
-  
 //   const handleRemoveRecipient = () => {
 //     setSelectedRow((prevRow: any) => ({
 //       ...prevRow,
@@ -29,6 +33,15 @@ const  SubAdminControllerTable: React.FC = () => {
 //     }));
 //   };
 
+const handleEdit = (row: any) => {
+  setSelectedRow(row.original);
+  setShowEditModal(true); 
+};
+
+const handleDelete = (row: any) => {
+  setSelectedRow(row.original);
+  setShowDeleteModal(true); 
+};
   const closeModal = () => {
     setShowModal(false);
   };
@@ -205,9 +218,12 @@ const columns: Column<Row>[] = useMemo(
     },
       {
         Header: "ACTION",
-        Cell: () => (
+        Cell: ({row}) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <FaEdit /> <GiTrashCan size={24} color="black" className="flex-shrink-0 mt-[-2%]"/>
+            <FaEdit className = "edit-icon" onClick={() => handleEdit(row)} /> 
+            <GiTrashCan className=" trash-icon flex-shrink-0 mt-[-2%]" onClick={() => handleDelete(row)}
+            color="black" size={24}
+            />
           </div>
         ),
       },
@@ -360,16 +376,37 @@ const columns: Column<Row>[] = useMemo(
 
       </div>
       {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+          <MessageAction
+        recipient={selectedRow.email}
+        onClose={closeModal}
+      />
+          </div>
+        </div>
+      )}
+      {showEditModal && selectedRow && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+              <EditSubAdmin
+                // rowData={selectedRow}
+                onClose={() => setShowEditModal(false)}
+              />
+            </div>
+          </div>
+        )}
+      {showDeleteModal && selectedRow && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+            <DeleteTemplate
+              onClose={() => setShowDeleteModal(false)}
+              />
+            </div>
+          </div>
+        )}
 
 
       </div>
