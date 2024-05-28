@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Jodit } from "jodit";
-import './messageAction.css'
+import '../messageAction.css'
+import { DeleteTemplate } from "./DeleteTemplate";
 
 interface MessageActionProps {
   onClose: () => void;
-  recipient: string;
 }
 
 interface MessageDataProps {
-  recipient: string;
   subject: string;
   message: string;
 }
 
-const MessageAction: React.FC<MessageActionProps> = ({ onClose, recipient }) => {
+const EditEmailTemaplate: React.FC<MessageActionProps> = ({ onClose }) => {
 
   let editor: Jodit
-  if(recipient === undefined) recipient = "User@gmail.com"
   const [messageData, setMessageData] = useState<MessageDataProps>({
-    recipient: recipient,
     subject: "",
     message: "",
   })
+
+  const [showDelete, setShowDelete] = useState<boolean>(false)
 
   
   const handleChangeText = (name: string, event: any) => {
@@ -39,16 +38,10 @@ const MessageAction: React.FC<MessageActionProps> = ({ onClose, recipient }) => 
 
     const setEditorHeight = () => {
     
-      const height =  window.innerWidth < 1400 ? "200px" 
-      : window.innerWidth < 1650 
-      ? "230px" 
-      : window.innerWidth < 1750 
-      ? "290px" 
-      : "330px";
-
+      const height =  window.innerWidth < 1370 ? "270px" : "400px";
       return height
     }; 
-  
+
     editor = Jodit.make("#editor", {
       "height":  setEditorHeight(),
       "buttons": "bold,italic,underline,strikethrough,eraser,ul,ol,font,fontsize,paragraph,lineHeight,superscript,subscript,classSpan,file,image,video,speechRecognize,spellcheck"
@@ -71,9 +64,14 @@ const MessageAction: React.FC<MessageActionProps> = ({ onClose, recipient }) => 
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
+     {showDelete && (
+       <DeleteTemplate
+       onClose={() => setShowDelete(false)}
+       />
+     )}
       <div className="bg-white w-1/2 h-[90%] rounded-lg shadow-lg">
         <div className="flex justify-between items-center px-4 py-2 bg-gray-200 rounded-t-lg">
-          <h2 className="text-xs font-bold text-blue-700">New Message</h2>
+          <h2 className="text-xs font-bold text-blue-700">Edit Email Template</h2>
           <div className="flex space-x-2">
             <button className="text-sm font-semibold text-gray-500 hover:text-gray-700">-</button>
             <button className="text-sm font-semibold text-red-500 hover:text-red-700" onClick={onClose}>×</button>
@@ -81,11 +79,11 @@ const MessageAction: React.FC<MessageActionProps> = ({ onClose, recipient }) => 
         </div>
         <div className="relative p-4 h-[90%]">
           <div className="mb-4 flex items-center">
-            <label className="text-xs font-bold text-black mr-2">Recipient:</label>
-            <input type="text" value={messageData.recipient} readOnly className="w-full sm:w-1/2 text-sm border border-gray-300 rounded-md py-0 px-2 focus:outline-none focus:border-blue-500" />
+            <label className="text-xs font-bold text-black mr-2">Subject:</label>
+            <input type="text" value={messageData.subject} onChange={(event) => handleChangeText("subject", event)} className="w-full sm:w-1/2 text-sm border caret-black ml-3 border-gray-300 rounded-md py-0 px-2 focus:outline-none focus:border-blue-500" />
           </div>
           <div className="mb-4 flex items-center">
-            <label className="text-xs font-bold text-black mr-2">Subject:</label>
+            <label className="text-xs font-bold text-black mr-2">Identifier:</label>
             <input type="text" value={messageData.subject} onChange={(event) => handleChangeText("subject", event)} className="w-full sm:w-1/2 text-sm border caret-black ml-3 border-gray-300 rounded-md py-0 px-2 focus:outline-none focus:border-blue-500" />
           </div>
           <div className="flex flex-col h-[100%]">
@@ -130,45 +128,23 @@ const MessageAction: React.FC<MessageActionProps> = ({ onClose, recipient }) => 
             className="rounded-md caret-black"
             id="editor" />
           </div>
-          <div className="absolute bottom-0 w-[95%] h-[30%]">
-            <label
-            className="text-xs font-semibold"
-            >Signature</label>
-            <div className=" h-[90%] flex flex-row w-[100%] gap-2">
-              <div className="relative flex flex-col w-[60%] h-[90%] border-1 border-gray-300 rounded-lg">
-                  {/* textInput */}
-                <textarea
-                //  value={text}
-                //  onChange={handleChange}
-                rows={4} 
-                className="focus: outline-none caret-black p-2 text-xs lg:text-sm 2xl:text-lg"
-                style={{ resize: "none" }} 
-                
-                />
-                <div className="absolute flex flex-row bottom-2 right-2 gap-4">
-                  <label className="text-buttonDarkTeal text-xs font-semibold textButton">Change</label>
-                  <label className="text-buttonDarkTeal text-xs font-semibold textButton">Remove</label>
-                </div>
-              </div>
-              <div className=" relative w-[40%] justify-end">
-                <div className=" absolute flex flex-row bottom-4 right-2 gap-3">
-                  <button 
-                  onClick={onClose}
-                  className="text-black text-xs font-semibold deleteButton"
-                  >Delete</button >
-                  <button 
-                  onClick={onClose}
-                  className="p-3 rounded-md text-white text-xs font-semibold submitButton bg-buttonDarkTeal "
-                  >Send Message</button >
-                </div>
-              </div> 
+          <div className="absolute bottom-0 w-[95%]">
+            <div className=" absolute flex flex-row bottom-4 right-2 gap-3">
+              <button 
+              onClick={() => setShowDelete(true)}
+              className="text-black text-xs font-semibold deleteButton"
+              >Delete</button >
+              <button 
+              onClick={onClose}
+              className="p-3 rounded-md text-white text-xs font-semibold submitButton bg-buttonDarkTeal "
+              >Send Message</button >
             </div>
           </div>
-         
         </div>
       </div>
     </div>
   );
 };
 
-export default MessageAction;
+export default EditEmailTemaplate;
+
