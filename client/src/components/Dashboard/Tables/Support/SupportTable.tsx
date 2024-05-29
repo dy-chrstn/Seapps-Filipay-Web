@@ -10,7 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 // import "./DriverMessages.css";
 import "react-calendar/dist/Calendar.css";
 import { GiTrashCan } from "react-icons/gi";
-
+import EditSupport from "../Actions/EditAction/Support/EditSupport";
+import '../buttons.css'
+import { DeleteTemplate } from "../Actions/EditAction/DeleteTemplate";
 
 interface Row {
   id: number;
@@ -23,7 +25,8 @@ const  SupportTable: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
-
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false); 
   
 //   const handleRemoveRecipient = () => {
 //     setSelectedRow((prevRow: any) => ({
@@ -35,6 +38,15 @@ const  SupportTable: React.FC = () => {
   const toggleModal = (row: any) => {
     setSelectedRow(row.original);
     setShowModal(true);
+  };
+  const handleEdit = (row: any) => {
+    setSelectedRow(row.original);
+    setShowEdit(true);
+  };
+
+  const handleDelete = (row: any) => {
+    setSelectedRow(row.original);
+    setShowDeleteModal(true); 
   };
 
   const closeModal = () => {
@@ -247,7 +259,10 @@ const columns: Column<Row>[] = useMemo(
         Header: "ACTION",
         Cell: ({ row }) => (
           <div className="flex justify-center items-center space-x-3 text-lg text-buttonDarkTeal">
-            <TiMessages onClick={() => toggleModal(row)} /> <FaEdit /> <GiTrashCan size={24} color="black" className="flex-shrink-0 mt-[-2%]"/>
+            <TiMessages  className = "message-icon" onClick={() => toggleModal(row)} /> 
+            <FaEdit className = "edit-icon" onClick={() => handleEdit(row)}/> 
+            <GiTrashCan  onClick={() => handleDelete(row)}
+            size={24} color="black" className=" trash-icon flex-shrink-0 mt-[-2%]" />
           </div>
         ),
       },
@@ -440,16 +455,38 @@ const columns: Column<Row>[] = useMemo(
 
       </div>
       {showModal && selectedRow && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-    <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
-    <div className="relative bg-white p-4 rounded-lg z-10">
-    <MessageAction
-  recipient={selectedRow.email}
-  onClose={closeModal}
-/>
-    </div>
-  </div>
-)}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+          <MessageAction
+        recipient={selectedRow.email}
+        onClose={closeModal}
+      />
+          </div>
+        </div>
+      )}
+
+    {showEdit && selectedRow && (
+      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+          <div className="relative bg-white p-4 rounded-lg z-10">
+            <EditSupport
+                onClose={() => setShowEdit(false)}
+              />
+          </div>
+      </div>
+    )}
+
+        {showDeleteModal && selectedRow && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+            <DeleteTemplate
+              onClose={() => setShowDeleteModal(false)}
+              />
+            </div>
+          </div>
+        )}
 
 
       </div>
@@ -458,7 +495,7 @@ const columns: Column<Row>[] = useMemo(
           <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
           <span className="ml-1 text-xxs font-bold">Add</span>
         </div>      
-</div>
+      </div>
 
     </div>
     

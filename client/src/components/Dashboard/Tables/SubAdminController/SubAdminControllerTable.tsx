@@ -9,9 +9,8 @@ import "react-calendar/dist/Calendar.css";
 import { GiTrashCan } from "react-icons/gi";
 import * as XLSX from "xlsx";
 import '../Actions/actions.css'
-import EditDetailsAction from "../Actions/EditAction/ClientTables/TransportCoopEdit";
 import { DeleteTemplate } from "../Actions/EditAction/DeleteTemplate";
-import { EditSubAdmin } from "../Actions/EditAction/SubAdmin/EditSubAdmin";
+import { EditSubAdmin, AddSubAdmin} from "../Actions/EditAction/SubAdmin/SubAdminActions";
 
 interface Row {
   id: number;
@@ -25,6 +24,7 @@ const  SubAdminControllerTable: React.FC = () => {
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [showEditModal, setShowEditModal] = useState(false); 
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false); 
+  const [openAddModal, setOpenAddModal] = useState<boolean>(false)
 
 //   const handleRemoveRecipient = () => {
 //     setSelectedRow((prevRow: any) => ({
@@ -408,10 +408,23 @@ const columns: Column<Row>[] = useMemo(
           </div>
         )}
 
+        {openAddModal && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div className="absolute bg-gray-800 opacity-50 w-full h-full"></div>
+            <div className="relative bg-white p-4 rounded-lg z-10">
+            <AddSubAdmin
+              onClose={() => setOpenAddModal(false)}
+              />
+            </div>
+          </div>
+        )}
+
 
       </div>
   <div className="flex justify-end -mt-5 text-blue-900">
-    <div className="flex items-center ml-20">
+    <div 
+    onClick={() => setOpenAddModal(true)}
+    className="flex items-center ml-20">
       <span className="text-xxs font-bold mr-1">Add</span>
       <FaPlus className="text-blue-900 text-xxs cursor-pointer" />
     </div>
